@@ -12,14 +12,16 @@ public class WorkoutTask : Printable {
 
     public let name: String
     public let reps: Int
+    public let desc: String
 
-    public init(name: String, reps: Int) {
+    public init(name: String, reps: Int, desc: String) {
         self.name = name
         self.reps = reps
+        self.desc = desc
     }
 
     public var description: String {
-        return "WorkoutTask[name=\(name), reps=\(reps)"
+        return "WorkoutTask[name=\(name), reps=\(reps), desc=\(desc)"
     }
 
 }

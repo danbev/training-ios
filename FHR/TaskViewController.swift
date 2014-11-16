@@ -17,10 +17,14 @@ public class TaskViewController: UIViewController {
 
     var workoutTask : WorkoutTask!
     @IBOutlet weak var taskLabel: UILabel!
+    @IBOutlet weak var repsLabel: UILabel!
+    @IBOutlet weak var descLabel: UITextView!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workoutTask.name
+        repsLabel.text = String(workoutTask.reps)
+        descLabel.text = workoutTask.desc
     }
 
     public override func didReceiveMemoryWarning() {

@@ -19,9 +19,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        tasks.append(WorkoutTask(name: "Burpees", reps: 100))
-        tasks.append(WorkoutTask(name: "Chop ups", reps: 100))
-        tasks.append(WorkoutTask(name: "Get ups", reps: 50))
+        tasks.append(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
+        tasks.append(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
+        tasks.append(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
     }
 
     public override func didReceiveMemoryWarning() {
