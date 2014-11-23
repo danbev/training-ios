@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6246"/>
     </dependencies>
     <scenes>
-        <!--Tasks-->
+        <!--Workout-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tasks" id="uGa-3L-cgr"/>
+                    <navigationItem key="navigationItem" title="Workout" id="uGa-3L-cgr"/>
                     <connections>
                         <outlet property="tableView" destination="oNY-qq-9iP" id="mz2-39-M7E"/>
                     </connections>

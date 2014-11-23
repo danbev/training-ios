@@ -71,7 +71,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: segue the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("prepare for segue...")
         let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
         taskViewController.workoutTask = tasks[tableView.indexPathForSelectedRow()!.row]
     }
