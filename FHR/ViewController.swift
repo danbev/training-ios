@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 /**
 * Main view controller for workout tasks.
@@ -14,14 +15,29 @@ import UIKit
 public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    public var tasks = Array<WorkoutTask>()
+    //public var tasks = Array<WorkoutTask>()
+    public var tasks = [NSManagedObject]()
     public let tableCell = "tableCell"
+
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+    }()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        tasks.append(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
-        tasks.append(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
-        tasks.append(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
+        saveWorkoutTask(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
+        saveWorkoutTask(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
+        saveWorkoutTask(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
+        //tasks.append(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
+        //tasks.append(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
+        //tasks.append(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
+        println(managedObjectContext!)
     }
 
     public override func didReceiveMemoryWarning() {
@@ -51,7 +67,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // create a new cell or deque and reuse.
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
-        cell.textLabel!.text = tasks[indexPath.row].name
+        //cell.textLabel!.text = tasks[indexPath.row].name
+        let task = tasks[indexPath.row]
+        cell.textLabel!.text = task.valueForKey("name") as String!
         return cell;
     }
 
@@ -72,7 +90,28 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
-        taskViewController.workoutTask = tasks[tableView.indexPathForSelectedRow()!.row]
+        let task = tasks[tableView.indexPathForSelectedRow()!.row]
+        taskViewController.workoutTask = asWorkoutTask(tasks[tableView.indexPathForSelectedRow()!.row])
+    }
+
+    func asWorkoutTask(data: NSManagedObject) -> WorkoutTask {
+        return WorkoutTask(name: data.valueForKey("name") as String, reps: data.valueForKey("reps") as Int, desc: data.valueForKey("desc") as String)
+    }
+
+    func saveWorkoutTask(task: WorkoutTask) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity =  NSEntityDescription.entityForName("WorkoutTask", inManagedObjectContext: managedContext)
+        let workoutTask = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
+        workoutTask.setValue(task.name, forKey: "name")
+        workoutTask.setValue(task.reps, forKey: "reps")
+        workoutTask.setValue(task.desc, forKey: "desc")
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+
+        tasks.append(workoutTask)
     }
 
 }

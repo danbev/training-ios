@@ -13,6 +13,8 @@
 		C515E85019C5A937001A5BB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C515E84F19C5A937001A5BB2 /* Images.xcassets */; };
 		C515E85319C5A937001A5BB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C515E85119C5A937001A5BB2 /* LaunchScreen.xib */; };
 		C515E85F19C5A937001A5BB2 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */; };
+		C537A4861A21F428003697CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537A4851A21F428003697CD /* CoreData.framework */; };
+		C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHR.xcdatamodeld */; };
 		C587E67419CDB4120098638A /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C587E67319CDB4120098638A /* TaskViewController.swift */; };
 		C5C197031A18ABC8008C6136 /* WorkoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C197021A18ABC8008C6136 /* WorkoutTask.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		C515E85819C5A937001A5BB2 /* FHRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E85D19C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
+		C537A4851A21F428003697CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataExample.xcdatamodel; sourceTree = "<group>"; };
 		C587E67319CDB4120098638A /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		C5C197021A18ABC8008C6136 /* WorkoutTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C537A4861A21F428003697CD /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +68,7 @@
 		C515E83A19C5A937001A5BB2 = {
 			isa = PBXGroup;
 			children = (
+				C537A4851A21F428003697CD /* CoreData.framework */,
 				C515E84519C5A937001A5BB2 /* FHR */,
 				C515E85B19C5A937001A5BB2 /* FHRTests */,
 				C515E84419C5A937001A5BB2 /* Products */,
@@ -81,6 +87,7 @@
 		C515E84519C5A937001A5BB2 /* FHR */ = {
 			isa = PBXGroup;
 			children = (
+				C537A4B81A21F669003697CD /* FHR.xcdatamodeld */,
 				C515E84819C5A937001A5BB2 /* AppDelegate.swift */,
 				C515E84A19C5A937001A5BB2 /* ViewController.swift */,
 				C515E84C19C5A937001A5BB2 /* Main.storyboard */,
@@ -218,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
 				C5C197031A18ABC8008C6136 /* WorkoutTask.swift in Sources */,
@@ -429,6 +437,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C537A4B81A21F669003697CD /* FHR.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */,
+			);
+			currentVersion = C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */;
+			path = FHR.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C515E83B19C5A937001A5BB2 /* Project object */;
 }
