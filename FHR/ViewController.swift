@@ -14,8 +14,8 @@ import CoreData
 */
 public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    //public var tasks = Array<WorkoutTask>()
     public var tasks = [NSManagedObject]()
     public let tableCell = "tableCell"
 
@@ -29,15 +29,25 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }()
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBAction func startWorkout(sender: UIButton) {
+        let text = sender.titleLabel!.text
+        if text == "Start" {
+            startButton.setTitle("Paus", forState: UIControlState.Normal)
+            loadTasks()
+        } else {
+            startButton.setTitle("Start", forState: UIControlState.Normal)
+        }
+    }
+
+    public func loadTasks() {
         saveWorkoutTask(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
         saveWorkoutTask(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
         saveWorkoutTask(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
-        //tasks.append(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
-        //tasks.append(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
-        //tasks.append(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
-        println(managedObjectContext!)
+        tableView.reloadData()
+    }
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
     }
 
     public override func didReceiveMemoryWarning() {
@@ -67,7 +77,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // create a new cell or deque and reuse.
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
-        //cell.textLabel!.text = tasks[indexPath.row].name
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task.valueForKey("name") as String!
         return cell;
