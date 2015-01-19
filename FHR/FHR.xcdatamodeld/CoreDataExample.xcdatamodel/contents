@@ -6,13 +6,24 @@
         <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="WorkoutTask" syncable="YES">
+    <entity name="RepsWorkout" representedClassName="FHR.RepsWorkout" syncable="YES">
+        <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="reps" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="TimedWorkout" representedClassName="FHR.TimedWorkout" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
+    </entity>
+    <entity name="Workout" representedClassName="FHR.Workout" isAbstract="YES" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="reps" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RepsWorkout" inverseName="parent" inverseEntity="RepsWorkout" syncable="YES"/>
+        <relationship name="timed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimedWorkout" inverseName="parent" inverseEntity="TimedWorkout" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Excersice" positionX="-63" positionY="-18" width="128" height="105"/>
-        <element name="WorkoutTask" positionX="-54" positionY="18" width="128" height="90"/>
+        <element name="Excersice" positionX="-792" positionY="-459" width="128" height="105"/>
+        <element name="Workout" positionX="-621" positionY="-315" width="128" height="103"/>
+        <element name="RepsWorkout" positionX="-675" positionY="-342" width="128" height="73"/>
+        <element name="TimedWorkout" positionX="-666" positionY="-333" width="128" height="73"/>
     </elements>
 </model>

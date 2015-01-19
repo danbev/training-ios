@@ -16,7 +16,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    public var tasks = [NSManagedObject]()
+    var tasks = [RepsWorkout]()
     public let tableCell = "tableCell"
 
     lazy var managedObjectContext : NSManagedObjectContext? = {
@@ -40,10 +40,21 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     public func loadTasks() {
-        saveWorkoutTask(WorkoutTask(name: "Burpees", reps: 100, desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up"))
-        saveWorkoutTask(WorkoutTask(name: "Chop ups", reps: 100, desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up"))
-        saveWorkoutTask(WorkoutTask(name: "Get ups", reps: 50, desc: "long description..."))
+        let worksoutTasks = fetchWorkoutTask()
+        if let workouts = worksoutTasks {
+            println(workouts.count)
+            for task in workouts {
+                println("tasks \(task.parent.name)")
+                tasks.append(task)
+            }
+        }
         tableView.reloadData()
+    }
+
+    public func storeTasks() {
+        saveWorkoutTask("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100)
+        saveWorkoutTask("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100)
+        saveWorkoutTask("Get ups", desc: "long description...", reps: 50)
     }
 
     public override func viewDidLoad() {
@@ -78,7 +89,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         // create a new cell or deque and reuse.
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.valueForKey("name") as String!
+        cell.textLabel!.text = task.parent.name
         return cell;
     }
 
@@ -89,7 +100,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: indexPath the NSIndexPath identifying the cell to being tapped
     */
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        println("selected:\(tasks[indexPath.row)]")
+        //println("selected:\(tasks[indexPath.row)]")
     }
 
     /**
@@ -100,27 +111,43 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
         let task = tasks[tableView.indexPathForSelectedRow()!.row]
-        taskViewController.workoutTask = asWorkoutTask(tasks[tableView.indexPathForSelectedRow()!.row])
+        taskViewController.workoutTask = tasks[tableView.indexPathForSelectedRow()!.row] as RepsWorkout
     }
 
-    func asWorkoutTask(data: NSManagedObject) -> WorkoutTask {
-        return WorkoutTask(name: data.valueForKey("name") as String, reps: data.valueForKey("reps") as Int, desc: data.valueForKey("desc") as String)
-    }
-
-    func saveWorkoutTask(task: WorkoutTask) {
+    func saveWorkoutTask(name: String, desc: String, reps: Int) -> RepsWorkout {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let managedContext = appDelegate.managedObjectContext!
-        let entity =  NSEntityDescription.entityForName("WorkoutTask", inManagedObjectContext: managedContext)
-        let workoutTask = NSManagedObject(entity: entity!, insertIntoManagedObjectContext:managedContext)
-        workoutTask.setValue(task.name, forKey: "name")
-        workoutTask.setValue(task.reps, forKey: "reps")
-        workoutTask.setValue(task.desc, forKey: "desc")
+
+        let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: managedContext)
+        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: managedContext)
+        workout.name = name
+        workout.desc = desc
+
+        let repsWorkoutEntity = NSEntityDescription.entityForName("RepsWorkout", inManagedObjectContext: managedContext)
+        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: managedContext)
+        repsWorkout.reps = reps
+        repsWorkout.parent = workout
+
         var error: NSError?
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
 
-        tasks.append(workoutTask)
+        return repsWorkout
+    }
+
+    func fetchWorkoutTask() -> Optional<[RepsWorkout]> {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let fetchRequest = NSFetchRequest(entityName: "RepsWorkout")
+        var error: NSError?
+        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as [RepsWorkout]?
+        if let results = fetchedResults {
+            return results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+            return Optional.None
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 //
-//  WorkoutTask.swift
+//  Workout.swift
 //  FHR
 //
 //  Created by Daniel Bevenius on 11/01/15.
@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-class WorkoutTask: NSManagedObject {
+class Workout: NSManagedObject {
 
     @NSManaged var desc: String
     @NSManaged var name: String
-    @NSManaged var timed: TimedWorkout
-    @NSManaged var reps: RepsWorkout
+    @NSManaged var reps: NSManagedObject
+    @NSManaged var timed: NSManagedObject
 
 }
