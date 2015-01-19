@@ -44,7 +44,7 @@
 		C515E85D19C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		C537A4851A21F428003697CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataExample.xcdatamodel; sourceTree = "<group>"; };
+		C537A4B91A21F669003697CD /* FHR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHR.xcdatamodel; sourceTree = "<group>"; };
 		C5801CE51A62B3A800051140 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
 		C5801CE81A62B3C200051140 /* TimedWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimedWorkout.swift; sourceTree = "<group>"; };
@@ -454,9 +454,9 @@
 		C537A4B81A21F669003697CD /* FHR.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */,
+				C537A4B91A21F669003697CD /* FHR.xcdatamodel */,
 			);
-			currentVersion = C537A4B91A21F669003697CD /* CoreDataExample.xcdatamodel */;
+			currentVersion = C537A4B91A21F669003697CD /* FHR.xcdatamodel */;
 			path = FHR.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
