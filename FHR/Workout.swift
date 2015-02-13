@@ -9,11 +9,13 @@
 import Foundation
 import CoreData
 
-class Workout: NSManagedObject {
+public class Workout: NSManagedObject {
 
-    @NSManaged var desc: String
-    @NSManaged var name: String
-    @NSManaged var reps: NSManagedObject
-    @NSManaged var timed: NSManagedObject
+    @NSManaged public var desc: String
+    @NSManaged public var name: String
+    @NSManaged public var category: String
+    @NSManaged public var image: NSData
+    @NSManaged public var reps: RepsWorkout
+    @NSManaged public var timed: DurationWorkout
 
 }

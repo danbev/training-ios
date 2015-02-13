@@ -15,17 +15,18 @@ Controls the Workout task details view.
 */
 public class TaskViewController: UIViewController {
 
-    var workoutTask : RepsWorkout!
+    var workout : Workout!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
+    @IBOutlet weak var imageView: UIImageView!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        let workout = workoutTask.parent as Workout
         taskLabel.text = workout.name
-        repsLabel.text = workoutTask.reps.stringValue
+        repsLabel.text = "??"
         descLabel.text = workout.desc
+        imageView.image = UIImage(data: workout.image)
     }
 
     public override func didReceiveMemoryWarning() {

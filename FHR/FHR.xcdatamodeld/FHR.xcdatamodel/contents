@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14A389" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="DurationWorkout" representedClassName="FHR.DurationWorkout" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
+    </entity>
     <entity name="Excersice" syncable="YES">
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="IntervalWorkout" representedClassName="FHR.IntervalWorkout" syncable="YES">
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="interval" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
+        <relationship name="work" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
+    </entity>
     <entity name="RepsWorkout" representedClassName="FHR.RepsWorkout" syncable="YES">
         <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="reps" inverseEntity="Workout" syncable="YES"/>
     </entity>
-    <entity name="TimedWorkout" representedClassName="FHR.TimedWorkout" syncable="YES">
-        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
-    </entity>
     <entity name="Workout" representedClassName="FHR.Workout" isAbstract="YES" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="interval" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IntervalWorkout" inverseName="parent" inverseEntity="IntervalWorkout" syncable="YES"/>
         <relationship name="reps" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RepsWorkout" inverseName="parent" inverseEntity="RepsWorkout" syncable="YES"/>
-        <relationship name="timed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimedWorkout" inverseName="parent" inverseEntity="TimedWorkout" syncable="YES"/>
+        <relationship name="timed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" inverseName="parent" inverseEntity="DurationWorkout" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Excersice" positionX="-792" positionY="-459" width="128" height="105"/>
-        <element name="Workout" positionX="-621" positionY="-315" width="128" height="103"/>
-        <element name="RepsWorkout" positionX="-675" positionY="-342" width="128" height="73"/>
-        <element name="TimedWorkout" positionX="-666" positionY="-333" width="128" height="73"/>
+        <element name="Excersice" positionX="-1404" positionY="-702" width="128" height="105"/>
+        <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="73"/>
+        <element name="DurationWorkout" positionX="-819" positionY="-558" width="128" height="73"/>
+        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="148"/>
+        <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="88"/>
     </elements>
 </model>

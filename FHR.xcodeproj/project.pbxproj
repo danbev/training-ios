@@ -15,11 +15,19 @@
 		C515E85F19C5A937001A5BB2 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */; };
 		C537A4861A21F428003697CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537A4851A21F428003697CD /* CoreData.framework */; };
 		C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHR.xcdatamodeld */; };
+		C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */; };
+		C539DA911A87DB26005A6D45 /* WorkoutServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */; };
+		C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */; };
+		C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = C539DA941A8BD0A1005A6D45 /* workouts.json */; };
+		C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C539DA981A8CAA43005A6D45 /* Media.xcassets */; };
+		C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9A1A8D2159005A6D45 /* burpees.mov */; };
+		C539DA9D1A8E33AE005A6D45 /* NSTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA9C1A8E33AE005A6D45 /* NSTimerTests.swift */; };
 		C5801CE61A62B3A800051140 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* Workout.swift */; };
 		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
-		C5801CEA1A62B3C200051140 /* TimedWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* TimedWorkout.swift */; };
+		C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkout.swift */; };
 		C587E67419CDB4120098638A /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C587E67319CDB4120098638A /* TaskViewController.swift */; };
-		C5C197031A18ABC8008C6136 /* WorkoutTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C197021A18ABC8008C6136 /* WorkoutTask.swift */; };
+		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
+		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,11 +53,19 @@
 		C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		C537A4851A21F428003697CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C537A4B91A21F669003697CD /* FHR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHR.xcdatamodel; sourceTree = "<group>"; };
+		C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
+		C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutServiceTest.swift; sourceTree = "<group>"; };
+		C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkout.swift; sourceTree = "<group>"; };
+		C539DA941A8BD0A1005A6D45 /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
+		C539DA981A8CAA43005A6D45 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		C539DA9A1A8D2159005A6D45 /* burpees.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = burpees.mov; path = ../../../../../Desktop/burpees.mov; sourceTree = "<group>"; };
+		C539DA9C1A8E33AE005A6D45 /* NSTimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimerTests.swift; sourceTree = "<group>"; };
 		C5801CE51A62B3A800051140 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
-		C5801CE81A62B3C200051140 /* TimedWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimedWorkout.swift; sourceTree = "<group>"; };
+		C5801CE81A62B3C200051140 /* DurationWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkout.swift; sourceTree = "<group>"; };
 		C587E67319CDB4120098638A /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
-		C5C197021A18ABC8008C6136 /* WorkoutTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTask.swift; sourceTree = "<group>"; };
+		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
-				C5801CE81A62B3C200051140 /* TimedWorkout.swift */,
+				C5801CE81A62B3C200051140 /* DurationWorkout.swift */,
 				C537A4B81A21F669003697CD /* FHR.xcdatamodeld */,
 				C5801CE51A62B3A800051140 /* Workout.swift */,
 				C515E84819C5A937001A5BB2 /* AppDelegate.swift */,
@@ -104,7 +120,12 @@
 				C515E84F19C5A937001A5BB2 /* Images.xcassets */,
 				C515E85119C5A937001A5BB2 /* LaunchScreen.xib */,
 				C515E84619C5A937001A5BB2 /* Supporting Files */,
-				C5C197021A18ABC8008C6136 /* WorkoutTask.swift */,
+				C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */,
+				C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */,
+				C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */,
+				C539DA941A8BD0A1005A6D45 /* workouts.json */,
+				C539DA981A8CAA43005A6D45 /* Media.xcassets */,
+				C539DA9A1A8D2159005A6D45 /* burpees.mov */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -122,6 +143,9 @@
 			children = (
 				C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */,
 				C515E85C19C5A937001A5BB2 /* Supporting Files */,
+				C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */,
+				C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */,
+				C539DA9C1A8E33AE005A6D45 /* NSTimerTests.swift */,
 			);
 			path = FHRTests;
 			sourceTree = "<group>";
@@ -214,9 +238,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */,
 				C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */,
 				C515E85319C5A937001A5BB2 /* LaunchScreen.xib in Resources */,
 				C515E85019C5A937001A5BB2 /* Images.xcassets in Resources */,
+				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
+				C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,9 +263,11 @@
 			files = (
 				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
+				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
-				C5801CEA1A62B3C200051140 /* TimedWorkout.swift in Sources */,
-				C5C197031A18ABC8008C6136 /* WorkoutTask.swift in Sources */,
+				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,
+				C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */,
+				C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */,
 				C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */,
 				C587E67419CDB4120098638A /* TaskViewController.swift in Sources */,
 				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
@@ -249,7 +278,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C539DA911A87DB26005A6D45 /* WorkoutServiceTest.swift in Sources */,
 				C515E85F19C5A937001A5BB2 /* ViewControllerTests.swift in Sources */,
+				C539DA9D1A8E33AE005A6D45 /* NSTimerTests.swift in Sources */,
+				C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

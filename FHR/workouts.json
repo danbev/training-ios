@@ -1,0 +1,7 @@
+{ "workouts": [
+   {"name": "Burpees","desc": "From standing position, fall to ...", "category": "all", "image": "burpees.jpeg"},
+   {"name": "Chopups","desc": "Lay down on the ground with your arms streched out over your head. In one motion move your arms upward and stand up", "category": "main", "image": "burpees.jpeg" },
+   {"name": "Getups","desc": "Getups","category": "main", "image": "burpees.jpeg" },
+   {"name": "JumpingJacks","desc": "Jumping Jacks...","category": "warmup", "image": "burpees.jpeg" }
+  ]
+}

@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-class TimedWorkout: NSManagedObject {
+public class DurationWorkout: NSManagedObject {
 
-    @NSManaged var duration: NSNumber
-    @NSManaged var parent: Workout
+    @NSManaged public var duration: NSNumber
+    @NSManaged public var parent: Workout
 
 }

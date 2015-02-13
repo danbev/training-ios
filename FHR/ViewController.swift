@@ -16,45 +16,25 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    var tasks = [RepsWorkout]()
+    var tasks = [Workout]()
+    var workoutService: WorkoutService!
     public let tableCell = "tableCell"
-
-    lazy var managedObjectContext : NSManagedObjectContext? = {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
-            return managedObjectContext
-        }
-        else {
-            return nil
-        }
-    }()
 
     @IBAction func startWorkout(sender: UIButton) {
         let text = sender.titleLabel!.text
         if text == "Start" {
             startButton.setTitle("Paus", forState: UIControlState.Normal)
-            loadTasks()
+            loadTask()
         } else {
             startButton.setTitle("Start", forState: UIControlState.Normal)
         }
     }
 
-    public func loadTasks() {
-        let worksoutTasks = fetchWorkoutTask()
-        if let workouts = worksoutTasks {
-            println(workouts.count)
-            for task in workouts {
-                println("tasks \(task.parent.name)")
-                tasks.append(task)
-            }
-        }
+    public func loadTask() {
+        let workout = workoutService.fetchWorkout("Burpees")!
+        println(workout)
+        tasks.append(workout)
         tableView.reloadData()
-    }
-
-    public func storeTasks() {
-        saveWorkoutTask("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100)
-        saveWorkoutTask("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100)
-        saveWorkoutTask("Get ups", desc: "long description...", reps: 50)
     }
 
     public override func viewDidLoad() {
@@ -89,7 +69,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         // create a new cell or deque and reuse.
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.parent.name
+        cell.textLabel!.text = task.name
         return cell;
     }
 
@@ -111,43 +91,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
         let task = tasks[tableView.indexPathForSelectedRow()!.row]
-        taskViewController.workoutTask = tasks[tableView.indexPathForSelectedRow()!.row] as RepsWorkout
-    }
-
-    func saveWorkoutTask(name: String, desc: String, reps: Int) -> RepsWorkout {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-
-        let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: managedContext)
-        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: managedContext)
-        workout.name = name
-        workout.desc = desc
-
-        let repsWorkoutEntity = NSEntityDescription.entityForName("RepsWorkout", inManagedObjectContext: managedContext)
-        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: managedContext)
-        repsWorkout.reps = reps
-        repsWorkout.parent = workout
-
-        var error: NSError?
-        if !managedContext.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
-
-        return repsWorkout
-    }
-
-    func fetchWorkoutTask() -> Optional<[RepsWorkout]> {
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        let fetchRequest = NSFetchRequest(entityName: "RepsWorkout")
-        var error: NSError?
-        let fetchedResults = managedContext.executeFetchRequest(fetchRequest, error: &error) as [RepsWorkout]?
-        if let results = fetchedResults {
-            return results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return Optional.None
-        }
+        taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
     }
 
 }
