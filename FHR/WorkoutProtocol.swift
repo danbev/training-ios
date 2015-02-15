@@ -22,4 +22,8 @@ public enum Type: String {
     case LowerBody = "lowerbody"
     case Cardio = "cardio"
     case Warmup = "warmup"
+
+    static func asCsvString(types: [Type]) -> String {
+        return ",".join(types.map { $0.rawValue })
+    }
 }

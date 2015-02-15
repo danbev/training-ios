@@ -12,106 +12,64 @@ import CoreData
 
 public class WorkoutService {
 
-    var context: NSManagedObjectContext
+    private let workoutEntityName = "Workout"
+    private let repsEntityName = "RepsWorkout"
+    private let durationEntityName = "DurationWorkout"
+    private let intervalEntityName = "IntervalWorkout"
+    private var context: NSManagedObjectContext
 
     public init(context: NSManagedObjectContext) {
         self.context = context
     }
 
-    public func addRepsWorkout(name: String, desc: String, reps: Int) -> RepsWorkout {
-        let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: context)
-        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-        workout.modelName = name
-        workout.modelDescription = desc
-
-        let repsWorkoutEntity = NSEntityDescription.entityForName("RepsWorkout", inManagedObjectContext: context)
+    public func addRepsWorkout(name: String, desc: String, reps: Int, types: Type...) -> RepsWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, types: types)
+        let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.reps = reps
         repsWorkout.parent = workout
-
-        var error: NSError?
-        if !context.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
+        saveContext()
         return repsWorkout
     }
 
-    public func addDurationWorkout(name: String, desc: String, duration: Int) -> DurationWorkout {
-        let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: context)
-        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-        workout.modelName = name
-        workout.modelDescription = desc
-
-        let durationWorkoutEntity = NSEntityDescription.entityForName("DurationWorkout", inManagedObjectContext: context)
+    public func addDurationWorkout(name: String, desc: String, duration: Int, types: Type...) -> DurationWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, types: types)
+        let durationWorkoutEntity = NSEntityDescription.entityForName(durationEntityName, inManagedObjectContext: context)
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.duration = duration
         durationWorkout.parent = workout
-
-        var error: NSError?
-        if !context.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
+        saveContext()
         return durationWorkout
     }
 
-    public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
-        let fetchRequest = NSFetchRequest(entityName: "RepsWorkout")
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [RepsWorkout]?
-        if let results = fetchedResults {
-            return results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return Optional.None
-        }
-    }
-
-    public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
-        let fetchRequest = NSFetchRequest(entityName: "DurationWorkout")
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [DurationWorkout]?
-        if let results = fetchedResults {
-            return results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return Optional.None
-        }
-    }
-
-    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout) -> IntervalWorkout {
-        let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: context)
-        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-        workout.modelName = name
-        workout.modelDescription = desc
-        workout.modelLanguage = "eng"
-
-        let intervalWorkoutEntity = NSEntityDescription.entityForName("IntervalWorkout", inManagedObjectContext: context)
+    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, types: Type...) -> IntervalWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, types: types)
+        let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
         let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
         intervalWorkout.work = work
         intervalWorkout.rest = rest
         intervalWorkout.parent = workout
-
-        var error: NSError?
-        if !context.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
-        }
+        saveContext()
         return intervalWorkout
     }
 
+    public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
+        let rw: Optional<[RepsWorkout]> = fetchWorkouts(repsEntityName);
+        return rw
+    }
+
+    public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
+        let dw: Optional<[DurationWorkout]> = fetchWorkouts(durationEntityName);
+        return dw;
+    }
+
     public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
-        let fetchRequest = NSFetchRequest(entityName: "IntervalWorkout")
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [IntervalWorkout]?
-        if let results = fetchedResults {
-            return results
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return Optional.None
-        }
+        let iw: Optional<[IntervalWorkout]> = fetchWorkouts(intervalEntityName);
+        return iw;
     }
 
     public func fetchWorkout(name: String) -> Optional<Workout> {
-        let fetchRequest = NSFetchRequest(entityName: "Workout")
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"modelName == %@", name)
         fetchRequest.fetchLimit = 1
         var error: NSError?
@@ -125,7 +83,7 @@ public class WorkoutService {
     }
 
     public func fetchWarmup() -> Optional<Workout> {
-        let fetchRequest = NSFetchRequest(entityName: "Workout")
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format: "modelTypes contains[cd] %@", "warmup")
         fetchRequest.fetchLimit = 1
         var error: NSError?
@@ -138,21 +96,8 @@ public class WorkoutService {
         }
     }
 
-    public func fetchRepbased() -> Optional<RepsWorkout> {
-        let fetchRequest = NSFetchRequest(entityName: "RepsWorkout")
-        fetchRequest.fetchLimit = 1
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [RepsWorkout]?
-        if let results = fetchedResults {
-            return results[0]
-        } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
-            return nil
-        }
-    }
-
     public func loadDataIfNeeded() {
-        let fetchRequest = NSFetchRequest(entityName: "Workout")
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         var error: NSError? = nil
         let results = context.countForFetchRequest(fetchRequest, error: &error)
         if (results == 0) {
@@ -169,7 +114,7 @@ public class WorkoutService {
         // store workouts by name so we can back reference them.
         var workouts = [String: Workout]()
         if let json = jsonDict {
-            let workoutEntity = NSEntityDescription.entityForName("Workout", inManagedObjectContext: context)
+            let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
             let workoutDict = jsonDict!.valueForKeyPath("workouts") as NSDictionary
             let workoutsArray = workoutDict.valueForKeyPath("workout") as NSArray
             for jsonDictionary in workoutsArray {
@@ -183,7 +128,7 @@ public class WorkoutService {
                 workout.modelImage = photoData
                 workouts[workout.modelName] = workout
             }
-            let repsWorkoutEntity = NSEntityDescription.entityForName("RepsWorkout", inManagedObjectContext: context)
+            let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as NSArray
             for jsonDictionary in repsbasedArray {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -192,11 +137,37 @@ public class WorkoutService {
                 repsWorkout.parent.modelTypes = jsonDictionary["types"] as String!
             }
 
-            if !context.save(&error) {
-                println("Could not save \(error), \(error?.userInfo)")
-            }
+            saveContext()
         } else {
             println("could not parse json data.")
+        }
+    }
+
+    private func saveContext() {
+        var error: NSError?
+        if !context.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+
+    private func newWorkoutEntity(name: String, desc: String, types: [Type]) -> Workout {
+        let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
+        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
+        workout.modelName = name
+        workout.modelDescription = desc
+        workout.modelTypes = Type.asCsvString(types)
+        return workout;
+    }
+
+    private func fetchWorkouts<T:AnyObject>(entityName: String) -> Optional<[T]> {
+        let fetchRequest = NSFetchRequest(entityName: entityName)
+        var error: NSError?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [T]?
+        if let results = fetchedResults {
+            return results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+            return nil
         }
     }
 }

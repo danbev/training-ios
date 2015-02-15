@@ -22,9 +22,9 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddWorkout() {
-        workoutService.addRepsWorkout("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100)
-        workoutService.addRepsWorkout("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100)
-        workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50)
+        workoutService.addRepsWorkout("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100, types: Type.UpperBody)
+        workoutService.addRepsWorkout("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100, types: Type.UpperBody)
+        workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50, types: Type.Cardio, Type.UpperBody)
         let optionalWorkouts = workoutService.fetchRepsWorkouts()!;
         XCTAssertEqual(3, optionalWorkouts.count)
     }
