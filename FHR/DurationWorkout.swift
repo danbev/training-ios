@@ -15,22 +15,23 @@ public class DurationWorkout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var parent: Workout
 
     public func name() -> String {
-        return parent.modelName
+        return parent.name()
     }
 
     public func desc() -> String {
-        return parent.modelDescription
+        return parent.desc()
     }
 
     public func image() -> NSData {
-        return parent.modelImage
+        return parent.image()
     }
 
     public func language() -> String {
         return parent.modelLanguage
     }
 
-    public func category() -> String {
-        return parent.modelCategory
+    public func types() -> [Type] {
+        return parent.types()
     }
+
 }

@@ -6,8 +6,8 @@
        {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg" }
     ],
     "repbased": [
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "category": "main"},
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30, "category": "warmup"}
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "types": "upperbody,cardio"},
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"types": "warmup"}
     ]
   }
 }

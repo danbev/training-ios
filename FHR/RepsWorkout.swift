@@ -15,23 +15,23 @@ public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
     @NSManaged public var parent: Workout
 
     public func name() -> String {
-        return parent.modelName
+        return parent.name()
     }
 
     public func desc() -> String {
-        return parent.modelDescription
+        return parent.desc()
     }
 
     public func image() -> NSData {
-        return parent.modelImage
+        return parent.image()
     }
 
     public func language() -> String {
-        return parent.modelLanguage
+        return parent.language()
     }
 
-    public func category() -> String {
-        return parent.modelCategory
+    public func types() -> [Type] {
+        return parent.types()
     }
 
     public override var description: String {

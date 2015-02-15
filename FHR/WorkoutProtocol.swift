@@ -11,7 +11,15 @@ import Foundation
 public protocol WorkoutProtocol {
     func name() -> String
     func desc() -> String
-    func category() -> String
+    func types() -> [Type]
     func language() -> String
     func image() -> NSData
+
+}
+
+public enum Type: String {
+    case UpperBody = "upperbody"
+    case LowerBody = "lowerbody"
+    case Cardio = "cardio"
+    case Warmup = "warmup"
 }

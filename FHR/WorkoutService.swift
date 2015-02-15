@@ -126,7 +126,7 @@ public class WorkoutService {
 
     public func fetchWarmup() -> Optional<Workout> {
         let fetchRequest = NSFetchRequest(entityName: "Workout")
-        fetchRequest.predicate = NSPredicate(format:"modelCategory == %@", "warmup")
+        fetchRequest.predicate = NSPredicate(format: "modelTypes contains[cd] %@", "warmup")
         fetchRequest.fetchLimit = 1
         var error: NSError?
         let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
@@ -182,7 +182,6 @@ public class WorkoutService {
                 let photoData = UIImagePNGRepresentation(image)
                 workout.modelImage = photoData
                 workouts[workout.modelName] = workout
-                println(workouts)
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName("RepsWorkout", inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as NSArray
@@ -190,14 +189,11 @@ public class WorkoutService {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                 repsWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
-                repsWorkout.parent.modelCategory = jsonDictionary["category"] as String!
-                println(repsWorkout.parent.modelCategory)
+                repsWorkout.parent.modelTypes = jsonDictionary["types"] as String!
             }
 
             if !context.save(&error) {
                 println("Could not save \(error), \(error?.userInfo)")
-            } else {
-                println("saved context")
             }
         } else {
             println("could not parse json data.")

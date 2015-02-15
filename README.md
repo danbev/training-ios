@@ -27,7 +27,7 @@ To set the version to different version:
 Tests can be run from with in Xcode using Product->Test menu option (CMD+U).  
 You can also run test from the command:
 
-    xcodebuild -project FHR.xcodeproj -scheme FHR -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO test
+    xcodebuild -project FHR.xcodeproj -scheme FHR -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 5s'  test
 
 
 ## Data model

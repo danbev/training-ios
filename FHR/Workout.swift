@@ -14,7 +14,7 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var modelName: String
     @NSManaged public var modelDescription: String
     @NSManaged public var modelLanguage: String
-    @NSManaged public var modelCategory: String
+    @NSManaged public var modelTypes: String
     @NSManaged public var modelImage: NSData
     @NSManaged public var reps: RepsWorkout
     @NSManaged public var timed: DurationWorkout
@@ -27,8 +27,13 @@ public class Workout: NSManagedObject, WorkoutProtocol {
         return modelDescription
     }
 
-    public func category() -> String {
-        return modelCategory
+    public lazy var lazyTypes: [Type] = {
+        let array = split(self.modelLanguage) { $0 == "," }
+        return array.map { Type(rawValue: $0)! }
+    }()
+
+    public func types() -> [Type] {
+        return lazyTypes;
     }
 
     public func language() -> String {
