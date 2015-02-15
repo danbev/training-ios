@@ -13,25 +13,34 @@ import CoreData
 * Main view controller for workout tasks.
 */
 public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    var tasks = [Workout]()
-    var workoutService: WorkoutService!
+    @IBOutlet weak var progressView: UIProgressView!
     public let tableCell = "tableCell"
+    internal var workoutService: WorkoutService!
+    private var tasks = [Workout]()
 
-    @IBAction func startWorkout(sender: UIButton) {
-        let text = sender.titleLabel!.text
-        if text == "Start" {
-            startButton.setTitle("Paus", forState: UIControlState.Normal)
-            loadTask()
-        } else {
-            startButton.setTitle("Start", forState: UIControlState.Normal)
+    var counter: Int = 0 {
+        didSet {
+            let fractionalProgress = Float(counter) / 100.0
+            let animated = counter != 0
+            progressView.setProgress(fractionalProgress, animated: animated)
         }
     }
 
+    @IBAction func startWorkout(sender: UIButton) {
+        counter++;
+        startButton.hidden = true
+        loadTask()
+    }
+
+    @IBAction func addWorkout(sender: AnyObject) {
+        println("add a new workout...")
+    }
+    
     public func loadTask() {
-        let workout = workoutService.fetchWorkout("Burpees")!
+        let workout = workoutService.fetchWarmup()!
         println(workout)
         tasks.append(workout)
         tableView.reloadData()
@@ -66,10 +75,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :returns: UITableCellView the table cell view matching the indexPath
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // create a new cell or deque and reuse.
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.name
+        cell.textLabel!.text = task.name()
         return cell;
     }
 
@@ -91,7 +99,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
         let task = tasks[tableView.indexPathForSelectedRow()!.row]
-        taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
+        taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as WorkoutProtocol
     }
 
 }

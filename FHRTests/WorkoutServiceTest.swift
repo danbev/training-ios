@@ -41,8 +41,8 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
         let optionalWorkouts = workoutService.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
-        XCTAssertEqual("BurpeesInterval", optionalWorkouts[0].parent.name)
-        XCTAssertEqual("Burpees and Chopups", optionalWorkouts[0].parent.desc)
+        XCTAssertEqual("BurpeesInterval", optionalWorkouts[0].parent.name())
+        XCTAssertEqual("Burpees and Chopups", optionalWorkouts[0].parent.desc())
         XCTAssertEqual(burpees, optionalWorkouts[0].work)
         XCTAssertEqual(chopups, optionalWorkouts[0].rest)
     }
@@ -50,13 +50,19 @@ class WorkoutServiceTest: XCTestCase {
     func testLoadDatabase() {
         workoutService.loadDataIfNeeded();
         let burpees = workoutService.fetchWorkout("Burpees")!
-        XCTAssertEqual("Burpees", burpees.name)
-        XCTAssertNotNil(burpees.desc)
-        XCTAssertEqual("all", burpees.category)
-        XCTAssertNotNil(burpees.image)
+        XCTAssertEqual("Burpees", burpees.name())
+        XCTAssertNotNil(burpees.desc())
+        XCTAssertEqual("en", burpees.language())
+        XCTAssertNotNil(burpees.image())
         let chopups = workoutService.fetchWorkout("Chopups")!
-        XCTAssertEqual("Chopups", chopups.name)
-        XCTAssertNotNil(chopups.image)
+        XCTAssertEqual("Chopups", chopups.name())
+        XCTAssertNotNil(chopups.image())
+    }
+
+    func testFetchWarmup() {
+        workoutService.loadDataIfNeeded();
+        let workout = workoutService.fetchWarmup()
+        println(workout!.name())
     }
 
 }

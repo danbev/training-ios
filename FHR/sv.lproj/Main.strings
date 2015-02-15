@@ -1,0 +1,21 @@
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "3lr-Bj-Tg4"; */
+"3lr-Bj-Tg4.text" = "Titel";
+
+/* Class = "IBUILabel"; text = "Description"; ObjectID = "7kA-ps-cvK"; */
+"7kA-ps-cvK.text" = "Beskrivning";
+
+/* Class = "IBUIButton"; normalTitle = "Start"; ObjectID = "Gex-Xb-Cye"; */
+"Gex-Xb-Cye.normalTitle" = "Starta Pass";
+
+/* Class = "IBUITextView"; text = "Workout task description goes here..."; ObjectID = "O6K-kZ-Lff"; */
+"O6K-kZ-Lff.text" = "Beskrivning av övningen";
+
+/* Class = "IBUILabel"; text = "TaskName"; ObjectID = "stC-WG-WEf"; */
+"stC-WG-WEf.text" = "Namn";
+
+/* Class = "IBUINavigationItem"; title = "Workout"; ObjectID = "uGa-3L-cgr"; */
+"uGa-3L-cgr.title" = "Pass";
+
+/* Class = "IBUILabel"; text = "Reps"; ObjectID = "x7b-7b-jNZ"; */
+"x7b-7b-jNZ.text" = "Repititioner";

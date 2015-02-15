@@ -15,7 +15,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="tableCell" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oNY-qq-9iP">
                                 <rect key="frame" x="80" y="142" width="160" height="284"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableCell" textLabel="3lr-Bj-Tg4" style="IBUITableViewCellStyleDefault" id="Udb-Ke-lNY">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -41,7 +43,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="CQ5-yZ-otd"/>
                                 </connections>
                             </tableView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="Jig-xN-oPa">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" id="Jig-xN-oPa">
                                 <rect key="frame" x="90" y="494" width="150" height="2"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
@@ -59,8 +61,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Workout" id="uGa-3L-cgr" colorLabel="IBBuiltInLabel-Red"/>
+                    <navigationItem key="navigationItem" title="Workout" id="uGa-3L-cgr" colorLabel="IBBuiltInLabel-Red">
+                        <barButtonItem key="leftBarButtonItem" image="three115" style="plain" id="lxL-ud-hmh"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XEL-Ie-Z1Z">
+                            <connections>
+                                <action selector="addWorkout:" destination="BYZ-38-t0r" id="HaT-DG-TfT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="progressView" destination="Jig-xN-oPa" id="Hbt-AZ-Rxk"/>
                         <outlet property="startButton" destination="Gex-Xb-Cye" id="Rpe-lB-thC"/>
                         <outlet property="tableView" destination="oNY-qq-9iP" id="mz2-39-M7E"/>
                     </connections>
@@ -144,6 +154,9 @@
             <point key="canvasLocation" x="74" y="128"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="three115" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         viewController.workoutService = workoutService
-
         return true
     }
 
