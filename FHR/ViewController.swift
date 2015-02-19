@@ -15,22 +15,52 @@ import CoreData
 public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressView: UIProgressView!
     public let tableCell = "tableCell"
-    internal var workoutService: WorkoutService!
+    private lazy var coreDataStack = CoreDataStack()
+    private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
+
+    private var startTime: NSTimeInterval = NSTimeInterval()
+
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        workoutService = WorkoutService(context: coreDataStack.context)
+        workoutService.loadDataIfNeeded()
+    }
+
+    public func updateTime(timer: NSTimer) {
+        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        var elapsedTime = 2700-(currentTime - startTime)
+        let minutes = UInt8(elapsedTime / 60.0)
+        elapsedTime -= (NSTimeInterval(minutes) * 60)
+        let seconds = UInt8(elapsedTime)
+        elapsedTime -= NSTimeInterval(seconds)
+        let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
+        let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
+        timerLabel.hidden = false
+        timerLabel.text = "\(strMinutes):\(strSeconds)"
+        counter++;
+    }
+
+    public func callback() {
+        counter++
+    }
 
     var counter: Int = 0 {
         didSet {
-            let fractionalProgress = Float(counter) / 100.0
+            let fractionalProgress = Float(counter) / 1000.0
             let animated = counter != 0
             progressView.setProgress(fractionalProgress, animated: animated)
         }
     }
 
     @IBAction func startWorkout(sender: UIButton) {
-        counter++;
+        var timer = NSTimer()
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
+        startTime = NSDate.timeIntervalSinceReferenceDate()
         startButton.hidden = true
         loadTask()
     }
@@ -41,14 +71,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     public func loadTask() {
         let workout = workoutService.fetchWarmup()!
-        println(workout)
         tasks.append(workout)
         tableView.reloadData()
     }
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -103,6 +129,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let taskViewController = segue.destinationViewController as RepsViewController
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
             taskViewController.workout = workout.reps
+            taskViewController.didFinish = { controller in
+                println("Closed reps: \(controller.workout.reps)")
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         case .Reps:
             println("reps task...")
         case .Timed:

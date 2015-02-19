@@ -33,7 +33,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="E2K-5C-CaN" kind="push" id="ErA-sx-3ob"/>
+                                            <segue destination="E2K-5C-CaN" kind="modal" identifier="Main" id="ErA-sx-3ob"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -48,7 +48,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </progressView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Gex-Xb-Cye">
-                                <rect key="frame" x="80" y="97" width="160" height="30"/>
+                                <rect key="frame" x="74" y="90" width="160" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -58,6 +58,13 @@
                                     <action selector="startWorkout:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zQz-ZR-zDQ"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SXq-4d-iAB">
+                                <rect key="frame" x="132" y="99" width="67" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -73,6 +80,7 @@
                         <outlet property="progressView" destination="Jig-xN-oPa" id="Hbt-AZ-Rxk"/>
                         <outlet property="startButton" destination="Gex-Xb-Cye" id="Rpe-lB-thC"/>
                         <outlet property="tableView" destination="oNY-qq-9iP" id="mz2-39-M7E"/>
+                        <outlet property="timerLabel" destination="SXq-4d-iAB" id="uWa-Dp-VwH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -132,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARD-oz-KIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="915" y="134"/>
+            <point key="canvasLocation" x="934" y="154"/>
         </scene>
         <!--Reps View Controller-->
         <scene sceneID="ZJz-8j-jbR">
@@ -174,12 +182,23 @@
                                 <rect key="frame" x="27" y="167" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cZ9-lS-8PY">
+                                <rect key="frame" x="225" y="487" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="done:" destination="E2K-5C-CaN" eventType="touchUpInside" id="BG2-yQ-9xe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="xR1-B3-yc4"/>
                     <connections>
                         <outlet property="descLabel" destination="g0c-KS-Zle" id="u5e-pe-KOU"/>
+                        <outlet property="doneButton" destination="cZ9-lS-8PY" id="ZXk-Qf-NP5"/>
                         <outlet property="imageView" destination="kys-Mk-CIl" id="YfW-2Y-87T"/>
                         <outlet property="repsLabel" destination="JgO-Vl-1j9" id="TzZ-RM-9tP"/>
                         <outlet property="taskLabel" destination="2YX-uM-snP" id="Jgs-gF-OqE"/>
@@ -187,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKf-fa-FiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1266" y="134"/>
+            <point key="canvasLocation" x="1146" y="-514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qqs-nj-uNR">

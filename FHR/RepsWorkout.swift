@@ -35,7 +35,6 @@ public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
     }
 
     public func type() -> Type {
-        println("modelType = \(parent.modelType)")
         return Type(rawValue: parent.modelType)!
     }
 

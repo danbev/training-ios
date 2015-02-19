@@ -15,11 +15,14 @@ Controlls a Reps based workout
 */
 public class RepsViewController: UIViewController {
 
+    typealias FinishDelegate = (RepsViewController) -> ()
+    var didFinish: FinishDelegate?
     var workout : RepsWorkout!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var doneButton: UIButton!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,5 +34,9 @@ public class RepsViewController: UIViewController {
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    @IBAction func done(sender: AnyObject) {
+        self.didFinish!(self)
     }
 }
