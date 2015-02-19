@@ -23,30 +23,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
 
-    private var startTime: NSTimeInterval = NSTimeInterval()
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
     }
 
-    public func updateTime(timer: NSTimer) {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        var elapsedTime = 2700-(currentTime - startTime)
-        let minutes = UInt8(elapsedTime / 60.0)
-        elapsedTime -= (NSTimeInterval(minutes) * 60)
-        let seconds = UInt8(elapsedTime)
-        elapsedTime -= NSTimeInterval(seconds)
-        let strMinutes = minutes > 9 ? String(minutes):"0" + String(minutes)
-        let strSeconds = seconds > 9 ? String(seconds):"0" + String(seconds)
+    public func updateTime(timer: Timer) {
         timerLabel.hidden = false
-        timerLabel.text = "\(strMinutes):\(strSeconds)"
+        let (min, sec) = timer.elapsedTime()
+        timerLabel.text = Timer.timeAsString(min, sec: sec)
         counter++;
-    }
-
-    public func callback() {
-        counter++
     }
 
     var counter: Int = 0 {
@@ -58,9 +45,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func startWorkout(sender: UIButton) {
-        var timer = NSTimer()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
-        startTime = NSDate.timeIntervalSinceReferenceDate()
+        Timer(callback: updateTime, countDown: 45)
         startButton.hidden = true
         loadTask()
     }
@@ -74,7 +59,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         tasks.append(workout)
         tableView.reloadData()
     }
-
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

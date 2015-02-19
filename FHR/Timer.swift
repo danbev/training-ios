@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class Timer {
-    public typealias Callback = (NSTimer) -> ()
+public class Timer: NSObject {
+    public typealias Callback = (Timer) -> ()
 
     private let start: NSTimeInterval
     private let callback: Callback
@@ -24,7 +24,8 @@ public class Timer {
         self.callback = callback
         self.countDown = Double(countDown * 60)
         start = NSDate.timeIntervalSinceReferenceDate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("update:"), userInfo: nil, repeats: true)
+        super.init()
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
     }
 
     public func stop() {
@@ -41,13 +42,10 @@ public class Timer {
         let minutes = UInt8(elapsedTime / 60.0)
         elapsedTime -= (NSTimeInterval(minutes) * 60)
         let seconds = UInt8(elapsedTime)
-        //elapsedTime -= NSTimeInterval(seconds)
         return (minutes, seconds)
     }
 
     public class func timeAsString(min: UInt8, sec: UInt8) -> String {
-        //let strMinutes = prefix(min)
-        //let strSeconds = prefix(sec)
         return "\(prefix(min)):\(prefix(sec))"
     }
 
@@ -56,8 +54,8 @@ public class Timer {
         return time > 9 ? timeStr: "0" + timeStr
     }
 
-    func update(timer: NSTimer) {
-        callback(timer)
+    public func updateTime(timer: NSTimer) {
+        callback(self)
     }
 
 }
