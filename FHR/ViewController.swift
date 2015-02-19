@@ -100,9 +100,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         let task = tasks[tableView.indexPathForSelectedRow()!.row]
         switch task.type() {
         case .Warmup:
-            println("warmup task...")
-            let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
-            taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as WorkoutProtocol
+            let taskViewController = segue.destinationViewController as RepsViewController
+            let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
+            taskViewController.workout = workout.reps
         case .Reps:
             println("reps task...")
         case .Timed:
