@@ -30,8 +30,13 @@ public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
         return parent.language()
     }
 
-    public func types() -> [Type] {
-        return parent.types()
+    public func categories() -> [Category] {
+        return parent.categories()
+    }
+
+    public func type() -> Type {
+        println("modelType = \(parent.modelType)")
+        return Type(rawValue: parent.modelType)!
     }
 
     public override var description: String {

@@ -11,16 +11,27 @@ import Foundation
 public protocol WorkoutProtocol {
     func name() -> String
     func desc() -> String
-    func types() -> [Type]
+    func categories() -> [Category]
     func language() -> String
     func image() -> NSData
+    func type() -> Type
 
 }
 
-public enum Type: String {
+public enum Category: String {
     case UpperBody = "upperbody"
     case LowerBody = "lowerbody"
     case Cardio = "cardio"
+
+    static func asCsvString(categories: [Category]) -> String {
+        return ",".join(categories.map { $0.rawValue })
+    }
+}
+
+public enum Type: String {
+    case Reps = "reps"
+    case Timed = "timed"
+    case Interval = "interval"
     case Warmup = "warmup"
 
     static func asCsvString(types: [Type]) -> String {

@@ -13,18 +13,18 @@ import FHR
 class WorkoutTypeTests: XCTestCase {
 
     func testUpperBodyType() {
-        XCTAssertEqual("upperbody", Type.UpperBody.rawValue)
-        XCTAssertEqual(Type.UpperBody, Type(rawValue: "upperbody")!)
+        XCTAssertEqual("upperbody", Category.UpperBody.rawValue)
+        XCTAssertEqual(Category.UpperBody, Category(rawValue: "upperbody")!)
     }
 
     func testLowerBodyType() {
-        XCTAssertEqual("lowerbody", Type.LowerBody.rawValue)
-        XCTAssertEqual(Type.LowerBody, Type(rawValue: "lowerbody")!)
+        XCTAssertEqual("lowerbody", Category.LowerBody.rawValue)
+        XCTAssertEqual(Category.LowerBody, Category(rawValue: "lowerbody")!)
     }
 
     func testCardioType() {
-        XCTAssertEqual("cardio", Type.Cardio.rawValue)
-        XCTAssertEqual(Type.Cardio, Type(rawValue: "cardio")!)
+        XCTAssertEqual("cardio", Category.Cardio.rawValue)
+        XCTAssertEqual(Category.Cardio, Category(rawValue: "cardio")!)
     }
     
 }

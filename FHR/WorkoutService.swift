@@ -22,8 +22,8 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func addRepsWorkout(name: String, desc: String, reps: Int, types: Type...) -> RepsWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, types: types)
+    public func addRepsWorkout(name: String, desc: String, reps: Int, categories: Category...) -> RepsWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.reps = reps
@@ -32,8 +32,8 @@ public class WorkoutService {
         return repsWorkout
     }
 
-    public func addDurationWorkout(name: String, desc: String, duration: Int, types: Type...) -> DurationWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, types: types)
+    public func addDurationWorkout(name: String, desc: String, duration: Int, categories: Category...) -> DurationWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let durationWorkoutEntity = NSEntityDescription.entityForName(durationEntityName, inManagedObjectContext: context)
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.duration = duration
@@ -42,8 +42,8 @@ public class WorkoutService {
         return durationWorkout
     }
 
-    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, types: Type...) -> IntervalWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, types: types)
+    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: Category...) -> IntervalWorkout {
+        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
         let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
         intervalWorkout.work = work
@@ -82,9 +82,9 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWarmup() -> Optional<Workout> {
+    public func fetchWarmup() -> Optional<WorkoutProtocol> {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
-        fetchRequest.predicate = NSPredicate(format: "modelTypes contains[cd] %@", "warmup")
+        fetchRequest.predicate = NSPredicate(format: "modelType == %@", "warmup")
         fetchRequest.fetchLimit = 1
         var error: NSError?
         let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
@@ -112,6 +112,7 @@ public class WorkoutService {
         let jsonData = NSData(contentsOfURL: jsonURL!)!
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as NSDictionary?
         // store workouts by name so we can back reference them.
+        println("Import seed data...")
         var workouts = [String: Workout]()
         if let json = jsonDict {
             let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
@@ -122,6 +123,7 @@ public class WorkoutService {
                 workout.modelName = jsonDictionary["name"] as String!
                 workout.modelDescription = jsonDictionary["desc"] as String!
                 workout.modelLanguage = jsonDictionary["language"] as String!
+                workout.modelCategories = jsonDictionary["categories"] as String!
                 let imageName = jsonDictionary["image"] as NSString
                 let image = UIImage(named:imageName)
                 let photoData = UIImagePNGRepresentation(image)
@@ -134,9 +136,9 @@ public class WorkoutService {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                 repsWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
-                repsWorkout.parent.modelTypes = jsonDictionary["types"] as String!
+                repsWorkout.parent.modelType = jsonDictionary["type"] as String!
+                println("reps in load \(repsWorkout.parent.modelType)")
             }
-
             saveContext()
         } else {
             println("could not parse json data.")
@@ -150,12 +152,12 @@ public class WorkoutService {
         }
     }
 
-    private func newWorkoutEntity(name: String, desc: String, types: [Type]) -> Workout {
+    private func newWorkoutEntity(name: String, desc: String, categories: [Category]) -> Workout {
         let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
         let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
         workout.modelName = name
         workout.modelDescription = desc
-        workout.modelTypes = Type.asCsvString(types)
+        workout.modelCategories = Category.asCsvString(categories)
         return workout;
     }
 

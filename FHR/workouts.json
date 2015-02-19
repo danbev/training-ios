@@ -1,13 +1,13 @@
 { "workouts": {
    "workout": [
-       {"name":"Burpees","desc":"From standing position, fall to ...","language":"en","image":"burpees.jpeg"},
-       {"name":"Chopups","desc":"Lay down on the ground with your arms streched out over your head. In one motion move your arms upward and stand up","language":"en","image": "burpees.jpeg"},
-       {"name":"Getups","desc": "Getups","language":"en","image": "burpees.jpeg"},
-       {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg" }
+       {"name":"Burpees","desc":"From standing position, fall to ...","language":"en","image":"burpees.jpeg","categories":"upperbody,cardio"},
+       {"name":"Chopups","desc":"Lay down on the ground with your arms streched out over your head. In one motion move your arms upward and stand up","language":"en","image": "burpees.jpeg","categories":"upperbody,cardio"},
+       {"name":"Getups","desc": "Getups","language":"en","image": "burpees.jpeg","categories": "upperbody,cardio"},
+       {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg","categories":"upperbody,lowerbody,cardio"}
     ],
     "repbased": [
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "types": "upperbody,cardio"},
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"types": "warmup"}
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "type": "upperbody"},
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"type": "warmup"}
     ]
   }
 }

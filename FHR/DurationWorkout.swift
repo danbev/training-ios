@@ -30,8 +30,12 @@ public class DurationWorkout: NSManagedObject, WorkoutProtocol {
         return parent.modelLanguage
     }
 
-    public func types() -> [Type] {
-        return parent.types()
+    public func categories() -> [Category] {
+        return parent.categories()
+    }
+
+    public func type() -> Type {
+        return Type(rawValue: parent.modelType)!
     }
 
 }

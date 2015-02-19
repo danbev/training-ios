@@ -19,7 +19,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var progressView: UIProgressView!
     public let tableCell = "tableCell"
     internal var workoutService: WorkoutService!
-    private var tasks = [Workout]()
+    private var tasks = [WorkoutProtocol]()
 
     var counter: Int = 0 {
         didSet {
@@ -97,9 +97,19 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: segue the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
         let task = tasks[tableView.indexPathForSelectedRow()!.row]
-        taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as WorkoutProtocol
+        switch task.type() {
+        case .Warmup:
+            println("warmup task...")
+            let taskViewController: TaskViewController = segue.destinationViewController as TaskViewController
+            taskViewController.workout = tasks[tableView.indexPathForSelectedRow()!.row] as WorkoutProtocol
+        case .Reps:
+            println("reps task...")
+        case .Timed:
+            println("timed task...")
+        case .Interval:
+            println("interval task...")
+        }
     }
 
 }

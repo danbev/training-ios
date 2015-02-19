@@ -14,10 +14,11 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var modelName: String
     @NSManaged public var modelDescription: String
     @NSManaged public var modelLanguage: String
-    @NSManaged public var modelTypes: String
+    @NSManaged public var modelCategories: String
+    @NSManaged public var modelType: String
     @NSManaged public var modelImage: NSData
-    @NSManaged public var reps: RepsWorkout
-    @NSManaged public var timed: DurationWorkout
+    @NSManaged public var reps: RepsWorkout?
+    @NSManaged public var timed: DurationWorkout?
 
     public func name() -> String {
         return modelName
@@ -27,13 +28,14 @@ public class Workout: NSManagedObject, WorkoutProtocol {
         return modelDescription
     }
 
-    public lazy var lazyTypes: [Type] = {
-        let array = split(self.modelLanguage) { $0 == "," }
-        return array.map { Type(rawValue: $0)! }
-    }()
+    public lazy var lazyCategories: [Category] = {
+        [unowned self] in
+        let array = split(self.modelCategories) { $0 == "," }
+        return array.map { Category(rawValue: $0)! }
+        }()
 
-    public func types() -> [Type] {
-        return lazyTypes;
+    public func categories() -> [Category] {
+        return lazyCategories;
     }
 
     public func language() -> String {
@@ -42,6 +44,16 @@ public class Workout: NSManagedObject, WorkoutProtocol {
 
     public func image() -> NSData {
         return modelImage
+    }
+
+    public func type() -> Type {
+        if let r = reps {
+            return r.type()
+        }
+        if let t = timed {
+            return t.type()
+        }
+        fatalError("Neither reps or timed workout!")
     }
 
 }
