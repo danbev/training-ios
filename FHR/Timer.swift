@@ -41,8 +41,7 @@ public class Timer: NSObject {
         var elapsedTime = countDown - (currentTime - start)
         let minutes = UInt8(elapsedTime / 60.0)
         elapsedTime -= (NSTimeInterval(minutes) * 60)
-        let seconds = UInt8(elapsedTime)
-        return (minutes, seconds)
+        return (minutes, UInt8(elapsedTime))
     }
 
     public class func timeAsString(min: UInt8, sec: UInt8) -> String {

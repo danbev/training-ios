@@ -98,7 +98,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: indexPath the NSIndexPath identifying the cell to being tapped
     */
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        //println("selected:\(tasks[indexPath.row)]")
     }
 
     /**
@@ -114,6 +113,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
             taskViewController.workout = workout.reps
             taskViewController.didFinish = { controller in
+                // Get the rest time from the current task
                 println("Closed reps: \(controller.workout.reps)")
                 self.dismissViewControllerAnimated(true, completion: nil)
             }

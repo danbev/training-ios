@@ -29,6 +29,8 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     }
 
     public lazy var lazyCategories: [Category] = {
+        // needs to be unowned otherwise a strong ref will hang around
+        // after ARC has set a ref to self to nil.
         [unowned self] in
         let array = split(self.modelCategories) { $0 == "," }
         return array.map { Category(rawValue: $0)! }
