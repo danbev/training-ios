@@ -11,14 +11,15 @@ import UIKit
 import FHR
 import XCTest
 
-class NSTimerTests: XCTestCase {
+class TimerTests: XCTestCase {
 
-    func testNSTimer() {
+    func testTimer() {
         let expectation = expectationWithDescription("Timer should fire once every second")
-        var timer = NSTimer()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("callback"), userInfo: nil, repeats: true)
-        expectation.fulfill()
-        waitForExpectationsWithTimeout(3.0, handler:nil)
+        var timer = Timer(countDown: -1) { t in
+            println("in calllback....\(t.elapsedTime())")
+            expectation.fulfill()
+        }
+        waitForExpectationsWithTimeout(5.0, handler:nil)
     }
 
     func callback() {

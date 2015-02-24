@@ -45,7 +45,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func startWorkout(sender: UIButton) {
-        Timer(callback: updateTime, countDown: 45)
+        Timer(countDown: 45, callback: updateTime)
         startButton.hidden = true
         loadTask()
     }
@@ -106,16 +106,26 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: segue the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let task = tasks[tableView.indexPathForSelectedRow()!.row]
+        let indexPath = tableView.indexPathForSelectedRow()!;
+        let task = tasks[indexPath.row]
         switch task.type() {
         case .Warmup:
             let taskViewController = segue.destinationViewController as RepsViewController
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
             taskViewController.workout = workout.reps
-            taskViewController.didFinish = { controller in
+            taskViewController.didFinish = {
+                [unowned self] controller in
                 // Get the rest time from the current task
                 println("Closed reps: \(controller.workout.reps)")
                 self.dismissViewControllerAnimated(true, completion: nil)
+                let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
+                cell.contentView.backgroundColor = UIColor.grayColor()
+                cell.backgroundColor = UIColor.grayColor()
+                cell.userInteractionEnabled = false
+                let t = self.tasks.removeAtIndex(indexPath.row)
+                println("removed: \(t)")
+                self.tasks.append(t)
+                self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
             }
         case .Reps:
             println("reps task...")
