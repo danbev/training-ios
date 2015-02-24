@@ -22,6 +22,7 @@ public enum Category: String {
     case UpperBody = "upperbody"
     case LowerBody = "lowerbody"
     case Cardio = "cardio"
+    case Warmup = "warmup"
 
     static func asCsvString(categories: [Category]) -> String {
         return ",".join(categories.map { $0.rawValue })
@@ -32,7 +33,6 @@ public enum Type: String {
     case Reps = "reps"
     case Timed = "timed"
     case Interval = "interval"
-    case Warmup = "warmup"
 
     static func asCsvString(types: [Type]) -> String {
         return ",".join(types.map { $0.rawValue })

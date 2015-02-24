@@ -62,7 +62,14 @@ class WorkoutServiceTest: XCTestCase {
     func testFetchWarmup() {
         workoutService.loadDataIfNeeded();
         let workout = workoutService.fetchWarmup()
-        println("warmpu --------> " + workout!.name())
+        XCTAssertNotNil(workout!.name())
+    }
+
+    func testFetchWorkout() {
+        workoutService.loadDataIfNeeded();
+        let workout = workoutService.fetchWorkout(Category.UpperBody)
+        println(workout!.name())
+        XCTAssertNotNil(workout!.name())
     }
 
 }

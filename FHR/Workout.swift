@@ -49,13 +49,7 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     }
 
     public func type() -> Type {
-        if let r = reps {
-            return r.type()
-        }
-        if let t = timed {
-            return t.type()
-        }
-        fatalError("Neither reps or timed workout!")
+        return Type(rawValue: modelType)!
     }
 
 }

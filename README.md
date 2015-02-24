@@ -31,7 +31,9 @@ You can also run test from the command:
 
 
 ## Data model
+
 ### Types of workouts
+
 #### Duration based
 One excercise for a certain amount of time.
 
@@ -47,11 +49,10 @@ Two excercises where one it the main excercies and the other is the "rest" excer
 The two excercies would be of type Duration based. 
 
 #### Warmup
-Should warmup be separate. In almost all cases these would be duration based.
+Should warmup be separate? In almost all cases these would be duration based
 
 #### Rest
-Not a warmup per say but something that each workout should define. Some excercises will require a longer rest period than others.
-Perhaps this could be returned from a completed workout. 
+Some excercises will require a longer rest period than others. Perhaps this could be returned from a completed workout. 
 
 ## Workout types
 

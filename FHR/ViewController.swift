@@ -47,15 +47,21 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func startWorkout(sender: UIButton) {
         Timer(countDown: 45, callback: updateTime)
         startButton.hidden = true
-        loadTask()
+        loadWarmupTask()
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
         println("add a new workout...")
     }
     
-    public func loadTask() {
+    public func loadWarmupTask() {
         let workout = workoutService.fetchWarmup()!
+        tasks.append(workout)
+        tableView.reloadData()
+    }
+
+    public func loadTask(category: Category) {
+        let workout = workoutService.fetchWorkout(category)!
         tasks.append(workout)
         tableView.reloadData()
     }
@@ -108,27 +114,33 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = tableView.indexPathForSelectedRow()!;
         let task = tasks[indexPath.row]
+        println(task.name())
         switch task.type() {
-        case .Warmup:
+        case .Reps:
             let taskViewController = segue.destinationViewController as RepsViewController
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
             taskViewController.workout = workout.reps
             taskViewController.didFinish = {
                 [unowned self] controller in
                 // Get the rest time from the current task
-                println("Closed reps: \(controller.workout.reps)")
+                println("Closed reps: \(controller.workout.name())")
                 self.dismissViewControllerAnimated(true, completion: nil)
+
                 let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
                 cell.contentView.backgroundColor = UIColor.grayColor()
-                cell.backgroundColor = UIColor.grayColor()
+                //cell.backgroundColor = UIColor.grayColor()
+                cell.contentView.backgroundColor = UIColor.greenColor()
                 cell.userInteractionEnabled = false
+                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+                cell.tintColor = UIColor.greenColor()
+
                 let t = self.tasks.removeAtIndex(indexPath.row)
-                println("removed: \(t)")
+                println("removed: \(t.name())")
                 self.tasks.append(t)
                 self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
+
+                self.loadTask(Category.UpperBody)
             }
-        case .Reps:
-            println("reps task...")
         case .Timed:
             println("timed task...")
         case .Interval:

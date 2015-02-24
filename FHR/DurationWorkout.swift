@@ -35,7 +35,7 @@ public class DurationWorkout: NSManagedObject, WorkoutProtocol {
     }
 
     public func type() -> Type {
-        return Type(rawValue: parent.modelType)!
+        return parent.type()
     }
 
 }

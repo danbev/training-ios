@@ -84,8 +84,25 @@ public class WorkoutService {
 
     public func fetchWarmup() -> Optional<WorkoutProtocol> {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
-        fetchRequest.predicate = NSPredicate(format: "modelType == %@", "warmup")
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         fetchRequest.fetchLimit = 1
+        var error: NSError?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
+        if let results = fetchedResults {
+            return results[0]
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+            return nil
+        }
+    }
+
+    public func fetchWorkout(category: Category) -> Optional<WorkoutProtocol> {
+        println("Category to search for \(category.rawValue)")
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category.rawValue);
+        fetchRequest.fetchLimit = 1
+        //let durationPredicate = NSPredicate(format: "modelType == %@", "duration");
+        //fetchRequest.predicate = NSCompoundPredicate(type: .OrPredicateType, subpredicates: [repsPredicate!, durationPredicate!])
         var error: NSError?
         let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
         if let results = fetchedResults {
@@ -123,7 +140,6 @@ public class WorkoutService {
                 workout.modelName = jsonDictionary["name"] as String!
                 workout.modelDescription = jsonDictionary["desc"] as String!
                 workout.modelLanguage = jsonDictionary["language"] as String!
-                workout.modelCategories = jsonDictionary["categories"] as String!
                 let imageName = jsonDictionary["image"] as NSString
                 let image = UIImage(named:imageName)
                 let photoData = UIImagePNGRepresentation(image)
@@ -135,9 +151,11 @@ public class WorkoutService {
             for jsonDictionary in repsbasedArray {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                 repsWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
+                repsWorkout.parent.modelName = jsonDictionary["name"] as String!
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
-                repsWorkout.parent.modelType = jsonDictionary["type"] as String!
-                println("reps in load \(repsWorkout.parent.modelType)")
+                repsWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
+                repsWorkout.parent.modelType = Type.Reps.rawValue
+                println("reps in load \(repsWorkout.parent.modelCategories)")
             }
             saveContext()
         } else {
