@@ -12,6 +12,7 @@ import CoreData
 public class Workout: NSManagedObject, WorkoutProtocol {
 
     @NSManaged public var modelName: String
+    @NSManaged public var modelWorkoutName: String
     @NSManaged public var modelDescription: String
     @NSManaged public var modelLanguage: String
     @NSManaged public var modelCategories: String
@@ -22,6 +23,10 @@ public class Workout: NSManagedObject, WorkoutProtocol {
 
     public func name() -> String {
         return modelName
+    }
+
+    public func workoutName() -> String {
+        return modelWorkoutName
     }
 
     public func desc() -> String {

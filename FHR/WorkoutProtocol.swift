@@ -10,6 +10,7 @@ import Foundation
 
 public protocol WorkoutProtocol {
     func name() -> String
+    func workoutName() -> String
     func desc() -> String
     func categories() -> [Category]
     func language() -> String

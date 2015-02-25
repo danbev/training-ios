@@ -18,6 +18,10 @@ public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
         return parent.name()
     }
 
+    public func workoutName() -> String {
+        return parent.workoutName()
+    }
+
     public func desc() -> String {
         return parent.desc()
     }

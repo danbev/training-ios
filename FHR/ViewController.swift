@@ -93,7 +93,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.name()
+        cell.textLabel!.text = task.workoutName()
         return cell;
     }
 
@@ -114,7 +114,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = tableView.indexPathForSelectedRow()!;
         let task = tasks[indexPath.row]
-        println(task.name())
         switch task.type() {
         case .Reps:
             let taskViewController = segue.destinationViewController as RepsViewController
@@ -122,20 +121,16 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.workout = workout.reps
             taskViewController.didFinish = {
                 [unowned self] controller in
-                // Get the rest time from the current task
-                println("Closed reps: \(controller.workout.name())")
+                // saveCompletedTask(workout)
+
                 self.dismissViewControllerAnimated(true, completion: nil)
 
                 let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
-                cell.contentView.backgroundColor = UIColor.grayColor()
-                //cell.backgroundColor = UIColor.grayColor()
-                cell.contentView.backgroundColor = UIColor.greenColor()
                 cell.userInteractionEnabled = false
                 cell.accessoryType = UITableViewCellAccessoryType.Checkmark
                 cell.tintColor = UIColor.greenColor()
 
                 let t = self.tasks.removeAtIndex(indexPath.row)
-                println("removed: \(t.name())")
                 self.tasks.append(t)
                 self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
 

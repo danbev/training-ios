@@ -33,6 +33,7 @@
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */; };
 		C5E36BF11A961AB6007906E8 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF01A961AB6007906E8 /* Timer.swift */; };
+		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
 		C5E36BF01A961AB6007906E8 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */,
 				C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */,
 				C5E36BF01A961AB6007906E8 /* Timer.swift */,
+				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
 				C5E36BF11A961AB6007906E8 /* Timer.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
+				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,
 				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,
 				C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */,
 				C573BDC21A90882500B84FE0 /* WorkoutProtocol.swift in Sources */,

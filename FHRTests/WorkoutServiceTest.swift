@@ -72,5 +72,13 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertNotNil(workout!.name())
     }
 
+    func testExcercice() {
+        workoutService.loadDataIfNeeded();
+        let burpees = workoutService.fetchWorkout("Burpees")!
+        workoutService.saveUserWorkout(burpees)
+        let userWorkouts = workoutService.fetchUserWorkouts()!
+        println(userWorkouts[0].workout.name())
+    }
+
 }
 

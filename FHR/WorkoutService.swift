@@ -13,6 +13,7 @@ import CoreData
 public class WorkoutService {
 
     private let workoutEntityName = "Workout"
+    private let userWorkoutEntityName = "UserWorkout"
     private let repsEntityName = "RepsWorkout"
     private let durationEntityName = "DurationWorkout"
     private let intervalEntityName = "IntervalWorkout"
@@ -51,6 +52,18 @@ public class WorkoutService {
         intervalWorkout.parent = workout
         saveContext()
         return intervalWorkout
+    }
+
+    public func saveUserWorkout(workout: Workout) {
+        let workoutEntity = NSEntityDescription.entityForName(self.userWorkoutEntityName, inManagedObjectContext: context)
+        let userWorkout = UserWorkout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
+        userWorkout.workout = workout
+        saveContext()
+    }
+
+    public func fetchUserWorkouts() -> Optional<[UserWorkout]> {
+        let rw: Optional<[UserWorkout]> = fetchWorkouts(userWorkoutEntityName);
+        return rw
     }
 
     public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
@@ -151,7 +164,7 @@ public class WorkoutService {
             for jsonDictionary in repsbasedArray {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                 repsWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
-                repsWorkout.parent.modelName = jsonDictionary["name"] as String!
+                repsWorkout.parent.modelWorkoutName = jsonDictionary["name"] as String!
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
                 repsWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
                 repsWorkout.parent.modelType = Type.Reps.rawValue
