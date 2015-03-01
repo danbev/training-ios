@@ -8,7 +8,8 @@
     "repbased": [
        {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},
        {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"categories": "warmup"}
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"categories": "warmup"},
+       {"name": "10 Chopups", "workout": "Chopups", "reps": 10, "rest": 30,"categories": "warmup"}
     ],
     "timebased": [
        {"name": "", "workout": "Burpees", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},

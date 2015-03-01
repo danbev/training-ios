@@ -65,19 +65,78 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertNotNil(workout!.name())
     }
 
+    func testFetchWarmup2() {
+        workoutService.loadDataIfNeeded();
+        let workout = workoutService.fetchWorkout("JumpingJacks")!
+        let id = NSUUID().UUIDString
+        let userWorkout = workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout)
+        let warmup = workoutService.fetchWarmup(userWorkout)
+        if let warmup = workoutService.fetchWarmup(userWorkout) {
+            XCTAssertNotEqual("JumpingJacks", warmup.name())
+        } else {
+            XCTFail("A warmup should have been found.")
+        }
+    }
+
+    func testFetchLatestWorkoutNoWorkoutsPerformed() {
+        workoutService.loadDataIfNeeded();
+        let optionalLatest = workoutService.fetchLatestUserWorkout()
+        if let userWorkout = optionalLatest {
+            XCTFail("No user workouts should exist")
+        }
+    }
+
+    func testFetchLatestWorkout() {
+        workoutService.loadDataIfNeeded();
+        let workout = workoutService.fetchWorkout("JumpingJacks")!
+        let id = NSUUID().UUIDString
+        workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout)
+
+        let optionalLatest = workoutService.fetchLatestUserWorkout()
+        if let userWorkout = optionalLatest {
+            XCTAssertNotNil(userWorkout.date)
+            XCTAssertEqual(false, userWorkout.done.boolValue)
+            XCTAssertEqual(1, userWorkout.workouts.count)
+            XCTAssertEqual("JumpingJacks", userWorkout.workouts.anyObject()!.name())
+        }
+    }
+
     func testFetchWorkout() {
         workoutService.loadDataIfNeeded();
-        let workout = workoutService.fetchWorkout(Category.UpperBody)
-        println(workout!.name())
+        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let id = NSUUID().UUIDString
+        let userWorkout = workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: warmup)
+        let workout = workoutService.fetchWorkout(Category.UpperBody, userWorkout: userWorkout)
         XCTAssertNotNil(workout!.name())
     }
 
-    func testExcercice() {
+    func testSaveUserWorkout() {
         workoutService.loadDataIfNeeded();
-        let burpees = workoutService.fetchWorkout("Burpees")!
-        workoutService.saveUserWorkout(burpees)
+        let workout = workoutService.fetchWorkout("Burpees")!
+        let id = NSUUID().UUIDString
+        workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout)
         let userWorkouts = workoutService.fetchUserWorkouts()!
-        println(userWorkouts[0].workout.name())
+        let userWorkout = userWorkouts[0]
+        XCTAssertEqual(id, userWorkout.id)
+        XCTAssertNotNil(userWorkout.date)
+        XCTAssertEqual(Category.UpperBody.rawValue, userWorkout.category)
+        XCTAssertNotNil(userWorkout.workouts)
+    }
+
+    func testUpdateUserWorkout() {
+        workoutService.loadDataIfNeeded();
+        let workout1 = workoutService.fetchWorkout("Burpees")!
+        let id = NSUUID().UUIDString
+        workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout1)
+
+        let workout2 = workoutService.fetchWorkout("Getups")!
+        workoutService.updateUserWorkout(id, workout: workout2)
+
+        let userWorkout = workoutService.fetchLatestUserWorkout()!
+        XCTAssertEqual(2, userWorkout.workouts.count);
+        XCTAssertEqual(id, userWorkout.id)
+        XCTAssertNotNil(userWorkout.date)
+        XCTAssertEqual(Category.UpperBody.rawValue, userWorkout.category)
     }
 
 }

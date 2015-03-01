@@ -22,6 +22,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
+    private var userWorkout: UserWorkout!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,23 +46,36 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func startWorkout(sender: UIButton) {
-        Timer(countDown: 45, callback: updateTime)
         startButton.hidden = true
-        loadWarmupTask()
+        if let lastUserWorkout = workoutService.fetchLatestUserWorkout() {
+            userWorkout = lastUserWorkout
+            Timer(countDown: 45, callback: updateTime)
+            if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
+                addWorkoutToTable(warmup)
+            }
+            // populate the table with the already completed workouts
+            // update the time with the time remaining
+        } else {
+            if let warmup = workoutService.fetchWarmup() {
+                Timer(countDown: 45, callback: updateTime)
+                addWorkoutToTable(warmup)
+                let id = NSUUID().UUIDString
+                userWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
+            }
+        }
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
         println("add a new workout...")
     }
     
-    public func loadWarmupTask() {
-        let workout = workoutService.fetchWarmup()!
+    public func addWorkoutToTable(workout: WorkoutProtocol) {
         tasks.append(workout)
         tableView.reloadData()
     }
 
     public func loadTask(category: Category) {
-        let workout = workoutService.fetchWorkout(category)!
+        let workout = workoutService.fetchWorkout(category, userWorkout: userWorkout)!
         tasks.append(workout)
         tableView.reloadData()
     }

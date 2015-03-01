@@ -11,6 +11,10 @@ import CoreData
 
 public class UserWorkout: NSManagedObject, Printable {
 
-    @NSManaged public var workout: Workout
+    @NSManaged public var id: String
+    @NSManaged public var date: NSDate
+    @NSManaged public var done: NSNumber
+    @NSManaged public var category: String
+    @NSManaged public var workouts: NSSet
 
 }

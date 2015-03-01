@@ -54,11 +54,40 @@ public class WorkoutService {
         return intervalWorkout
     }
 
-    public func saveUserWorkout(workout: Workout) {
-        let workoutEntity = NSEntityDescription.entityForName(self.userWorkoutEntityName, inManagedObjectContext: context)
-        let userWorkout = UserWorkout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-        userWorkout.workout = workout
+    public func saveUserWorkout(id: String, category: Category, workout: Workout) -> UserWorkout {
+        let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
+        let userWorkout = UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)
+        userWorkout.id = id
+        userWorkout.category = category.rawValue
+        userWorkout.done = false
+        userWorkout.date = NSDate()
+        workout.userWorkout = userWorkout
         saveContext()
+        return userWorkout
+    }
+
+    public func updateUserWorkout(id: String, workout: Workout, done: Bool = false) -> Optional<UserWorkout> {
+        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
+        fetchRequest.predicate = NSPredicate(format:"id == %@", id)
+        var error: NSError?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [UserWorkout]?
+        if let results = fetchedResults {
+            let userWorkout = results[0]
+            userWorkout.done = done
+            workout.userWorkout = userWorkout
+            saveContext()
+            return userWorkout
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+            return nil
+        }
+    }
+
+    private func getDate() -> (year: Int, month: Int, day: Int) {
+        let date = NSDate()
+        let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        let components = calendar!.components(.WeekdayCalendarUnit, fromDate: date)
+        return (components.year, components.month, components.day)
     }
 
     public func fetchUserWorkouts() -> Optional<[UserWorkout]> {
@@ -95,7 +124,7 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWarmup() -> Optional<WorkoutProtocol> {
+    public func fetchWarmup() -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         fetchRequest.fetchLimit = 1
@@ -109,21 +138,66 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWorkout(category: Category) -> Optional<WorkoutProtocol> {
-        println("Category to search for \(category.rawValue)")
+    public func fetchWarmup(userWorkout: UserWorkout) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
-        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category.rawValue);
-        fetchRequest.fetchLimit = 1
-        //let durationPredicate = NSPredicate(format: "modelType == %@", "duration");
-        //fetchRequest.predicate = NSCompoundPredicate(type: .OrPredicateType, subpredicates: [repsPredicate!, durationPredicate!])
+        fetchRequest.resultType = .ManagedObjectIDResultType
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        if var ids = optionalIds {
+            return randomWorkout(&ids, userWorkout: userWorkout)
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
+        return nil
+    }
+
+    private func randomWorkout(inout objectIds: [NSManagedObjectID], userWorkout: UserWorkout) -> Workout? {
+        let index: Int = Int(arc4random()) % objectIds.count
+        let objectId = objectIds[index]
+        var error: NSError?
+        let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as Workout?
+        if let workout = optionalWorkout {
+            if userWorkout.workouts.containsObject(workout) {
+                objectIds.removeAtIndex(index)
+                return randomWorkout(&objectIds, userWorkout: userWorkout)
+            }
+        }
+        return optionalWorkout
+    }
+
+    public func fetchLatestUserWorkout() -> UserWorkout? {
+        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchLimit = 1
+        var error: NSError?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [UserWorkout]?
         if let results = fetchedResults {
-            return results[0]
+            if results.count == 0 {
+                return nil
+            } else {
+                return results[0]
+            }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
             return nil
         }
+    }
+
+    public func fetchWorkout(category: Category, userWorkout: UserWorkout) -> Workout? {
+        println("Category to search for \(category.rawValue)")
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
+        fetchRequest.resultType = .ManagedObjectIDResultType
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category.rawValue);
+        var error: NSError?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        if var ids = optionalIds {
+            return randomWorkout(&ids, userWorkout: userWorkout)
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
+        return nil
     }
 
     public func loadDataIfNeeded() {
@@ -203,4 +277,9 @@ public class WorkoutService {
             return nil
         }
     }
+
+    public class func random (#lower: Int , upper: Int) -> Int {
+        return lower + Int(arc4random_uniform(upper - lower + 1))
+    }
+
 }
