@@ -158,9 +158,23 @@ public class WorkoutService {
         var error: NSError?
         let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as Workout?
         if let workout = optionalWorkout {
-            if userWorkout.workouts.containsObject(workout) {
+            let performedWorkouts = userWorkout.workouts
+            var doneLastWorkout = false;
+            for performedWorkout in performedWorkouts {
+                if performedWorkout.name == workout.name() {
+                    doneLastWorkout = true;
+                }
+            }
+            if doneLastWorkout {
                 objectIds.removeAtIndex(index)
-                return randomWorkout(&objectIds, userWorkout: userWorkout)
+                if objectIds.count > 0 {
+                    return randomWorkout(&objectIds, userWorkout: userWorkout)
+                } else {
+                    return nil
+                }
+            } else {
+                println("workout \(workout.name()) was not done in the last workout session so lets do it")
+                return workout
             }
         }
         return optionalWorkout
@@ -242,7 +256,6 @@ public class WorkoutService {
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
                 repsWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
                 repsWorkout.parent.modelType = Type.Reps.rawValue
-                println("reps in load \(repsWorkout.parent.modelCategories)")
             }
             saveContext()
         } else {

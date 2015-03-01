@@ -75,9 +75,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     public func loadTask(category: Category) {
-        let workout = workoutService.fetchWorkout(category, userWorkout: userWorkout)!
-        tasks.append(workout)
-        tableView.reloadData()
+        if let workout = workoutService.fetchWorkout(category, userWorkout: userWorkout) {
+            tasks.append(workout)
+            tableView.reloadData()
+        } else {
+            println("There are no more workouts!!!")
+        }
     }
 
     public override func didReceiveMemoryWarning() {
@@ -136,6 +139,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.didFinish = {
                 [unowned self] controller in
                 // saveCompletedTask(workout)
+                self.workoutService.updateUserWorkout(self.userWorkout.id, workout: workout)
 
                 self.dismissViewControllerAnimated(true, completion: nil)
 
