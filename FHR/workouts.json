@@ -2,14 +2,22 @@
    "workout": [
        {"name":"Burpees","desc":"From standing position, fall to ...","language":"en","image":"burpees.jpeg"},
        {"name":"Chopups","desc":"Lay down on the ground with your arms streched out over your head. In one motion move your arms upward and stand up","language":"en","image": "burpees.jpeg"},
-       {"name":"Getups","desc": "Getups","language":"en","image": "burpees.jpeg"},
-       {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg"}
+       {"name":"Getups","desc":"Getups","language":"en","image": "burpees.jpeg"},
+       {"name":"Squats","desc":"Stand with you feet a little wider than you shoulders, squat down and inhale on the way down. Exhale and keep...","language":"en","image": "burpees.jpeg"},
+       {"name":"Russians","desc":"Stand with you feet a little wider than you shoulders, squat down on you toes and inhale. Exhale and land on your heels...","language":"en","image": "burpees.jpeg"},
+       {"name":"HipSwitches","desc":"..","language":"en","image": "burpees.jpeg"},
+       {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg"},
+       {"name":"AllFours","desc":"Crawl...","language": "en", "image":"burpees.jpeg"}
     ],
     "repbased": [
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"categories": "warmup"},
+       {"name": "On all fours", "workout": "AllFours", "reps": 100, "rest": 30,"categories": "warmup"},
+       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 30,"categories": "lowerbody"},
        {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},
        {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"categories": "warmup"},
-       {"name": "10 Chopups", "workout": "Chopups", "reps": 10, "rest": 30,"categories": "warmup"}
+       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 60, "categories": "lowerbody, cardio"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},
+       {"name": "100 Chopups", "workout": "Chopups", "reps": 10, "rest": 30,"categories": "warmup"}
     ],
     "timebased": [
        {"name": "", "workout": "Burpees", "reps": 100, "rest": 60, "categories": "upperbody, cardio"},

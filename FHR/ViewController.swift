@@ -22,12 +22,16 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
-    private var userWorkout: UserWorkout!
+    private var currentUserWorkout: UserWorkout!
+    private var lastUserWorkout: UserWorkout?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(Category.UpperBody.rawValue, forKey: "category")
+        println(defaults.objectForKey("category"))
     }
 
     public func updateTime(timer: Timer) {
@@ -47,11 +51,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func startWorkout(sender: UIButton) {
         startButton.hidden = true
-        if let lastUserWorkout = workoutService.fetchLatestUserWorkout() {
-            userWorkout = lastUserWorkout
-            Timer(countDown: 45, callback: updateTime)
-            if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
-                addWorkoutToTable(warmup)
+        lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        if lastUserWorkout != nil {
+            if lastUserWorkout!.done.boolValue {
+                startNewUserWorkout(lastUserWorkout!)
+            } else {
+                println("last user workout was not completed!")
             }
             // populate the table with the already completed workouts
             // update the time with the time remaining
@@ -60,8 +65,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 Timer(countDown: 45, callback: updateTime)
                 addWorkoutToTable(warmup)
                 let id = NSUUID().UUIDString
-                userWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
+                currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
             }
+        }
+    }
+
+    private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
+        if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
+            Timer(countDown: 45, callback: updateTime)
+            addWorkoutToTable(warmup)
+            let id = NSUUID().UUIDString
+            currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
         }
     }
 
@@ -75,10 +89,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     public func loadTask(category: Category) {
-        if let workout = workoutService.fetchWorkout(category, userWorkout: userWorkout) {
+        if let workout = workoutService.fetchWorkout(category, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout) {
             tasks.append(workout)
             tableView.reloadData()
         } else {
+            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
             println("There are no more workouts!!!")
         }
     }
@@ -139,7 +154,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.didFinish = {
                 [unowned self] controller in
                 // saveCompletedTask(workout)
-                self.workoutService.updateUserWorkout(self.userWorkout.id, workout: workout)
+                self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
 
                 self.dismissViewControllerAnimated(true, completion: nil)
 

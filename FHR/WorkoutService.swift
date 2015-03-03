@@ -66,7 +66,7 @@ public class WorkoutService {
         return userWorkout
     }
 
-    public func updateUserWorkout(id: String, workout: Workout, done: Bool = false) -> Optional<UserWorkout> {
+    public func updateUserWorkout(id: String, optionalWorkout: Workout?, done: Bool = false) -> Optional<UserWorkout> {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"id == %@", id)
         var error: NSError?
@@ -74,11 +74,15 @@ public class WorkoutService {
         if let results = fetchedResults {
             let userWorkout = results[0]
             userWorkout.done = done
-            workout.userWorkout = userWorkout
+            if let workout = optionalWorkout {
+                println("saving workout \(workout.name)")
+                workout.userWorkout = userWorkout
+            }
             saveContext()
+            println("nr of workouts \(userWorkout.workouts.count)")
             return userWorkout
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            println("Could not update \(error), \(error!.userInfo)")
             return nil
         }
     }
@@ -144,31 +148,35 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        var exludedWorkouts = NSMutableSet()
+        exludedWorkouts.addObjectsFromArray(userWorkout.workouts.allObjects)
         if var ids = optionalIds {
-            return randomWorkout(&ids, userWorkout: userWorkout)
+            return randomWorkout(&ids, excludedWorkouts: exludedWorkouts)
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         return nil
     }
 
-    private func randomWorkout(inout objectIds: [NSManagedObjectID], userWorkout: UserWorkout) -> Workout? {
+    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: NSSet) -> Workout? {
+        println("Number of last user workouts \(excludedWorkouts.count)")
         let index: Int = Int(arc4random()) % objectIds.count
         let objectId = objectIds[index]
         var error: NSError?
         let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as Workout?
         if let workout = optionalWorkout {
-            let performedWorkouts = userWorkout.workouts
             var doneLastWorkout = false;
-            for performedWorkout in performedWorkouts {
+            for performedWorkout in excludedWorkouts {
+                println("\(performedWorkout.name()) == \(workout.name())")
                 if performedWorkout.name == workout.name() {
                     doneLastWorkout = true;
+                    break
                 }
             }
             if doneLastWorkout {
                 objectIds.removeAtIndex(index)
                 if objectIds.count > 0 {
-                    return randomWorkout(&objectIds, userWorkout: userWorkout)
+                    return randomWorkout(&objectIds, excludedWorkouts: excludedWorkouts)
                 } else {
                     return nil
                 }
@@ -182,7 +190,7 @@ public class WorkoutService {
 
     public func fetchLatestUserWorkout() -> UserWorkout? {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
         var error: NSError?
@@ -199,15 +207,20 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWorkout(category: Category, userWorkout: UserWorkout) -> Workout? {
+    public func fetchWorkout(category: Category, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?) -> Workout? {
         println("Category to search for \(category.rawValue)")
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category.rawValue);
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        var excludedWorkouts = NSMutableSet()
+        excludedWorkouts.addObjectsFromArray(currentUserWorkout.workouts.allObjects)
+        if let last = lastUserWorkout {
+            excludedWorkouts.addObjectsFromArray(last.workouts.allObjects)
+        }
         if var ids = optionalIds {
-            return randomWorkout(&ids, userWorkout: userWorkout)
+            return randomWorkout(&ids, excludedWorkouts: excludedWorkouts)
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }

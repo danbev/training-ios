@@ -106,16 +106,18 @@ class WorkoutServiceTest: XCTestCase {
         let warmup = workoutService.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
         let userWorkout = workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: warmup)
-        let workout1 = workoutService.fetchWorkout(Category.UpperBody, userWorkout: userWorkout)
+        let workout1 = workoutService.fetchWorkout(Category.UpperBody, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
         XCTAssertNotNil(workout1!.name())
-        workoutService.updateUserWorkout(id, workout: workout1!)
-        let workout2 = workoutService.fetchWorkout(Category.UpperBody, userWorkout: userWorkout)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout1!)
+        let workout2 = workoutService.fetchWorkout(Category.UpperBody, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
         XCTAssertNotEqual(workout2!.name(), workout1!.name())
-        workoutService.updateUserWorkout(id, workout: workout2!)
-        let workout3 = workoutService.fetchWorkout(Category.UpperBody, userWorkout: userWorkout)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout2!)
+        let workout3 = workoutService.fetchWorkout(Category.UpperBody, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
+        /*
         if let userWorkout = workout3 {
             XCTFail("There are currently no more workouts.")
         }
+        */
     }
 
     func testSaveUserWorkout() {
@@ -138,7 +140,7 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout1)
 
         let workout2 = workoutService.fetchWorkout("Getups")!
-        workoutService.updateUserWorkout(id, workout: workout2)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout2)
 
         let userWorkout = workoutService.fetchLatestUserWorkout()!
         XCTAssertEqual(2, userWorkout.workouts.count);
