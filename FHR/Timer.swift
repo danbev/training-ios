@@ -14,18 +14,26 @@ public class Timer: NSObject {
     private let start: NSTimeInterval
     private let callback: Callback
     private let timer: NSTimer!
-    private let countDown: Double
+    public let countDown: Double
 
     public convenience init(callback: Callback) {
-        self.init(countDown: 0, callback: callback)
+        self.init(callback: callback, countDown: 0, startTime: NSDate.timeIntervalSinceReferenceDate())
     }
 
-    public init(countDown: Int, callback: Callback) {
+    public convenience init(callback: Callback, countDown: Double) {
+        self.init(callback: callback, countDown: countDown, startTime: NSDate.timeIntervalSinceReferenceDate())
+    }
+
+    public init(callback: Callback, countDown: Double, startTime: NSTimeInterval) {
         self.callback = callback
-        self.countDown = Double(countDown * 60)
-        start = NSDate.timeIntervalSinceReferenceDate()
+        self.countDown = Double(countDown)
+        start = startTime
         super.init()
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
+    }
+
+    public class func fromTimer(timer: Timer, callback: Callback) -> Timer {
+        return Timer(callback: callback, countDown: timer.countDown, startTime: timer.startTime())
     }
 
     public func stop() {

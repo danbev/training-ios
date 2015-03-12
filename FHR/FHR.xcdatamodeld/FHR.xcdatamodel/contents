@@ -26,6 +26,7 @@
         <attribute name="modelImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="modelLanguage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modelName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modelRestTime" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
         <attribute name="modelType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="modelWorkoutName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="interval" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IntervalWorkout" inverseName="parent" inverseEntity="IntervalWorkout" syncable="YES"/>
@@ -38,6 +39,6 @@
         <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="90"/>
         <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="75"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="28"/>
-        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="208"/>
+        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
     </elements>
 </model>

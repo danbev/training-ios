@@ -1,8 +1,8 @@
 //
-//  RepsViewController.swift
+//  DurationViewController.swift
 //  FHR
 //
-//  Created by Daniel Bevenius on 19/02/15.
+//  Created by Daniel Bevenius on 07/03/15.
 //  Copyright (c) 2015 Daniel Bevenius. All rights reserved.
 //
 
@@ -10,37 +10,32 @@ import UIKit
 import Foundation
 
 /**
-Controlls a Reps based workout
+Controlls a duration based workout
 
 */
-public class RepsViewController: UIViewController {
+public class DurationViewController: UIViewController {
 
-    typealias FinishDelegate = (RepsViewController) -> ()
+    typealias FinishDelegate = (DurationViewController) -> ()
     var didFinish: FinishDelegate?
-    var workout : RepsWorkout!
     var restTimer: Timer!
+    // define a closure that starts this workout.
+    var workout : DurationWorkout!
     @IBOutlet weak var taskLabel: UILabel!
-    @IBOutlet weak var repsLabel: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var restTimerLabel: UILabel!
 
+    @IBOutlet weak var restTimerLabel: UILabel!
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.parent.name()
-        repsLabel.text = workout.reps.stringValue
+        durationLabel.text = workout.duration.stringValue
         descLabel.text = workout.parent.desc()
         imageView.image = UIImage(data: workout.parent.image())
-        doneButton.hidden = true;
-        if restTimer == nil {
-            doneButton.hidden = false
-        }
     }
 
     public func restTimer(timer: Timer?) {
         if let t = timer {
-            println("restTimer...")
             restTimer = Timer.fromTimer(t, callback: updateTime)
         }
     }
@@ -48,11 +43,20 @@ public class RepsViewController: UIViewController {
     public func updateTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            println("\(min):\(sec)")
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
-            restTimerLabel.hidden = true
-            doneButton.hidden = false
+            restTimer.stop()
+            restTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+        }
+    }
+
+    public func updateTime2(timer: Timer) {
+        let (min, sec) = timer.elapsedTime()
+        if min >= 0 && sec > 0 {
+            restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+        } else {
+            println("done...segue back...")
+            navigationController?.popViewControllerAnimated(true)
         }
     }
 

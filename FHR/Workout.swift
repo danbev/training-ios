@@ -18,6 +18,7 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var modelCategories: String
     @NSManaged public var modelType: String
     @NSManaged public var modelImage: NSData
+    @NSManaged public var modelRestTime: NSNumber
     @NSManaged public var reps: RepsWorkout?
     @NSManaged public var timed: DurationWorkout?
     @NSManaged public var userWorkout: UserWorkout
@@ -52,6 +53,10 @@ public class Workout: NSManagedObject, WorkoutProtocol {
 
     public func image() -> NSData {
         return modelImage
+    }
+
+    public func restTime() -> NSNumber {
+        return modelRestTime
     }
 
     public func type() -> Type {

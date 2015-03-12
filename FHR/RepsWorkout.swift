@@ -42,6 +42,10 @@ public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
         return parent.type()
     }
 
+    public func restTime() -> NSNumber {
+        return parent.restTime()
+    }
+
     public override var description: String {
         return "RepsWorkout[reps=\(reps), workout=\(parent)]"
     }

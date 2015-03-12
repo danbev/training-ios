@@ -24,6 +24,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var tasks = [WorkoutProtocol]()
     private var currentUserWorkout: UserWorkout!
     private var lastUserWorkout: UserWorkout?
+    private var timer: Timer!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +36,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     public func updateTime(timer: Timer) {
-        timerLabel.hidden = false
+        if timerLabel.hidden == true {
+            timerLabel.hidden = false
+        }
         let (min, sec) = timer.elapsedTime()
         timerLabel.text = Timer.timeAsString(min, sec: sec)
+    }
+
+    public func updateWorkoutTime(timer: Timer) {
         counter++;
     }
 
@@ -62,7 +68,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             // update the time with the time remaining
         } else {
             if let warmup = workoutService.fetchWarmup() {
-                Timer(countDown: 45, callback: updateTime)
+                Timer(callback: updateWorkoutTime, countDown: 2700)
                 addWorkoutToTable(warmup)
                 let id = NSUUID().UUIDString
                 currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
@@ -72,7 +78,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
-            Timer(countDown: 45, callback: updateTime)
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
             currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
@@ -88,6 +93,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.reloadData()
     }
 
+    /*
     public func loadTask(category: Category) {
         if let workout = workoutService.fetchWorkout(category, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout) {
             tasks.append(workout)
@@ -97,6 +103,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             println("There are no more workouts!!!")
         }
     }
+    */
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -136,6 +143,16 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: indexPath the NSIndexPath identifying the cell to being tapped
     */
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        let indexPath = tableView.indexPathForSelectedRow()!;
+        let task = tasks[indexPath.row]
+        switch task.type() {
+        case .Reps:
+            performSegueWithIdentifier("repsSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
+        case .Timed:
+            performSegueWithIdentifier("durationSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
+        case .Interval:
+            println("interval task...")
+        }
     }
 
     /**
@@ -146,15 +163,59 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = tableView.indexPathForSelectedRow()!;
         let task = tasks[indexPath.row]
-        switch task.type() {
-        case .Reps:
+        if segue.identifier == "repsSegue" {
             let taskViewController = segue.destinationViewController as RepsViewController
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
             taskViewController.workout = workout.reps
+            taskViewController.restTimer(timer)
             taskViewController.didFinish = {
                 [unowned self] controller in
                 // saveCompletedTask(workout)
                 self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+                if self.timer != nil {
+                    self.timer.stop()
+                }
+                println("Rest time: \(workout.restTime().integerValue)")
+                self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
+
+                self.dismissViewControllerAnimated(true, completion: nil)
+
+
+                if let workout = self.workoutService.fetchWorkout(self.currentUserWorkout.category, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+                    //let t = self.tasks.removeAtIndex(indexPath.row)
+                    self.tasks.insert(workout, atIndex: 0)
+                    //self.tasks.append(t)
+                    self.tableView.reloadData()
+                    self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
+                    cell.userInteractionEnabled = false
+                    cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+                    cell.tintColor = UIColor.greenColor()
+                    self.tableView.reloadData()
+                    //self.tasks.append(t)
+                    /*
+                    if completed.row == self.tasks.count {
+                        self.tableView.moveRowAtIndexPath(completed, toIndexPath: NSIndexPath(forRow: completed.row - 1 , inSection: 0))
+                    } else {
+                        self.tableView.moveRowAtIndexPath(completed, toIndexPath: NSIndexPath(forRow: completed.row, inSection: 0))
+                    }
+                    */
+                } else {
+                    self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: nil, done: true)
+                    println("There are no more workouts!!!")
+                }
+            }
+        } else if segue.identifier == "durationSegue" {
+            let taskViewController = segue.destinationViewController as DurationViewController
+            let workout = tasks[tableView.indexPathForSelectedRow()!.row] as Workout
+            taskViewController.workout = workout.timed
+            taskViewController.restTimer(timer)
+            taskViewController.didFinish = {
+                [unowned self] controller in
+                // saveCompletedTask(workout)
+                self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+                self.timer.stop()
+                self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
 
                 self.dismissViewControllerAnimated(true, completion: nil)
 
@@ -167,12 +228,18 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tasks.append(t)
                 self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
 
-                self.loadTask(Category.UpperBody)
+                //self.loadTask(Category.UpperBody)
+                if let workout = self.workoutService.fetchWorkout(self.currentUserWorkout.category, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+                    self.tasks.append(workout)
+                    let t = self.tasks.removeAtIndex(indexPath.row)
+                    self.tasks.append(t)
+                    self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
+                    self.tableView.reloadData()
+                } else {
+                    self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: nil, done: true)
+                    println("There are no more workouts!!!")
+                }
             }
-        case .Timed:
-            println("timed task...")
-        case .Interval:
-            println("interval task...")
         }
     }
 

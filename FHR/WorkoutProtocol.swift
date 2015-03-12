@@ -16,6 +16,7 @@ public protocol WorkoutProtocol {
     func language() -> String
     func image() -> NSData
     func type() -> Type
+    func restTime() -> NSNumber
 
 }
 

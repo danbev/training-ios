@@ -29,6 +29,7 @@
 		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
 		C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkout.swift */; };
 		C587E67419CDB4120098638A /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C587E67319CDB4120098638A /* TaskViewController.swift */; };
+		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */; };
@@ -75,6 +76,7 @@
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
 		C5801CE81A62B3C200051140 /* DurationWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkout.swift; sourceTree = "<group>"; };
 		C587E67319CDB4120098638A /* TaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */,
 				C5E36BF01A961AB6007906E8 /* Timer.swift */,
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
+				C599317F1AAAF503007ABB93 /* DurationViewController.swift */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */,
 				C587E67419CDB4120098638A /* TaskViewController.swift in Sources */,
 				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
+				C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

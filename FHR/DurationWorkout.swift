@@ -42,4 +42,8 @@ public class DurationWorkout: NSManagedObject, WorkoutProtocol {
         return parent.type()
     }
 
+    public func restTime() -> NSNumber {
+        return parent.modelRestTime
+    }
+
 }
