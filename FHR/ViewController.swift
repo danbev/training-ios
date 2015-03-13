@@ -170,40 +170,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.restTimer(timer)
             taskViewController.didFinish = {
                 [unowned self] controller in
-                // saveCompletedTask(workout)
-                self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
-                if self.timer != nil {
-                    self.timer.stop()
-                }
-                println("Rest time: \(workout.restTime().integerValue)")
-                self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
-
-                self.dismissViewControllerAnimated(true, completion: nil)
-
-
-                if let workout = self.workoutService.fetchWorkout(self.currentUserWorkout.category, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
-                    //let t = self.tasks.removeAtIndex(indexPath.row)
-                    self.tasks.insert(workout, atIndex: 0)
-                    //self.tasks.append(t)
-                    self.tableView.reloadData()
-                    self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
-                    cell.userInteractionEnabled = false
-                    cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-                    cell.tintColor = UIColor.greenColor()
-                    self.tableView.reloadData()
-                    //self.tasks.append(t)
-                    /*
-                    if completed.row == self.tasks.count {
-                        self.tableView.moveRowAtIndexPath(completed, toIndexPath: NSIndexPath(forRow: completed.row - 1 , inSection: 0))
-                    } else {
-                        self.tableView.moveRowAtIndexPath(completed, toIndexPath: NSIndexPath(forRow: completed.row, inSection: 0))
-                    }
-                    */
-                } else {
-                    self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: nil, done: true)
-                    println("There are no more workouts!!!")
-                }
+                self.finishedWorkout(indexPath, workout: workout)
             }
         } else if segue.identifier == "durationSegue" {
             let taskViewController = segue.destinationViewController as DurationViewController
@@ -212,34 +179,32 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.restTimer(timer)
             taskViewController.didFinish = {
                 [unowned self] controller in
-                // saveCompletedTask(workout)
-                self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
-                self.timer.stop()
-                self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
-
-                self.dismissViewControllerAnimated(true, completion: nil)
-
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
-                cell.userInteractionEnabled = false
-                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-                cell.tintColor = UIColor.greenColor()
-
-                let t = self.tasks.removeAtIndex(indexPath.row)
-                self.tasks.append(t)
-                self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
-
-                //self.loadTask(Category.UpperBody)
-                if let workout = self.workoutService.fetchWorkout(self.currentUserWorkout.category, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
-                    self.tasks.append(workout)
-                    let t = self.tasks.removeAtIndex(indexPath.row)
-                    self.tasks.append(t)
-                    self.tableView.moveRowAtIndexPath(indexPath, toIndexPath: NSIndexPath(forRow: self.tasks.count - 1, inSection: 0))
-                    self.tableView.reloadData()
-                } else {
-                    self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: nil, done: true)
-                    println("There are no more workouts!!!")
-                }
+                self.finishedWorkout(indexPath, workout: workout)
             }
+        }
+    }
+
+    private func finishedWorkout(indexPath: NSIndexPath, workout: Workout) {
+        self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+        if self.timer != nil {
+            self.timer.stop()
+        }
+        self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
+
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+        if let workout = self.workoutService.fetchWorkout(self.currentUserWorkout.category, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+            self.tasks.insert(workout, atIndex: 0)
+            self.tableView.reloadData()
+            self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
+            cell.userInteractionEnabled = false
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.tintColor = UIColor.greenColor()
+            self.tableView.reloadData()
+        } else {
+            self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: nil, done: true)
+            println("There are no more workouts!!!")
         }
     }
 
