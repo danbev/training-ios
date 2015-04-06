@@ -30,6 +30,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
+
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(Category.UpperBody.rawValue, forKey: "category")
         println(defaults.objectForKey("category"))
@@ -92,18 +93,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         tasks.append(workout)
         tableView.reloadData()
     }
-
-    /*
-    public func loadTask(category: Category) {
-        if let workout = workoutService.fetchWorkout(category, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout) {
-            tasks.append(workout)
-            tableView.reloadData()
-        } else {
-            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
-            println("There are no more workouts!!!")
-        }
-    }
-    */
 
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -185,6 +174,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout) {
+        println("finishedWorkout \(workout.name())")
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
             self.timer.stop()

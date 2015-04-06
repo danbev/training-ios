@@ -5,7 +5,7 @@
        {"name":"Getups","desc":"Getups","language":"en","image": "burpees.jpeg"},
        {"name":"Squats","desc":"Stand with you feet a little wider than you shoulders, squat down and inhale on the way down. Exhale and keep...","language":"en","image": "burpees.jpeg"},
        {"name":"Russians","desc":"Stand with you feet a little wider than you shoulders, squat down on you toes and inhale. Exhale and land on your heels...","language":"en","image": "burpees.jpeg"},
-       {"name":"HipSwitches","desc":"..","language":"en","image": "burpees.jpeg"},
+       {"name":"HipSwitches","desc":"Description..","language":"en","image": "burpees.jpeg"},
        {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg"},
        {"name":"AllFours","desc":"Crawl...","language": "en", "image":"burpees.jpeg"},
        {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "image":"burpees.jpeg"}
@@ -17,7 +17,7 @@
        {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
        {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
        {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 5, "categories": "lowerbody, cardio"},
-       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100, "rest": 10, "categories": "upperbody, cardio"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
        {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 5,"categories": "upperbody"}
     ],
     "timebased": [

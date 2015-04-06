@@ -157,7 +157,8 @@ public class WorkoutService {
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: NSSet) -> Workout? {
-        let index: Int = Int(arc4random()) % objectIds.count
+        let count = objectIds.count
+        let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
         var error: NSError?
         let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as Workout?
@@ -171,17 +172,19 @@ public class WorkoutService {
             }
             if doneLastWorkout {
                 objectIds.removeAtIndex(index)
-                if objectIds.count > 0 {
+                if objectIds.count > 1 {
                     return randomWorkout(&objectIds, excludedWorkouts: excludedWorkouts)
                 } else {
                     return nil
                 }
             } else {
-                //println("workout \(workout.name()) was not done in the last workout session so lets do it")
+                println("workout \(workout.modelName) was not done in the last workout session so lets do it")
                 return workout
             }
+        } else {
+            println("Could get a random workout \(error), \(error!.userInfo)")
+            return nil
         }
-        return optionalWorkout
     }
 
     public func fetchLatestUserWorkout() -> UserWorkout? {
@@ -216,7 +219,11 @@ public class WorkoutService {
             excludedWorkouts.addObjectsFromArray(last.workouts.allObjects)
         }
         if var ids = optionalIds {
-            return randomWorkout(&ids, excludedWorkouts: excludedWorkouts)
+            if ids.count > 0 {
+                return randomWorkout(&ids, excludedWorkouts: excludedWorkouts)
+            } else {
+                println("No ids!!!")
+            }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
@@ -265,7 +272,6 @@ public class WorkoutService {
                 repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
                 repsWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
                 repsWorkout.parent.modelRestTime = jsonDictionary["rest"] as Double!
-                println("rest: \(repsWorkout.parent.modelRestTime)")
                 repsWorkout.parent.modelType = Type.Reps.rawValue
             }
 
