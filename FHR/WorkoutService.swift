@@ -70,7 +70,7 @@ public class WorkoutService {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"id == %@", id)
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [UserWorkout]?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
         if let results = fetchedResults {
             let userWorkout = results[0]
             userWorkout.done = done
@@ -87,7 +87,7 @@ public class WorkoutService {
 
     private func getDate() -> (year: Int, month: Int, day: Int) {
         let date = NSDate()
-        let calendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let components = calendar!.components(.WeekdayCalendarUnit, fromDate: date)
         return (components.year, components.month, components.day)
     }
@@ -117,7 +117,7 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format:"modelName == %@", name)
         fetchRequest.fetchLimit = 1
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [Workout]?
         if let results = fetchedResults {
             return results[0]
         } else {
@@ -131,7 +131,7 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         fetchRequest.fetchLimit = 1
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [Workout]?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [Workout]?
         if let results = fetchedResults {
             return results[0]
         } else {
@@ -145,7 +145,7 @@ public class WorkoutService {
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
-        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var exludedWorkouts = NSMutableSet()
         exludedWorkouts.addObjectsFromArray(userWorkout.workouts.allObjects)
         if var ids = optionalIds {
@@ -161,7 +161,7 @@ public class WorkoutService {
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
         var error: NSError?
-        let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as Workout?
+        let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as! Workout?
         if let workout = optionalWorkout {
             var doneLastWorkout = false;
             for performedWorkout in excludedWorkouts {
@@ -178,7 +178,7 @@ public class WorkoutService {
                     return nil
                 }
             } else {
-                println("workout \(workout.modelName) was not done in the last workout session so lets do it")
+                //println("workout \(workout.modelName) was not done in the last workout session so lets do it")
                 return workout
             }
         } else {
@@ -193,7 +193,7 @@ public class WorkoutService {
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [UserWorkout]?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
         if let results = fetchedResults {
             if results.count == 0 {
                 return nil
@@ -207,12 +207,11 @@ public class WorkoutService {
     }
 
     public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?) -> Workout? {
-        println("Category to search for \(category)")
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category);
         var error: NSError?
-        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as [NSManagedObjectID]?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = NSMutableSet()
         excludedWorkouts.addObjectsFromArray(currentUserWorkout.workouts.allObjects)
         if let last = lastUserWorkout {
@@ -244,47 +243,47 @@ public class WorkoutService {
         var error: NSError? = nil
         let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
         let jsonData = NSData(contentsOfURL: jsonURL!)!
-        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as NSDictionary?
+        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
         // store workouts by name so we can back reference them.
         println("Import seed data...")
         var workouts = [String: Workout]()
         if let json = jsonDict {
             let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
-            let workoutDict = jsonDict!.valueForKeyPath("workouts") as NSDictionary
-            let workoutsArray = workoutDict.valueForKeyPath("workout") as NSArray
+            let workoutDict = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
+            let workoutsArray = workoutDict.valueForKeyPath("workout") as! NSArray
             for jsonDictionary in workoutsArray {
                 let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-                workout.modelName = jsonDictionary["name"] as String!
-                workout.modelDescription = jsonDictionary["desc"] as String!
-                workout.modelLanguage = jsonDictionary["language"] as String!
-                let imageName = jsonDictionary["image"] as NSString
+                workout.modelName = jsonDictionary["name"] as! String!
+                workout.modelDescription = jsonDictionary["desc"] as! String!
+                workout.modelLanguage = jsonDictionary["language"] as! String!
+                let imageName = jsonDictionary["image"] as! String
                 let image = UIImage(named:imageName)
                 let photoData = UIImagePNGRepresentation(image)
                 workout.modelImage = photoData
                 workouts[workout.modelName] = workout
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
-            let repsbasedArray = workoutDict.valueForKeyPath("repbased") as NSArray
+            let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
             for jsonDictionary in repsbasedArray {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-                repsWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
-                repsWorkout.parent.modelWorkoutName = jsonDictionary["name"] as String!
-                repsWorkout.reps = jsonDictionary["reps"] as NSNumber!
-                repsWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
-                repsWorkout.parent.modelRestTime = jsonDictionary["rest"] as Double!
+                repsWorkout.parent = workouts[jsonDictionary["workout"] as! String!]!
+                repsWorkout.parent.modelWorkoutName = jsonDictionary["name"] as! String!
+                repsWorkout.reps = jsonDictionary["reps"] as! NSNumber!
+                repsWorkout.parent.modelCategories = jsonDictionary["categories"] as! String!
+                repsWorkout.parent.modelRestTime = jsonDictionary["rest"] as! Double!
                 repsWorkout.parent.modelType = Type.Reps.rawValue
             }
 
             let durationWorkoutEntity = NSEntityDescription.entityForName(self.durationEntityName, inManagedObjectContext: context)
-            let timebasedArray = workoutDict.valueForKeyPath("timebased") as NSArray
+            let timebasedArray = workoutDict.valueForKeyPath("timebased") as! NSArray
             for jsonDictionary in timebasedArray {
                 let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
-                durationWorkout.parent = workouts[jsonDictionary["workout"] as String!]!
-                durationWorkout.parent.modelWorkoutName = jsonDictionary["name"] as String!
-                durationWorkout.duration = jsonDictionary["duration"] as NSNumber!
-                durationWorkout.parent.modelCategories = jsonDictionary["categories"] as String!
+                durationWorkout.parent = workouts[jsonDictionary["workout"] as! String!]!
+                durationWorkout.parent.modelWorkoutName = jsonDictionary["name"] as! String!
+                durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
+                durationWorkout.parent.modelCategories = jsonDictionary["categories"] as! String!
                 durationWorkout.parent.modelType = Type.Timed.rawValue
-                durationWorkout.parent.modelRestTime = jsonDictionary["rest"] as Double!
+                durationWorkout.parent.modelRestTime = jsonDictionary["rest"] as! Double!
             }
             saveContext()
         } else {
@@ -311,7 +310,7 @@ public class WorkoutService {
     private func fetchWorkouts<T:AnyObject>(entityName: String) -> Optional<[T]> {
         let fetchRequest = NSFetchRequest(entityName: entityName)
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as [T]?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [T]?
         if let results = fetchedResults {
             return results
         } else {
@@ -321,7 +320,9 @@ public class WorkoutService {
     }
 
     public class func random (#lower: Int , upper: Int) -> Int {
-        return lower + Int(arc4random_uniform(upper - lower + 1))
+        let l:UInt32 = UInt32(lower)
+        let r:UInt32 = UInt32(upper - lower + 1)
+        return Int(l + r)
     }
 
 }

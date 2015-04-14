@@ -15,7 +15,7 @@ public class CoreDataStack {
     public var store: NSPersistentStore
 
     class func applicationDocumentsDirectory() -> NSURL { let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as [NSURL]
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
         return urls[0]
     }
 

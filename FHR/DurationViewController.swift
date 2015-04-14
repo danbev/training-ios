@@ -33,7 +33,6 @@ public class DurationViewController: UIViewController {
         durationLabel.text = workout.duration.stringValue
         descLabel.text = workout.parent.desc()
         imageView.image = UIImage(data: workout.parent.image())
-        println("navigationController \(navigationController)")
     }
 
     public func restTimer(timer: Timer?) {
@@ -57,7 +56,6 @@ public class DurationViewController: UIViewController {
         if min >= 0 && sec > 0 {
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
-            println("done...segue back...\(navigationController)")
             timer.stop()
             self.didFinish!(self)
         }

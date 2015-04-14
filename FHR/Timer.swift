@@ -13,7 +13,7 @@ public class Timer: NSObject {
 
     private let start: NSTimeInterval
     private let callback: Callback
-    private let timer: NSTimer!
+    private var timer: NSTimer!
     public let countDown: Double
 
     public convenience init(callback: Callback) {

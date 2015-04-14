@@ -40,7 +40,6 @@ public class RepsViewController: UIViewController {
 
     public func restTimer(timer: Timer?) {
         if let t = timer {
-            println("restTimer...")
             restTimer = Timer.fromTimer(t, callback: updateTime)
         }
     }
@@ -48,7 +47,6 @@ public class RepsViewController: UIViewController {
     public func updateTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            println("\(min):\(sec)")
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
             restTimerLabel.hidden = true

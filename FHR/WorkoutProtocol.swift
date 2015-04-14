@@ -26,9 +26,19 @@ public enum Category: String {
     case Cardio = "cardio"
     case Warmup = "warmup"
 
+    public func next() -> Category {
+        switch self {
+        case let .Warmup: return .UpperBody
+        case let .UpperBody: return .LowerBody
+        case let .LowerBody: return .Cardio
+        case let .Cardio: return .UpperBody
+        }
+    }
+
     static func asCsvString(categories: [Category]) -> String {
         return ",".join(categories.map { $0.rawValue })
     }
+
 }
 
 public enum Type: String {
