@@ -86,6 +86,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
             currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
+        } else {
+            println("could not find a warmup task!!")
         }
     }
 
@@ -178,6 +180,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout) {
+        println("Finished workout \(workout.name())")
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
             self.timer.stop()
@@ -186,19 +189,27 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         self.dismissViewControllerAnimated(true, completion: nil)
 
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: 0))!
+        cell.userInteractionEnabled = false
+        cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        cell.tintColor = UIColor.greenColor()
+        self.tableView.reloadData()
+
         if let workout = self.workoutService.fetchWorkout(category.rawValue, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+            println("Fetched workout \(workout.name())")
             self.tasks.insert(workout, atIndex: 0)
             self.tableView.reloadData()
             self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row + 1, inSection: 0))!
-            cell.userInteractionEnabled = false
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            cell.tintColor = UIColor.greenColor()
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+            cell.userInteractionEnabled = true
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             self.tableView.reloadData()
         } else {
             workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
             timer.stop()
-            timerLabel.hidden = false
+            timerLabel.hidden = true
+            //timerLabel.text = "No more workouts available"
+            startButton.hidden = false
             println("There are no more workouts!!!")
         }
     }
