@@ -15,7 +15,7 @@ Controlls a duration based workout
 */
 public class DurationViewController: UIViewController {
 
-    typealias FinishDelegate = (DurationViewController) -> ()
+    typealias FinishDelegate = (DurationViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
     var restTimer: Timer!
     // define a closure that starts this workout.
@@ -57,7 +57,7 @@ public class DurationViewController: UIViewController {
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
             timer.stop()
-            self.didFinish!(self)
+            self.didFinish!(self, duration: workout.duration.doubleValue)
         }
     }
 

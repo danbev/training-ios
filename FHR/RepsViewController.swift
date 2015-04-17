@@ -15,10 +15,11 @@ Controlls a Reps based workout
 */
 public class RepsViewController: UIViewController {
 
-    typealias FinishDelegate = (RepsViewController) -> ()
+    typealias FinishDelegate = (RepsViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
     var workout : RepsWorkout!
     var restTimer: Timer!
+    var workTimer: Timer!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
@@ -35,6 +36,7 @@ public class RepsViewController: UIViewController {
         doneButton.hidden = true;
         if restTimer == nil {
             doneButton.hidden = false
+            workTimer = Timer(callback: updateWorkTime)
         }
     }
 
@@ -51,7 +53,13 @@ public class RepsViewController: UIViewController {
         } else {
             restTimerLabel.hidden = true
             doneButton.hidden = false
+            restTimer.stop()
+            workTimer = Timer(callback: updateWorkTime)
         }
+    }
+
+    public func updateWorkTime(timer: Timer) {
+        // Noop
     }
 
     public override func didReceiveMemoryWarning() {
@@ -59,6 +67,8 @@ public class RepsViewController: UIViewController {
     }
 
     @IBAction func done(sender: AnyObject) {
-        self.didFinish!(self)
+        workTimer.stop();
+        println("duration of reps workout=\(workTimer.duration())")
+        self.didFinish!(self, duration: workTimer.duration())
     }
 }

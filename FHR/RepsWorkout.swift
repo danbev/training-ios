@@ -12,6 +12,7 @@ import CoreData
 public class RepsWorkout: NSManagedObject, Printable, WorkoutProtocol {
 
     @NSManaged public var reps: NSNumber
+    @NSManaged public var approx: NSNumber
     @NSManaged public var parent: Workout
 
     public func name() -> String {

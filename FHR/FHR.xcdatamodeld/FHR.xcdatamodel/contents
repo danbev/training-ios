@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DurationWorkout" representedClassName="FHR.DurationWorkout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
@@ -10,6 +10,7 @@
         <relationship name="work" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
     </entity>
     <entity name="RepsWorkout" representedClassName="FHR.RepsWorkout" syncable="YES">
+        <attribute name="approx" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="reps" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="reps" inverseEntity="Workout" syncable="YES"/>
     </entity>
@@ -37,7 +38,7 @@
     <elements>
         <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="75"/>
         <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="90"/>
-        <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="75"/>
+        <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="90"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="28"/>
         <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
     </elements>

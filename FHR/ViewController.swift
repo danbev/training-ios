@@ -18,18 +18,22 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var completedLabel: UILabel!
     public let tableCell = "tableCell"
+    //private let workoutDuration: Double = 2700
+    private let workoutDuration: Double = 20
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
     private var currentUserWorkout: UserWorkout!
     private var lastUserWorkout: UserWorkout?
     private var timer: Timer!
+    private var workoutTimer: Timer!
     private var category: Category!
 
     private var counter: Int = 0 {
         didSet {
-            let fractionalProgress = Float(counter) / 1000.0
+            let fractionalProgress = Float(counter) / 100.0
             let animated = counter != 0
             progressView.setProgress(fractionalProgress, animated: animated)
         }
@@ -39,6 +43,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
+        progressView.progressTintColor = UIColor.greenColor()
 
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(Category.UpperBody.rawValue, forKey: "category")
@@ -58,7 +63,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func startWorkout(sender: UIButton) {
+        if completedLabel.hidden == false {
+            completedLabel.hidden = true
+        }
+        if tasks.count > 0 {
+            tasks.removeAll(keepCapacity: true)
+            self.tableView.reloadData()
+        }
         startButton.hidden = true
+        progressView.setProgress(0, animated: false)
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
         if lastUserWorkout != nil {
             if lastUserWorkout!.done.boolValue {
@@ -70,7 +83,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             // update the time with the time remaining
         } else {
             if let warmup = workoutService.fetchWarmup() {
-                Timer(callback: updateWorkoutTime, countDown: 2700)
+                self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 addWorkoutToTable(warmup)
                 let id = NSUUID().UUIDString
                 category = .UpperBody
@@ -85,7 +98,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
-            currentUserWorkout = workoutService.saveUserWorkout(id, category: .UpperBody, workout: warmup)
+            currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
         } else {
             println("could not find a warmup task!!")
         }
@@ -164,8 +177,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.workout = workout.reps
             taskViewController.restTimer(timer)
             taskViewController.didFinish = {
-                [unowned self] controller in
-                self.finishedWorkout(indexPath, workout: workout)
+                [unowned self] controller, duration in
+                self.finishedWorkout(indexPath, workout: workout, duration: duration)
             }
         } else if segue.identifier == "durationSegue" {
             let taskViewController = segue.destinationViewController as! DurationViewController
@@ -173,20 +186,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             taskViewController.workout = workout.timed
             taskViewController.restTimer(timer)
             taskViewController.didFinish = {
-                [unowned self] controller in
-                self.finishedWorkout(indexPath, workout: workout)
+                [unowned self] controller, duration in
+                self.finishedWorkout(indexPath, workout: workout, duration: duration)
             }
         }
     }
 
-    private func finishedWorkout(indexPath: NSIndexPath, workout: Workout) {
-        println("Finished workout \(workout.name())")
+    private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
+        println("Finished workout \(workout.name()), duration=\(duration)")
+        var totalTimeInMins = workoutTimer.elapsedTime().min
+        println("Total time=\(totalTimeInMins)")
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
             self.timer.stop()
         }
-        self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
-
         self.dismissViewControllerAnimated(true, completion: nil)
 
         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: 0))!
@@ -195,22 +208,33 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.tintColor = UIColor.greenColor()
         self.tableView.reloadData()
 
-        if let workout = self.workoutService.fetchWorkout(category.rawValue, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
-            println("Fetched workout \(workout.name())")
-            self.tasks.insert(workout, atIndex: 0)
-            self.tableView.reloadData()
-            self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-            cell.userInteractionEnabled = true
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            self.tableView.reloadData()
+        if totalTimeInMins != 0 {
+            self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
+            if let workout = self.workoutService.fetchWorkout(category.rawValue, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+                println("Fetched workout \(workout.name())")
+                self.tasks.insert(workout, atIndex: 0)
+                self.tableView.reloadData()
+                self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                cell.userInteractionEnabled = true
+                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                self.tableView.reloadData()
+            } else {
+                workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
+                timer.stop()
+                timerLabel.hidden = true
+                startButton.hidden = false
+                println("There are no more workouts!!!")
+            }
         } else {
+            let elapsedTime = workoutTimer.elapsedTime()
             workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
-            timer.stop()
+            println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
+            workoutTimer.stop()
             timerLabel.hidden = true
-            //timerLabel.text = "No more workouts available"
+            progressView.setProgress(1.0, animated: true)
+            completedLabel.hidden = false
             startButton.hidden = false
-            println("There are no more workouts!!!")
         }
     }
 

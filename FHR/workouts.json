@@ -11,14 +11,14 @@
        {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "image":"burpees.jpeg"}
     ],
     "repbased": [
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"categories": "warmup"},
-       {"name": "On all fours", "workout": "AllFours", "reps": 100, "rest": 5,"categories": "warmup"},
-       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 5,"categories": "lowerbody"},
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
-       {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
-       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 5, "categories": "lowerbody, cardio"},
-       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100, "rest": 5, "categories": "upperbody, cardio"},
-       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 5,"categories": "upperbody"}
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "warmup"},
+       {"name": "Jumping Jacks2", "workout": "AllFours", "reps": 100, "rest": 5,"approx": 120, "categories": "warmup"},
+       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 300,"categories": "lowerbody"},
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5,"approx":600,"categories": "upperbody, cardio"},
+       {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 5,"approx": 600,"categories": "upperbody, cardio"},
+       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 5,"approx":600,"categories": "lowerbody, cardio"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 5, "categories": "upperbody, cardio"},
+       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 5,"approx": 300,"categories": "upperbody"}
     ],
     "timebased": [
        {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 5, "rest": 5, "categories": "upperbody, cardio"}

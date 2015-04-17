@@ -146,6 +146,7 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
+        println("\(optionalIds!.count)")
         var exludedWorkouts = NSMutableSet()
         exludedWorkouts.addObjectsFromArray(userWorkout.workouts.allObjects)
         if var ids = optionalIds {
@@ -165,6 +166,7 @@ public class WorkoutService {
         if let workout = optionalWorkout {
             var doneLastWorkout = false;
             for performedWorkout in excludedWorkouts {
+                println("\(performedWorkout.name) == \(workout.name())")
                 if performedWorkout.name == workout.name() {
                     doneLastWorkout = true;
                     break
@@ -209,7 +211,7 @@ public class WorkoutService {
     public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
-        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category);
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category)
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = NSMutableSet()
@@ -269,7 +271,9 @@ public class WorkoutService {
                 repsWorkout.parent = workouts[jsonDictionary["workout"] as! String!]!
                 repsWorkout.parent.modelWorkoutName = jsonDictionary["name"] as! String!
                 repsWorkout.reps = jsonDictionary["reps"] as! NSNumber!
+                repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
                 repsWorkout.parent.modelCategories = jsonDictionary["categories"] as! String!
+                println("\(repsWorkout.parent.modelCategories)")
                 repsWorkout.parent.modelRestTime = jsonDictionary["rest"] as! Double!
                 repsWorkout.parent.modelType = Type.Reps.rawValue
             }

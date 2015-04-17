@@ -70,7 +70,6 @@ class WorkoutServiceTest: XCTestCase {
         let workout = workoutService.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
         let userWorkout = workoutService.saveUserWorkout(id, category: Category.UpperBody, workout: workout)
-        let warmup = workoutService.fetchWarmup(userWorkout)
         if let warmup = workoutService.fetchWarmup(userWorkout) {
             XCTAssertNotEqual("JumpingJacks", warmup.name())
         } else {
