@@ -9,41 +9,9 @@
 import Foundation
 import CoreData
 
-public class DurationWorkout: NSManagedObject, WorkoutProtocol {
+public class DurationWorkout: Workout, WorkoutProtocol {
 
     @NSManaged public var duration: NSNumber
     @NSManaged public var parent: Workout
-
-    public func name() -> String {
-        return parent.name()
-    }
-
-    public func workoutName() -> String {
-        return parent.workoutName()
-    }
-
-    public func desc() -> String {
-        return parent.desc()
-    }
-
-    public func image() -> NSData {
-        return parent.image()
-    }
-
-    public func language() -> String {
-        return parent.modelLanguage
-    }
-
-    public func categories() -> [Category] {
-        return parent.categories()
-    }
-
-    public func type() -> Type {
-        return parent.type()
-    }
-
-    public func restTime() -> NSNumber {
-        return parent.modelRestTime
-    }
 
 }

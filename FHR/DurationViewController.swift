@@ -29,10 +29,10 @@ public class DurationViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        taskLabel.text = workout.parent.name()
+        taskLabel.text = workout.modelWorkoutName
         durationLabel.text = workout.duration.stringValue
-        descLabel.text = workout.parent.desc()
-        imageView.image = UIImage(data: workout.parent.image())
+        descLabel.text = workout.desc()
+        imageView.image = UIImage(data: workout.image())
     }
 
     public func restTimer(timer: Timer?) {

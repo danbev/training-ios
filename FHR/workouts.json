@@ -12,7 +12,7 @@
     ],
     "repbased": [
        {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "warmup"},
-       {"name": "Jumping Jacks2", "workout": "AllFours", "reps": 100, "rest": 5,"approx": 120, "categories": "warmup"},
+       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 120, "categories": "warmup"},
        {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 300,"categories": "lowerbody"},
        {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5,"approx":600,"categories": "upperbody, cardio"},
        {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 5,"approx": 600,"categories": "upperbody, cardio"},

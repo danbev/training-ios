@@ -27,7 +27,7 @@ public class WorkoutService {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-        repsWorkout.reps = reps
+        repsWorkout.repititions = reps
         repsWorkout.parent = workout
         saveContext()
         return repsWorkout
@@ -88,7 +88,7 @@ public class WorkoutService {
     private func getDate() -> (year: Int, month: Int, day: Int) {
         let date = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let components = calendar!.components(.WeekdayCalendarUnit, fromDate: date)
+        let components = calendar!.components(.CalendarUnitWeekday, fromDate: date)
         return (components.year, components.month, components.day)
     }
 
@@ -146,9 +146,10 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
-        println("\(optionalIds!.count)")
-        var exludedWorkouts = NSMutableSet()
-        exludedWorkouts.addObjectsFromArray(userWorkout.workouts.allObjects)
+        var exludedWorkouts = Set<Workout>()
+        for w in userWorkout.workouts {
+            exludedWorkouts.insert(w as! Workout)
+        }
         if var ids = optionalIds {
             return randomWorkout(&ids, excludedWorkouts: exludedWorkouts)
         } else {
@@ -157,7 +158,7 @@ public class WorkoutService {
         return nil
     }
 
-    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: NSSet) -> Workout? {
+    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {
         let count = objectIds.count
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
@@ -166,8 +167,7 @@ public class WorkoutService {
         if let workout = optionalWorkout {
             var doneLastWorkout = false;
             for performedWorkout in excludedWorkouts {
-                println("\(performedWorkout.name) == \(workout.name())")
-                if performedWorkout.name == workout.name() {
+                if performedWorkout.modelWorkoutName == workout.modelWorkoutName {
                     doneLastWorkout = true;
                     break
                 }
@@ -214,10 +214,14 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category)
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
-        var excludedWorkouts = NSMutableSet()
-        excludedWorkouts.addObjectsFromArray(currentUserWorkout.workouts.allObjects)
+        var excludedWorkouts = Set<Workout>()
+        for w in currentUserWorkout.workouts {
+            excludedWorkouts.insert(w as! Workout)
+        }
         if let last = lastUserWorkout {
-            excludedWorkouts.addObjectsFromArray(last.workouts.allObjects)
+            for w in last.workouts {
+                excludedWorkouts.insert(w as! Workout)
+            }
         }
         if var ids = optionalIds {
             if ids.count > 0 {
@@ -248,12 +252,18 @@ public class WorkoutService {
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
         // store workouts by name so we can back reference them.
         println("Import seed data...")
-        var workouts = [String: Workout]()
+        var workouts = [String: WorkoutContainer]()
         if let json = jsonDict {
-            let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
+            //let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
             let workoutDict = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
             let workoutsArray = workoutDict.valueForKeyPath("workout") as! NSArray
             for jsonDictionary in workoutsArray {
+                let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
+                    desc: jsonDictionary["desc"] as! String!,
+                    language: jsonDictionary["language"] as! String!,
+                    image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)))
+                workouts[workout.name] = workout
+                /*
                 let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
                 workout.modelName = jsonDictionary["name"] as! String!
                 workout.modelDescription = jsonDictionary["desc"] as! String!
@@ -263,36 +273,54 @@ public class WorkoutService {
                 let photoData = UIImagePNGRepresentation(image)
                 workout.modelImage = photoData
                 workouts[workout.modelName] = workout
+                */
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
             for jsonDictionary in repsbasedArray {
                 let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-                repsWorkout.parent = workouts[jsonDictionary["workout"] as! String!]!
-                repsWorkout.parent.modelWorkoutName = jsonDictionary["name"] as! String!
-                repsWorkout.reps = jsonDictionary["reps"] as! NSNumber!
+                let workout = workouts[jsonDictionary["workout"] as! String!]!
+                repsWorkout.modelWorkoutName = jsonDictionary["name"] as! String!
+                repsWorkout.modelName = workout.name
+                repsWorkout.modelDescription = workout.desc
+                repsWorkout.modelImage = workout.image
+                repsWorkout.modelLanguage = workout.language
+
+                repsWorkout.repititions = jsonDictionary["reps"] as! NSNumber!
                 repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
-                repsWorkout.parent.modelCategories = jsonDictionary["categories"] as! String!
-                println("\(repsWorkout.parent.modelCategories)")
-                repsWorkout.parent.modelRestTime = jsonDictionary["rest"] as! Double!
-                repsWorkout.parent.modelType = Type.Reps.rawValue
+                repsWorkout.modelCategories = jsonDictionary["categories"] as! String!
+                repsWorkout.modelRestTime = jsonDictionary["rest"] as! Double!
+                repsWorkout.modelType = Type.Reps.rawValue
             }
 
             let durationWorkoutEntity = NSEntityDescription.entityForName(self.durationEntityName, inManagedObjectContext: context)
             let timebasedArray = workoutDict.valueForKeyPath("timebased") as! NSArray
             for jsonDictionary in timebasedArray {
                 let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
-                durationWorkout.parent = workouts[jsonDictionary["workout"] as! String!]!
-                durationWorkout.parent.modelWorkoutName = jsonDictionary["name"] as! String!
+                let workout = workouts[jsonDictionary["workout"] as! String!]!
+                durationWorkout.modelWorkoutName = jsonDictionary["name"] as! String!
+                durationWorkout.modelName = workout.name
+                durationWorkout.modelDescription = workout.desc
+                durationWorkout.modelImage = workout.image
+                durationWorkout.modelLanguage = workout.language
+
                 durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
-                durationWorkout.parent.modelCategories = jsonDictionary["categories"] as! String!
-                durationWorkout.parent.modelType = Type.Timed.rawValue
-                durationWorkout.parent.modelRestTime = jsonDictionary["rest"] as! Double!
+                durationWorkout.modelCategories = jsonDictionary["categories"] as! String!
+                durationWorkout.modelType = Type.Timed.rawValue
+                durationWorkout.modelRestTime = jsonDictionary["rest"] as! Double!
             }
             saveContext()
         } else {
             println("could not parse json data.")
         }
+    }
+
+    private struct WorkoutContainer {
+        var name: String
+        var desc: String
+        var language: String
+        var image: NSData
+
     }
 
     private func saveContext() {

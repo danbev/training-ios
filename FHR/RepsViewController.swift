@@ -29,10 +29,10 @@ public class RepsViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        taskLabel.text = workout.parent.name()
-        repsLabel.text = workout.reps.stringValue
-        descLabel.text = workout.parent.desc()
-        imageView.image = UIImage(data: workout.parent.image())
+        taskLabel.text = workout.workoutName()
+        repsLabel.text = workout.repititions.stringValue
+        descLabel.text = workout.desc()
+        imageView.image = UIImage(data: workout.image())
         doneButton.hidden = true;
         if restTimer == nil {
             doneButton.hidden = false
