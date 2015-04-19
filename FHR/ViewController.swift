@@ -67,11 +67,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             completedLabel.hidden = true
         }
         for (i, t) in enumerate(tasks) {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(index: i))
-            cell?.accessoryType = UITableViewCellAccessoryType.None
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell?.userInteractionEnabled = true
+            //tasks.removeAtIndex(i)
         }
+        tasks.removeAll(keepCapacity: false)
+        println("tasks.count after delete: \(tasks.count)")
         tableView.reloadData()
-        tasks.removeAll(keepCapacity: true)
+
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
@@ -100,7 +104,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         category = Category(rawValue: lastUserWorkout.category)!.next()
         println("Category for new workout: \(category.rawValue)")
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
-            println("warmup: \(warmup.name)")
+            println("warmup: \(warmup.name())")
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
             currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
@@ -157,6 +161,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow()!;
+        println("indexPath = \(indexPath)")
         let task = tasks[indexPath.row]
         switch task.type() {
         case .Reps:
@@ -224,9 +229,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.tableView.reloadData()
             } else {
                 workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
+                workoutTimer.stop()
                 timer.stop()
                 timerLabel.hidden = true
                 startButton.hidden = false
+                progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
             }
         } else {
@@ -235,7 +242,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             workoutTimer.stop()
             timerLabel.hidden = true
-            progressView.setProgress(1.0, animated: true)
+            progressView.setProgress(1.0, animated: false)
             completedLabel.hidden = false
             startButton.hidden = false
         }

@@ -146,6 +146,7 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", "warmup")
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
+        println("found \(optionalIds!.count) warmups")
         var exludedWorkouts = Set<Workout>()
         for w in userWorkout.workouts {
             exludedWorkouts.insert(w as! Workout)
@@ -160,6 +161,7 @@ public class WorkoutService {
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {
         let count = objectIds.count
+        println("objectIds.count=\(count)")
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
         var error: NSError?
@@ -167,6 +169,7 @@ public class WorkoutService {
         if let workout = optionalWorkout {
             var doneLastWorkout = false;
             for performedWorkout in excludedWorkouts {
+                println("\(performedWorkout.modelWorkoutName) == \(workout.modelWorkoutName)")
                 if performedWorkout.modelWorkoutName == workout.modelWorkoutName {
                     doneLastWorkout = true;
                     break
@@ -174,7 +177,7 @@ public class WorkoutService {
             }
             if doneLastWorkout {
                 objectIds.removeAtIndex(index)
-                if objectIds.count > 1 {
+                if objectIds.count >= 1 {
                     return randomWorkout(&objectIds, excludedWorkouts: excludedWorkouts)
                 } else {
                     return nil
