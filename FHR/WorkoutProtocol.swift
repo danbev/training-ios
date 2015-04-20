@@ -21,9 +21,9 @@ public protocol WorkoutProtocol {
 }
 
 public enum Category: String {
-    case UpperBody = "upperbody"
-    case LowerBody = "lowerbody"
-    case Cardio = "cardio"
+    case UpperBody = "Upperbody"
+    case LowerBody = "Lowerbody"
+    case Cardio = "Cardio"
     case Warmup = "warmup"
 
     public func next() -> Category {
