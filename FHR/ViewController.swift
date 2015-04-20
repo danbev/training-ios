@@ -84,8 +84,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(lastUserWorkout!)
             } else {
-                let lastWorkout = workoutService.fetchLatestUserWorkout()
                 println("last user workout was not completed!")
+                let lastWorkout = workoutService.fetchLatestUserWorkout()
+                if let workouts = lastWorkout?.workouts {
+                    for w in workouts {
+                        tasks.append(w as! Workout)
+                    }
+                }
+                tableView.reloadData()
             }
             // populate the table with the already completed workouts
             // update the time with the time remaining
