@@ -56,7 +56,7 @@ public class DurationViewController: UIViewController {
             }
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
-            restTimerLabel.textColor = UIColor.blackColor()
+            restTimerLabel.textColor = UIColor.whiteColor()
             restTimer.stop()
             timeLabel.text = "Workout time"
             restTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)

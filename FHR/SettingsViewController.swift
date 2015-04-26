@@ -25,6 +25,7 @@ public class SettingViewController: UIViewController {
 
     var currentUserWorkout: UserWorkout!
     var userDefaults: NSUserDefaults!
+    let onTintColor = UIColor.grayColor()
 
 
     public override func viewDidLoad() {
@@ -32,10 +33,16 @@ public class SettingViewController: UIViewController {
         userDefaults = NSUserDefaults.standardUserDefaults()
 
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        wSwitch.onTintColor = onTintColor
+
         dgSwitch.addTarget(self, action: Selector("dryGroundChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        dgSwitch.onTintColor = onTintColor
         upperBodySwitch.addTarget(self, action: Selector("upperBodyChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        upperBodySwitch.onTintColor = onTintColor
         lowerBodySwitch.addTarget(self, action: Selector("lowerBodyChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        lowerBodySwitch.onTintColor = onTintColor
         cardioSwitch.addTarget(self, action: Selector("cardioChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        cardioSwitch.onTintColor = onTintColor
 
         wSwitch.setOn(booleanValue(weights, defaultValue: true), animated: false)
         dgSwitch.setOn(booleanValue(indoor, defaultValue: true), animated: false)

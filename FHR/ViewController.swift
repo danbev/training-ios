@@ -273,7 +273,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
         //println("Finished workout \(workout.name()), duration=\(duration)")
-        timerLabel.textColor = UIColor.blackColor()
+        timerLabel.textColor = UIColor.whiteColor()
         var totalTimeInMins = workoutTimer.elapsedTime().min
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {

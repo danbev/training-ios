@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let workoutService = WorkoutService(context: coreDataStack.context)
         //workoutService.loadDataIfNeeded()
         //viewController.workoutService = workoutService
+
+        let colorView = UIView()
+        colorView.backgroundColor = UIColor.darkGrayColor()
+        UITableViewCell.appearance().selectedBackgroundView = colorView
         return true
     }
 
