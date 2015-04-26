@@ -80,6 +80,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             timerLabel.hidden = false
         }
         let (min, sec) = timer.elapsedTime()
+        if (min == 0 && sec < 10) {
+            timerLabel.textColor = UIColor.redColor()
+        }
         timerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
