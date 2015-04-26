@@ -27,8 +27,8 @@ public class RepsViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var restTimerLabel: UILabel!
-
     @IBOutlet weak var timeLabel: UILabel!
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.workoutName()
@@ -40,11 +40,12 @@ public class RepsViewController: UIViewController {
             restTimerLabel.hidden = true
             doneButton.hidden = false
             workTimer = Timer(callback: updateWorkTime)
-        }
-        println("currentUserWorkout.count=\(currentUserWorkout.workouts.count)")
-        if currentUserWorkout.workouts.count > 1 {
-            println("setting restTimerLabel")
-            timeLabel.hidden = false
+        } else {
+            if restTimer.isDone() {
+                timeLabel.hidden = true
+            } else {
+                timeLabel.hidden = false
+            }
         }
     }
 

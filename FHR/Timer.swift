@@ -44,6 +44,11 @@ public class Timer: NSObject {
         return start
     }
 
+    public func isDone() -> Bool {
+        let t = elapsedTime()
+        return t.min == 0 && t.sec <= 0
+    }
+
     public func duration() -> Double {
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
         return countDown - (currentTime - start)

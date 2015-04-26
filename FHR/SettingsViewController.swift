@@ -65,51 +65,25 @@ public class SettingViewController: UIViewController {
 
     func weightChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: weights)
-        if sw.on {
-            println("weight on")
-        } else {
-            println("weight off")
-        }
     }
 
     func dryGroundChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: indoor)
-        if sw.on {
-            println("dry ground on")
-        } else {
-            println("dry ground off")
-        }
     }
 
     func lowerBodyChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: lowerbody)
-        if sw.on {
-            println("lowerBody on")
-        } else {
-            println("lowerBody off")
-        }
     }
 
     func upperBodyChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: upperbody)
-        if sw.on {
-            println("upperBody on")
-        } else {
-            println("upperBody off")
-        }
     }
 
     func cardioChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: cardio)
-        if sw.on {
-            println("cardio on")
-        } else {
-            println("cardio off")
-        }
     }
 
     func saveValue(value: Bool, keyName: String) {
-        println("Saving \(value) for key \(keyName)")
         userDefaults!.setBool(value, forKey: keyName)
         userDefaults.synchronize()
     }

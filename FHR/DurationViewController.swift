@@ -36,8 +36,9 @@ public class DurationViewController: UIViewController {
         descLabel.text = workout.desc()
         imageView.image = UIImage(data: workout.image())
 
-        println("currentUserWorkout.count=\(currentUserWorkout.workouts.count)")
-        if currentUserWorkout.workouts.count > 1 {
+        if restTimer.isDone() {
+            timeLabel.hidden = true
+        } else {
             timeLabel.hidden = false
         }
     }

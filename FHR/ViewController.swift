@@ -55,10 +55,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if !enabled(WorkoutCategory.Cardio.rawValue) {
             ignoredCategories.insert(WorkoutCategory.Cardio)
         }
-        println("Ignored workout categories: \(ignoredCategories)")
-        for c in ignoredCategories {
-            println("Ignoreing \(c.rawValue)")
-        }
     }
 
     func enabled(keyName: String) -> Bool {
@@ -88,7 +84,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (min == 0 && sec <= 0) {
             timer.stop()
             if !preparedForSeque {
-                println("rest time over, transition...")
                 transition()
             }
         }
@@ -240,7 +235,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         preparedForSeque = true;
         println("\(segue.identifier)")
         if segue.identifier == "settings" {
-            println("settings seque...")
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = currentUserWorkout
         } else {
