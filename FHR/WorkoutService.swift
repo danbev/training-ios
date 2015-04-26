@@ -23,7 +23,7 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func addRepsWorkout(name: String, desc: String, reps: Int, categories: Category...) -> RepsWorkout {
+    public func addRepsWorkout(name: String, desc: String, reps: Int, categories: WorkoutCategory...) -> RepsWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -33,7 +33,7 @@ public class WorkoutService {
         return repsWorkout
     }
 
-    public func addDurationWorkout(name: String, desc: String, duration: Int, categories: Category...) -> DurationWorkout {
+    public func addDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let durationWorkoutEntity = NSEntityDescription.entityForName(durationEntityName, inManagedObjectContext: context)
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -43,7 +43,7 @@ public class WorkoutService {
         return durationWorkout
     }
 
-    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: Category...) -> IntervalWorkout {
+    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: WorkoutCategory...) -> IntervalWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
         let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -54,13 +54,15 @@ public class WorkoutService {
         return intervalWorkout
     }
 
-    public func saveUserWorkout(id: String, category: Category, workout: Workout) -> UserWorkout {
+    public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout) -> UserWorkout {
         let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
         let userWorkout = UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)
         userWorkout.id = id
         userWorkout.category = category.rawValue
         userWorkout.done = false
         userWorkout.date = NSDate()
+        userWorkout.workouts.addObject(workout)
+        println("Size of workouts: \(userWorkout.workouts.count)")
         workout.userWorkout = userWorkout
         saveContext()
         return userWorkout
@@ -76,6 +78,7 @@ public class WorkoutService {
             userWorkout.done = done
             if let workout = optionalWorkout {
                 workout.userWorkout = userWorkout
+                userWorkout.workouts.addObject(workout)
             }
             saveContext()
             return userWorkout
@@ -331,12 +334,12 @@ public class WorkoutService {
         }
     }
 
-    private func newWorkoutEntity(name: String, desc: String, categories: [Category]) -> Workout {
+    private func newWorkoutEntity(name: String, desc: String, categories: [WorkoutCategory]) -> Workout {
         let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
         let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
         workout.modelName = name
         workout.modelDescription = desc
-        workout.modelCategories = Category.asCsvString(categories)
+        workout.modelCategories = WorkoutCategory.asCsvString(categories)
         return workout;
     }
 

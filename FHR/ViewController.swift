@@ -31,7 +31,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var lastUserWorkout: UserWorkout?
     private var timer: Timer!
     private var workoutTimer: Timer!
-    private var category: Category!
+    private var category: WorkoutCategory!
+    private var userDefaults: NSUserDefaults!
+    private var ignoredCategories: Set<WorkoutCategory> = Set()
 
     private var counter: Int = 0 {
         didSet {
@@ -41,14 +43,36 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    private func readIgnoredCategories() {
+        ignoredCategories.removeAll(keepCapacity: true)
+        if !enabled(WorkoutCategory.UpperBody.rawValue) {
+            ignoredCategories.insert(WorkoutCategory.UpperBody)
+        }
+        if !enabled(WorkoutCategory.LowerBody.rawValue) {
+            ignoredCategories.insert(WorkoutCategory.LowerBody)
+        }
+        if !enabled(WorkoutCategory.Cardio.rawValue) {
+            ignoredCategories.insert(WorkoutCategory.Cardio)
+        }
+        println("Ignored workout categories: \(ignoredCategories)")
+        for c in ignoredCategories {
+            println("Ignoreing \(c.rawValue)")
+        }
+    }
+
+    func enabled(keyName: String) -> Bool {
+        if let value = userDefaults!.objectForKey(keyName) {
+            return value as! Bool
+        }
+        return true;
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
+        userDefaults = NSUserDefaults.standardUserDefaults()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(Category.UpperBody.rawValue, forKey: "category")
-        println(defaults.objectForKey("category"))
     }
 
     public func updateTime(timer: Timer) {
@@ -76,6 +100,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         tasks.removeAll(keepCapacity: false)
         tableView.reloadData()
 
+        readIgnoredCategories()
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
@@ -86,7 +111,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else {
                 println("last user workout was not completed!")
                 let lastWorkout = workoutService.fetchLatestUserWorkout()
-                category = Category(rawValue: lastWorkout!.category)
+                category = WorkoutCategory(rawValue: lastWorkout!.category)
                 if let workouts = lastWorkout?.workouts {
                     for w in workouts {
                         tasks.append(w as! Workout)
@@ -94,14 +119,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 tableView.reloadData()
             }
-            // populate the table with the already completed workouts
-            // update the time with the time remaining
         } else {
             if let warmup = workoutService.fetchWarmup() {
                 self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 addWorkoutToTable(warmup)
                 let id = NSUUID().UUIDString
-                category = .UpperBody
+                category = WorkoutCategory.Warmup.next(ignoredCategories)
                 currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
             }
         }
@@ -110,7 +133,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
-        category = Category(rawValue: lastUserWorkout.category)!.next()
+        category = WorkoutCategory(rawValue: lastUserWorkout.category)!.next(ignoredCategories)
         println("Category for new workout: \(category.rawValue)")
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
             println("warmup: \(warmup.name())")
@@ -124,6 +147,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func addWorkout(sender: AnyObject) {
         println("add a new workout...")
+    }
+
+    @IBAction func settingsButton(sender: AnyObject) {
+        println("settings")
     }
     
     public func addWorkoutToTable(workout: WorkoutProtocol) {
@@ -187,25 +214,35 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     :param: segue the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = tableView.indexPathForSelectedRow()!;
-        let task = tasks[indexPath.row]
-        if segue.identifier == "repsSegue" {
-            let taskViewController = segue.destinationViewController as! RepsViewController
+        println("\(segue.identifier)")
+        if segue.identifier == "settings" {
+            println("settings seque...")
+            let settingsController = segue.destinationViewController as! SettingViewController
+            settingsController.currentUserWorkout = currentUserWorkout
+        } else {
+            let indexPath = tableView.indexPathForSelectedRow()!;
+
+            let task = tasks[indexPath.row]
             let workout = tasks[tableView.indexPathForSelectedRow()!.row] as! Workout
-            taskViewController.workout = workout as! RepsWorkout
-            taskViewController.restTimer(timer)
-            taskViewController.didFinish = {
-                [unowned self] controller, duration in
-                self.finishedWorkout(indexPath, workout: workout, duration: duration)
-            }
-        } else if segue.identifier == "durationSegue" {
-            let taskViewController = segue.destinationViewController as! DurationViewController
-            let workout = tasks[tableView.indexPathForSelectedRow()!.row] as! Workout
-            taskViewController.workout = workout as! DurationWorkout
-            taskViewController.restTimer(timer)
-            taskViewController.didFinish = {
-                [unowned self] controller, duration in
-                self.finishedWorkout(indexPath, workout: workout, duration: duration)
+            self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+            if segue.identifier == "repsSegue" {
+                let taskViewController = segue.destinationViewController as! RepsViewController
+                taskViewController.workout = workout as! RepsWorkout
+                taskViewController.currentUserWorkout = currentUserWorkout
+                taskViewController.restTimer(timer)
+                taskViewController.didFinish = {
+                    [unowned self] controller, duration in
+                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
+                }
+            } else if segue.identifier == "durationSegue" {
+                let taskViewController = segue.destinationViewController as! DurationViewController
+                taskViewController.workout = workout as! DurationWorkout
+                taskViewController.currentUserWorkout = currentUserWorkout
+                taskViewController.restTimer(timer)
+                taskViewController.didFinish = {
+                    [unowned self] controller, duration in
+                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
+                }
             }
         }
     }

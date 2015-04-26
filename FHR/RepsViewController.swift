@@ -18,6 +18,7 @@ public class RepsViewController: UIViewController {
     typealias FinishDelegate = (RepsViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
     var workout : RepsWorkout!
+    var currentUserWorkout : UserWorkout!
     var restTimer: Timer!
     var workTimer: Timer!
     @IBOutlet weak var taskLabel: UILabel!
@@ -27,6 +28,7 @@ public class RepsViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var restTimerLabel: UILabel!
 
+    @IBOutlet weak var timeLabel: UILabel!
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.workoutName()
@@ -35,8 +37,14 @@ public class RepsViewController: UIViewController {
         imageView.image = UIImage(data: workout.image())
         doneButton.hidden = true;
         if restTimer == nil {
+            restTimerLabel.hidden = true
             doneButton.hidden = false
             workTimer = Timer(callback: updateWorkTime)
+        }
+        println("currentUserWorkout.count=\(currentUserWorkout.workouts.count)")
+        if currentUserWorkout.workouts.count > 1 {
+            println("setting restTimerLabel")
+            timeLabel.hidden = false
         }
     }
 
@@ -49,11 +57,15 @@ public class RepsViewController: UIViewController {
     public func updateTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
+            if (min == 0 && sec < 10) {
+                restTimerLabel.textColor = UIColor.redColor()
+            }
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
-            restTimerLabel.hidden = true
             doneButton.hidden = false
             restTimer.stop()
+            restTimerLabel.hidden = true
+            timeLabel.hidden = true
             workTimer = Timer(callback: updateWorkTime)
         }
     }
@@ -68,7 +80,7 @@ public class RepsViewController: UIViewController {
 
     @IBAction func done(sender: AnyObject) {
         workTimer.stop();
-        println("duration of reps workout=\(workTimer.duration())")
+        //println("duration of reps workout=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
     }
 }

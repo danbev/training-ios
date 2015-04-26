@@ -20,10 +20,12 @@ public class DurationViewController: UIViewController {
     var restTimer: Timer!
     // define a closure that starts this workout.
     var workout : DurationWorkout!
+    var currentUserWorkout: UserWorkout!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
 
     @IBOutlet weak var restTimerLabel: UILabel!
 
@@ -33,6 +35,11 @@ public class DurationViewController: UIViewController {
         durationLabel.text = workout.duration.stringValue
         descLabel.text = workout.desc()
         imageView.image = UIImage(data: workout.image())
+
+        println("currentUserWorkout.count=\(currentUserWorkout.workouts.count)")
+        if currentUserWorkout.workouts.count > 1 {
+            timeLabel.hidden = false
+        }
     }
 
     public func restTimer(timer: Timer?) {
@@ -44,9 +51,14 @@ public class DurationViewController: UIViewController {
     public func updateTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
+            if (min == 0 && sec < 10) {
+                restTimerLabel.textColor = UIColor.redColor()
+            }
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
+            restTimerLabel.textColor = UIColor.blackColor()
             restTimer.stop()
+            timeLabel.text = "Workout time"
             restTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
         }
     }
