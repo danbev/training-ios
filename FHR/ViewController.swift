@@ -34,6 +34,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var category: WorkoutCategory!
     private var userDefaults: NSUserDefaults!
     private var ignoredCategories: Set<WorkoutCategory> = Set()
+    private var preparedForSeque = false
 
     private var counter: Int = 0 {
         didSet {
@@ -84,6 +85,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             timerLabel.textColor = UIColor.redColor()
         }
         timerLabel.text = Timer.timeAsString(min, sec: sec)
+        if (min == 0 && sec <= 0) {
+            timer.stop()
+            if !preparedForSeque {
+                println("rest time over, transition...")
+                transition()
+            }
+        }
     }
 
     public func updateWorkoutTime(timer: Timer) {
@@ -137,9 +145,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
         category = WorkoutCategory(rawValue: lastUserWorkout.category)!.next(ignoredCategories)
-        println("Category for new workout: \(category.rawValue)")
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
-            println("warmup: \(warmup.name())")
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
             currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
@@ -211,22 +217,36 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    private func transition() {
+        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
+        let task = tasks[0]
+        switch task.type() {
+        case .Reps:
+            performSegueWithIdentifier("repsSegue", sender: self)
+        case .Timed:
+            performSegueWithIdentifier("durationSegue", sender: self)
+        case .Interval:
+            println("interval task...")
+        }
+    }
+
     /**
     Prepares the transistion from the main view to the workout task details view.
 
     :param: segue the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        preparedForSeque = true;
         println("\(segue.identifier)")
         if segue.identifier == "settings" {
             println("settings seque...")
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = currentUserWorkout
         } else {
-            let indexPath = tableView.indexPathForSelectedRow()!;
-
+            let indexPath = tableView.indexPathForSelectedRow()!
             let task = tasks[indexPath.row]
-            let workout = tasks[tableView.indexPathForSelectedRow()!.row] as! Workout
+            let workout = tasks[indexPath.row] as! Workout
             self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
             if segue.identifier == "repsSegue" {
                 let taskViewController = segue.destinationViewController as! RepsViewController
@@ -251,7 +271,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
+        preparedForSeque = false;
         //println("Finished workout \(workout.name()), duration=\(duration)")
+        timerLabel.textColor = UIColor.blackColor()
         var totalTimeInMins = workoutTimer.elapsedTime().min
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
