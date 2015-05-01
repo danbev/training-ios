@@ -9,6 +9,9 @@
         <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
         <relationship name="work" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
     </entity>
+    <entity name="PrebensWorkout" representedClassName="FHR.PrebensWorkout" parentEntity="Workout" syncable="YES">
+        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RepsWorkout" syncable="YES"/>
+    </entity>
     <entity name="RepsWorkout" representedClassName="FHR.RepsWorkout" parentEntity="Workout" syncable="YES">
         <attribute name="approx" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="repititions" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -37,9 +40,10 @@
     </entity>
     <elements>
         <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="30"/>
-        <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="30"/>
+        <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="90"/>
         <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="30"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="28"/>
         <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
+        <element name="PrebensWorkout" positionX="-1233" positionY="-549" width="128" height="60"/>
     </elements>
 </model>

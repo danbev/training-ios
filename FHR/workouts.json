@@ -8,7 +8,14 @@
        {"name":"HipSwitches","desc":"Description..","language":"en","image": "burpees.jpeg"},
        {"name":"JumpingJacks","desc":"Jumping Jacks...","language": "en", "image":"burpees.jpeg"},
        {"name":"AllFours","desc":"Crawl...","language": "en", "image":"burpees.jpeg"},
-       {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "image":"burpees.jpeg"}
+       {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "image":"burpees.jpeg"},
+       {"name":"UpperBodyPrebens","desc":"7 upper body excersizes a 10 reps. Start with on rep, then add the next etc.","language": "en", "image":"burpees.jpeg"},
+       {"name":"BicCurl","desc":"Bicep curl using a stong","language": "en", "image":"burpees.jpeg"},
+       {"name":"FrontBenchPress","desc":"Standing straight bench press","language": "en", "image":"burpees.jpeg"},
+       {"name":"MilitaryPress","desc":"Press straight up from sholders","language": "en", "image":"burpees.jpeg"},
+       {"name":"Ryck","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"},
+       {"name":"HakDrag","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"},
+       {"name":"StandingRowing","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"}
     ],
     "repbased": [
        {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
@@ -22,6 +29,17 @@
     ],
     "timebased": [
        {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 5, "rest": 5, "categories": "Upperbody, Cardio"}
+    ],
+    "prebensbased": [
+       {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [
+           {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Ryck", "workout": "Ryck", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Hakdrag", "workout": "HakDrag", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
+           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"}
+       ]}
     ]
   }
 }

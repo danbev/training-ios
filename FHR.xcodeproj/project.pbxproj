@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424101AED68EB00153BF0 /* PrebensWorkout.swift */; };
+		C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424121AEE9B0600153BF0 /* PrebensViewController.swift */; };
 		C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E84819C5A937001A5BB2 /* AppDelegate.swift */; };
 		C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E84A19C5A937001A5BB2 /* ViewController.swift */; };
 		C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C515E84C19C5A937001A5BB2 /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C51424101AED68EB00153BF0 /* PrebensWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkout.swift; sourceTree = "<group>"; };
+		C51424121AEE9B0600153BF0 /* PrebensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewController.swift; sourceTree = "<group>"; };
 		C515E84319C5A937001A5BB2 /* FHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E84719C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E84819C5A937001A5BB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,11 +153,13 @@
 				C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */,
 				C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */,
 				C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */,
+				C51424121AEE9B0600153BF0 /* PrebensViewController.swift */,
 				C5E36BF01A961AB6007906E8 /* Timer.swift */,
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
 				C599317F1AAAF503007ABB93 /* DurationViewController.swift */,
 				C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */,
 				C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */,
+				C51424101AED68EB00153BF0 /* PrebensWorkout.swift */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -297,6 +303,8 @@
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
 				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
 				C5E36BF11A961AB6007906E8 /* Timer.swift in Sources */,
+				C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */,
+				C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
 				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,
 				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,

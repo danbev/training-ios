@@ -17,6 +17,7 @@ public class WorkoutService {
     private let repsEntityName = "RepsWorkout"
     private let durationEntityName = "DurationWorkout"
     private let intervalEntityName = "IntervalWorkout"
+    private let prebensEntityName = "PrebensWorkout"
     private var context: NSManagedObjectContext
 
     public init(context: NSManagedObjectContext) {
@@ -112,6 +113,11 @@ public class WorkoutService {
 
     public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
         let iw: [IntervalWorkout]? = fetchWorkouts(intervalEntityName);
+        return iw;
+    }
+
+    public func fetchPrebensWorkouts() -> Optional<[PrebensWorkout]> {
+        let iw: [PrebensWorkout]? = fetchWorkouts(prebensEntityName);
         return iw;
     }
 
@@ -267,17 +273,6 @@ public class WorkoutService {
                     language: jsonDictionary["language"] as! String!,
                     image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)))
                 workouts[workout.name] = workout
-                /*
-                let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
-                workout.modelName = jsonDictionary["name"] as! String!
-                workout.modelDescription = jsonDictionary["desc"] as! String!
-                workout.modelLanguage = jsonDictionary["language"] as! String!
-                let imageName = jsonDictionary["image"] as! String
-                let image = UIImage(named:imageName)
-                let photoData = UIImagePNGRepresentation(image)
-                workout.modelImage = photoData
-                workouts[workout.modelName] = workout
-                */
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
@@ -312,6 +307,41 @@ public class WorkoutService {
                 durationWorkout.modelCategories = jsonDictionary["categories"] as! String!
                 durationWorkout.modelType = Type.Timed.rawValue
                 durationWorkout.modelRestTime = jsonDictionary["rest"] as! Double!
+            }
+            let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
+            for jsonDictionary in prebensArray {
+                println(jsonDictionary["name"] as! String!)
+                let prebensWorkoutEntity = NSEntityDescription.entityForName(self.prebensEntityName, inManagedObjectContext: context)
+
+                let prebensWorkout = PrebensWorkout(entity: prebensWorkoutEntity!, insertIntoManagedObjectContext: context)
+                let workout = workouts[jsonDictionary["workout"] as! String!]!
+                prebensWorkout.modelWorkoutName = jsonDictionary["name"] as! String
+                prebensWorkout.modelType = Type.Prebens.rawValue
+                prebensWorkout.modelName = workout.name
+                prebensWorkout.modelDescription = workout.desc
+                prebensWorkout.modelLanguage = workout.language
+                prebensWorkout.modelCategories = jsonDictionary["categories"] as! String!
+
+                let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
+                var prebensWorkouts = Array<RepsWorkout>()
+                for w in tasks {
+                    let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
+                    let workout = workouts[w["workout"] as! String!]!
+                    repsWorkout.modelWorkoutName = w["name"] as! String!
+                    repsWorkout.modelName = workout.name
+                    repsWorkout.modelDescription = workout.desc
+                    repsWorkout.modelImage = workout.image
+                    repsWorkout.modelLanguage = workout.language
+
+                    repsWorkout.repititions = w["reps"] as! NSNumber!
+                    repsWorkout.approx = w["approx"] as! NSNumber!
+                    repsWorkout.modelCategories = w["categories"] as! String!
+                    repsWorkout.modelRestTime = w["rest"] as! Double!
+                    repsWorkout.modelType = Type.Reps.rawValue
+                    println("adding reps workout :\(repsWorkout.name())")
+                    prebensWorkouts.append(repsWorkout)
+                }
+                prebensWorkout.workouts = NSOrderedSet(array: prebensWorkouts)
             }
             saveContext()
         } else {

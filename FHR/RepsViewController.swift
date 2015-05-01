@@ -59,7 +59,7 @@ public class RepsViewController: UIViewController {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
-                restTimerLabel.textColor = UIColor.redColor()
+                restTimerLabel.textColor = UIColor.blackColor()
             }
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
@@ -81,7 +81,7 @@ public class RepsViewController: UIViewController {
 
     @IBAction func done(sender: AnyObject) {
         workTimer.stop();
-        //println("duration of reps workout=\(workTimer.duration())")
+        println("duration of reps workout=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
     }
 }

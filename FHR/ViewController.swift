@@ -58,8 +58,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func enabled(keyName: String) -> Bool {
-        if let value = userDefaults!.objectForKey(keyName) {
-            return value as! Bool
+        if let value = userDefaults!.objectForKey(keyName) as? Bool {
+            return value
         }
         return true;
     }
@@ -78,7 +78,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         let (min, sec) = timer.elapsedTime()
         if (min == 0 && sec < 10) {
-            timerLabel.textColor = UIColor.redColor()
+            //timerLabel.textColor = UIColor(red:1.0, green:1.0,blue:1.0,alpha:1.0)
+            timerLabel.textColor = UIColor.blackColor()
         }
         timerLabel.text = Timer.timeAsString(min, sec: sec)
         if (min == 0 && sec <= 0) {
@@ -209,6 +210,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             performSegueWithIdentifier("durationSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
         case .Interval:
             println("interval task...")
+        case .Prebens:
+            println("prebens task...")
+            performSegueWithIdentifier("prebensSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
         }
     }
 
@@ -223,6 +227,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             performSegueWithIdentifier("durationSegue", sender: self)
         case .Interval:
             println("interval task...")
+        case .Prebens:
+            performSegueWithIdentifier("prebensSegue", sender: self)
+            println("prebens task...")
         }
     }
 
@@ -260,15 +267,25 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                     [unowned self] controller, duration in
                     self.finishedWorkout(indexPath, workout: workout, duration: duration)
                 }
+            } else if segue.identifier == "prebensSegue" {
+                let prebensViewController = segue.destinationViewController as! PrebensViewController
+                prebensViewController.workout = workout as! PrebensWorkout
+                prebensViewController.currentUserWorkout = currentUserWorkout
+                prebensViewController.restTimer(timer)
+                prebensViewController.didFinish = {
+                    [unowned self] controller, duration in
+                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
+                }
             }
         }
     }
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
-        //println("Finished workout \(workout.name()), duration=\(duration)")
+        println("Finished workout \(workout.name()), duration=\(duration)")
         timerLabel.textColor = UIColor.whiteColor()
         var totalTimeInMins = workoutTimer.elapsedTime().min
+        println("Total time (mins) \(totalTimeInMins)")
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
             self.timer.stop()

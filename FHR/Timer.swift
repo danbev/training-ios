@@ -51,7 +51,7 @@ public class Timer: NSObject {
 
     public func duration() -> Double {
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        return countDown - (currentTime - start)
+        return currentTime - start
     }
 
     public func elapsedTime() -> (min: UInt8, sec: UInt8) {

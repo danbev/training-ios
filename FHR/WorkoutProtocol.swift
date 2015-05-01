@@ -90,6 +90,7 @@ public enum Type: String {
     case Reps = "reps"
     case Timed = "timed"
     case Interval = "interval"
+    case Prebens = "prebens"
 
     static func asCsvString(types: [Type]) -> String {
         return ",".join(types.map { $0.rawValue })

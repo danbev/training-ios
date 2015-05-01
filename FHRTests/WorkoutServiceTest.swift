@@ -58,7 +58,6 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("Chopups", chopups.name())
         XCTAssertNotNil(chopups.image())
     }
-
     func testFetchWarmup() {
         workoutService.loadDataIfNeeded();
         let workout = workoutService.fetchWarmup()
@@ -148,5 +147,16 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category)
     }
 
+    func testFetchPrebensWorkouts() {
+        workoutService.loadDataIfNeeded();
+        let prebensWorkouts = workoutService.fetchPrebensWorkouts()!
+        XCTAssertEqual(1, prebensWorkouts.count);
+        XCTAssertEqual(Type.Prebens, prebensWorkouts[0].type());
+        XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, prebensWorkouts[0].categories()[0].rawValue);
+        XCTAssertEqual(4, prebensWorkouts[0].workouts.count);
+        for w in prebensWorkouts[0].workouts {
+            println(w.name())
+        }
+    }
 }
 
