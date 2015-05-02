@@ -22,8 +22,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var workoutTypeLabel: UILabel!
     @IBOutlet weak var restLabel: UILabel!
     public let tableCell = "tableCell"
-    private let workoutDuration: Double = 2700
-    //private let workoutDuration: Double = 20
+    //private let workoutDuration: Double = 2700
+    private let workoutDuration: Double = 70
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
@@ -284,8 +284,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         preparedForSeque = false;
         println("Finished workout \(workout.name()), duration=\(duration)")
         timerLabel.textColor = UIColor.whiteColor()
-        var totalTimeInMins = workoutTimer.elapsedTime().min
-        println("Total time (mins) \(totalTimeInMins)")
+        var totalTime = workoutTimer.elapsedTime()
+        println("Elapsed time \(totalTime.min):\(totalTime.sec)")
+        // add workout time to saved user workout
         self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
         if self.timer != nil {
             self.timer.stop()
@@ -298,7 +299,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.tintColor = UIColor.greenColor()
         self.tableView.reloadData()
 
-        if totalTimeInMins != 0 {
+        if totalTime.min != 0 {
             self.restLabel.hidden = false
             self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
             if let workout = self.workoutService.fetchWorkout(category.rawValue, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
