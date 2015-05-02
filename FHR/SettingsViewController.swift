@@ -30,7 +30,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     let onTintColor = UIColor.grayColor()
     var times = [Times.Thirty, Times.ThirtyFive, Times.Fourty, Times.FourtyFive]
 
-    enum Times : Int {
+    public enum Times : Int {
         case Thirty = 30
         case ThirtyFive = 35
         case Fourty = 40
@@ -109,6 +109,11 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         userDefaults!.setInteger(times[row].rawValue, forKey: duration)
         userDefaults.synchronize()
+    }
+
+    public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let attributedString = NSAttributedString(string: times[row].rawValue.description, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        return attributedString
     }
 
     public override func didReceiveMemoryWarning() {

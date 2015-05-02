@@ -23,7 +23,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     public let tableCell = "tableCell"
     //private let workoutDuration: Double = 2700
-    private let workoutDuration: Double = 70
+    //private let workoutDuration: Double = 70
+    private var workoutDuration: Double!
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
@@ -72,6 +73,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         progressView.progressTintColor = UIColor.greenColor()
     }
 
+    func readWorkoutDuration() -> Double {
+        if let value = userDefaults!.objectForKey("workoutDuration") as? Int {
+            return Double(value * 60)
+        }
+        return Double(2700)
+    }
+
     public func updateTime(timer: Timer) {
         if timerLabel.hidden == true {
             timerLabel.hidden = false
@@ -106,6 +114,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         tasks.removeAll(keepCapacity: false)
         tableView.reloadData()
+        workoutDuration = readWorkoutDuration()
+        println("workout duration = \(workoutDuration)")
 
         readIgnoredCategories()
         startButton.hidden = true
