@@ -27,7 +27,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     var currentUserWorkout: UserWorkout!
     var userDefaults: NSUserDefaults!
-    let onTintColor = UIColor.grayColor()
+    let onTintColor = UIColor.greenColor()
     var times = [Times.Thirty, Times.ThirtyFive, Times.Fourty, Times.FourtyFive]
 
     public enum Times : Int {

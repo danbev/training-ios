@@ -110,6 +110,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func startWorkout(sender: UIButton) {
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         if completedLabel.hidden == false {
             completedLabel.hidden = true
         }
@@ -330,9 +331,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 workoutTimer.stop()
                 timer.stop()
                 timerLabel.hidden = true
+                startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
                 startButton.hidden = false
-                //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
                 restLabel.hidden = true
+                navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
                 progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
             }
@@ -346,7 +348,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             progressView.setProgress(1.0, animated: false)
             completedLabel.hidden = false
             startButton.hidden = false
-            //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
+            startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
         }
     }
 
