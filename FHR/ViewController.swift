@@ -19,8 +19,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var completedLabel: UILabel!
-    @IBOutlet weak var workoutTypeLabel: UILabel!
+    //@IBOutlet weak var workoutTypeLabel: UILabel!
     @IBOutlet weak var restLabel: UILabel!
+    @IBOutlet weak var navItem: UINavigationItem!
     public let tableCell = "tableCell"
     //private let workoutDuration: Double = 2700
     //private let workoutDuration: Double = 70
@@ -71,6 +72,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
+        lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        readIgnoredCategories()
+        if lastUserWorkout != nil {
+            navItem.title = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
+        } else {
+            navItem.title = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+        }
     }
 
     func readWorkoutDuration() -> Double {
@@ -86,7 +94,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         let (min, sec) = timer.elapsedTime()
         if (min == 0 && sec < 10) {
-            //timerLabel.textColor = UIColor(red:1.0, green:1.0,blue:1.0,alpha:1.0)
             timerLabel.textColor = UIColor.blackColor()
         }
         timerLabel.text = Timer.timeAsString(min, sec: sec)
@@ -145,12 +152,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
             }
         }
-        workoutTypeLabel.text = category.rawValue
-        workoutTypeLabel.hidden = false
+        navItem.title = category.rawValue
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
         category = WorkoutCategory(rawValue: lastUserWorkout.category)!.next(ignoredCategories)
+        navItem.title = category.rawValue
         if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
             addWorkoutToTable(warmup)
             let id = NSUUID().UUIDString
@@ -239,7 +246,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             println("interval task...")
         case .Prebens:
             performSegueWithIdentifier("prebensSegue", sender: self)
-            println("prebens task...")
         }
     }
 
@@ -250,7 +256,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         preparedForSeque = true;
-        println("\(segue.identifier)")
         if segue.identifier == "settings" {
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = currentUserWorkout
@@ -326,6 +331,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 timer.stop()
                 timerLabel.hidden = true
                 startButton.hidden = false
+                //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
                 restLabel.hidden = true
                 progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
@@ -340,6 +346,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             progressView.setProgress(1.0, animated: false)
             completedLabel.hidden = false
             startButton.hidden = false
+            //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
         }
     }
 

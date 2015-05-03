@@ -38,14 +38,17 @@ public class PrebensViewController: UIViewController,
         }
         tableView.reloadData()
         if restTimer == nil {
+            println("rest timer is nil. Creating a new worktimer.")
             restTimeLabel.hidden = true
             doneButton.hidden = false
             workTimer = Timer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
+                println("rest timer is done. Creating a new worktimer.")
                 timeLabel.hidden = true
                 workTimer = Timer(callback: updateWorkTime)
             } else {
+                println("rest timer is not done. Hiding the time label")
                 timeLabel.hidden = false
             }
         }
@@ -127,7 +130,12 @@ public class PrebensViewController: UIViewController,
     }
 
     @IBAction func done(sender: AnyObject) {
-        workTimer.stop();
+        if workTimer != nil {
+            workTimer.stop();
+        } else {
+            //TODO: this must be sorted out. Some race condition seems to be in play.
+            workTimer = Timer(callback: updateWorkTime)
+        }
         self.didFinish!(self, duration: workTimer.duration())
     }
 }
