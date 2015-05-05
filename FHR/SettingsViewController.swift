@@ -18,6 +18,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public let lowerbody = WorkoutCategory.LowerBody.rawValue
     public let cardio = WorkoutCategory.Cardio.rawValue
 
+    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var wSwitch: UISwitch!
     @IBOutlet weak var dgSwitch: UISwitch!
     @IBOutlet weak var cardioSwitch: UISwitch!
@@ -59,6 +60,10 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public override func viewDidLoad() {
         super.viewDidLoad()
         userDefaults = NSUserDefaults.standardUserDefaults()
+        var nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         wSwitch.onTintColor = onTintColor
@@ -148,4 +153,5 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     @IBAction func doneButton(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+
 }
