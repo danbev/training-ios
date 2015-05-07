@@ -72,12 +72,26 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
-        lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        readIgnoredCategories()
         if lastUserWorkout != nil {
             navItem.title = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
         } else {
             navItem.title = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+        }
+    }
+
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        println("View is appearing....")
+        lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        readIgnoredCategories()
+    }
+
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        println("View is disapearing....")
+        let workoutTime = workoutTimer?.duration() ?? 0.0
+        if currentUserWorkout != nil {
+            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime)
         }
     }
 
@@ -134,12 +148,21 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(lastUserWorkout!)
             } else {
-                println("last user workout was not completed!")
-                let lastWorkout = workoutService.fetchLatestUserWorkout()
-                category = WorkoutCategory(rawValue: lastWorkout!.category)
-                if let workouts = lastWorkout?.workouts {
-                    for w in workouts {
+                lastUserWorkout = workoutService.fetchLatestUserWorkout()
+                currentUserWorkout = lastUserWorkout
+                println("last user workout was not completed!. WorkoutTime=\(lastUserWorkout?.duration)")
+                workoutTimer = Timer(callback: updateWorkoutTime, countDown: lastUserWorkout!.duration)
+                category = WorkoutCategory(rawValue: lastUserWorkout!.category)
+                if let workouts = lastUserWorkout?.workouts {
+                    for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
+                        tableView.reloadData()
+                        if index != 0 {
+                            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))!
+                            cell.userInteractionEnabled = false
+                            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+                            cell.tintColor = UIColor.greenColor()
+                        }
                     }
                 }
                 tableView.reloadData()
@@ -264,7 +287,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let indexPath = tableView.indexPathForSelectedRow()!
             let task = tasks[indexPath.row]
             let workout = tasks[indexPath.row] as! Workout
-            self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+            self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
             if segue.identifier == "repsSegue" {
                 let taskViewController = segue.destinationViewController as! RepsViewController
                 taskViewController.workout = workout as! RepsWorkout
@@ -303,7 +326,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         var totalTime = workoutTimer.elapsedTime()
         println("Elapsed time \(totalTime.min):\(totalTime.sec)")
         // add workout time to saved user workout
-        self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout)
+        self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
         if self.timer != nil {
             self.timer.stop()
         }
@@ -327,7 +350,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 self.tableView.reloadData()
             } else {
-                workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
+                workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
                 workoutTimer.stop()
                 timer.stop()
                 timerLabel.hidden = true
@@ -340,7 +363,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, done: true)
+            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
             println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             workoutTimer.stop()
             timerLabel.hidden = true
@@ -352,6 +375,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
         }
     }
+
 
 }
 

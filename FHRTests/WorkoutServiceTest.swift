@@ -95,7 +95,8 @@ class WorkoutServiceTest: XCTestCase {
             XCTAssertNotNil(userWorkout.date)
             XCTAssertEqual(false, userWorkout.done.boolValue)
             XCTAssertEqual(1, userWorkout.workouts.count)
-            XCTAssertEqual("JumpingJacks", userWorkout.workouts.anyObject()!.name())
+            //XCTAssertEqual("JumpingJacks", userWorkout.workouts.anyObject()!.name())
+            XCTAssertEqual("JumpingJacks", userWorkout.workouts.lastObject!.name!)
         }
     }
 
@@ -106,10 +107,10 @@ class WorkoutServiceTest: XCTestCase {
         let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
         let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
         XCTAssertNotNil(workout1!.name())
-        workoutService.updateUserWorkout(id, optionalWorkout: workout1!)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
         let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
         XCTAssertNotEqual(workout2!.name(), workout1!.name())
-        workoutService.updateUserWorkout(id, optionalWorkout: workout2!)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout2!, workoutTime: 1.0)
         let workout3 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout)
         /*
         if let userWorkout = workout3 {
@@ -138,7 +139,7 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout1)
 
         let workout2 = workoutService.fetchWorkout("Getups")!
-        workoutService.updateUserWorkout(id, optionalWorkout: workout2)
+        workoutService.updateUserWorkout(id, optionalWorkout: workout2, workoutTime: 1.0)
 
         let userWorkout = workoutService.fetchLatestUserWorkout()!
         XCTAssertEqual(2, userWorkout.workouts.count);

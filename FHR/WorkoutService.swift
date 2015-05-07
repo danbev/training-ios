@@ -69,7 +69,7 @@ public class WorkoutService {
         return userWorkout
     }
 
-    public func updateUserWorkout(id: String, optionalWorkout: Workout?, done: Bool = false) -> Optional<UserWorkout> {
+    public func updateUserWorkout(id: String, optionalWorkout: Workout?, workoutTime: Double, done: Bool = false) -> Optional<UserWorkout> {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"id == %@", id)
         var error: NSError?
@@ -77,6 +77,7 @@ public class WorkoutService {
         if let results = fetchedResults {
             let userWorkout = results[0]
             userWorkout.done = done
+            userWorkout.duration = userWorkout.duration + workoutTime
             if let workout = optionalWorkout {
                 workout.userWorkout = userWorkout
                 userWorkout.workouts.addObject(workout)
