@@ -72,13 +72,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
-        var type: String!
-        if lastUserWorkout != nil {
-            type = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
-            //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
-        } else {
-            type = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-        }
+        var type: String = lastUserWorkout != nil ?
+            WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
+            WorkoutCategory.Warmup.next(ignoredCategories).rawValue
         navItem.title = type
         startButton.setTitle("Start \(type)", forState: UIControlState.Normal)
     }
@@ -112,7 +108,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         let (min, sec) = timer.elapsedTime()
         if (min == 0 && sec < 10) {
-            timerLabel.textColor = UIColor.blackColor()
+            timerLabel.textColor = UIColor.orangeColor()
         }
         timerLabel.text = Timer.timeAsString(min, sec: sec)
         if (min == 0 && sec <= 0) {

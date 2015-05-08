@@ -53,7 +53,7 @@ public class DurationViewController: UIViewController {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
-                restTimerLabel.textColor = UIColor.blackColor()
+                restTimerLabel.textColor = UIColor.orangeColor()
             }
             restTimerLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
