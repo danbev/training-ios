@@ -72,11 +72,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
+        var type: String!
         if lastUserWorkout != nil {
-            navItem.title = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
+            type = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
+            //startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
         } else {
-            navItem.title = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+            type = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
         }
+        navItem.title = type
+        startButton.setTitle("Start \(type)", forState: UIControlState.Normal)
     }
 
     public override func viewWillAppear(animated: Bool) {
