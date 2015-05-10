@@ -31,6 +31,8 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     let onTintColor = UIColor.greenColor()
     var times = [Times.Thirty, Times.ThirtyFive, Times.Fourty, Times.FourtyFive]
 
+    @IBOutlet weak var doneButton: UIButton!
+
     public enum Times : Int {
         case Thirty = 30
         case ThirtyFive = 35
@@ -83,6 +85,8 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         lowerBodySwitch.setOn(booleanValue(lowerbody, defaultValue: true), animated: false)
         cardioSwitch.setOn(booleanValue(cardio, defaultValue: true), animated: false)
         timePicker.selectRow(index(duration, defaultValue: Times.FourtyFive), inComponent: 0, animated: false)
+
+        self.backButton = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 
     func booleanValue(keyName: String, defaultValue: Bool) -> Bool {
@@ -121,6 +125,8 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         return attributedString
     }
 
+    @IBOutlet weak var backButton2: UIBarButtonItem!
+
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -148,10 +154,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     func saveValue(value: Bool, keyName: String) {
         userDefaults!.setBool(value, forKey: keyName)
         userDefaults.synchronize()
-    }
-
-    @IBAction func doneButton(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

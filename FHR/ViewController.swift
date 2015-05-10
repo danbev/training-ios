@@ -57,6 +57,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if !enabled(WorkoutCategory.Cardio.rawValue) {
             ignoredCategories.insert(WorkoutCategory.Cardio)
         }
+        let weights = enabled("weights")
+        println("weights=\(weights)")
+        let indoor = enabled("indoor")
+        println("indoor=\(indoor)")
     }
 
     func enabled(keyName: String) -> Bool {
@@ -72,6 +76,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
+        updateTitle()
+        /*
+        var type: String = lastUserWorkout != nil ?
+            WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
+            WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+        navItem.title = type
+        startButton.setTitle("Start \(type)", forState: UIControlState.Normal)
+        */
+    }
+
+    private func updateTitle() {
         var type: String = lastUserWorkout != nil ?
             WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
             WorkoutCategory.Warmup.next(ignoredCategories).rawValue
@@ -376,6 +391,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+        println("unwinding to main")
+        readIgnoredCategories()
+        updateTitle()
+    }
 
 }
 

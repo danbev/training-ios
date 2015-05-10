@@ -19,18 +19,18 @@
        {"name":"StandingRowing","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"}
     ],
     "repbased": [
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
-       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
-       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 300,"categories": "Lowerbody"},
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5,"approx":600,"categories": "Upperbody, Cardio"},
-       {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 5,"approx": 600,"categories": "Upperbody, Cardio"},
-       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 5,"approx":600,"categories": "Lowerbody, Cardio"},
-       {"name": "100 Utfall", "workout": "Utfall", "reps": 100, "rest": 5,"approx":600,"categories": "Lowerbody"},
-       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 5, "categories": "Upperbody, Cardio"},
-       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 5,"approx": 300,"categories": "Upperbody"}
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"approx": 120, "categories": "Warmup"},
+       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 120, "categories": "Warmup"},
+       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 300,"categories": "Lowerbody"},
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 60,"approx":600,"categories": "Upperbody, Cardio"},
+       {"name": "100 Getups", "workout": "Getups", "reps": 100, "rest": 60,"approx": 600,"categories": "Upperbody, Cardio"},
+       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody, Cardio"},
+       {"name": "100 Utfall", "workout": "Utfall", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 60, "categories": "Upperbody, Cardio"},
+       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 60,"approx": 300,"categories": "Upperbody"}
     ],
     "timebased": [
-       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 5, "rest": 5, "categories": "Upperbody, Cardio"}
+       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 5, "rest": 60, "categories": "Upperbody, Cardio"}
     ],
     "prebensbased": [
        {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [

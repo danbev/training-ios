@@ -51,53 +51,6 @@
                BlueprintName = "FHRTests"
                ReferencedContainer = "container:FHR.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "TimerTests">
-               </Test>
-               <Test
-                  Identifier = "ViewControllerTests">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testAddDurationWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testAddIntervalWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testAddWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testFetchLatestWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testFetchLatestWorkoutNoWorkoutsPerformed()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testFetchWarmup()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testFetchWarmupWithUserWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testFetchWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testLoadDatabase()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testSaveUserWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutServiceTest/testUpdateUserWorkout()">
-               </Test>
-               <Test
-                  Identifier = "WorkoutTypeTests">
-               </Test>
-               <Test
-                  Identifier = "WorkoutTypeTests/testCardioType()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
