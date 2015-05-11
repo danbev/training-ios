@@ -29,14 +29,18 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
+
     private var currentUserWorkout: UserWorkout!
     private var lastUserWorkout: UserWorkout?
+
     private var timer: Timer!
     private var workoutTimer: Timer!
     private var category: WorkoutCategory!
     private var userDefaults: NSUserDefaults!
     private var ignoredCategories: Set<WorkoutCategory> = Set()
     private var preparedForSeque = false
+    private var weights: Bool!
+    private var indoor: Bool!
 
     private var counter: Int = 0 {
         didSet {
@@ -46,7 +50,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func readIgnoredCategories() {
+    private func readSettings() {
         ignoredCategories.removeAll(keepCapacity: true)
         if !enabled(WorkoutCategory.UpperBody.rawValue) {
             ignoredCategories.insert(WorkoutCategory.UpperBody)
@@ -57,10 +61,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if !enabled(WorkoutCategory.Cardio.rawValue) {
             ignoredCategories.insert(WorkoutCategory.Cardio)
         }
-        let weights = enabled("weights")
-        println("weights=\(weights)")
-        let indoor = enabled("indoor")
-        println("indoor=\(indoor)")
+        weights = enabled("weights")
+        indoor = enabled("indoor")
     }
 
     func enabled(keyName: String) -> Bool {
@@ -77,36 +79,41 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
         updateTitle()
-        /*
-        var type: String = lastUserWorkout != nil ?
-            WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
-            WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-        navItem.title = type
-        startButton.setTitle("Start \(type)", forState: UIControlState.Normal)
-        */
     }
 
     private func updateTitle() {
-        var type: String = lastUserWorkout != nil ?
-            WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
-            WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-        navItem.title = type
-        startButton.setTitle("Start \(type)", forState: UIControlState.Normal)
+        var workoutType: String
+        println("currentUserWorkout.done = \(currentUserWorkout?.done)")
+        if currentUserWorkout == nil {
+            workoutType = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+        } else if currentUserWorkout != nil {
+            if currentUserWorkout.done == false {
+                workoutType = category.rawValue
+            } else {
+                workoutType = lastUserWorkout != nil ?
+                    WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
+                    WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+            }
+        } else {
+            workoutType = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+        }
+        navItem.title = workoutType
+        startButton.setTitle("Start \(workoutType)", forState: UIControlState.Normal)
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         println("View is appearing....")
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        readIgnoredCategories()
+        readSettings()
     }
 
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        println("View is disapearing....")
         let workoutTime = workoutTimer?.duration() ?? 0.0
         if currentUserWorkout != nil {
-            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime)
+            println("View is disapearing....\(currentUserWorkout.done)")
+            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: currentUserWorkout.done)
         }
     }
 
@@ -154,7 +161,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutDuration = readWorkoutDuration()
         println("workout duration = \(workoutDuration)")
 
-        readIgnoredCategories()
+        readSettings()
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
@@ -163,7 +170,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(lastUserWorkout!)
             } else {
-                lastUserWorkout = workoutService.fetchLatestUserWorkout()
+                //lastUserWorkout = workoutService.fetchLatestUserWorkout()
                 currentUserWorkout = lastUserWorkout
                 println("last user workout was not completed!. WorkoutTime=\(lastUserWorkout?.duration)")
                 workoutTimer = Timer(callback: updateWorkoutTime, countDown: lastUserWorkout!.duration)
@@ -341,7 +348,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         var totalTime = workoutTimer.elapsedTime()
         println("Elapsed time \(totalTime.min):\(totalTime.sec)")
         // add workout time to saved user workout
-        self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+        currentUserWorkout = workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
         if self.timer != nil {
             self.timer.stop()
         }
@@ -365,8 +372,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 self.tableView.reloadData()
             } else {
-                workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+                currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
                 workoutTimer.stop()
+                println("currentUserWorkout.done=\(currentUserWorkout.done)")
                 timer.stop()
                 timerLabel.hidden = true
                 startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
@@ -375,10 +383,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
                 progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
+                startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+            currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
             println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             workoutTimer.stop()
             timerLabel.hidden = true
@@ -393,7 +402,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         println("unwinding to main")
-        readIgnoredCategories()
+        readSettings()
         updateTitle()
     }
 

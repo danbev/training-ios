@@ -76,6 +76,7 @@ public class WorkoutService {
         let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
         if let results = fetchedResults {
             let userWorkout = results[0]
+            println("setting done to \(done)")
             userWorkout.done = done
             userWorkout.duration = userWorkout.duration + workoutTime
             if let workout = optionalWorkout {

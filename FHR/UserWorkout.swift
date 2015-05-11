@@ -14,8 +14,10 @@ public class UserWorkout: NSManagedObject, Printable {
     @NSManaged public var id: String
     @NSManaged public var date: NSDate
     @NSManaged public var duration: Double
-    @NSManaged public var done: NSNumber
+    @NSManaged public var done: Bool
     @NSManaged public var category: String
     @NSManaged public var workouts: NSMutableOrderedSet
+    @NSManaged public var weights: Bool
+    @NSManaged public var indoor: Bool
 
 }
