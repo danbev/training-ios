@@ -83,7 +83,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func updateTitle() {
         var workoutType: String
-        println("currentUserWorkout.done = \(currentUserWorkout?.done)")
         if currentUserWorkout == nil {
             workoutType = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
         } else if currentUserWorkout != nil {
@@ -383,7 +382,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
                 progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
-                startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
+                startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
@@ -395,7 +394,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             progressView.setProgress(1.0, animated: false)
             completedLabel.hidden = false
             startButton.hidden = false
-            startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
+            startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
         }
     }
