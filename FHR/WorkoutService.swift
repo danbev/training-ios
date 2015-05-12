@@ -63,7 +63,6 @@ public class WorkoutService {
         userWorkout.done = false
         userWorkout.date = NSDate()
         userWorkout.workouts.addObject(workout)
-        println("Size of workouts: \(userWorkout.workouts.count)")
         workout.userWorkout = userWorkout
         saveContext()
         return userWorkout
@@ -76,7 +75,6 @@ public class WorkoutService {
         let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
         if let results = fetchedResults {
             let userWorkout = results[0]
-            println("setting done to \(done)")
             userWorkout.done = done
             userWorkout.duration = userWorkout.duration + workoutTime
             if let workout = optionalWorkout {
@@ -312,7 +310,6 @@ public class WorkoutService {
             }
             let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
             for jsonDictionary in prebensArray {
-                println(jsonDictionary["name"] as! String!)
                 let prebensWorkoutEntity = NSEntityDescription.entityForName(self.prebensEntityName, inManagedObjectContext: context)
 
                 let prebensWorkout = PrebensWorkout(entity: prebensWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -340,7 +337,6 @@ public class WorkoutService {
                     repsWorkout.modelCategories = w["categories"] as! String!
                     repsWorkout.modelRestTime = w["rest"] as! Double!
                     repsWorkout.modelType = Type.Reps.rawValue
-                    println("adding reps workout :\(repsWorkout.name())")
                     prebensWorkouts.append(repsWorkout)
                 }
                 prebensWorkout.workouts = NSOrderedSet(array: prebensWorkouts)

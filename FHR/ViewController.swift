@@ -102,7 +102,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        println("View is appearing....")
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
         readSettings()
     }
@@ -111,7 +110,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillDisappear(animated)
         let workoutTime = workoutTimer?.duration() ?? 0.0
         if currentUserWorkout != nil {
-            println("View is disapearing....\(currentUserWorkout.done)")
             workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: currentUserWorkout.done)
         }
     }
@@ -217,7 +215,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func settingsButton(sender: AnyObject) {
-        println("settings")
     }
     
     public func addWorkoutToTable(workout: WorkoutProtocol) {
@@ -273,7 +270,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         case .Interval:
             println("interval task...")
         case .Prebens:
-            println("prebens task...")
             performSegueWithIdentifier("prebensSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
         }
     }
@@ -373,7 +369,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else {
                 currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
                 workoutTimer.stop()
-                println("currentUserWorkout.done=\(currentUserWorkout.done)")
                 timer.stop()
                 timerLabel.hidden = true
                 startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
@@ -400,7 +395,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        println("unwinding to main")
         readSettings()
         updateTitle()
     }
