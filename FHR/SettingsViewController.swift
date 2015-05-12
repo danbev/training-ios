@@ -121,10 +121,10 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     }
 
     public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSAttributedString(string: times[row].rawValue.description, attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        let attributedString = NSAttributedString(string: times[row].rawValue.description, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 10.0)!, NSForegroundColorAttributeName : UIColor.whiteColor()])
         return attributedString
     }
-
+    
     @IBOutlet weak var backButton2: UIBarButtonItem!
 
     public override func didReceiveMemoryWarning() {
