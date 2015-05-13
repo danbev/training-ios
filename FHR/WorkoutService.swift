@@ -326,6 +326,7 @@ public class WorkoutService {
                 for w in tasks {
                     let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                     let workout = workouts[w["workout"] as! String!]!
+                    println("workout.name=\(workout.name)")
                     repsWorkout.modelWorkoutName = w["name"] as! String!
                     repsWorkout.modelName = workout.name
                     repsWorkout.modelDescription = workout.desc

@@ -11,12 +11,17 @@
        {"name":"AllFours","desc":"Crawl...","language": "en", "image":"burpees.jpeg"},
        {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "image":"burpees.jpeg"},
        {"name":"UpperBodyPrebens","desc":"7 upper body excersizes a 10 reps. Start with on rep, then add the next etc.","language": "en", "image":"burpees.jpeg"},
+       {"name":"LowerBodyPrebens","desc":"7 upper body excersizes a 10 reps. Start with on rep, then add the next etc.","language": "en", "image":"burpees.jpeg"},
        {"name":"BicCurl","desc":"Bicep curl using a stong","language": "en", "image":"burpees.jpeg"},
        {"name":"FrontBenchPress","desc":"Standing straight bench press","language": "en", "image":"burpees.jpeg"},
        {"name":"MilitaryPress","desc":"Press straight up from sholders","language": "en", "image":"burpees.jpeg"},
        {"name":"Ryck","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"},
        {"name":"HakDrag","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"},
-       {"name":"StandingRowing","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"}
+       {"name":"StandingRowing","desc":"aljfadfj","language": "en", "image":"burpees.jpeg"},
+       {"name":"FlatFootJumps","desc":"Perform a squat and then jump as high as you can and land in the squat position again and repeat","language": "en", "image":"burpees.jpeg"},
+       {"name":"LungeJumps","desc":"Lunges but with jumping","language": "en", "image":"burpees.jpeg"},
+       {"name":"Marklyft","desc":"With a bar...","language": "en", "image":"burpees.jpeg"},
+       {"name":"StallionBurpees","desc":"Like a normal burpee, but when you go to stand up you kick your back legs back and up like a horse","language": "en", "image":"burpees.jpeg"}
     ],
     "repbased": [
        {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
@@ -34,13 +39,22 @@
     ],
     "prebensbased": [
        {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [
-           {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Ryck", "workout": "Ryck", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Hakdrag", "workout": "HakDrag", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"},
-           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "UpperBody"}
+           {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Ryck", "workout": "Ryck", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Hakdrag", "workout": "HakDrag", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
+           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"}
+       ]},
+       {"name": "Prebens", "workout": "LowerBodyPrebens","rest":90,"approx":1200,"categories":"Lowerbody","workouts": [
+           {"name": "Russians", "workout": "Russians", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Flat foot jumps", "workout": "FlatFootJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Lunges", "workout": "Utfall", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Lunge jumps", "workout": "LungeJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Marklyft", "workout": "Marklyft", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
+           {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"}
        ]}
     ]
   }
