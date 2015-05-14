@@ -358,7 +358,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             self.restLabel.hidden = false
             self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
-            if let workout = self.workoutService.fetchWorkout(category.rawValue, currentUserWorkout: self.currentUserWorkout, lastUserWorkout: self.lastUserWorkout) {
+            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout, weights: weights) {
                 self.tasks.insert(workout, atIndex: 0)
                 self.tableView.reloadData()
                 self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))

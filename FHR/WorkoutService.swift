@@ -218,10 +218,10 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?) -> Workout? {
+    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
-        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category)
+        fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@", category, weights)
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = Set<Workout>()
@@ -260,18 +260,17 @@ public class WorkoutService {
         let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
         let jsonData = NSData(contentsOfURL: jsonURL!)!
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
-        // store workouts by name so we can back reference them.
         println("Import seed data...")
         var workouts = [String: WorkoutContainer]()
         if let json = jsonDict {
-            //let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
             let workoutDict = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
             let workoutsArray = workoutDict.valueForKeyPath("workout") as! NSArray
             for jsonDictionary in workoutsArray {
                 let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
                     desc: jsonDictionary["desc"] as! String!,
                     language: jsonDictionary["language"] as! String!,
-                    image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)))
+                    image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)),
+                    weights: jsonDictionary["weights"] as! Bool!)
                 workouts[workout.name] = workout
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
@@ -284,6 +283,7 @@ public class WorkoutService {
                 repsWorkout.modelDescription = workout.desc
                 repsWorkout.modelImage = workout.image
                 repsWorkout.modelLanguage = workout.language
+                repsWorkout.weights = workout.weights
 
                 repsWorkout.repititions = jsonDictionary["reps"] as! NSNumber!
                 repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
@@ -302,6 +302,7 @@ public class WorkoutService {
                 durationWorkout.modelDescription = workout.desc
                 durationWorkout.modelImage = workout.image
                 durationWorkout.modelLanguage = workout.language
+                durationWorkout.weights = workout.weights
 
                 durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
                 durationWorkout.modelCategories = jsonDictionary["categories"] as! String!
@@ -319,6 +320,7 @@ public class WorkoutService {
                 prebensWorkout.modelName = workout.name
                 prebensWorkout.modelDescription = workout.desc
                 prebensWorkout.modelLanguage = workout.language
+                prebensWorkout.weights = workout.weights
                 prebensWorkout.modelCategories = jsonDictionary["categories"] as! String!
 
                 let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
@@ -331,6 +333,7 @@ public class WorkoutService {
                     repsWorkout.modelDescription = workout.desc
                     repsWorkout.modelImage = workout.image
                     repsWorkout.modelLanguage = workout.language
+                    repsWorkout.weights = workout.weights
 
                     repsWorkout.repititions = w["reps"] as! NSNumber!
                     repsWorkout.approx = w["approx"] as! NSNumber!
@@ -352,6 +355,7 @@ public class WorkoutService {
         var desc: String
         var language: String
         var image: NSData
+        var weights: Bool
 
     }
 

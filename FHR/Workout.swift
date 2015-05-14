@@ -23,6 +23,7 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var timed: DurationWorkout?
     @NSManaged public var userWorkout: UserWorkout
     @NSManaged public var modelDuration: NSDate?
+    @NSManaged public var weights: NSNumber?
 
     public func name() -> String {
         return modelName
