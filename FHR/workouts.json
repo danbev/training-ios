@@ -39,22 +39,22 @@
     ],
     "prebensbased": [
        {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [
-           {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Ryck", "workout": "Ryck", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Hakdrag", "workout": "HakDrag", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"},
-           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Upperbody"}
+           {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Ryck", "workout": "Ryck", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Hakdrag", "workout": "HakDrag", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"}
        ]},
        {"name": "Prebens", "workout": "LowerBodyPrebens","rest":90,"approx":1200,"categories":"Lowerbody","workouts": [
-           {"name": "Russians", "workout": "Russians", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Flat foot jumps", "workout": "FlatFootJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Lunges", "workout": "Utfall", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Lunge jumps", "workout": "LungeJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Marklyft", "workout": "Marklyft", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"},
-           {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 10, "rest": 0,"approx": 10,"categories": "Lowerbody"}
+           {"name": "Russians", "workout": "Russians", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Flat foot jumps", "workout": "FlatFootJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Lunges", "workout": "Utfall", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Lunge jumps", "workout": "LungeJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Marklyft", "workout": "Marklyft", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
+           {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"}
        ]}
     ]
   }
