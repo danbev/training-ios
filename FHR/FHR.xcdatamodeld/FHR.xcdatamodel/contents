@@ -25,7 +25,7 @@
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="indoor" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="weights" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Workout" inverseName="userWorkout" inverseEntity="Workout" syncable="YES"/>
+        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Workout" inverseName="userWorkout" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="Workout" representedClassName="FHR.Workout" isAbstract="YES" syncable="YES">
         <attribute name="modelCategories" optional="YES" attributeType="String" syncable="YES"/>
