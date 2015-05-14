@@ -95,7 +95,6 @@ class WorkoutServiceTest: XCTestCase {
             XCTAssertNotNil(userWorkout.date)
             XCTAssertEqual(false, userWorkout.done.boolValue)
             XCTAssertEqual(1, userWorkout.workouts.count)
-            //XCTAssertEqual("JumpingJacks", userWorkout.workouts.anyObject()!.name())
             XCTAssertEqual("JumpingJacks", userWorkout.workouts.lastObject!.name!)
         }
     }
