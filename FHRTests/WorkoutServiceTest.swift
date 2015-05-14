@@ -151,7 +151,7 @@ class WorkoutServiceTest: XCTestCase {
     func testFetchPrebensWorkouts() {
         workoutService.loadDataIfNeeded();
         let prebensWorkouts = workoutService.fetchPrebensWorkouts()!
-        XCTAssertEqual(1, prebensWorkouts.count);
+        XCTAssertEqual(2, prebensWorkouts.count);
         XCTAssertEqual(Type.Prebens, prebensWorkouts[0].type());
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, prebensWorkouts[0].categories()[0].rawValue);
         XCTAssertEqual(7, prebensWorkouts[0].workouts.count);
