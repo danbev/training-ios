@@ -12,7 +12,7 @@ import UIKit
 public class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     public let weights = "weights"
-    public let indoor = "indoor"
+    public let indoor = "dryGround"
     public let duration = "workoutDuration"
     public let upperbody = WorkoutCategory.UpperBody.rawValue
     public let lowerbody = WorkoutCategory.LowerBody.rawValue

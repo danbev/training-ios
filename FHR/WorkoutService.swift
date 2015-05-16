@@ -218,10 +218,31 @@ public class WorkoutService {
         }
     }
 
-    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool) -> Workout? {
+    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool, dryGround: Bool) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@", category, weights)
+        println("weights=\(weights) and dryGround=\(dryGround)")
+        if !weights && !dryGround {
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = true AND dryGround = true", category)
+        } else if !weights {
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = false", category)
+        } else if !dryGround {
+            println("dryGround=\(dryGround)")
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND dryGround = false", category)
+        } else {
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category)
+        }
+
+        /*
+        if dryGround {
+            println("dry ground true= \(dryGround)")
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@", category, weights)
+        } else {
+            println("dry ground is false  (\(dryGround))")
+            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@ AND dryGround = %@", category, weights, true)
+        }
+        */
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = Set<Workout>()
@@ -270,7 +291,8 @@ public class WorkoutService {
                     desc: jsonDictionary["desc"] as! String!,
                     language: jsonDictionary["language"] as! String!,
                     image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)),
-                    weights: jsonDictionary["weights"] as! Bool!)
+                    weights: jsonDictionary["weights"] as! Bool!,
+                    dryGround: jsonDictionary["dryGround"] as! Bool!)
                 workouts[workout.name] = workout
             }
             let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
@@ -284,6 +306,7 @@ public class WorkoutService {
                 repsWorkout.modelImage = workout.image
                 repsWorkout.modelLanguage = workout.language
                 repsWorkout.weights = workout.weights
+                repsWorkout.dryGround = workout.dryGround
 
                 repsWorkout.repititions = jsonDictionary["reps"] as! NSNumber!
                 repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
@@ -303,6 +326,7 @@ public class WorkoutService {
                 durationWorkout.modelImage = workout.image
                 durationWorkout.modelLanguage = workout.language
                 durationWorkout.weights = workout.weights
+                durationWorkout.dryGround = workout.dryGround
 
                 durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
                 durationWorkout.modelCategories = jsonDictionary["categories"] as! String!
@@ -321,6 +345,7 @@ public class WorkoutService {
                 prebensWorkout.modelDescription = workout.desc
                 prebensWorkout.modelLanguage = workout.language
                 prebensWorkout.weights = workout.weights
+                prebensWorkout.dryGround = workout.dryGround
                 prebensWorkout.modelCategories = jsonDictionary["categories"] as! String!
 
                 let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
@@ -334,7 +359,10 @@ public class WorkoutService {
                     repsWorkout.modelImage = workout.image
                     repsWorkout.modelLanguage = workout.language
                     repsWorkout.weights = workout.weights
-
+                    repsWorkout.dryGround = workout.dryGround
+                    repsWorkout.repititions = w["reps"] as! NSNumber!
+                    
+                    repsWorkout.repititions = w["reps"] as! NSNumber!
                     repsWorkout.repititions = w["reps"] as! NSNumber!
                     repsWorkout.approx = w["approx"] as! NSNumber!
                     repsWorkout.modelCategories = w["categories"] as! String!
@@ -356,7 +384,7 @@ public class WorkoutService {
         var language: String
         var image: NSData
         var weights: Bool
-
+        var dryGround: Bool
     }
 
     private func saveContext() {

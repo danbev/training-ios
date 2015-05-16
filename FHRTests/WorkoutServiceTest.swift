@@ -106,16 +106,29 @@ class WorkoutServiceTest: XCTestCase {
         let id = NSUUID().UUIDString
         let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
 
-        let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: false)
+        let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotNil(workout1!.name())
         workoutService.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
 
-        let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: false)
+        let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotEqual(workout2!.name(), workout1!.name())
         workoutService.updateUserWorkout(id, optionalWorkout: workout2!, workoutTime: 1.0)
 
-        let workout3 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: false)
+        let workout3 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: true)
         XCTAssertNotNil(workout3)
+    }
+
+    func testFetchWorkoutDryGround() {
+        workoutService.loadDataIfNeeded();
+        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let id = NSUUID().UUIDString
+        let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
+
+        let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
+        XCTAssertNotNil(workout1!.name())
+        workoutService.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
+        let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
+        XCTAssertNotNil(workout2!.name())
     }
 
     func testSaveUserWorkout() {

@@ -40,7 +40,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var ignoredCategories: Set<WorkoutCategory> = Set()
     private var preparedForSeque = false
     private var weights: Bool!
-    private var indoor: Bool!
+    private var dryGround: Bool!
 
     private var counter: Int = 0 {
         didSet {
@@ -52,24 +52,24 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func readSettings() {
         ignoredCategories.removeAll(keepCapacity: true)
-        if !enabled(WorkoutCategory.UpperBody.rawValue) {
+        if !enabled(WorkoutCategory.UpperBody.rawValue, defaultValue: true) {
             ignoredCategories.insert(WorkoutCategory.UpperBody)
         }
-        if !enabled(WorkoutCategory.LowerBody.rawValue) {
+        if !enabled(WorkoutCategory.LowerBody.rawValue, defaultValue: true) {
             ignoredCategories.insert(WorkoutCategory.LowerBody)
         }
-        if !enabled(WorkoutCategory.Cardio.rawValue) {
+        if !enabled(WorkoutCategory.Cardio.rawValue, defaultValue: true) {
             ignoredCategories.insert(WorkoutCategory.Cardio)
         }
-        weights = enabled("weights")
-        indoor = enabled("indoor")
+        weights = enabled("weights", defaultValue: true)
+        dryGround = enabled("dryGround", defaultValue: true)
     }
 
-    func enabled(keyName: String) -> Bool {
+    func enabled(keyName: String, defaultValue: Bool) -> Bool {
         if let value = userDefaults!.objectForKey(keyName) as? Bool {
             return value
         }
-        return true;
+        return defaultValue;
     }
 
     public override func viewDidLoad() {
@@ -358,7 +358,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             self.restLabel.hidden = false
             self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
-            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout, weights: weights) {
+            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout, weights: weights, dryGround: dryGround) {
                 self.tasks.insert(workout, atIndex: 0)
                 self.tableView.reloadData()
                 self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
