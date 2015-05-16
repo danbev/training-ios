@@ -50,6 +50,7 @@ public class PrebensViewController: UIViewController,
             } else {
                 println("rest timer is not done. Hiding the time label")
                 timeLabel.hidden = false
+                restTimeLabel.hidden = false
             }
         }
     }
@@ -103,9 +104,9 @@ public class PrebensViewController: UIViewController,
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
-                restTimeLabel.textColor = UIColor.blackColor()
+                timeLabel.textColor = UIColor.orangeColor()
             }
-            restTimeLabel.text = Timer.timeAsString(min, sec: sec)
+            timeLabel.text = Timer.timeAsString(min, sec: sec)
         } else {
             doneButton.hidden = false
             restTimer.stop()
