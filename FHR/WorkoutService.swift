@@ -222,27 +222,15 @@ public class WorkoutService {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@", category, weights)
-        println("weights=\(weights) and dryGround=\(dryGround)")
         if !weights && !dryGround {
             fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = true AND dryGround = true", category)
         } else if !weights {
             fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = false", category)
         } else if !dryGround {
-            println("dryGround=\(dryGround)")
             fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND dryGround = false", category)
         } else {
             fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@", category)
         }
-
-        /*
-        if dryGround {
-            println("dry ground true= \(dryGround)")
-            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@", category, weights)
-        } else {
-            println("dry ground is false  (\(dryGround))")
-            fetchRequest.predicate = NSPredicate(format: "modelCategories contains %@ AND weights = %@ AND dryGround = %@", category, weights, true)
-        }
-        */
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = Set<Workout>()
