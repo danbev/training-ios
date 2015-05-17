@@ -246,24 +246,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow()!;
-        let task = tasks[indexPath.row]
-        switch task.type() {
-        case .Reps:
-            performSegueWithIdentifier("repsSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
-        case .Timed:
-            performSegueWithIdentifier("durationSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
-        case .Interval:
-            println("interval task...")
-        case .Prebens:
-            performSegueWithIdentifier("prebensSegue", sender: tableView.cellForRowAtIndexPath(indexPath))
-        }
+        performSegue(tasks[indexPath.row])
     }
 
     private func transition() {
         let indexPath = NSIndexPath(forItem: 0, inSection: 0)
         tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        let task = tasks[0]
-        switch task.type() {
+        performSegue(tasks[0])
+    }
+
+    private func performSegue(workout: WorkoutProtocol) {
+        switch workout.type() {
         case .Reps:
             performSegueWithIdentifier("repsSegue", sender: self)
         case .Timed:
