@@ -55,6 +55,20 @@ public class WorkoutService {
         return intervalWorkout
     }
 
+    public func newUserWorkout(lastUserWorkout: UserWorkout?, ignoredCategories: Set<WorkoutCategory>) -> UserWorkout? {
+        let id = NSUUID().UUIDString
+        if let lastWorkout = lastUserWorkout {
+            if let warmup = fetchWarmup(lastUserWorkout!) {
+                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories), workout: warmup)
+            }
+        } else {
+            if let warmup = fetchWarmup() {
+                return saveUserWorkout(id, category: WorkoutCategory.Warmup.next(ignoredCategories), workout: warmup)
+            }
+        }
+        return nil
+    }
+
     public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout) -> UserWorkout {
         let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
         let userWorkout = UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)

@@ -41,6 +41,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var preparedForSeque = false
     private var weights: Bool!
     private var dryGround: Bool!
+    private var warmup: Bool!
 
     private var counter: Int = 0 {
         didSet {
@@ -63,6 +64,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         weights = enabled("weights", defaultValue: true)
         dryGround = enabled("dryGround", defaultValue: true)
+        warmup = enabled("warmup", defaultValue: true)
     }
 
     func enabled(keyName: String, defaultValue: Bool) -> Bool {
@@ -199,15 +201,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
-        category = WorkoutCategory(rawValue: lastUserWorkout.category)!.next(ignoredCategories)
-        navItem.title = category.rawValue
-        if let warmup = workoutService.fetchWarmup(lastUserWorkout) {
-            addWorkoutToTable(warmup)
-            let id = NSUUID().UUIDString
-            currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
-        } else {
-            println("could not find a warmup task!!")
-        }
+        currentUserWorkout = workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories)
+        category = WorkoutCategory(rawValue: currentUserWorkout.category)
+        addWorkoutToTable(currentUserWorkout.workouts[0] as! Workout)
     }
 
     @IBAction func addWorkout(sender: AnyObject) {

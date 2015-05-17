@@ -17,6 +17,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public let upperbody = WorkoutCategory.UpperBody.rawValue
     public let lowerbody = WorkoutCategory.LowerBody.rawValue
     public let cardio = WorkoutCategory.Cardio.rawValue
+    public let warmup = WorkoutCategory.Warmup.rawValue
 
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var wSwitch: UISwitch!
@@ -24,6 +25,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var cardioSwitch: UISwitch!
     @IBOutlet weak var lowerBodySwitch: UISwitch!
     @IBOutlet weak var upperBodySwitch: UISwitch!
+    @IBOutlet weak var warmupSwitch: UISwitch!
     @IBOutlet weak var timePicker: UIPickerView!
 
     var currentUserWorkout: UserWorkout!
@@ -78,12 +80,15 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         lowerBodySwitch.onTintColor = onTintColor
         cardioSwitch.addTarget(self, action: Selector("cardioChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         cardioSwitch.onTintColor = onTintColor
+        warmupSwitch.addTarget(self, action: Selector("warmupChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        warmupSwitch.onTintColor = onTintColor
 
         wSwitch.setOn(booleanValue(weights, defaultValue: true), animated: false)
         dgSwitch.setOn(booleanValue(indoor, defaultValue: true), animated: false)
         upperBodySwitch.setOn(booleanValue(upperbody, defaultValue: true), animated: false)
         lowerBodySwitch.setOn(booleanValue(lowerbody, defaultValue: true), animated: false)
         cardioSwitch.setOn(booleanValue(cardio, defaultValue: true), animated: false)
+        warmupSwitch.setOn(booleanValue(warmup, defaultValue: true), animated: false)
         timePicker.selectRow(index(duration, defaultValue: Times.FourtyFive), inComponent: 0, animated: false)
 
         self.backButton = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
@@ -155,6 +160,10 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     func cardioChanged(sw: UISwitch) {
         saveValue(sw.on, keyName: cardio)
+    }
+
+    func warmupChanged(sw: UISwitch) {
+        saveValue(sw.on, keyName: warmup)
     }
 
     func saveValue(value: Bool, keyName: String) {
