@@ -18,7 +18,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var completedLabel: UILabel!
     //@IBOutlet weak var workoutTypeLabel: UILabel!
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
@@ -146,14 +145,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func startWorkout(sender: UIButton) {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
-        if completedLabel.hidden == false {
-            completedLabel.hidden = true
-        }
         for (i, t) in enumerate(tasks) {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))
             cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             cell?.userInteractionEnabled = true
-            //tasks.removeAtIndex(i)
         }
         tasks.removeAll(keepCapacity: false)
         tableView.reloadData()
@@ -169,9 +164,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(lastUserWorkout!)
             } else {
-                //lastUserWorkout = workoutService.fetchLatestUserWorkout()
                 currentUserWorkout = lastUserWorkout
-                println("last user workout was not completed!. WorkoutTime=\(lastUserWorkout?.duration)")
+                println("last user workout was not completed!. WorkoutTime=\(lastUserWorkout!.duration)")
                 workoutTimer = Timer(callback: updateWorkoutTime, countDown: lastUserWorkout!.duration)
                 category = WorkoutCategory(rawValue: lastUserWorkout!.category)
                 if let workouts = lastUserWorkout?.workouts {
@@ -378,7 +372,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             timerLabel.hidden = true
             restLabel.hidden = true
             progressView.setProgress(1.0, animated: false)
-            completedLabel.hidden = false
             startButton.hidden = false
             startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
