@@ -189,18 +189,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 tableView.reloadData()
             }
         } else {
-            if let warmup = workoutService.fetchWarmup() {
-                self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
-                addWorkoutToTable(warmup)
-                let id = NSUUID().UUIDString
-                category = WorkoutCategory.Warmup.next(ignoredCategories)
-                currentUserWorkout = workoutService.saveUserWorkout(id, category: category, workout: warmup)
-            }
+            startNewUserWorkout(nil)
+            self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
         }
         navItem.title = category.rawValue
     }
 
-    private func startNewUserWorkout(lastUserWorkout: UserWorkout) {
+    private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
         currentUserWorkout = workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories)
         category = WorkoutCategory(rawValue: currentUserWorkout.category)
         addWorkoutToTable(currentUserWorkout.workouts[0] as! Workout)
