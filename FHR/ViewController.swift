@@ -32,7 +32,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var currentUserWorkout: UserWorkout!
     private var lastUserWorkout: UserWorkout?
 
-    private var timer: Timer!
+    private var restTimer: Timer!
     private var workoutTimer: Timer!
     private var category: WorkoutCategory!
     private var userDefaults: NSUserDefaults!
@@ -79,23 +79,35 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
-        updateTitle()
+        loadLastWorkout()
+    }
+
+    private func loadLastWorkout() {
+        lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        if currentUserWorkout == nil && lastUserWorkout?.done == false {
+            navItem.title = lastUserWorkout!.category
+            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
+        } else if currentUserWorkout == nil && currentUserWorkout?.done == false {
+            navItem.title = currentUserWorkout!.category
+            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
+        } else {
+            navItem.title = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
+        }
     }
 
     private func updateTitle() {
         var workoutType: String
         if currentUserWorkout == nil {
-            workoutType = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-        } else if currentUserWorkout != nil {
-            if currentUserWorkout.done == false {
-                workoutType = category.rawValue
-            } else {
-                workoutType = lastUserWorkout != nil ?
-                    WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
-                    WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-            }
+            workoutType = lastUserWorkout != nil ?
+                WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
+                WorkoutCategory.Warmup.next(ignoredCategories).rawValue
         } else {
-            workoutType = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
+            if currentUserWorkout.done == false {
+                workoutType = currentUserWorkout.category
+            } else {
+                workoutType = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
+            }
         }
         navItem.title = workoutType
         startButton.setTitle("Start \(workoutType)", forState: UIControlState.Normal)
@@ -104,7 +116,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        if lastUserWorkout?.done == false {
+            currentUserWorkout = lastUserWorkout
+        }
         readSettings()
+        //updateTitle()
     }
 
     public override func viewWillDisappear(animated: Bool) {
@@ -173,10 +189,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                         tasks.append(w as! Workout)
                         tableView.reloadData()
                         if index != 0 {
-                            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))!
-                            cell.userInteractionEnabled = false
-                            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-                            cell.tintColor = UIColor.greenColor()
+                            checkmark(index)
                         }
                     }
                 }
@@ -187,6 +200,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
         }
         navItem.title = category.rawValue
+    }
+
+    private func checkmark(index: Int) -> UITableViewCell {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))!
+        cell.userInteractionEnabled = false
+        cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        cell.tintColor = UIColor.greenColor()
+        return cell
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
@@ -287,7 +308,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let taskViewController = segue.destinationViewController as! RepsViewController
                 taskViewController.workout = workout as! RepsWorkout
                 taskViewController.currentUserWorkout = currentUserWorkout
-                taskViewController.restTimer(timer)
+                taskViewController.restTimer(restTimer)
                 taskViewController.didFinish = {
                     [unowned self] controller, duration in
                     self.finishedWorkout(indexPath, workout: workout, duration: duration)
@@ -296,7 +317,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let taskViewController = segue.destinationViewController as! DurationViewController
                 taskViewController.workout = workout as! DurationWorkout
                 taskViewController.currentUserWorkout = currentUserWorkout
-                taskViewController.restTimer(timer)
+                taskViewController.restTimer(restTimer)
                 taskViewController.didFinish = {
                     [unowned self] controller, duration in
                     self.finishedWorkout(indexPath, workout: workout, duration: duration)
@@ -305,7 +326,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let prebensViewController = segue.destinationViewController as! PrebensViewController
                 prebensViewController.workout = workout as! PrebensWorkout
                 prebensViewController.currentUserWorkout = currentUserWorkout
-                prebensViewController.restTimer(timer)
+                prebensViewController.restTimer(restTimer)
                 prebensViewController.didFinish = {
                     [unowned self] controller, duration in
                     self.finishedWorkout(indexPath, workout: workout, duration: duration)
@@ -320,55 +341,49 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
         println("Elapsed time \(totalTime.min):\(totalTime.sec)")
-        // add workout time to saved user workout
         currentUserWorkout = workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
-        if self.timer != nil {
-            self.timer.stop()
+        if restTimer != nil {
+            restTimer.stop()
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
 
-        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: 0))!
-        cell.userInteractionEnabled = false
-        cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        cell.tintColor = UIColor.greenColor()
-        self.tableView.reloadData()
+        checkmark(indexPath.row)
+        tableView.reloadData()
 
         if totalTime.min != 0 {
-            self.restLabel.hidden = false
-            self.timer = Timer(callback: self.updateTime, countDown: workout.restTime().doubleValue)
+            restLabel.hidden = false
+            restTimer = Timer(callback: updateTime, countDown: workout.restTime().doubleValue)
             if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout, weights: weights, dryGround: dryGround) {
-                self.tasks.insert(workout, atIndex: 0)
-                self.tableView.reloadData()
-                self.tableView.moveRowAtIndexPath(NSIndexPath(forRow: self.tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                tasks.insert(workout, atIndex: 0)
+                tableView.reloadData()
+                tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
                 cell.userInteractionEnabled = true
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-                self.tableView.reloadData()
+                tableView.reloadData()
             } else {
-                currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
-                workoutTimer.stop()
-                timer.stop()
-                timerLabel.hidden = true
-                startButton.setTitle("Start \(category.next().rawValue)", forState: UIControlState.Normal)
-                startButton.hidden = false
-                restLabel.hidden = true
-                navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
-                progressView.setProgress(1.0, animated: false)
                 println("There are no more workouts for category \(category.rawValue)")
-                startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
+                stopWorkout()
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
             println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
-            workoutTimer.stop()
-            timerLabel.hidden = true
-            restLabel.hidden = true
-            progressView.setProgress(1.0, animated: false)
-            startButton.hidden = false
-            startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
-            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
+            stopWorkout()
         }
+    }
+
+    private func stopWorkout() {
+        currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+        workoutTimer.stop()
+        if restTimer != nil {
+            restTimer.stop()
+        }
+        timerLabel.hidden = true
+        restLabel.hidden = true
+        progressView.setProgress(1.0, animated: false)
+        startButton.hidden = false
+        startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
