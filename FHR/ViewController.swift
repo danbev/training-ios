@@ -21,8 +21,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
     public let tableCell = "tableCell"
-    //private let workoutDuration: Double = 2700
-    //private let workoutDuration: Double = 70
     private var workoutDuration: Double!
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
@@ -30,11 +28,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var restTimer: Timer!
     private var workoutTimer: Timer!
     private var userDefaults: NSUserDefaults!
-    private var ignoredCategories: Set<WorkoutCategory> = Set()
     private var preparedForSeque = false
-    private var weights: Bool!
-    private var dryGround: Bool!
-    private var warmup: Bool!
     private var runtimeWorkout: RuntimeWorkout!
 
     private var counter: Int = 0 {
@@ -46,19 +40,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func readSettings() {
-        ignoredCategories.removeAll(keepCapacity: true)
-        if !enabled(WorkoutCategory.UpperBody.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.UpperBody)
-        }
-        if !enabled(WorkoutCategory.LowerBody.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.LowerBody)
-        }
-        if !enabled(WorkoutCategory.Cardio.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.Cardio)
-        }
-        weights = enabled("weights", defaultValue: true)
-        dryGround = enabled("dryGround", defaultValue: true)
-        warmup = enabled("warmup", defaultValue: true)
+        RuntimeWorkout.readIgnoredCategories()
     }
 
     func enabled(keyName: String, defaultValue: Bool) -> Bool {
@@ -80,12 +62,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func loadLastWorkout() {
-        let lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        runtimeWorkout = RuntimeWorkout(lastUserWorkout: lastUserWorkout)
+        runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
     }
 
     private func updateTitle() {
-        let category = runtimeWorkout!.category(ignoredCategories)
+        let category = runtimeWorkout!.category()
         navItem.title = category
         startButton.setTitle("Start \(category)", forState: UIControlState.Normal)
     }
@@ -101,13 +82,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if runtimeWorkout.currentUserWorkout != nil {
             workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: runtimeWorkout.currentUserWorkout.done)
         }
-    }
-
-    func readWorkoutDuration() -> Double {
-        if let value = userDefaults!.objectForKey("workoutDuration") as? Int {
-            return Double(value * 60)
-        }
-        return Double(2700)
     }
 
     public func updateTime(timer: Timer) {
@@ -140,11 +114,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         tasks.removeAll(keepCapacity: false)
         tableView.reloadData()
-        workoutDuration = readWorkoutDuration()
+        workoutDuration = RuntimeWorkout.readDurationSetting()
         println("workout duration = \(workoutDuration)")
-
-        // is this required? We should already have called readSettings when we transisioned from the settings view.
-        //readSettings()
 
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
@@ -158,7 +129,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else {
                 println("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
                 workoutTimer = Timer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
-                //category = WorkoutCategory(rawValue: runtimeWorkout.lastUserWorkout!.category)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
@@ -174,7 +144,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             startNewUserWorkout(nil)
             self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
         }
-        navItem.title = runtimeWorkout.category(ignoredCategories)
+        navItem.title = runtimeWorkout.category()
     }
 
     private func checkmark(index: Int) -> UITableViewCell {
@@ -186,9 +156,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
-        runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories),
+        runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: RuntimeWorkout.readIgnoredCategories()),
             lastUserWorkout: lastUserWorkout)
-        //category = WorkoutCategory(rawValue: runtimeWorkout.currentUserWorkout.category)
         addWorkoutToTable(runtimeWorkout.currentUserWorkout.workouts[0] as! Workout)
     }
 
@@ -330,7 +299,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             restLabel.hidden = false
             restTimer = Timer(callback: updateTime, countDown: workout.restTime().doubleValue)
-            if let workout = workoutService.fetchWorkout(runtimeWorkout.category(ignoredCategories), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: weights, dryGround: dryGround) {
+            let settings = RuntimeWorkout.settings()
+            if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                 tasks.insert(workout, atIndex: 0)
                 tableView.reloadData()
                 tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -339,7 +309,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 tableView.reloadData()
             } else {
-                println("There are no more workouts for category \(runtimeWorkout.category(ignoredCategories))")
+                println("There are no more workouts for category \(runtimeWorkout.category())")
                 stopWorkout()
             }
         } else {
@@ -360,7 +330,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         restLabel.hidden = true
         progressView.setProgress(1.0, animated: false)
         startButton.hidden = false
-        startButton.setTitle("Start \(runtimeWorkout.category(ignoredCategories))", forState: UIControlState.Normal)
+        startButton.setTitle("Start \(runtimeWorkout.category())", forState: UIControlState.Normal)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
     }
 
