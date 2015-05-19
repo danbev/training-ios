@@ -72,7 +72,7 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.updateUserWorkout(currentId, optionalWorkout: nil, workoutTime: 5.0, done: true)
 
         let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
-        XCTAssertEqual(WorkoutCategory(rawValue: currentWorkout.category)!.rawValue, runtimeWorkout.category([]))
+        XCTAssertEqual(WorkoutCategory.LowerBody.rawValue, runtimeWorkout.category([]))
     }
 
     func testCategoryCurrentNotDone() {

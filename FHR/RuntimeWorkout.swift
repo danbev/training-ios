@@ -31,7 +31,7 @@ public class RuntimeWorkout {
             if currentUserWorkout?.done == false {
                 return currentUserWorkout!.category
             } else {
-                WorkoutCategory(rawValue: currentUserWorkout!.category)!.next(ignoredCategories).rawValue
+                return WorkoutCategory(rawValue: currentUserWorkout!.category)!.next(ignoredCategories).rawValue
             }
         }
 
