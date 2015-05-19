@@ -29,7 +29,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var tasks = [WorkoutProtocol]()
     private var restTimer: Timer!
     private var workoutTimer: Timer!
-    private var category: WorkoutCategory!
     private var userDefaults: NSUserDefaults!
     private var ignoredCategories: Set<WorkoutCategory> = Set()
     private var preparedForSeque = false
@@ -159,7 +158,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else {
                 println("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
                 workoutTimer = Timer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
-                category = WorkoutCategory(rawValue: runtimeWorkout.lastUserWorkout!.category)
+                //category = WorkoutCategory(rawValue: runtimeWorkout.lastUserWorkout!.category)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
@@ -175,7 +174,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             startNewUserWorkout(nil)
             self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
         }
-        navItem.title = category.rawValue
+        navItem.title = runtimeWorkout.category(ignoredCategories)
     }
 
     private func checkmark(index: Int) -> UITableViewCell {
@@ -189,7 +188,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories),
             lastUserWorkout: lastUserWorkout)
-        category = WorkoutCategory(rawValue: runtimeWorkout.currentUserWorkout.category)
+        //category = WorkoutCategory(rawValue: runtimeWorkout.currentUserWorkout.category)
         addWorkoutToTable(runtimeWorkout.currentUserWorkout.workouts[0] as! Workout)
     }
 
@@ -331,7 +330,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             restLabel.hidden = false
             restTimer = Timer(callback: updateTime, countDown: workout.restTime().doubleValue)
-            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: weights, dryGround: dryGround) {
+            if let workout = workoutService.fetchWorkout(runtimeWorkout.category(ignoredCategories), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: weights, dryGround: dryGround) {
                 tasks.insert(workout, atIndex: 0)
                 tableView.reloadData()
                 tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -340,7 +339,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 tableView.reloadData()
             } else {
-                println("There are no more workouts for category \(category.rawValue)")
+                println("There are no more workouts for category \(runtimeWorkout.category(ignoredCategories))")
                 stopWorkout()
             }
         } else {
@@ -361,7 +360,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         restLabel.hidden = true
         progressView.setProgress(1.0, animated: false)
         startButton.hidden = false
-        startButton.setTitle("Start \(category.next(ignoredCategories).rawValue)", forState: UIControlState.Normal)
+        startButton.setTitle("Start \(runtimeWorkout.category(ignoredCategories))", forState: UIControlState.Normal)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
     }
 
