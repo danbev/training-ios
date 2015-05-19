@@ -18,7 +18,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var progressView: UIProgressView!
-    //@IBOutlet weak var workoutTypeLabel: UILabel!
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
     public let tableCell = "tableCell"
@@ -41,6 +40,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var weights: Bool!
     private var dryGround: Bool!
     private var warmup: Bool!
+    private var runtimeWorkout: RuntimeWorkout!
 
     private var counter: Int = 0 {
         didSet {
@@ -79,38 +79,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
+        readSettings()
         loadLastWorkout()
+        updateTitle()
     }
 
     private func loadLastWorkout() {
         lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        if currentUserWorkout == nil && lastUserWorkout?.done == false {
-            navItem.title = lastUserWorkout!.category
-            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
-        } else if currentUserWorkout == nil && currentUserWorkout?.done == false {
-            navItem.title = currentUserWorkout!.category
-            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
-        } else {
-            navItem.title = WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-            startButton.setTitle("Start \(navItem.title)", forState: UIControlState.Normal)
-        }
+        runtimeWorkout = RuntimeWorkout(lastWorkout: lastUserWorkout)
     }
 
     private func updateTitle() {
-        var workoutType: String
-        if currentUserWorkout == nil {
-            workoutType = lastUserWorkout != nil ?
-                WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue :
-                WorkoutCategory.Warmup.next(ignoredCategories).rawValue
-        } else {
-            if currentUserWorkout.done == false {
-                workoutType = currentUserWorkout.category
-            } else {
-                workoutType = WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
-            }
-        }
-        navItem.title = workoutType
-        startButton.setTitle("Start \(workoutType)", forState: UIControlState.Normal)
+        let category = runtimeWorkout!.category(ignoredCategories)
+        navItem.title = category
+        startButton.setTitle("Start \(category)", forState: UIControlState.Normal)
     }
 
     public override func viewWillAppear(animated: Bool) {
@@ -120,7 +102,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             currentUserWorkout = lastUserWorkout
         }
         readSettings()
-        //updateTitle()
     }
 
     public override func viewWillDisappear(animated: Bool) {
