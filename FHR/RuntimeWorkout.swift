@@ -10,29 +10,33 @@ import Foundation
 
 public class RuntimeWorkout {
 
-    public var currentWorkout: UserWorkout!
-    public var lastWorkout: UserWorkout!
+    public var currentUserWorkout: UserWorkout!
+    public var lastUserWorkout: UserWorkout!
 
-    public convenience init(lastWorkout: UserWorkout?) {
-        self.init(currentWorkout: nil, lastWorkout: lastWorkout)
+    public convenience init(lastUserWorkout: UserWorkout?) {
+        self.init(currentUserWorkout: nil, lastUserWorkout: lastUserWorkout)
     }
 
-    public init(currentWorkout: UserWorkout?, lastWorkout: UserWorkout?) {
-        self.currentWorkout = currentWorkout
-        self.lastWorkout = lastWorkout
+    public init(currentUserWorkout: UserWorkout?, lastUserWorkout: UserWorkout?) {
+        self.lastUserWorkout = lastUserWorkout
+        if lastUserWorkout?.done == false {
+            self.currentUserWorkout = lastUserWorkout
+        } else {
+            self.currentUserWorkout = currentUserWorkout
+        }
     }
 
     public func category(ignoredCategories: Set<WorkoutCategory>) -> String {
-        if currentWorkout != nil {
-            if currentWorkout?.done == false {
-                return currentWorkout!.category
+        if currentUserWorkout != nil {
+            if currentUserWorkout?.done == false {
+                return currentUserWorkout!.category
             } else {
-                WorkoutCategory(rawValue: currentWorkout!.category)!.next(ignoredCategories).rawValue
+                WorkoutCategory(rawValue: currentUserWorkout!.category)!.next(ignoredCategories).rawValue
             }
         }
 
-        if lastWorkout != nil {
-            return WorkoutCategory(rawValue: lastWorkout!.category)!.next(ignoredCategories).rawValue
+        if lastUserWorkout != nil {
+            return WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories).rawValue
         }
 
         return WorkoutCategory.Warmup.next(ignoredCategories).rawValue

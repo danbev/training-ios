@@ -27,10 +27,22 @@ class RuntimeWorkoutTests: XCTestCase {
         let lastId = NSUUID().UUIDString
         let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
         workoutService.updateUserWorkout(lastId, optionalWorkout: nil, workoutTime: 5.0, done: true)
-        let runtime = RuntimeWorkout(lastWorkout: lastWorkout)
-        XCTAssertNotNil(runtime.lastWorkout)
-        XCTAssertNil(runtime.currentWorkout)
+        let runtime = RuntimeWorkout(lastUserWorkout: lastWorkout)
+        XCTAssertNotNil(runtime.lastUserWorkout)
+        XCTAssertNil(runtime.currentUserWorkout)
     }
+
+    func testInitWithLastUserWorkoutNotCompleted() {
+        workoutService.loadDataIfNeeded()
+        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let lastId = NSUUID().UUIDString
+        let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
+        workoutService.updateUserWorkout(lastId, optionalWorkout: nil, workoutTime: 5.0, done: false)
+        let runtime = RuntimeWorkout(lastUserWorkout: lastWorkout)
+        XCTAssertNotNil(runtime.lastUserWorkout)
+        XCTAssertNotNil(runtime.currentUserWorkout)
+    }
+
 
     func testCategoryCurrentInProgress() {
         workoutService.loadDataIfNeeded()
@@ -43,7 +55,7 @@ class RuntimeWorkoutTests: XCTestCase {
         let currentId = NSUUID().UUIDString
         let currentWorkout = workoutService.saveUserWorkout(currentId, category: WorkoutCategory.UpperBody, workout: warmup)
 
-        let runtimeWorkout = RuntimeWorkout(currentWorkout: currentWorkout, lastWorkout: lastWorkout)
+        let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, runtimeWorkout.category([]))
     }
 
@@ -59,7 +71,7 @@ class RuntimeWorkoutTests: XCTestCase {
         let currentWorkout = workoutService.saveUserWorkout(currentId, category: WorkoutCategory.UpperBody, workout: warmup)
         workoutService.updateUserWorkout(currentId, optionalWorkout: nil, workoutTime: 5.0, done: true)
 
-        let runtimeWorkout = RuntimeWorkout(currentWorkout: currentWorkout, lastWorkout: lastWorkout)
+        let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory(rawValue: currentWorkout.category)!.rawValue, runtimeWorkout.category([]))
     }
 
@@ -75,7 +87,7 @@ class RuntimeWorkoutTests: XCTestCase {
         let currentWorkout = workoutService.saveUserWorkout(currentId, category: WorkoutCategory.UpperBody, workout: warmup)
         workoutService.updateUserWorkout(currentId, optionalWorkout: nil, workoutTime: 5.0, done: false)
 
-        let runtimeWorkout = RuntimeWorkout(currentWorkout: currentWorkout, lastWorkout: lastWorkout)
+        let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category([]))
     }
 
@@ -87,7 +99,7 @@ class RuntimeWorkoutTests: XCTestCase {
         let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
         workoutService.updateUserWorkout(lastId, optionalWorkout: nil, workoutTime: 5.0, done: true)
 
-        let runtimeWorkout = RuntimeWorkout(lastWorkout: lastWorkout)
+        let runtimeWorkout = RuntimeWorkout(lastUserWorkout: lastWorkout)
         println(runtimeWorkout.category([]))
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category([]))
     }
@@ -96,7 +108,7 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkout("JumpingJacks")!
 
-        let runtimeWorkout = RuntimeWorkout(lastWorkout: nil)
+        let runtimeWorkout = RuntimeWorkout(lastUserWorkout: nil)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category([]))
     }
 

@@ -27,10 +27,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
-
-    private var currentUserWorkout: UserWorkout!
-    private var lastUserWorkout: UserWorkout?
-
     private var restTimer: Timer!
     private var workoutTimer: Timer!
     private var category: WorkoutCategory!
@@ -85,8 +81,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func loadLastWorkout() {
-        lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        runtimeWorkout = RuntimeWorkout(lastWorkout: lastUserWorkout)
+        let lastUserWorkout = workoutService.fetchLatestUserWorkout()
+        runtimeWorkout = RuntimeWorkout(lastUserWorkout: lastUserWorkout)
     }
 
     private func updateTitle() {
@@ -97,18 +93,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        if lastUserWorkout?.done == false {
-            currentUserWorkout = lastUserWorkout
-        }
-        readSettings()
+        runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
     }
 
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         let workoutTime = workoutTimer?.duration() ?? 0.0
-        if currentUserWorkout != nil {
-            workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: currentUserWorkout.done)
+        if runtimeWorkout.currentUserWorkout != nil {
+            workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: runtimeWorkout.currentUserWorkout.done)
         }
     }
 
@@ -152,20 +144,23 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         workoutDuration = readWorkoutDuration()
         println("workout duration = \(workoutDuration)")
 
-        readSettings()
+        // is this required? We should already have called readSettings when we transisioned from the settings view.
+        //readSettings()
+
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
-        lastUserWorkout = workoutService.fetchLatestUserWorkout()
-        if lastUserWorkout != nil {
-            if lastUserWorkout!.done.boolValue {
-                self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
-                startNewUserWorkout(lastUserWorkout!)
+
+        runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
+
+        if runtimeWorkout.lastUserWorkout != nil {
+            if runtimeWorkout.lastUserWorkout!.done.boolValue {
+                workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
+                startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
-                currentUserWorkout = lastUserWorkout
-                println("last user workout was not completed!. WorkoutTime=\(lastUserWorkout!.duration)")
-                workoutTimer = Timer(callback: updateWorkoutTime, countDown: lastUserWorkout!.duration)
-                category = WorkoutCategory(rawValue: lastUserWorkout!.category)
-                if let workouts = lastUserWorkout?.workouts {
+                println("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
+                workoutTimer = Timer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
+                category = WorkoutCategory(rawValue: runtimeWorkout.lastUserWorkout!.category)
+                if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
                         tableView.reloadData()
@@ -192,9 +187,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
-        currentUserWorkout = workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories)
-        category = WorkoutCategory(rawValue: currentUserWorkout.category)
-        addWorkoutToTable(currentUserWorkout.workouts[0] as! Workout)
+        runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: ignoredCategories),
+            lastUserWorkout: lastUserWorkout)
+        category = WorkoutCategory(rawValue: runtimeWorkout.currentUserWorkout.category)
+        addWorkoutToTable(runtimeWorkout.currentUserWorkout.workouts[0] as! Workout)
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
@@ -279,16 +275,16 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         preparedForSeque = true;
         if segue.identifier == "settings" {
             let settingsController = segue.destinationViewController as! SettingViewController
-            settingsController.currentUserWorkout = currentUserWorkout
+            settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let task = tasks[indexPath.row]
             let workout = tasks[indexPath.row] as! Workout
-            self.workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+            self.workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
             if segue.identifier == "repsSegue" {
                 let taskViewController = segue.destinationViewController as! RepsViewController
                 taskViewController.workout = workout as! RepsWorkout
-                taskViewController.currentUserWorkout = currentUserWorkout
+                taskViewController.currentUserWorkout = runtimeWorkout.currentUserWorkout
                 taskViewController.restTimer(restTimer)
                 taskViewController.didFinish = {
                     [unowned self] controller, duration in
@@ -297,7 +293,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else if segue.identifier == "durationSegue" {
                 let taskViewController = segue.destinationViewController as! DurationViewController
                 taskViewController.workout = workout as! DurationWorkout
-                taskViewController.currentUserWorkout = currentUserWorkout
+                taskViewController.currentUserWorkout = runtimeWorkout.currentUserWorkout
                 taskViewController.restTimer(restTimer)
                 taskViewController.didFinish = {
                     [unowned self] controller, duration in
@@ -306,7 +302,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             } else if segue.identifier == "prebensSegue" {
                 let prebensViewController = segue.destinationViewController as! PrebensViewController
                 prebensViewController.workout = workout as! PrebensWorkout
-                prebensViewController.currentUserWorkout = currentUserWorkout
+                prebensViewController.currentUserWorkout = runtimeWorkout.currentUserWorkout
                 prebensViewController.restTimer(restTimer)
                 prebensViewController.didFinish = {
                     [unowned self] controller, duration in
@@ -322,7 +318,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
         println("Elapsed time \(totalTime.min):\(totalTime.sec)")
-        currentUserWorkout = workoutService.updateUserWorkout(self.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+        let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+        runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
             restTimer.stop()
         }
@@ -334,7 +331,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             restLabel.hidden = false
             restTimer = Timer(callback: updateTime, countDown: workout.restTime().doubleValue)
-            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: currentUserWorkout, lastUserWorkout: lastUserWorkout, weights: weights, dryGround: dryGround) {
+            if let workout = workoutService.fetchWorkout(category.rawValue, currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: weights, dryGround: dryGround) {
                 tasks.insert(workout, atIndex: 0)
                 tableView.reloadData()
                 tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -354,7 +351,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func stopWorkout() {
-        currentUserWorkout = workoutService.updateUserWorkout(currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+        let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+        runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         workoutTimer.stop()
         if restTimer != nil {
             restTimer.stop()
