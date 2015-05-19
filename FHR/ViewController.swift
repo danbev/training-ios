@@ -20,14 +20,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
-    public let tableCell = "tableCell"
-    private var workoutDuration: Double!
+
     private lazy var coreDataStack = CoreDataStack()
+    private let tableCell = "tableCell"
+    private var workoutDuration: Double!
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
     private var restTimer: Timer!
     private var workoutTimer: Timer!
-    private var userDefaults: NSUserDefaults!
     private var preparedForSeque = false
     private var runtimeWorkout: RuntimeWorkout!
 
@@ -43,16 +43,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         RuntimeWorkout.readIgnoredCategories()
     }
 
-    func enabled(keyName: String, defaultValue: Bool) -> Bool {
-        if let value = userDefaults!.objectForKey(keyName) as? Bool {
-            return value
-        }
-        return defaultValue;
-    }
-
     public override func viewDidLoad() {
         super.viewDidLoad()
-        userDefaults = NSUserDefaults.standardUserDefaults()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
