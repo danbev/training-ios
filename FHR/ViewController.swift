@@ -23,7 +23,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private lazy var coreDataStack = CoreDataStack()
     private let tableCell = "tableCell"
-    private var workoutDuration: Double!
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
     private var restTimer: Timer!
@@ -97,8 +96,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         counter++;
     }
 
-    @IBAction func startWorkout(sender: UIButton) {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+    private func clearWorkoutTasks() {
         for (i, t) in enumerate(tasks) {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))
             cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -106,11 +104,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         tasks.removeAll(keepCapacity: false)
         tableView.reloadData()
-        workoutDuration = RuntimeWorkout.readDurationSetting()
-        println("workout duration = \(workoutDuration)")
+    }
 
+    @IBAction func startWorkout(sender: UIButton) {
         startButton.hidden = true
         progressView.setProgress(0, animated: false)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        clearWorkoutTasks()
+        let workoutDuration = RuntimeWorkout.readDurationSetting()
+        println("workout duration = \(workoutDuration)")
 
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
 
