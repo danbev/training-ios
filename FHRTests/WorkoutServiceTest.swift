@@ -166,6 +166,29 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual(2, prebensWorkouts.count);
         XCTAssertEqual(Type.Prebens, prebensWorkouts[0].type());
         XCTAssertEqual(7, prebensWorkouts[0].workouts.count);
+        for p in prebensWorkouts {
+            let category = WorkoutCategory(rawValue: p.modelCategories)!
+            switch category {
+            case .UpperBody :
+                XCTAssertEqual("Bicep curl", p.workouts[0].workoutName())
+                XCTAssertEqual("Front bench press", p.workouts[1].workoutName())
+                XCTAssertEqual("Military press", p.workouts[2].workoutName())
+                XCTAssertEqual("Ryck", p.workouts[3].workoutName())
+                XCTAssertEqual("Hakdrag", p.workouts[4].workoutName())
+                XCTAssertEqual("Standing rowing", p.workouts[5].workoutName())
+                XCTAssertEqual("Squats", p.workouts[6].workoutName())
+            case .LowerBody :
+                XCTAssertEqual("Russians", p.workouts[0].workoutName())
+                XCTAssertEqual("Squats", p.workouts[1].workoutName())
+                XCTAssertEqual("Flat foot jumps", p.workouts[2].workoutName())
+                XCTAssertEqual("Lunges", p.workouts[3].workoutName())
+                XCTAssertEqual("Lunge jumps", p.workouts[4].workoutName())
+                XCTAssertEqual("Marklyft", p.workouts[5].workoutName())
+                XCTAssertEqual("Stallion Burpees", p.workouts[6].workoutName())
+            default:
+                println("should not happen yet.")
+            }
+        }
     }
 
     func testNewUserworkoutNonExistingWorkout() {
