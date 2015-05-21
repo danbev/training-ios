@@ -223,7 +223,7 @@
         <!--Duration View Controller-->
         <scene sceneID="6kW-Oy-67m">
             <objects>
-                <viewController id="fms-NL-3Y8" customClass="DurationViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DurationViewController" id="fms-NL-3Y8" customClass="DurationViewController" customModule="FHR" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sdU-zw-hCV"/>
                         <viewControllerLayoutGuide type="bottom" id="hlv-WQ-zuv"/>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C51055C51B0DF77A005980AD /* DurationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */; };
+		C51055C61B0DF9F0005980AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C515E84C19C5A937001A5BB2 /* Main.storyboard */; };
 		C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424101AED68EB00153BF0 /* PrebensWorkout.swift */; };
 		C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424121AEE9B0600153BF0 /* PrebensViewController.swift */; };
 		C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E84819C5A937001A5BB2 /* AppDelegate.swift */; };
@@ -54,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewControllerTests.swift; sourceTree = "<group>"; };
 		C51424101AED68EB00153BF0 /* PrebensWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkout.swift; sourceTree = "<group>"; };
 		C51424121AEE9B0600153BF0 /* PrebensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewController.swift; sourceTree = "<group>"; };
 		C515E84319C5A937001A5BB2 /* FHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +190,7 @@
 				C539DA9C1A8E33AE005A6D45 /* NSTimerTests.swift */,
 				C573BDC31A90CFE000B84FE0 /* WorkoutTypeTests.swift */,
 				C58CD6911B09D03A00B974C9 /* RuntimeWorkoutTests.swift */,
+				C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */,
 			);
 			path = FHRTests;
 			sourceTree = "<group>";
@@ -294,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C51055C61B0DF9F0005980AD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +341,7 @@
 				C58CD6921B09D03A00B974C9 /* RuntimeWorkoutTests.swift in Sources */,
 				C539DA9D1A8E33AE005A6D45 /* NSTimerTests.swift in Sources */,
 				C573BDC41A90CFE000B84FE0 /* WorkoutTypeTests.swift in Sources */,
+				C51055C51B0DF77A005980AD /* DurationViewControllerTests.swift in Sources */,
 				C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
