@@ -18,6 +18,7 @@ public class DurationViewController: UIViewController {
     typealias FinishDelegate = (DurationViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
     var restTimer: Timer!
+    var workTimer: Timer!
     // define a closure that starts this workout.
     public var workout : DurationWorkout!
     var currentUserWorkout: UserWorkout!
@@ -25,21 +26,59 @@ public class DurationViewController: UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak public var timeLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
 
     @IBOutlet weak var restTimerLabel: UILabel!
 
+    public func isTimeLabelVisible() -> Bool {
+        return timeLabel.hidden
+    }
+
+    public func timeLabelText() -> String? {
+        return timeLabel.text
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
+        /*
         taskLabel.text = workout.modelWorkoutName
         durationLabel.text = workout.duration.stringValue
         descLabel.text = workout.desc()
         imageView.image = UIImage(data: workout.image())
 
-        if restTimer != nil && restTimer.isDone() {
-            timeLabel.hidden = true
-        } else {
+        if restTimer == nil {
             timeLabel.hidden = false
+            timeLabel.text = "Workout time"
+            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+        } else {
+            if restTimer.isDone() {
+                timeLabel.hidden = true
+            } else {
+                timeLabel.text = "Workout time"
+                timeLabel.hidden = false
+            }
+        }
+        */
+    }
+
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        taskLabel.text = workout.modelWorkoutName
+        durationLabel.text = workout.duration.stringValue
+        descLabel.text = workout.desc()
+        imageView.image = UIImage(data: workout.image())
+
+        if restTimer == nil {
+            timeLabel.hidden = false
+            timeLabel.text = "Workout time"
+            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+        } else {
+            if restTimer.isDone() {
+                timeLabel.hidden = true
+            } else {
+                timeLabel.text = "Workout time"
+                timeLabel.hidden = false
+            }
         }
     }
 
@@ -60,7 +99,7 @@ public class DurationViewController: UIViewController {
             restTimerLabel.textColor = UIColor.whiteColor()
             restTimer.stop()
             timeLabel.text = "Workout time"
-            restTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
         }
     }
 

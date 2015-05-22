@@ -21,27 +21,26 @@ class DurationViewControllerTests: XCTestCase {
         super.setUp()
         var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("DurationViewController") as! DurationViewController
-        controller.loadView()
         workoutService = WorkoutService(context: coreDataStack.context)
+        workoutService.loadDataIfNeeded()
+        let dummy = controller.view
+        controller.loadView()
     }
 
     override func tearDown() {
         super.tearDown()
     }
 
-    func testUI() {
-        workoutService.loadDataIfNeeded()
+    func testWithRestTimer() {
         let workout = workoutService.fetchWorkout("Getups") as! DurationWorkout
         controller.workout = workout
         let expectation = expectationWithDescription("Testing timer...")
-        let timer = Timer(callback: {(timer) -> () in
-            println("rest timer triggered....")
-            expectation.fulfill()
-        }, countDown: 60)
+        let timer = Timer(callback: { (timer) -> () in expectation.fulfill() }, countDown: 60)
         controller.restTimer(timer)
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
-            XCTAssertFalse(self.controller.timeLabel.hidden.boolValue)
+            XCTAssertTrue(self.controller.isTimeLabelVisible())
+            XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
     }
 
