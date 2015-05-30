@@ -17,8 +17,8 @@ public class DurationViewController: UIViewController {
 
     typealias FinishDelegate = (DurationViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
-    var restTimer: Timer!
-    var workTimer: Timer!
+    var restTimer: CountDownTimer!
+    var workTimer: CountDownTimer!
     // define a closure that starts this workout.
     public var workout : DurationWorkout!
     var currentUserWorkout: UserWorkout!
@@ -71,7 +71,7 @@ public class DurationViewController: UIViewController {
         if restTimer == nil {
             timeLabel.hidden = false
             timeLabel.text = "Workout time"
-            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+            workTimer = CountDownTimer(callback: updateTime2, countDown: workout.duration.doubleValue)
         } else {
             if restTimer.isDone() {
                 timeLabel.hidden = true
@@ -82,31 +82,31 @@ public class DurationViewController: UIViewController {
         }
     }
 
-    public func restTimer(timer: Timer?) {
+    public func restTimer(timer: CountDownTimer?) {
         if let t = timer {
-            restTimer = Timer.fromTimer(t, callback: updateTime)
+            restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
         }
     }
 
-    public func updateTime(timer: Timer) {
+    public func updateTime(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
                 restTimerLabel.textColor = UIColor.orangeColor()
             }
-            restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
             restTimerLabel.textColor = UIColor.whiteColor()
             restTimer.stop()
             timeLabel.text = "Workout time"
-            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
+            workTimer = CountDownTimer(callback: updateTime2, countDown: workout.duration.doubleValue)
         }
     }
 
-    public func updateTime2(timer: Timer) {
+    public func updateTime2(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
             timer.stop()
             self.didFinish!(self, duration: workout.duration.doubleValue)

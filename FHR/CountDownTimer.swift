@@ -8,8 +8,8 @@
 
 import Foundation
 
-public class Timer: NSObject {
-    public typealias Callback = (Timer) -> ()
+public class CountDownTimer: NSObject {
+    public typealias Callback = (CountDownTimer) -> ()
 
     private let start: NSTimeInterval
     private let callback: Callback
@@ -32,8 +32,8 @@ public class Timer: NSObject {
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
     }
 
-    public class func fromTimer(timer: Timer, callback: Callback) -> Timer {
-        return Timer(callback: callback, countDown: timer.countDown, startTime: timer.startTime())
+    public class func fromTimer(timer: CountDownTimer, callback: Callback) -> CountDownTimer {
+        return CountDownTimer(callback: callback, countDown: timer.countDown, startTime: timer.startTime())
     }
 
     public func stop() {

@@ -11,11 +11,11 @@ import UIKit
 import FHR
 import XCTest
 
-class TimerTests: XCTestCase {
+class CountDownTimerTests: XCTestCase {
 
     func testTimer() {
         let expectation = expectationWithDescription("Timer should fire once every second")
-        let timer = Timer(callback: { (timer) -> () in
+        let timer = CountDownTimer(callback: { (timer) -> () in
             println(timer.elapsedTime())
             expectation.fulfill()
             }, countDown: 6)

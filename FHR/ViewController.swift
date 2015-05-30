@@ -25,8 +25,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
     private var tasks = [WorkoutProtocol]()
-    private var restTimer: Timer!
-    private var workoutTimer: Timer!
+    private var restTimer: CountDownTimer!
+    private var workoutTimer: CountDownTimer!
     private var preparedForSeque = false
     private var runtimeWorkout: RuntimeWorkout!
 
@@ -75,7 +75,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    public func updateTime(timer: Timer) {
+    public func updateTime(timer: CountDownTimer) {
         if timerLabel.hidden == true {
             timerLabel.hidden = false
         }
@@ -83,7 +83,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if (min == 0 && sec < 10) {
             timerLabel.textColor = UIColor.orangeColor()
         }
-        timerLabel.text = Timer.timeAsString(min, sec: sec)
+        timerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         if (min == 0 && sec <= 0) {
             timer.stop()
             if !preparedForSeque {
@@ -92,7 +92,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    public func updateWorkoutTime(timer: Timer) {
+    public func updateWorkoutTime(timer: CountDownTimer) {
         counter++;
     }
 
@@ -118,11 +118,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         if runtimeWorkout.lastUserWorkout != nil {
             if runtimeWorkout.lastUserWorkout!.done.boolValue {
-                workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
+                workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
                 println("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
-                workoutTimer = Timer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
+                workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
@@ -136,7 +136,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             startNewUserWorkout(nil)
-            self.workoutTimer = Timer(callback: updateWorkoutTime, countDown: workoutDuration)
+            self.workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
         }
         navItem.title = runtimeWorkout.category()
     }
@@ -292,7 +292,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         if totalTime.min != 0 {
             restLabel.hidden = false
-            restTimer = Timer(callback: updateTime, countDown: workout.restTime().doubleValue)
+            restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
             let settings = RuntimeWorkout.settings()
             if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                 tasks.insert(workout, atIndex: 0)
@@ -308,7 +308,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            println("Workout time completed \(Timer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
+            println("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             stopWorkout()
         }
     }

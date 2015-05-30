@@ -19,8 +19,8 @@ public class RepsViewController: UIViewController {
     var didFinish: FinishDelegate?
     var workout : RepsWorkout!
     var currentUserWorkout : UserWorkout!
-    var restTimer: Timer!
-    var workTimer: Timer!
+    var restTimer: CountDownTimer!
+    var workTimer: CountDownTimer!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
@@ -41,7 +41,7 @@ public class RepsViewController: UIViewController {
             restTimerLabel.hidden = true
             doneButton.hidden = false
             totalTime.hidden = false
-            workTimer = Timer(callback: updateWorkTime)
+            workTimer = CountDownTimer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
                 timeLabel.hidden = true
@@ -51,33 +51,33 @@ public class RepsViewController: UIViewController {
         }
     }
 
-    public func restTimer(timer: Timer?) {
+    public func restTimer(timer: CountDownTimer?) {
         if let t = timer {
-            restTimer = Timer.fromTimer(t, callback: updateTime)
+            restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
         }
     }
 
-    public func updateTime(timer: Timer) {
+    public func updateTime(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
                 restTimerLabel.textColor = UIColor.orangeColor()
             }
-            restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
             doneButton.hidden = false
             restTimer.stop()
             restTimerLabel.hidden = true
             timeLabel.hidden = true
             totalTime.hidden = false
-            workTimer = Timer(callback: updateWorkTime)
+            workTimer = CountDownTimer(callback: updateWorkTime)
         }
     }
 
-    public func updateWorkTime(timer: Timer) {
+    public func updateWorkTime(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         println("\(min):\(sec)")
-        totalTime.text = Timer.timeAsString(min, sec: sec)
+        totalTime.text = CountDownTimer.timeAsString(min, sec: sec)
     }
 
     public override func didReceiveMemoryWarning() {

@@ -22,8 +22,8 @@ public class PrebensViewController: UIViewController,
     var didFinish: FinishDelegate?
     var workout : PrebensWorkout!
     var currentUserWorkout : UserWorkout!
-    var restTimer: Timer!
-    var workTimer: Timer!
+    var restTimer: CountDownTimer!
+    var workTimer: CountDownTimer!
     private var tasks = [RepsWorkout]()
     public let tableCell = "tableCell"
 
@@ -41,12 +41,12 @@ public class PrebensViewController: UIViewController,
             println("rest timer is nil. Creating a new worktimer.")
             restTimeLabel.hidden = true
             doneButton.hidden = false
-            workTimer = Timer(callback: updateWorkTime)
+            workTimer = CountDownTimer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
                 println("rest timer is done. Creating a new worktimer.")
                 timeLabel.hidden = true
-                workTimer = Timer(callback: updateWorkTime)
+                workTimer = CountDownTimer(callback: updateWorkTime)
             } else {
                 println("rest timer is not done. Hiding the time label")
                 timeLabel.hidden = false
@@ -94,25 +94,25 @@ public class PrebensViewController: UIViewController,
         return cell;
     }
 
-    public func restTimer(timer: Timer?) {
+    public func restTimer(timer: CountDownTimer?) {
         if let t = timer {
-            restTimer = Timer.fromTimer(t, callback: updateTime)
+            restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
         }
     }
 
-    public func updateTime(timer: Timer) {
+    public func updateTime(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             if (min == 0 && sec < 10) {
                 timeLabel.textColor = UIColor.orangeColor()
             }
-            timeLabel.text = Timer.timeAsString(min, sec: sec)
+            timeLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
             doneButton.hidden = false
             restTimer.stop()
             restTimeLabel.hidden = true
             timeLabel.hidden = true
-            workTimer = Timer(callback: updateWorkTime)
+            workTimer = CountDownTimer(callback: updateWorkTime)
         }
     }
 
@@ -122,7 +122,7 @@ public class PrebensViewController: UIViewController,
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    public func updateWorkTime(timer: Timer) {
+    public func updateWorkTime(timer: CountDownTimer) {
         // Noop
     }
 
@@ -135,7 +135,7 @@ public class PrebensViewController: UIViewController,
             workTimer.stop();
         } else {
             //TODO: this must be sorted out. Some race condition seems to be in play.
-            workTimer = Timer(callback: updateWorkTime)
+            workTimer = CountDownTimer(callback: updateWorkTime)
         }
         self.didFinish!(self, duration: workTimer.duration())
     }
