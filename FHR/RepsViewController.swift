@@ -28,6 +28,7 @@ public class RepsViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var totalTime: UILabel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ public class RepsViewController: UIViewController {
         if restTimer == nil {
             restTimerLabel.hidden = true
             doneButton.hidden = false
+            totalTime.hidden = false
             workTimer = Timer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
@@ -67,12 +69,15 @@ public class RepsViewController: UIViewController {
             restTimer.stop()
             restTimerLabel.hidden = true
             timeLabel.hidden = true
+            totalTime.hidden = false
             workTimer = Timer(callback: updateWorkTime)
         }
     }
 
     public func updateWorkTime(timer: Timer) {
-        // Noop
+        let (min, sec) = timer.elapsedTime()
+        println("\(min):\(sec)")
+        totalTime.text = Timer.timeAsString(min, sec: sec)
     }
 
     public override func didReceiveMemoryWarning() {

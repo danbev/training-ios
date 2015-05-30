@@ -51,6 +51,23 @@
                BlueprintName = "FHRTests"
                ReferencedContainer = "container:FHR.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "DurationViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "RuntimeWorkoutTests">
+               </Test>
+               <Test
+                  Identifier = "ViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "WorkoutServiceTest">
+               </Test>
+               <Test
+                  Identifier = "WorkoutTypeTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
