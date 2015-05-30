@@ -20,7 +20,7 @@ public class RepsViewController: UIViewController {
     var workout : RepsWorkout!
     var currentUserWorkout : UserWorkout!
     var restTimer: CountDownTimer!
-    var workTimer: CountDownTimer!
+    var workTimer: Timer!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
@@ -38,15 +38,14 @@ public class RepsViewController: UIViewController {
         imageView.image = UIImage(data: workout.image())
         doneButton.hidden = true;
         if restTimer == nil {
-            restTimerLabel.hidden = true
+            //restTimerLabel.hidden = true
+            timeLabel.text = "Workout time:"
             doneButton.hidden = false
             totalTime.hidden = false
-            workTimer = CountDownTimer(callback: updateWorkTime)
+            workTimer = Timer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
-                timeLabel.hidden = true
-            } else {
-                timeLabel.hidden = false
+                timeLabel.text = "Workout time:"
             }
         }
     }
@@ -67,17 +66,20 @@ public class RepsViewController: UIViewController {
         } else {
             doneButton.hidden = false
             restTimer.stop()
-            restTimerLabel.hidden = true
-            timeLabel.hidden = true
+            //restTimerLabel.hidden = true
+            //timeLabel.hidden = true
+            timeLabel.text = "Workout time:"
+            restTimerLabel.textColor = UIColor.whiteColor()
             totalTime.hidden = false
-            workTimer = CountDownTimer(callback: updateWorkTime)
+            workTimer = Timer(callback: updateWorkTime)
         }
     }
 
-    public func updateWorkTime(timer: CountDownTimer) {
+    public func updateWorkTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
         println("\(min):\(sec)")
-        totalTime.text = CountDownTimer.timeAsString(min, sec: sec)
+        //totalTime.text = Timer.timeAsString(min, sec: sec)
+        restTimerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
     public override func didReceiveMemoryWarning() {

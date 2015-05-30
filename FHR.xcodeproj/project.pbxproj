@@ -27,6 +27,8 @@
 		C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9A1A8D2159005A6D45 /* burpees.mov */; };
 		C539DA9D1A8E33AE005A6D45 /* CountDownTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */; };
 		C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */; };
+		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
+		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
 		C573BDC21A90882500B84FE0 /* WorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */; };
 		C573BDC41A90CFE000B84FE0 /* WorkoutTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC31A90CFE000B84FE0 /* WorkoutTypeTests.swift */; };
 		C5801CE61A62B3A800051140 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* Workout.swift */; };
@@ -79,6 +81,8 @@
 		C539DA9A1A8D2159005A6D45 /* burpees.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = burpees.mov; path = ../../../../../Desktop/burpees.mov; sourceTree = "<group>"; };
 		C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimerTests.swift; sourceTree = "<group>"; };
 		C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
+		C56944B21B19D576006745B0 /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
+		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C573BDBF1A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
 		C573BDC01A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutProtocol.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */,
 				C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */,
 				C51424101AED68EB00153BF0 /* PrebensWorkout.swift */,
+				C56944B41B19D5FC006745B0 /* Timer.swift */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				C573BDC31A90CFE000B84FE0 /* WorkoutTypeTests.swift */,
 				C58CD6911B09D03A00B974C9 /* RuntimeWorkoutTests.swift */,
 				C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */,
+				C56944B21B19D576006745B0 /* TimerTests.swift */,
 			);
 			path = FHRTests;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 				C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */,
 				C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
+				C56944B51B19D5FC006745B0 /* Timer.swift in Sources */,
 				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,
 				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,
 				C5C67FF31ADF682200C1D55C /* WorkoutResult.swift in Sources */,
@@ -343,6 +350,7 @@
 				C573BDC41A90CFE000B84FE0 /* WorkoutTypeTests.swift in Sources */,
 				C51055C51B0DF77A005980AD /* DurationViewControllerTests.swift in Sources */,
 				C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */,
+				C56944B31B19D576006745B0 /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
