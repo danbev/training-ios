@@ -23,7 +23,7 @@ public class PrebensViewController: UIViewController,
     var workout : PrebensWorkout!
     var currentUserWorkout : UserWorkout!
     var restTimer: CountDownTimer!
-    var workTimer: CountDownTimer!
+    var workTimer: Timer!
     private var tasks = [RepsWorkout]()
     public let tableCell = "tableCell"
 
@@ -38,19 +38,12 @@ public class PrebensViewController: UIViewController,
         }
         tableView.reloadData()
         if restTimer == nil {
-            println("rest timer is nil. Creating a new worktimer.")
-            restTimeLabel.hidden = true
             doneButton.hidden = false
-            workTimer = CountDownTimer(callback: updateWorkTime)
+            setWorkoutTimeLabel()
+            workTimer = Timer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
-                println("rest timer is done. Creating a new worktimer.")
-                timeLabel.hidden = true
-                workTimer = CountDownTimer(callback: updateWorkTime)
-            } else {
-                println("rest timer is not done. Hiding the time label")
-                timeLabel.hidden = false
-                restTimeLabel.hidden = false
+                setWorkoutTimeLabel()
             }
         }
     }
@@ -110,10 +103,14 @@ public class PrebensViewController: UIViewController,
         } else {
             doneButton.hidden = false
             restTimer.stop()
-            restTimeLabel.hidden = true
-            timeLabel.hidden = true
-            workTimer = CountDownTimer(callback: updateWorkTime)
+            setWorkoutTimeLabel()
+            workTimer = Timer(callback: updateWorkTime)
         }
+    }
+
+    private func setWorkoutTimeLabel() {
+        restTimeLabel.textColor = UIColor.whiteColor()
+        restTimeLabel.text = "Workout time:"
     }
 
     @IBAction func infoButton(sender: AnyObject) {
@@ -122,8 +119,10 @@ public class PrebensViewController: UIViewController,
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    public func updateWorkTime(timer: CountDownTimer) {
-        // Noop
+    public func updateWorkTime(timer: Timer) {
+        let (min, sec) = timer.elapsedTime()
+        println("\(min):\(sec)")
+        timeLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
     public override func didReceiveMemoryWarning() {
@@ -131,12 +130,8 @@ public class PrebensViewController: UIViewController,
     }
 
     @IBAction func done(sender: AnyObject) {
-        if workTimer != nil {
-            workTimer.stop();
-        } else {
-            //TODO: this must be sorted out. Some race condition seems to be in play.
-            workTimer = CountDownTimer(callback: updateWorkTime)
-        }
+        workTimer.stop();
+        println("duration of prebens=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
     }
 }
