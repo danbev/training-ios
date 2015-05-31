@@ -1,5 +1,5 @@
 //
-//  NSTimerTests.swift
+//  CountDownTimerTests.swift
 //  FHR
 //
 //  Created by Daniel Bevenius on 13/02/15.
@@ -13,20 +13,14 @@ import XCTest
 
 class CountDownTimerTests: XCTestCase {
 
-    func testTimer() {
-        let expectation = expectationWithDescription("Timer should fire once every second")
-        let timer = CountDownTimer(callback: { (timer) -> () in
-            println(timer.elapsedTime())
-            expectation.fulfill()
-            }, countDown: 6)
+    func testCountDownTimer() {
+        let expectation = expectationWithDescription("CountDownTimer should fire once every second")
+        var timer = CountDownTimer(callback: { (t) -> () in expectation.fulfill() }, countDown: 6)
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(timer.isDone())
+            timer.stop()
         }
     }
 
-    func callback() {
-        println("callback...")
-    }
-    
 }
 

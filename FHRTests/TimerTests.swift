@@ -14,22 +14,20 @@ import XCTest
 class TimerTests: XCTestCase {
     
     func testTimer() {
-        /*
-        let expectation = expectationWithDescription("Timer should fire once every second")
-        let timer = Timer(callback: { (timer) -> () in
-            let time = timer.elapsedTime()
+        let exp = expectationWithDescription("TimerTest should fire once every second")
+        let timer = Timer(callback: { (t) -> () in
+            let time = t.elapsedTime()
             if time.sec > 2 {
-                expectation.fulfill()
+                exp.fulfill()
             } else {
-                println(time)
                 XCTAssertTrue(time.min == 0)
                 XCTAssertTrue(time.sec <= 2)
             }
             })
         waitForExpectationsWithTimeout(5) { (error) in
             XCTAssertFalse(timer.isDone())
+            timer.stop()
         }
-        */
     }
 
 }
