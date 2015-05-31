@@ -38,6 +38,7 @@
 		C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
 		C58CD6921B09D03A00B974C9 /* RuntimeWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD6911B09D03A00B974C9 /* RuntimeWorkoutTests.swift */; };
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
+		C5A092CB1B1B9016003FFCA4 /* restwarning.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CA1B1B9016003FFCA4 /* restwarning.wav */; };
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5C67FF31ADF682200C1D55C /* WorkoutResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */; };
@@ -94,6 +95,7 @@
 		C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeWorkout.swift; sourceTree = "<group>"; };
 		C58CD6911B09D03A00B974C9 /* RuntimeWorkoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeWorkoutTests.swift; sourceTree = "<group>"; };
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
+		C5A092CA1B1B9016003FFCA4 /* restwarning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = restwarning.wav; sourceTree = "<group>"; };
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutResult.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		C515E84519C5A937001A5BB2 /* FHR */ = {
 			isa = PBXGroup;
 			children = (
+				C5A092CA1B1B9016003FFCA4 /* restwarning.wav */,
 				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
 				C5801CE81A62B3C200051140 /* DurationWorkout.swift */,
 				C537A4B81A21F669003697CD /* FHR.xcdatamodeld */,
@@ -297,6 +300,7 @@
 				C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */,
 				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
 				C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */,
+				C5A092CB1B1B9016003FFCA4 /* restwarning.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

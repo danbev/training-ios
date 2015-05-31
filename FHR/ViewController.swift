@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 /**
 * Main view controller for workout tasks.
@@ -29,6 +30,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var workoutTimer: CountDownTimer!
     private var preparedForSeque = false
     private var runtimeWorkout: RuntimeWorkout!
+    private var audioPlayer: AVAudioPlayer!
+    private var warningPlayed: Bool = false
 
     private var counter: Int = 0 {
         didSet {
@@ -50,6 +53,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         readSettings()
         loadLastWorkout()
         updateTitle()
+        let soundFile = NSBundle.mainBundle().URLForResource("restwarning", withExtension: "wav")
+        var error: NSError?
+        audioPlayer = AVAudioPlayer(contentsOfURL: soundFile, error: &error)
     }
 
     private func loadLastWorkout() {
@@ -80,11 +86,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             timerLabel.hidden = false
         }
         let (min, sec) = timer.elapsedTime()
-        if (min == 0 && sec < 10) {
+        if min == 0 && sec < 10 {
             timerLabel.textColor = UIColor.orangeColor()
         }
+        if !warningPlayed && min == 0 && sec < 4 {
+            audioPlayer.play()
+            warningPlayed = true
+        }
         timerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
-        if (min == 0 && sec <= 0) {
+        if min == 0 && sec <= 0 {
             timer.stop()
             if !preparedForSeque {
                 transition()
@@ -235,6 +245,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         preparedForSeque = true;
+        warningPlayed = false
         if segue.identifier == "settings" {
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
