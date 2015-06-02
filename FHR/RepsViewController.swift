@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import AVKit
+import AVFoundation
 
 /**
 Controlls a Reps based workout
@@ -24,7 +26,6 @@ public class RepsViewController: UIViewController {
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -35,10 +36,8 @@ public class RepsViewController: UIViewController {
         taskLabel.text = workout.workoutName()
         repsLabel.text = workout.repititions.stringValue
         descLabel.text = workout.desc()
-        imageView.image = UIImage(data: workout.image())
         doneButton.hidden = true;
         if restTimer == nil {
-            //restTimerLabel.hidden = true
             timeLabel.text = "Workout time:"
             doneButton.hidden = false
             totalTime.hidden = false
@@ -66,8 +65,6 @@ public class RepsViewController: UIViewController {
         } else {
             doneButton.hidden = false
             restTimer.stop()
-            //restTimerLabel.hidden = true
-            //timeLabel.hidden = true
             timeLabel.text = "Workout time:"
             restTimerLabel.textColor = UIColor.whiteColor()
             totalTime.hidden = false
@@ -77,8 +74,7 @@ public class RepsViewController: UIViewController {
 
     public func updateWorkTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
-        println("\(min):\(sec)")
-        //totalTime.text = Timer.timeAsString(min, sec: sec)
+        debugPrintln("\(min):\(sec)")
         restTimerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
@@ -90,5 +86,13 @@ public class RepsViewController: UIViewController {
         workTimer.stop();
         println("duration of reps workout=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
+    }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "videoSegue" {
+            let videoURL = NSBundle.mainBundle().URLForResource(workout.videoUrl, withExtension: nil)
+            let videoViewController = segue.destinationViewController as! AVPlayerViewController
+            videoViewController.player = AVPlayer(URL: videoURL)
+        }
     }
 }

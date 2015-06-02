@@ -26,7 +26,7 @@ public class TaskViewController: UIViewController {
         taskLabel.text = workout.name()
         repsLabel.text = "??"
         descLabel.text = workout.desc()
-        imageView.image = UIImage(data: workout.image())
+        //imageView.image = UIImage(data: workout.image())
     }
 
     public override func didReceiveMemoryWarning() {

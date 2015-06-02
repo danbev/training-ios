@@ -14,7 +14,6 @@ public protocol WorkoutProtocol {
     func desc() -> String
     func categories() -> [WorkoutCategory]
     func language() -> String
-    func image() -> NSData
     func type() -> Type
     func restTime() -> NSNumber
 

@@ -17,7 +17,7 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var modelLanguage: String
     @NSManaged public var modelCategories: String
     @NSManaged public var modelType: String
-    @NSManaged public var modelImage: NSData
+    @NSManaged public var videoUrl: String
     @NSManaged public var modelRestTime: NSNumber
     @NSManaged public var reps: RepsWorkout?
     @NSManaged public var timed: DurationWorkout?
@@ -52,10 +52,6 @@ public class Workout: NSManagedObject, WorkoutProtocol {
 
     public func language() -> String {
         return modelLanguage
-    }
-
-    public func image() -> NSData {
-        return modelImage
     }
 
     public func restTime() -> NSNumber {

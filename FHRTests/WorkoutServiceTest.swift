@@ -53,10 +53,10 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("Burpees", burpees.name())
         XCTAssertNotNil(burpees.desc())
         XCTAssertEqual("en", burpees.language())
-        XCTAssertNotNil(burpees.image())
+        XCTAssertNotNil(burpees.videoUrl)
         let chopups = workoutService.fetchWorkout("Chopups")!
         XCTAssertEqual("Chopups", chopups.name())
-        XCTAssertNotNil(chopups.image())
+        XCTAssertNotNil(chopups.videoUrl)
     }
 
     func testFetchWarmup() {

@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import AVKit
+import AVFoundation
 
 /**
 Controlls a duration based workout
@@ -19,13 +21,11 @@ public class DurationViewController: UIViewController {
     var didFinish: FinishDelegate?
     var restTimer: CountDownTimer!
     var workTimer: CountDownTimer!
-    // define a closure that starts this workout.
     public var workout : DurationWorkout!
     var currentUserWorkout: UserWorkout!
     @IBOutlet weak var taskLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var descLabel: UITextView!
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
 
     @IBOutlet weak var restTimerLabel: UILabel!
@@ -40,25 +40,6 @@ public class DurationViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        taskLabel.text = workout.modelWorkoutName
-        durationLabel.text = workout.duration.stringValue
-        descLabel.text = workout.desc()
-        imageView.image = UIImage(data: workout.image())
-
-        if restTimer == nil {
-            timeLabel.hidden = false
-            timeLabel.text = "Workout time"
-            workTimer = Timer(callback: updateTime2, countDown: workout.duration.doubleValue)
-        } else {
-            if restTimer.isDone() {
-                timeLabel.hidden = true
-            } else {
-                timeLabel.text = "Workout time"
-                timeLabel.hidden = false
-            }
-        }
-        */
     }
 
     public override func viewWillAppear(animated: Bool) {
@@ -66,7 +47,6 @@ public class DurationViewController: UIViewController {
         taskLabel.text = workout.modelWorkoutName
         durationLabel.text = workout.duration.stringValue
         descLabel.text = workout.desc()
-        imageView.image = UIImage(data: workout.image())
 
         if restTimer == nil {
             timeLabel.hidden = false
@@ -119,4 +99,14 @@ public class DurationViewController: UIViewController {
 
     @IBAction func done(sender: AnyObject) {
     }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        debugPrintln("segue \(segue.identifier)")
+        if segue.identifier == "videoSegue" {
+            let videoURL = NSBundle.mainBundle().URLForResource(workout.videoUrl, withExtension: nil)
+            let videoViewController = segue.destinationViewController as! AVPlayerViewController
+            videoViewController.player = AVPlayer(URL: videoURL)
+        }
+    }
+
 }

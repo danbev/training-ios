@@ -292,7 +292,7 @@ public class WorkoutService {
                 let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
                     desc: jsonDictionary["desc"] as! String!,
                     language: jsonDictionary["language"] as! String!,
-                    image: UIImagePNGRepresentation(UIImage(named:jsonDictionary["image"] as! String!)),
+                    videoUrl: jsonDictionary["videoUrl"] as! String!,
                     weights: jsonDictionary["weights"] as! Bool!,
                     dryGround: jsonDictionary["dryGround"] as! Bool!)
                 workouts[workout.name] = workout
@@ -305,7 +305,7 @@ public class WorkoutService {
                 repsWorkout.modelWorkoutName = jsonDictionary["name"] as! String!
                 repsWorkout.modelName = workout.name
                 repsWorkout.modelDescription = workout.desc
-                repsWorkout.modelImage = workout.image
+                repsWorkout.videoUrl = workout.videoUrl
                 repsWorkout.modelLanguage = workout.language
                 repsWorkout.weights = workout.weights
                 repsWorkout.dryGround = workout.dryGround
@@ -325,7 +325,7 @@ public class WorkoutService {
                 durationWorkout.modelWorkoutName = jsonDictionary["name"] as! String!
                 durationWorkout.modelName = workout.name
                 durationWorkout.modelDescription = workout.desc
-                durationWorkout.modelImage = workout.image
+                durationWorkout.videoUrl = workout.videoUrl
                 durationWorkout.modelLanguage = workout.language
                 durationWorkout.weights = workout.weights
                 durationWorkout.dryGround = workout.dryGround
@@ -358,7 +358,7 @@ public class WorkoutService {
                     repsWorkout.modelWorkoutName = w["name"] as! String!
                     repsWorkout.modelName = workout.name
                     repsWorkout.modelDescription = workout.desc
-                    repsWorkout.modelImage = workout.image
+                    repsWorkout.videoUrl = workout.videoUrl
                     repsWorkout.modelLanguage = workout.language
                     repsWorkout.weights = workout.weights
                     repsWorkout.dryGround = workout.dryGround
@@ -384,7 +384,7 @@ public class WorkoutService {
         var name: String
         var desc: String
         var language: String
-        var image: NSData
+        var videoUrl: String
         var weights: Bool
         var dryGround: Bool
     }
