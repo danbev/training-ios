@@ -49,15 +49,16 @@ public class DurationViewController: UIViewController {
         descLabel.text = workout.desc()
 
         if restTimer == nil {
-            timeLabel.hidden = false
+            //timeLabel.hidden = false
             timeLabel.text = "Workout time"
             workTimer = CountDownTimer(callback: updateTime2, countDown: workout.duration.doubleValue)
         } else {
             if restTimer.isDone() {
-                timeLabel.hidden = true
-            } else {
                 timeLabel.text = "Workout time"
-                timeLabel.hidden = false
+                //timeLabel.hidden = true
+            } else {
+                //timeLabel.text = "Workout time"
+                //timeLabel.hidden = false
             }
         }
     }

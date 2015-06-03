@@ -20,7 +20,7 @@ public class PrebensViewController: UIViewController,
     @IBOutlet weak var descriptionText: UITextView!
     typealias FinishDelegate = (PrebensViewController, duration: Double) -> ()
     var didFinish: FinishDelegate?
-    var workout : PrebensWorkout!
+    public var workout : PrebensWorkout!
     var currentUserWorkout : UserWorkout!
     var restTimer: CountDownTimer!
     var workTimer: Timer!
@@ -43,6 +43,7 @@ public class PrebensViewController: UIViewController,
             workTimer = Timer(callback: updateWorkTime)
         } else {
             if restTimer.isDone() {
+                doneButton.hidden = false
                 setWorkoutTimeLabel()
             }
         }
@@ -133,5 +134,13 @@ public class PrebensViewController: UIViewController,
         workTimer.stop();
         println("duration of prebens=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
+    }
+
+    public func isTimeLabelVisible() -> Bool {
+        return restTimeLabel.hidden
+    }
+
+    public func timeLabelText() -> String? {
+        return restTimeLabel.text
     }
 }
