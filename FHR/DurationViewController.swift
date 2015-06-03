@@ -102,7 +102,6 @@ public class DurationViewController: UIViewController {
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        debugPrintln("segue \(segue.identifier)")
         if segue.identifier == "videoSegue" {
             let videoURL = NSBundle.mainBundle().URLForResource(workout.videoUrl, withExtension: nil)
             let videoViewController = segue.destinationViewController as! AVPlayerViewController

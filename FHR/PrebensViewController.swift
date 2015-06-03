@@ -110,6 +110,7 @@ public class PrebensViewController: UIViewController,
     }
 
     private func setWorkoutTimeLabel() {
+        timeLabel.textColor = UIColor.whiteColor()
         restTimeLabel.textColor = UIColor.whiteColor()
         restTimeLabel.text = "Workout time:"
     }
@@ -122,7 +123,6 @@ public class PrebensViewController: UIViewController,
 
     public func updateWorkTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
-        println("\(min):\(sec)")
         timeLabel.text = Timer.timeAsString(min, sec: sec)
     }
 

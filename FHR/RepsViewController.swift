@@ -74,7 +74,6 @@ public class RepsViewController: UIViewController {
 
     public func updateWorkTime(timer: Timer) {
         let (min, sec) = timer.elapsedTime()
-        debugPrintln("\(min):\(sec)")
         restTimerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
