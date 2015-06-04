@@ -42,6 +42,7 @@
 		C5A092CF1B1E316B003FFCA4 /* TestVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */; };
 		C5A092D01B1E3C07003FFCA4 /* TestVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */; };
 		C5A092D21B1F1046003FFCA4 /* PrebensViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */; };
+		C5A092D41B206544003FFCA4 /* BaseWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */; };
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5C67FF31ADF682200C1D55C /* WorkoutResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */; };
@@ -101,6 +102,7 @@
 		C5A092CA1B1B9016003FFCA4 /* restwarning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = restwarning.wav; sourceTree = "<group>"; };
 		C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestVideo.m4v; sourceTree = "<group>"; };
 		C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewControllerTests.swift; sourceTree = "<group>"; };
+		C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWorkoutController.swift; sourceTree = "<group>"; };
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5C67FF21ADF682200C1D55C /* WorkoutResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutResult.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		C515E84519C5A937001A5BB2 /* FHR */ = {
 			isa = PBXGroup;
 			children = (
+				C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */,
 				C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */,
 				C5A092CA1B1B9016003FFCA4 /* restwarning.wav */,
 				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
@@ -346,6 +349,7 @@
 				C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */,
 				C5C67FF51AE8251700C1D55C /* SettingsViewController.swift in Sources */,
 				C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */,
+				C5A092D41B206544003FFCA4 /* BaseWorkoutController.swift in Sources */,
 				C587E67419CDB4120098638A /* TaskViewController.swift in Sources */,
 				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
 				C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */,
