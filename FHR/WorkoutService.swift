@@ -58,8 +58,8 @@ public class WorkoutService {
     public func newUserWorkout(lastUserWorkout: UserWorkout?, ignoredCategories: Set<WorkoutCategory>) -> UserWorkout? {
         let id = NSUUID().UUIDString
         if let lastWorkout = lastUserWorkout {
-            if let warmup = fetchWarmup(lastUserWorkout!) {
-                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastUserWorkout!.category)!.next(ignoredCategories), workout: warmup)
+            if let warmup = fetchWarmup(lastWorkout) {
+                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastWorkout.category)!.next(ignoredCategories), workout: warmup)
             }
         } else {
             if let warmup = fetchWarmup() {
