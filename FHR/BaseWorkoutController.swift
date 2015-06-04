@@ -14,6 +14,7 @@ import AVFoundation
 public class BaseWorkoutController: UIViewController {
 
     typealias FinishDelegate = (UIViewController, duration: Double) -> ()
+    typealias CompletionCallback = () -> ()
     var didFinish: FinishDelegate?
 
     @IBOutlet weak var taskLabel: UILabel!
@@ -35,15 +36,23 @@ public class BaseWorkoutController: UIViewController {
     func initializeTimer() {
         if restTimer == nil {
             setWorkoutTimeLabel()
-            doneButton.hidden = false
-            workTimer = Timer(callback: updateWorkTime)
+            if let button = doneButton {
+                button.hidden = false
+            }
+            startWorkTimer(workout)
         } else {
             if restTimer.isDone() {
                 setWorkoutTimeLabel()
             } else {
-                doneButton.hidden = true;
+                if let button = doneButton {
+                    doneButton.hidden = true;
+                }
             }
         }
+    }
+
+    public func startWorkTimer(workout: Workout) {
+        workTimer = Timer(callback: updateWorkTime)
     }
 
     func setTextLabels(workout: Workout) {
@@ -52,18 +61,12 @@ public class BaseWorkoutController: UIViewController {
     }
 
     func setWorkoutTimeLabel() {
-        restTimerLabel.textColor = UIColor.whiteColor()
-        restTimerLabel.text = "Workout time:"
-    }
-
-    public func updateWorkTime(timer: Timer) {
-        let (min, sec) = timer.elapsedTime()
-        restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+        timeLabel.textColor = UIColor.whiteColor()
+        timeLabel.text = "Workout time:"
     }
 
     @IBAction func done(sender: AnyObject) {
         workTimer.stop();
-        println("duration of prebens=\(workTimer.duration())")
         self.didFinish!(self, duration: workTimer.duration())
     }
 
@@ -81,12 +84,19 @@ public class BaseWorkoutController: UIViewController {
             }
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
-            doneButton.hidden = false
+            if doneButton != nil {
+                doneButton.hidden = false
+            }
             restTimer.stop()
             timeLabel.text = "Workout time:"
             restTimerLabel.textColor = UIColor.whiteColor()
-            workTimer = Timer(callback: updateWorkTime)
+            startWorkTimer(workout)
         }
+    }
+
+    public func updateWorkTime(timer: Timer) {
+        let (min, sec) = timer.elapsedTime()
+        restTimerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
     public class func showVideo(segue: UIStoryboardSegue, workout: Workout) {
