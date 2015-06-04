@@ -32,7 +32,6 @@ public class PrebensViewController: UIViewController,
         prebensLabel.text = workout.modelWorkoutName
         descriptionText.text = workout.modelDescription
         descriptionText.textColor = UIColor.whiteColor()
-
         for w in workout.workouts {
             tasks.append(w as! RepsWorkout)
         }

@@ -363,9 +363,6 @@ public class WorkoutService {
                     repsWorkout.weights = workout.weights
                     repsWorkout.dryGround = workout.dryGround
                     repsWorkout.repititions = w["reps"] as! NSNumber!
-                    
-                    repsWorkout.repititions = w["reps"] as! NSNumber!
-                    repsWorkout.repititions = w["reps"] as! NSNumber!
                     repsWorkout.approx = w["approx"] as! NSNumber!
                     repsWorkout.modelCategories = w["categories"] as! String!
                     repsWorkout.modelRestTime = w["rest"] as! Double!
