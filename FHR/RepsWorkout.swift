@@ -16,7 +16,7 @@ public class RepsWorkout: Workout, Printable, WorkoutProtocol {
     @NSManaged public var parent: Workout
 
     public override var description: String {
-        return "RepsWorkout[reps=\(repititions), approx=\(approx)]"
+        return "RepsWorkout[name=\(workoutName()), reps=\(repititions), approx=\(approx)]"
     }
 
 }

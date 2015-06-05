@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DurationWorkout" representedClassName="FHR.DurationWorkout" parentEntity="Workout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
@@ -47,7 +47,7 @@
     <elements>
         <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="30"/>
         <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="90"/>
-        <element name="PrebensWorkout" positionX="-1233" positionY="-549" width="128" height="60"/>
+        <element name="PrebensWorkout" positionX="-1233" positionY="-549" width="128" height="30"/>
         <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="30"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="165"/>
         <element name="Workout" positionX="-1188" positionY="-702" width="128" height="270"/>

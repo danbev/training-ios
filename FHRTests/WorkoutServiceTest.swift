@@ -219,6 +219,36 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("Stallion Burpees", prebensWorkout.workouts[6].workoutName())
     }
 
+    func testOrderOfPrebens() {
+        // use new context
+        let coreDataStack: CoreDataStack = TestCoreDataStack()
+        var workoutService = WorkoutService(context: coreDataStack.context)
+        workoutService.loadDataIfNeeded()
+
+        let workout = workoutService.fetchWorkout("Burpees")!
+        let id = NSUUID().UUIDString
+        workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
+        let userWorkout = workoutService.fetchUserWorkouts()![0]
+        var w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
+        while w?.modelName != "UpperBodyPrebens" {
+            w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
+        }
+
+        let prebensWorkout = w as! PrebensWorkout
+        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(7, prebensWorkout.workouts.count);
+        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName())
+        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName())
+        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName())
+        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName())
+        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName())
+        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName())
+        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName())
+        for item in prebensWorkout.workouts {
+            println(item.modelName)
+        }
+    }
+
     func testNewUserworkoutNonExistingWorkout() {
         workoutService.loadDataIfNeeded()
         let userWorkout = workoutService.newUserWorkout(nil, ignoredCategories: [])!
