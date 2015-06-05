@@ -191,6 +191,34 @@ class WorkoutServiceTest: XCTestCase {
         }
     }
 
+    func testUpperBodyPrebens() {
+        workoutService.loadDataIfNeeded()
+        let prebensWorkout = workoutService.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
+        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(7, prebensWorkout.workouts.count);
+        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName())
+        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName())
+        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName())
+        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName())
+        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName())
+        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName())
+        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName())
+    }
+
+    func testLowerBodyPrebens() {
+        workoutService.loadDataIfNeeded()
+        let prebensWorkout = workoutService.fetchWorkout("LowerBodyPrebens") as! PrebensWorkout
+        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(7, prebensWorkout.workouts.count);
+        XCTAssertEqual("Russians", prebensWorkout.workouts[0].workoutName())
+        XCTAssertEqual("Squats", prebensWorkout.workouts[1].workoutName())
+        XCTAssertEqual("Flat foot jumps", prebensWorkout.workouts[2].workoutName())
+        XCTAssertEqual("Lunges", prebensWorkout.workouts[3].workoutName())
+        XCTAssertEqual("Lunge jumps", prebensWorkout.workouts[4].workoutName())
+        XCTAssertEqual("Marklyft", prebensWorkout.workouts[5].workoutName())
+        XCTAssertEqual("Stallion Burpees", prebensWorkout.workouts[6].workoutName())
+    }
+
     func testNewUserworkoutNonExistingWorkout() {
         workoutService.loadDataIfNeeded()
         let userWorkout = workoutService.newUserWorkout(nil, ignoredCategories: [])!
