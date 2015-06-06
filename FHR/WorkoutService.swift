@@ -190,7 +190,6 @@ public class WorkoutService {
         if let workout = optionalWorkout {
             var doneLastWorkout = false;
             for performedWorkout in excludedWorkouts {
-                //println("\(performedWorkout.modelWorkoutName) == \(workout.modelWorkoutName)")
                 if performedWorkout.modelWorkoutName == workout.modelWorkoutName {
                     doneLastWorkout = true;
                     break
@@ -204,11 +203,10 @@ public class WorkoutService {
                     return nil
                 }
             } else {
-                //println("workout \(workout.modelName) was not done in the last workout session so lets do it")
                 return workout
             }
         } else {
-            println("Could get a random workout \(error), \(error!.userInfo)")
+            println("Could not get a random workout \(error), \(error!.userInfo)")
             return nil
         }
     }
