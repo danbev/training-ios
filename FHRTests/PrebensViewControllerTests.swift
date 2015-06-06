@@ -34,6 +34,7 @@ class PrebensViewControllerTests: XCTestCase {
     func testWithRestTimer() {
         let workout = workoutService.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
         controller.workout = workout
+        controller.prebensWorkout = workout
         let expectation = expectationWithDescription("Testing timer...")
         let timer = CountDownTimer(callback: { (t) -> () in
             debugPrintln("in Prebends test CountDownTimer closure")

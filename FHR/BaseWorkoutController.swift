@@ -23,9 +23,9 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
 
+    public var workout : Workout!
     var restTimer: CountDownTimer!
     var workTimer: Timer!
-    var workout : Workout!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,11 +57,12 @@ public class BaseWorkoutController: UIViewController {
 
     func setTextLabels(workout: Workout) {
         taskLabel.text = workout.workoutName()
+        descLabel.textColor = UIColor.whiteColor()
         descLabel.text = workout.desc()
     }
 
     func setWorkoutTimeLabel() {
-        timeLabel.textColor = UIColor.whiteColor()
+        timeLabel.tintColor = UIColor.whiteColor()
         timeLabel.text = "Workout time:"
     }
 
@@ -105,6 +106,22 @@ public class BaseWorkoutController: UIViewController {
             let videoViewController = segue.destinationViewController as! AVPlayerViewController
             videoViewController.player = AVPlayer(URL: videoURL)
         }
+    }
+
+    public func isRestTimerLabelVisible() -> Bool {
+        return restTimerLabel.hidden
+    }
+
+    public func restTimerLabelText() -> String? {
+        return restTimerLabel.text
+    }
+
+    public func isTimeLabelVisible() -> Bool {
+        return timeLabel.hidden
+    }
+
+    public func timeLabelText() -> String? {
+        return timeLabel.text
     }
 
 }

@@ -9,45 +9,22 @@ import Foundation
 import UIKit
 import Foundation
 
-public class PrebensViewController: UIViewController,
-    UITableViewDelegate, UITableViewDataSource {
+public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var prebensLabel: UILabel!
-    @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var restTimeLabel: UILabel!
-    @IBOutlet weak var descriptionText: UITextView!
-    typealias FinishDelegate = (PrebensViewController, duration: Double) -> ()
-    var didFinish: FinishDelegate?
-    public var workout : PrebensWorkout!
+    public var prebensWorkout : PrebensWorkout!
     var currentUserWorkout : UserWorkout!
-    var restTimer: CountDownTimer!
-    var workTimer: Timer!
     private var tasks = [RepsWorkout]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        prebensLabel.text = workout.modelWorkoutName
-        descriptionText.text = workout.modelDescription
-        descriptionText.textColor = UIColor.whiteColor()
-        //let a = workout.workouts.array
-        //println(a)
-        for w in workout.workouts {
+        prebensWorkout = workout as! PrebensWorkout
+        for w in prebensWorkout.workouts {
             tasks.append(w as! RepsWorkout)
         }
         tableView.reloadData()
-        if restTimer == nil {
-            doneButton.hidden = false
-            setWorkoutTimeLabel()
-            workTimer = Timer(callback: updateWorkTime)
-        } else {
-            if restTimer.isDone() {
-                doneButton.hidden = false
-                setWorkoutTimeLabel()
-            }
-        }
     }
 
     /**
@@ -89,59 +66,14 @@ public class PrebensViewController: UIViewController,
         return cell;
     }
 
-    public func restTimer(timer: CountDownTimer?) {
-        if let t = timer {
-            restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
-        }
-    }
-
-    public func updateTime(timer: CountDownTimer) {
-        let (min, sec) = timer.elapsedTime()
-        if min >= 0 && sec > 0 {
-            if (min == 0 && sec < 10) {
-                timeLabel.textColor = UIColor.orangeColor()
-            }
-            timeLabel.text = CountDownTimer.timeAsString(min, sec: sec)
-        } else {
-            doneButton.hidden = false
-            restTimer.stop()
-            setWorkoutTimeLabel()
-            workTimer = Timer(callback: updateWorkTime)
-        }
-    }
-
-    private func setWorkoutTimeLabel() {
-        timeLabel.textColor = UIColor.whiteColor()
-        restTimeLabel.textColor = UIColor.whiteColor()
-        restTimeLabel.text = "Workout time:"
-    }
-
     @IBAction func infoButton(sender: AnyObject) {
         let alert = UIAlertController(title: workout.modelWorkoutName, message: workout.modelDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    public func updateWorkTime(timer: Timer) {
-        let (min, sec) = timer.elapsedTime()
-        timeLabel.text = Timer.timeAsString(min, sec: sec)
-    }
-
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    @IBAction func done(sender: AnyObject) {
-        workTimer.stop();
-        println("duration of prebens=\(workTimer.duration())")
-        self.didFinish!(self, duration: workTimer.duration())
-    }
-
-    public func isTimeLabelVisible() -> Bool {
-        return restTimeLabel.hidden
-    }
-
-    public func timeLabelText() -> String? {
-        return restTimeLabel.text
-    }
 }

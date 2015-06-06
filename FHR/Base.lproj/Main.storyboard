@@ -161,10 +161,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Workout description does here" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oh-jh-f8r">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Workout description does here" translatesAutoresizingMaskIntoConstraints="NO" id="4oh-jh-f8r">
                                 <rect key="frame" x="47" y="122" width="240" height="70"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -208,12 +208,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="aom-7f-dqq"/>
                     <connections>
-                        <outlet property="descriptionText" destination="4oh-jh-f8r" id="u1E-6t-8cu"/>
+                        <outlet property="descLabel" destination="4oh-jh-f8r" id="Fh3-X5-24m"/>
                         <outlet property="doneButton" destination="dyE-hz-94z" id="5OO-Id-Ti5"/>
-                        <outlet property="prebensLabel" destination="KWI-jo-DdA" id="qU0-4f-AAR"/>
-                        <outlet property="restTimeLabel" destination="eFF-Ge-Kll" id="c9u-e3-ztZ"/>
+                        <outlet property="restTimerLabel" destination="2ME-9x-uGi" id="7j1-Jc-GJL"/>
                         <outlet property="tableView" destination="umP-Hm-VOR" id="Tna-hd-qkF"/>
-                        <outlet property="timeLabel" destination="2ME-9x-uGi" id="HzU-iH-bad"/>
+                        <outlet property="taskLabel" destination="KWI-jo-DdA" id="7bw-1p-XGM"/>
+                        <outlet property="timeLabel" destination="eFF-Ge-Kll" id="gZ2-YU-3hb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pW-Ki-aPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -250,9 +250,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Workout task description goes here..." translatesAutoresizingMaskIntoConstraints="NO" id="O6K-kZ-Lff">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Workout task description goes here..." translatesAutoresizingMaskIntoConstraints="NO" id="O6K-kZ-Lff">
                                 <rect key="frame" x="40" y="182" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -430,9 +431,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Workout task description goes here..." translatesAutoresizingMaskIntoConstraints="NO" id="g0c-KS-Zle">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Workout task description goes here..." translatesAutoresizingMaskIntoConstraints="NO" id="g0c-KS-Zle">
                                 <rect key="frame" x="25" y="185" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -551,7 +553,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="n4z-nV-VYb"/>
+        <segue reference="sGY-fS-knj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
