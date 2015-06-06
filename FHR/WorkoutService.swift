@@ -351,7 +351,6 @@ public class WorkoutService {
                 prebensWorkout.modelCategories = jsonDictionary["categories"] as! String!
 
                 let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
-                //var prebensWorkouts = NSMutableOrderedSet()
                 var prebensWorkouts = prebensWorkout.workouts.mutableCopy() as! NSMutableOrderedSet
                 for (i, w) in enumerate(tasks) {
                     let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -371,10 +370,7 @@ public class WorkoutService {
                     prebensWorkouts.addObject(repsWorkout)
                     prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
                     saveContext()
-                    //prebensWorkouts.insertObject(repsWorkout, atIndex: i)
                 }
-                //prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
-                //prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
             }
             saveContext()
         } else {
