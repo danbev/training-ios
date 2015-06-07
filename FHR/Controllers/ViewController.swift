@@ -254,24 +254,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let task = tasks[indexPath.row]
             let workout = tasks[indexPath.row] as! Workout
             self.workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
-            if segue.identifier == "repsSegue" {
-                let taskViewController = segue.destinationViewController as! RepsViewController
-                taskViewController.initWith(workout, restTimer: restTimer) {
-                    [unowned self] controller, duration in
-                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
-                }
-            } else if segue.identifier == "durationSegue" {
-                let taskViewController = segue.destinationViewController as! DurationViewController
-                taskViewController.initWith(workout, restTimer: restTimer) {
-                    [unowned self] controller, duration in
-                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
-                }
-            } else if segue.identifier == "prebensSegue" {
-                let prebensViewController = segue.destinationViewController as! PrebensViewController
-                prebensViewController.initWith(workout, restTimer: restTimer) {
-                    [unowned self] controller, duration in
-                    self.finishedWorkout(indexPath, workout: workout, duration: duration)
-                }
+            let baseViewController = segue.destinationViewController as! BaseWorkoutController
+            baseViewController.initWith(workout, restTimer: restTimer) {
+                [unowned self] controller, duration in
+                self.finishedWorkout(indexPath, workout: workout, duration: duration)
             }
         }
     }
