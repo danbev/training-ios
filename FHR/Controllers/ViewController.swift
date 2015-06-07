@@ -251,7 +251,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
-            let task = tasks[indexPath.row]
             let workout = tasks[indexPath.row] as! Workout
             self.workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
