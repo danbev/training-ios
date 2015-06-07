@@ -25,7 +25,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack()
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
-    private var tasks = [WorkoutProtocol]()
+    private var tasks = [Workout]()
     private var restTimer: CountDownTimer!
     private var workoutTimer: CountDownTimer!
     private var preparedForSeque = false
@@ -172,7 +172,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func settingsButton(sender: AnyObject) {
     }
     
-    public func addWorkoutToTable(workout: WorkoutProtocol) {
+    public func addWorkoutToTable(workout: Workout) {
         tasks.append(workout)
         tableView.reloadData()
     }
@@ -251,7 +251,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
-            let workout = tasks[indexPath.row] as! Workout
+            let workout = tasks[indexPath.row]
             self.workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
             baseViewController.initWith(workout, restTimer: restTimer) {
