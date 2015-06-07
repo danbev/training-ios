@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 import FHR
 
-class WorkoutTypeTests: XCTestCase {
+class WorkoutCategoryTests: XCTestCase {
 
     func testUpperBodyType() {
         XCTAssertEqual("Upperbody", WorkoutCategory.UpperBody.rawValue)
