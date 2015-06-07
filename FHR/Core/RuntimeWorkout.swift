@@ -27,6 +27,13 @@ public class RuntimeWorkout {
         }
     }
 
+    public func warmupCompleted(warmupSetting: Bool, numberOfWarmups: Int) -> Bool {
+        if !warmupSetting {
+            return false
+        }
+        return currentUserWorkout.workouts.count >= numberOfWarmups
+    }
+
     public func category() -> String {
         let ignoredCategories = RuntimeWorkout.readIgnoredCategories()
         if currentUserWorkout != nil {

@@ -296,23 +296,32 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             restLabel.hidden = false
             restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
             let settings = RuntimeWorkout.settings()
-            if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
-                tasks.insert(workout, atIndex: 0)
-                tableView.reloadData()
-                tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                cell.userInteractionEnabled = true
-                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-                tableView.reloadData()
+            if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
+                let warmup = workoutService.fetchWarmup(runtimeWorkout.currentUserWorkout)
+                insertNewWorkout(warmup!)
             } else {
-                println("There are no more workouts for category \(runtimeWorkout.category())")
-                stopWorkout()
+                if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
+                    insertNewWorkout(workout)
+                } else {
+                    println("There are no more workouts for category \(runtimeWorkout.category())")
+                    stopWorkout()
+                }
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
             println("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             stopWorkout()
         }
+    }
+
+    private func insertNewWorkout(workout: Workout) {
+        tasks.insert(workout, atIndex: 0)
+        tableView.reloadData()
+        tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+        cell.userInteractionEnabled = true
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        tableView.reloadData()
     }
 
     private func stopWorkout() {
