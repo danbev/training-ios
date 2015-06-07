@@ -149,6 +149,7 @@
 		C515E84519C5A937001A5BB2 /* FHR */ = {
 			isa = PBXGroup;
 			children = (
+				C54B3A911B2454130033854E /* Utils */,
 				C54B3A8D1B24525F0033854E /* Core */,
 				C54B3A8A1B230F1F0033854E /* Controllers */,
 				C54B3A891B230ED00033854E /* Models */,
@@ -162,8 +163,6 @@
 				C539DA981A8CAA43005A6D45 /* Media.xcassets */,
 				C539DA9A1A8D2159005A6D45 /* burpees.mov */,
 				C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */,
-				C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */,
-				C56944B41B19D5FC006745B0 /* Timer.swift */,
 			);
 			path = FHR;
 			sourceTree = "<group>";
@@ -179,12 +178,11 @@
 		C515E85B19C5A937001A5BB2 /* FHRTests */ = {
 			isa = PBXGroup;
 			children = (
+				C54B3A921B2454880033854E /* Utils */,
 				C54B3A8E1B2452CF0033854E /* Core */,
 				C54B3A8C1B244FD10033854E /* Models */,
 				C54B3A8B1B244E1C0033854E /* Controllers */,
 				C515E85C19C5A937001A5BB2 /* Supporting Files */,
-				C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */,
-				C56944B21B19D576006745B0 /* TimerTests.swift */,
 			);
 			path = FHRTests;
 			sourceTree = "<group>";
@@ -262,6 +260,24 @@
 				C573BDC31A90CFE000B84FE0 /* WorkoutTypeTests.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		C54B3A911B2454130033854E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */,
+				C56944B41B19D5FC006745B0 /* Timer.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C54B3A921B2454880033854E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */,
+				C56944B21B19D576006745B0 /* TimerTests.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
