@@ -13,7 +13,7 @@ import AVFoundation
 
 public class BaseWorkoutController: UIViewController {
 
-    typealias FinishDelegate = (UIViewController, duration: Double) -> ()
+    public typealias FinishDelegate = (UIViewController, duration: Double) -> ()
     typealias CompletionCallback = () -> ()
     var didFinish: FinishDelegate?
 
@@ -31,6 +31,12 @@ public class BaseWorkoutController: UIViewController {
         super.viewDidLoad()
         setTextLabels(workout)
         initializeTimer()
+    }
+
+    public func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        self.workout = workout
+        self.didFinish = finishDelegate
+        self.restTimer(restTimer)
     }
 
     func initializeTimer() {
@@ -71,7 +77,7 @@ public class BaseWorkoutController: UIViewController {
         self.didFinish!(self, duration: workTimer.duration())
     }
 
-    public func restTimer(timer: CountDownTimer?) {
+    private func restTimer(timer: CountDownTimer?) {
         if let t = timer {
             restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
         }

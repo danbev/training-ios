@@ -32,15 +32,13 @@ class PrebensViewControllerTests: XCTestCase {
     }
 
     func testWithRestTimer() {
-        let workout = workoutService.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
-        controller.workout = workout
-        controller.prebensWorkout = workout
+        let workout = workoutService.fetchWorkout("UpperBodyPrebens")!
         let expectation = expectationWithDescription("Testing timer...")
         let timer = CountDownTimer(callback: { (t) -> () in
             debugPrintln("in Prebends test CountDownTimer closure")
             expectation.fulfill()
             }, countDown: 60)
-        controller.restTimer(timer)
+        controller.initWith(workout, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())

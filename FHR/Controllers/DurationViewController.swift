@@ -17,16 +17,18 @@ Controls a duration based workout
 */
 public class DurationViewController: BaseWorkoutController {
 
-    public var durationWorkout : DurationWorkout!
-    var currentUserWorkout: UserWorkout!
     @IBOutlet weak var durationLabel: UILabel!
+    var durationWorkout : DurationWorkout!
     var countDownTimer: CountDownTimer!
-
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        durationWorkout = workout as! DurationWorkout
         durationLabel.text = durationWorkout.duration.stringValue
+    }
+
+    public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
+        durationWorkout = workout as! DurationWorkout
     }
 
     public override func viewWillAppear(animated: Bool) {

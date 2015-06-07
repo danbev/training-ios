@@ -13,9 +13,8 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var prebensLabel: UILabel!
-    public var prebensWorkout : PrebensWorkout!
-    var currentUserWorkout : UserWorkout!
-    private var tasks = [RepsWorkout]()
+    var prebensWorkout : PrebensWorkout!
+    var tasks = [RepsWorkout]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
@@ -25,6 +24,11 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
             tasks.append(w as! RepsWorkout)
         }
         tableView.reloadData()
+    }
+
+    public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
+        prebensWorkout = workout as! PrebensWorkout
     }
 
     /**

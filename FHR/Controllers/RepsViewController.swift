@@ -17,15 +17,18 @@ Controlls a Reps based workout
 */
 public class RepsViewController: BaseWorkoutController {
 
-    var currentUserWorkout : UserWorkout!
     var repsWorkout: RepsWorkout!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var totalTime: UILabel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        repsWorkout = workout as! RepsWorkout
         repsLabel.text = repsWorkout.repititions.stringValue
+    }
+
+    public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
+        repsWorkout = workout as! RepsWorkout
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
