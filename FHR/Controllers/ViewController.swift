@@ -34,18 +34,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var audioPlayer: AVAudioPlayer!
     private var warningPlayed: Bool = false
 
-    private var counter: Int = 0 {
-        didSet {
-            let fractionalProgress = Float(counter) / 100.0
-            let animated = counter != 0
-            progressView.setProgress(fractionalProgress, animated: animated)
-        }
-    }
-
-    private func readSettings() {
-        RuntimeWorkout.readIgnoredCategories()
-    }
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
@@ -335,6 +323,18 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func cancelWorkout(sender: AnyObject) {
         println("cancel workout")
         stopWorkout()
+    }
+
+    var counter: Int = 0 {
+        didSet {
+            let fractionalProgress = Float(counter) / 100.0
+            let animated = counter != 0
+            progressView.setProgress(fractionalProgress, animated: animated)
+        }
+    }
+
+    func readSettings() {
+        RuntimeWorkout.readIgnoredCategories()
     }
 
 }
