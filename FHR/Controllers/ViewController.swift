@@ -15,6 +15,7 @@ import AVFoundation
 */
 public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -118,6 +119,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func startWorkout(sender: UIButton) {
         startButton.hidden = true
+        cancelButton.hidden = false
         progressView.setProgress(0, animated: false)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         clearWorkoutTasks()
@@ -322,11 +324,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         startButton.hidden = false
         startButton.setTitle("Start \(runtimeWorkout.category())", forState: UIControlState.Normal)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
+        cancelButton.hidden = true
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         readSettings()
         updateTitle()
+    }
+
+    @IBAction func cancelWorkout(sender: AnyObject) {
+        println("cancel workout")
+        stopWorkout()
     }
 
 }
