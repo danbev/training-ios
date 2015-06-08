@@ -315,14 +315,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         cancelButton.hidden = true
     }
 
+    func checkmarkAll() {
+        for i in 0..<tasks.count {
+            checkmark(i)
+        }
+    }
+
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         readSettings()
         updateTitle()
     }
 
     @IBAction func cancelWorkout(sender: AnyObject) {
-        println("cancel workout")
         stopWorkout()
+        checkmarkAll()
     }
 
     var counter: Int = 0 {
