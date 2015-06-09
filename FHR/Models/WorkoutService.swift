@@ -55,29 +55,37 @@ public class WorkoutService {
         return intervalWorkout
     }
 
-    public func newUserWorkout(lastUserWorkout: UserWorkout?, ignoredCategories: Set<WorkoutCategory>) -> UserWorkout? {
+    public func newUserWorkout(lastUserWorkout: UserWorkout?, settings: Settings) -> UserWorkout? {
         let id = NSUUID().UUIDString
+        if settings.ignoredCategories.contains(WorkoutCategory.Warmup) {
+            let category = lastUserWorkout != nil  ? lastUserWorkout!.category : WorkoutCategory.Warmup.next(settings.ignoredCategories).rawValue
+            let userWorkout = saveUserWorkout(id, category: WorkoutCategory.Warmup.next(settings.ignoredCategories), workout: nil)
+            let workout = fetchWorkout(category, currentUserWorkout: userWorkout, lastUserWorkout: lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround)
+            return updateUserWorkout(id, optionalWorkout: workout, workoutTime: 0.0, done: false)
+        }
         if let lastWorkout = lastUserWorkout {
             if let warmup = fetchWarmup(lastWorkout) {
-                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastWorkout.category)!.next(ignoredCategories), workout: warmup)
+                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastWorkout.category)!.next(settings.ignoredCategories), workout: warmup)
             }
         } else {
             if let warmup = fetchWarmup() {
-                return saveUserWorkout(id, category: WorkoutCategory.Warmup.next(ignoredCategories), workout: warmup)
+                return saveUserWorkout(id, category: WorkoutCategory.Warmup.next(settings.ignoredCategories), workout: warmup)
             }
         }
         return nil
     }
 
-    public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout) -> UserWorkout {
+    public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout?) -> UserWorkout {
         let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
         let userWorkout = UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)
         userWorkout.id = id
         userWorkout.category = category.rawValue
         userWorkout.done = false
         userWorkout.date = NSDate()
-        userWorkout.workouts.addObject(workout)
-        workout.userWorkout = userWorkout
+        if let w = workout {
+            userWorkout.workouts.addObject(w)
+            w.userWorkout = userWorkout
+        }
         saveContext()
         return userWorkout
     }

@@ -33,18 +33,19 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var runtimeWorkout: RuntimeWorkout!
     private var audioPlayer: AVAudioPlayer!
     private var warningPlayed: Bool = false
+    var settings: Settings!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         progressView.progressTintColor = UIColor.greenColor()
-        readSettings()
         loadLastWorkout()
         updateTitle()
         let soundFile = NSBundle.mainBundle().URLForResource("restwarning", withExtension: "wav")
         var error: NSError?
         audioPlayer = AVAudioPlayer(contentsOfURL: soundFile, error: &error)
+        settings = Settings.settings()
     }
 
     private func loadLastWorkout() {
@@ -111,7 +112,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         progressView.setProgress(0, animated: false)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         clearWorkoutTasks()
-        let workoutDuration = RuntimeWorkout.readDurationSetting()
+        let workoutDuration = settings.duration
         println("workout duration = \(workoutDuration)")
 
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
@@ -150,7 +151,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
-        runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, ignoredCategories: RuntimeWorkout.readIgnoredCategories()),
+        runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, settings: settings),
             lastUserWorkout: lastUserWorkout)
         addWorkoutToTable(runtimeWorkout.currentUserWorkout.workouts[0] as! Workout)
     }
@@ -270,7 +271,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 {
             restLabel.hidden = false
             restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
-            let settings = RuntimeWorkout.settings()
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
                 let warmup = workoutService.fetchWarmup(runtimeWorkout.currentUserWorkout)
                 insertNewWorkout(warmup!)
@@ -322,7 +322,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        readSettings()
+        let settingsViewController = sender.sourceViewController as! SettingViewController
+        settings = Settings.settings()
         updateTitle()
     }
 
@@ -337,10 +338,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let animated = counter != 0
             progressView.setProgress(fractionalProgress, animated: animated)
         }
-    }
-
-    func readSettings() {
-        RuntimeWorkout.readIgnoredCategories()
     }
 
 }

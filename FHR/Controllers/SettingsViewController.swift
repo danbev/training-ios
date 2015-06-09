@@ -18,6 +18,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public let lowerbody = WorkoutCategory.LowerBody.rawValue
     public let cardio = WorkoutCategory.Cardio.rawValue
     public let warmup = WorkoutCategory.Warmup.rawValue
+    public var settings: Settings!
 
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var wSwitch: UISwitch!

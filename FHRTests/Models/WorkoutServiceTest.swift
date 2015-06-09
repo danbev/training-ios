@@ -249,18 +249,36 @@ class WorkoutServiceTest: XCTestCase {
         }
     }
 
-    func testNewUserworkoutNonExistingWorkout() {
+    func testNewUserworkoutNoExistingWorkout() {
         workoutService.loadDataIfNeeded()
-        let userWorkout = workoutService.newUserWorkout(nil, ignoredCategories: [])!
+        let settings = Settings.settings()
+        let userWorkout = workoutService.newUserWorkout(nil, settings: settings)!
+        XCTAssertNotNil(userWorkout)
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
         XCTAssertEqual(1, userWorkout.workouts.count);
+        let warmup = userWorkout.workouts[0] as! Workout
+        let warmupCategory = warmup.categories().filter( { (x) in x == WorkoutCategory.Warmup })
+        XCTAssertFalse(warmupCategory.isEmpty)
+        XCTAssertEqual(warmupCategory[0].rawValue, WorkoutCategory.Warmup.rawValue)
+    }
+
+    func testNewUserworkoutNoWarmups() {
+        workoutService.loadDataIfNeeded()
+        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [WorkoutCategory.Warmup])
+        let userWorkout = workoutService.newUserWorkout(nil, settings: settings)!
         XCTAssertNotNil(userWorkout)
+        XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
+        XCTAssertEqual(1, userWorkout.workouts.count);
+        let warmup = userWorkout.workouts[0] as! Workout
+        let warmupCategory = warmup.categories().filter( { (x) in x == WorkoutCategory.Warmup })
+        XCTAssertTrue(warmupCategory.isEmpty)
     }
 
     func testNewUserworkout() {
         workoutService.loadDataIfNeeded()
-        let lastWorkout = workoutService.newUserWorkout(nil, ignoredCategories: [])!
-        let userWorkout = workoutService.newUserWorkout(lastWorkout, ignoredCategories: [])!
+        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [])
+        let lastWorkout = workoutService.newUserWorkout(nil, settings: settings)!
+        let userWorkout = workoutService.newUserWorkout(lastWorkout, settings: settings)!
         XCTAssertEqual(WorkoutCategory.LowerBody.rawValue, userWorkout.category);
         XCTAssertNotEqual(lastWorkout.workouts[0].name, userWorkout.workouts[0].name)
     }

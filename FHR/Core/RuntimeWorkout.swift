@@ -35,7 +35,7 @@ public class RuntimeWorkout {
     }
 
     public func category() -> String {
-        let ignoredCategories = RuntimeWorkout.readIgnoredCategories()
+        let ignoredCategories = Settings.readIgnoredCategories()
         if currentUserWorkout != nil {
             if currentUserWorkout?.done == false {
                 return currentUserWorkout!.category
@@ -51,38 +51,4 @@ public class RuntimeWorkout {
         return WorkoutCategory.Warmup.next(ignoredCategories).rawValue
     }
 
-    public class func readIgnoredCategories() -> Set<WorkoutCategory> {
-        var ignoredCategories = Set<WorkoutCategory>()
-        if !RuntimeWorkout.enabled(WorkoutCategory.UpperBody.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.UpperBody)
-        }
-        if !RuntimeWorkout.enabled(WorkoutCategory.LowerBody.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.LowerBody)
-        }
-        if !RuntimeWorkout.enabled(WorkoutCategory.Cardio.rawValue, defaultValue: true) {
-            ignoredCategories.insert(WorkoutCategory.Cardio)
-        }
-        return ignoredCategories
-    }
-
-    public class func settings() -> (weights: Bool, dryGround: Bool, warmup: Bool) {
-        let weights = enabled("weights", defaultValue: true)
-        let dryGround = enabled("dryGround", defaultValue: true)
-        let warmup = enabled("warmup", defaultValue: true)
-        return (weights, dryGround, warmup)
-    }
-
-    public class func readDurationSetting() -> Double {
-        if let value = RuntimeWorkout.userDefaults.objectForKey("workoutDuration") as? Int {
-            return Double(value * 60)
-        }
-        return Double(2700)
-    }
-
-    private class func enabled(keyName: String, defaultValue: Bool) -> Bool {
-        if let value = RuntimeWorkout.userDefaults.objectForKey(keyName) as? Bool {
-            return value
-        }
-        return defaultValue;
-    }
 }
