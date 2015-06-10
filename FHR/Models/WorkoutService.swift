@@ -328,7 +328,7 @@ public class WorkoutService {
                 repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
                 repsWorkout.categories = jsonDictionary["categories"] as! String!
                 repsWorkout.restTime = jsonDictionary["rest"] as! Double!
-                repsWorkout.type = Type.Reps.rawValue
+                repsWorkout.type = WorkoutType.Reps.rawValue
             }
 
             let durationWorkoutEntity = NSEntityDescription.entityForName(self.durationEntityName, inManagedObjectContext: context)
@@ -346,7 +346,7 @@ public class WorkoutService {
 
                 durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
                 durationWorkout.categories = jsonDictionary["categories"] as! String!
-                durationWorkout.type = Type.Timed.rawValue
+                durationWorkout.type = WorkoutType.Timed.rawValue
                 durationWorkout.restTime = jsonDictionary["rest"] as! Double!
             }
             let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
@@ -356,7 +356,7 @@ public class WorkoutService {
                 let prebensWorkout = PrebensWorkout(entity: prebensWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
                 prebensWorkout.workoutName = jsonDictionary["name"] as! String
-                prebensWorkout.type = Type.Prebens.rawValue
+                prebensWorkout.type = WorkoutType.Prebens.rawValue
                 prebensWorkout.name = workout.name
                 prebensWorkout.workoutDescription = workout.desc
                 prebensWorkout.language = workout.language
@@ -380,7 +380,7 @@ public class WorkoutService {
                     repsWorkout.approx = w["approx"] as! NSNumber!
                     repsWorkout.categories = w["categories"] as! String!
                     repsWorkout.restTime = w["rest"] as! Double!
-                    repsWorkout.type = Type.Reps.rawValue
+                    repsWorkout.type = WorkoutType.Reps.rawValue
                     prebensWorkouts.addObject(repsWorkout)
                     prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
                     saveContext()

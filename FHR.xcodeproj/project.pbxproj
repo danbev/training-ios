@@ -29,6 +29,7 @@
 		C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */; };
 		C54B3A901B2453C70033854E /* RuntimeWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A8F1B2453C70033854E /* RuntimeWorkoutTests.swift */; };
 		C54B3A941B260F3B0033854E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A931B260F3B0033854E /* Settings.swift */; };
+		C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A951B28BC7D0033854E /* WorkoutType.swift */; };
 		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
 		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
 		C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */; };
@@ -87,6 +88,7 @@
 		C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		C54B3A8F1B2453C70033854E /* RuntimeWorkoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeWorkoutTests.swift; sourceTree = "<group>"; };
 		C54B3A931B260F3B0033854E /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C54B3A951B28BC7D0033854E /* WorkoutType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		C56944B21B19D576006745B0 /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C573BDBF1A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */,
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
 				C54B3A931B260F3B0033854E /* Settings.swift */,
+				C54B3A951B28BC7D0033854E /* WorkoutType.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */,
+				C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */,
 				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
 				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,

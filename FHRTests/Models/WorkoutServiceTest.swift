@@ -170,7 +170,7 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.loadDataIfNeeded()
         let prebensWorkouts = workoutService.fetchPrebensWorkouts()!
         XCTAssertEqual(2, prebensWorkouts.count);
-        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkouts[0].type);
+        XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkouts[0].type);
         XCTAssertEqual(7, prebensWorkouts[0].workouts.count);
         for p in prebensWorkouts {
             let category = WorkoutCategory(rawValue: p.categories)!
@@ -200,7 +200,7 @@ class WorkoutServiceTest: XCTestCase {
     func testUpperBodyPrebens() {
         workoutService.loadDataIfNeeded()
         let prebensWorkout = workoutService.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
+        XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
         XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName)
@@ -214,7 +214,7 @@ class WorkoutServiceTest: XCTestCase {
     func testLowerBodyPrebens() {
         workoutService.loadDataIfNeeded()
         let prebensWorkout = workoutService.fetchWorkout("LowerBodyPrebens") as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
+        XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Russians", prebensWorkout.workouts[0].workoutName)
         XCTAssertEqual("Squats", prebensWorkout.workouts[1].workoutName)
@@ -241,7 +241,7 @@ class WorkoutServiceTest: XCTestCase {
         }
 
         let prebensWorkout = w as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
+        XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
         XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName)

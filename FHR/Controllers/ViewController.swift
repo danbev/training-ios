@@ -217,7 +217,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func performSegue(workout: Workout) {
-        let type = Type(rawValue: workout.type)!
+        let type = WorkoutType(rawValue: workout.type)!
         switch type {
         case .Reps:
             performSegueWithIdentifier("repsSegue", sender: self)
