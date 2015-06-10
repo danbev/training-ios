@@ -250,9 +250,6 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName)
         XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName)
         XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName)
-        for item in prebensWorkout.workouts {
-            println(item.name)
-        }
     }
 
     func testNewUserworkoutNoExistingWorkout() {
