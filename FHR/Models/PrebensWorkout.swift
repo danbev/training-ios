@@ -11,7 +11,6 @@ import CoreData
 
 public class PrebensWorkout: Workout, Printable, WorkoutProtocol {
 
-    @NSManaged public var parent: Workout
     @NSManaged public var workouts: NSOrderedSet
 
 

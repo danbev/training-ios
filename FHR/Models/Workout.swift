@@ -19,8 +19,6 @@ public class Workout: NSManagedObject, WorkoutProtocol {
     @NSManaged public var modelType: String
     @NSManaged public var videoUrl: String
     @NSManaged public var modelRestTime: NSNumber
-    @NSManaged public var reps: RepsWorkout?
-    @NSManaged public var timed: DurationWorkout?
     @NSManaged public var userWorkout: UserWorkout
     @NSManaged public var modelDuration: NSDate?
     @NSManaged public var weights: NSNumber?

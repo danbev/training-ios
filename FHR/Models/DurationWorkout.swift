@@ -12,6 +12,5 @@ import CoreData
 public class DurationWorkout: Workout, WorkoutProtocol {
 
     @NSManaged public var duration: NSNumber
-    @NSManaged public var parent: Workout
 
 }

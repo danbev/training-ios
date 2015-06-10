@@ -2,7 +2,6 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DurationWorkout" representedClassName="FHR.DurationWorkout" parentEntity="Workout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="timed" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="IntervalWorkout" representedClassName="FHR.IntervalWorkout" parentEntity="Workout" syncable="YES">
         <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" syncable="YES"/>
@@ -14,7 +13,6 @@
     <entity name="RepsWorkout" representedClassName="FHR.RepsWorkout" parentEntity="Workout" syncable="YES">
         <attribute name="approx" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="repititions" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="reps" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="UserWorkout" representedClassName="FHR.UserWorkout" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,16 +36,14 @@
         <attribute name="modelWorkoutName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weights" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="reps" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RepsWorkout" inverseName="parent" inverseEntity="RepsWorkout" syncable="YES"/>
-        <relationship name="timed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" inverseName="parent" inverseEntity="DurationWorkout" syncable="YES"/>
         <relationship name="userWorkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserWorkout" inverseName="workouts" inverseEntity="UserWorkout" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="30"/>
+        <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="60"/>
         <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="75"/>
         <element name="PrebensWorkout" positionX="-1233" positionY="-549" width="128" height="30"/>
-        <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="30"/>
+        <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="75"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="165"/>
-        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="255"/>
+        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
     </elements>
 </model>

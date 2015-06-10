@@ -29,7 +29,6 @@ public class WorkoutService {
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.repititions = reps
-        repsWorkout.parent = workout
         saveContext()
         return repsWorkout
     }
@@ -39,7 +38,6 @@ public class WorkoutService {
         let durationWorkoutEntity = NSEntityDescription.entityForName(durationEntityName, inManagedObjectContext: context)
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.duration = duration
-        durationWorkout.parent = workout
         durationWorkout.modelDescription = desc
         durationWorkout.modelName = name
         durationWorkout.modelWorkoutName = name

@@ -13,7 +13,6 @@ public class RepsWorkout: Workout, Printable, WorkoutProtocol {
 
     @NSManaged public var repititions: NSNumber
     @NSManaged public var approx: NSNumber
-    @NSManaged public var parent: Workout
 
     public override var description: String {
         return "RepsWorkout[name=\(workoutName()), reps=\(repititions), approx=\(approx)]"
