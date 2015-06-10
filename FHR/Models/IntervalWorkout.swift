@@ -10,10 +10,13 @@ import Foundation
 import CoreData
 
 
-public class IntervalWorkout: NSManagedObject {
+public class IntervalWorkout: Workout {
 
     @NSManaged public var work: DurationWorkout
     @NSManaged public var rest: DurationWorkout
-    @NSManaged public var parent: Workout
+
+    public override var description: String {
+        return "IntervalWorkout[name=\(workoutName()), work=\(work.description)), rest=\(rest.description)]"
+    }
 
 }

@@ -40,6 +40,10 @@ public class WorkoutService {
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.duration = duration
         durationWorkout.parent = workout
+        durationWorkout.modelDescription = desc
+        durationWorkout.modelName = name
+        durationWorkout.modelWorkoutName = name
+        durationWorkout.modelCategories = WorkoutCategory.asCsvString(categories)
         saveContext()
         return durationWorkout
     }
@@ -50,7 +54,9 @@ public class WorkoutService {
         let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
         intervalWorkout.work = work
         intervalWorkout.rest = rest
-        intervalWorkout.parent = workout
+        intervalWorkout.modelName = name
+        intervalWorkout.modelWorkoutName = name
+        intervalWorkout.modelDescription = desc
         saveContext()
         return intervalWorkout
     }

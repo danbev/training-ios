@@ -41,10 +41,12 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
         let optionalWorkouts = workoutService.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
-        XCTAssertEqual("BurpeesInterval", optionalWorkouts[0].parent.name())
-        XCTAssertEqual("Burpees and Chopups", optionalWorkouts[0].parent.desc())
-        XCTAssertEqual(burpees, optionalWorkouts[0].work)
-        XCTAssertEqual(chopups, optionalWorkouts[0].rest)
+        let intervalWorkout = optionalWorkouts.filter( { (workout) in workout.modelWorkoutName == "BurpeesInterval" })[0]
+        XCTAssertNotNil(intervalWorkout)
+        XCTAssertEqual("BurpeesInterval", intervalWorkout.modelWorkoutName)
+        XCTAssertEqual("Burpees and Chopups", intervalWorkout.modelDescription)
+        XCTAssertEqual(burpees, intervalWorkout.work)
+        XCTAssertEqual(chopups, intervalWorkout.rest)
     }
 
     func testLoadDatabase() {
