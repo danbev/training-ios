@@ -27,6 +27,10 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50, categories: WorkoutCategory.Cardio, WorkoutCategory.UpperBody)
         let optionalWorkouts = workoutService.fetchRepsWorkouts()!;
         XCTAssertEqual(3, optionalWorkouts.count)
+        let chopups = optionalWorkouts.filter( { (w) in w.modelWorkoutName == "Chop ups" })[0]
+        println(chopups.modelWorkoutName)
+        XCTAssertEqual("Chop ups", chopups.modelWorkoutName)
+        XCTAssertNotNil(chopups.modelDescription)
     }
 
     func testAddDurationWorkout() {

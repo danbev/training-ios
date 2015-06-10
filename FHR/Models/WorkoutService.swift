@@ -29,6 +29,10 @@ public class WorkoutService {
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.repititions = reps
+        repsWorkout.modelDescription = desc
+        repsWorkout.modelName = name
+        repsWorkout.modelWorkoutName = name
+        repsWorkout.modelCategories = WorkoutCategory.asCsvString(categories)
         saveContext()
         return repsWorkout
     }
