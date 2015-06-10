@@ -32,10 +32,4 @@ public class Workout: NSManagedObject {
         return array.map { WorkoutCategory(rawValue: $0)! }
         }()
 
-    /*
-    public func categories() -> [WorkoutCategory] {
-        return lazyCategories;
-    }
-    */
-
 }
