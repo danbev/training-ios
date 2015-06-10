@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-public class RepsWorkout: Workout, Printable, WorkoutProtocol {
+public class RepsWorkout: Workout, Printable {
 
     @NSManaged public var repititions: NSNumber
     @NSManaged public var approx: NSNumber
 
     public override var description: String {
-        return "RepsWorkout[name=\(workoutName()), reps=\(repititions), approx=\(approx)]"
+        return "RepsWorkout[name=\(workoutName), reps=\(repititions), approx=\(approx)]"
     }
 
 }

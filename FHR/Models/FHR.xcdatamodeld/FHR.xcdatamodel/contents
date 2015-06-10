@@ -25,17 +25,17 @@
         <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Workout" inverseName="userWorkout" inverseEntity="Workout" syncable="YES"/>
     </entity>
     <entity name="Workout" representedClassName="FHR.Workout" isAbstract="YES" syncable="YES">
+        <attribute name="categories" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dryGround" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="modelCategories" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="modelDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="modelDuration" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="modelLanguage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="modelName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="modelRestTime" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
-        <attribute name="modelType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="modelWorkoutName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="restTime" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="weights" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="workoutDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutDuration" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="workoutName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="userWorkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserWorkout" inverseName="workouts" inverseEntity="UserWorkout" syncable="YES"/>
     </entity>
     <elements>

@@ -62,9 +62,9 @@ public class BaseWorkoutController: UIViewController {
     }
 
     func setTextLabels(workout: Workout) {
-        taskLabel.text = workout.workoutName()
+        taskLabel.text = workout.workoutName
         descLabel.textColor = UIColor.whiteColor()
-        descLabel.text = workout.desc()
+        descLabel.text = workout.workoutDescription
     }
 
     func setWorkoutTimeLabel() {

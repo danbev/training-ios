@@ -65,13 +65,13 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = "\(task.repititions) \(task.workoutName())"
+        cell.textLabel!.text = "\(task.repititions) \(task.workoutName)"
         cell.textLabel!.textColor = UIColor.whiteColor()
         return cell;
     }
 
     @IBAction func infoButton(sender: AnyObject) {
-        let alert = UIAlertController(title: workout.modelWorkoutName, message: workout.modelDescription, preferredStyle: .Alert)
+        let alert = UIAlertController(title: workout.workoutName, message: workout.workoutDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }

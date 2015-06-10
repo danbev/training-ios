@@ -195,7 +195,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.workoutName()
+        cell.textLabel!.text = task.workoutName
         return cell;
     }
 
@@ -216,8 +216,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         performSegue(tasks[0])
     }
 
-    private func performSegue(workout: WorkoutProtocol) {
-        switch workout.type() {
+    private func performSegue(workout: Workout) {
+        let type = Type(rawValue: workout.type)!
+        switch type {
         case .Reps:
             performSegueWithIdentifier("repsSegue", sender: self)
         case .Timed:
@@ -254,7 +255,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
-        println("Finished workout \(workout.name()), duration=\(duration)")
+        println("Finished workout \(workout.name), duration=\(duration)")
         timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
         println("Elapsed time \(totalTime.min):\(totalTime.sec)")
@@ -270,7 +271,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         if totalTime.min != 0 {
             restLabel.hidden = false
-            restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
+            restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime.doubleValue)
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
                 let warmup = workoutService.fetchWarmup(runtimeWorkout.currentUserWorkout)
                 insertNewWorkout(warmup!)

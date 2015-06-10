@@ -27,10 +27,10 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50, categories: WorkoutCategory.Cardio, WorkoutCategory.UpperBody)
         let optionalWorkouts = workoutService.fetchRepsWorkouts()!;
         XCTAssertEqual(3, optionalWorkouts.count)
-        let chopups = optionalWorkouts.filter( { (w) in w.modelWorkoutName == "Chop ups" })[0]
-        println(chopups.modelWorkoutName)
-        XCTAssertEqual("Chop ups", chopups.modelWorkoutName)
-        XCTAssertNotNil(chopups.modelDescription)
+        let chopups = optionalWorkouts.filter( { (w) in w.workoutName == "Chop ups" })[0]
+        println(chopups.workoutName)
+        XCTAssertEqual("Chop ups", chopups.workoutName)
+        XCTAssertNotNil(chopups.workoutDescription)
     }
 
     func testAddDurationWorkout() {
@@ -45,10 +45,10 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
         let optionalWorkouts = workoutService.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
-        let intervalWorkout = optionalWorkouts.filter( { (workout) in workout.modelWorkoutName == "BurpeesInterval" })[0]
+        let intervalWorkout = optionalWorkouts.filter( { (workout) in workout.workoutName == "BurpeesInterval" })[0]
         XCTAssertNotNil(intervalWorkout)
-        XCTAssertEqual("BurpeesInterval", intervalWorkout.modelWorkoutName)
-        XCTAssertEqual("Burpees and Chopups", intervalWorkout.modelDescription)
+        XCTAssertEqual("BurpeesInterval", intervalWorkout.workoutName)
+        XCTAssertEqual("Burpees and Chopups", intervalWorkout.workoutDescription)
         XCTAssertEqual(burpees, intervalWorkout.work)
         XCTAssertEqual(chopups, intervalWorkout.rest)
     }
@@ -56,19 +56,19 @@ class WorkoutServiceTest: XCTestCase {
     func testLoadDatabase() {
         workoutService.loadDataIfNeeded()
         let burpees = workoutService.fetchWorkout("Burpees")!
-        XCTAssertEqual("Burpees", burpees.name())
-        XCTAssertNotNil(burpees.desc())
-        XCTAssertEqual("en", burpees.language())
+        XCTAssertEqual("Burpees", burpees.name)
+        XCTAssertNotNil(burpees.workoutDescription)
+        XCTAssertEqual("en", burpees.language)
         XCTAssertNotNil(burpees.videoUrl)
         let chopups = workoutService.fetchWorkout("Chopups")!
-        XCTAssertEqual("Chopups", chopups.name())
+        XCTAssertEqual("Chopups", chopups.name)
         XCTAssertNotNil(chopups.videoUrl)
     }
 
     func testFetchWarmup() {
         workoutService.loadDataIfNeeded()
         let workout = workoutService.fetchWarmup()
-        XCTAssertNotNil(workout!.name())
+        XCTAssertNotNil(workout!.name)
     }
 
     func testFetchWarmupWithUserWorkout() {
@@ -77,7 +77,7 @@ class WorkoutServiceTest: XCTestCase {
         let id = NSUUID().UUIDString
         let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
         if let warmup = workoutService.fetchWarmup(userWorkout) {
-            XCTAssertNotEqual("Jumping Jacks", warmup.name())
+            XCTAssertNotEqual("Jumping Jacks", warmup.name)
         } else {
             XCTFail("A warmup should have been found.")
         }
@@ -113,11 +113,11 @@ class WorkoutServiceTest: XCTestCase {
         let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
 
         let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
-        XCTAssertNotNil(workout1!.name())
+        XCTAssertNotNil(workout1!.name)
         workoutService.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
 
         let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
-        XCTAssertNotEqual(workout2!.name(), workout1!.name())
+        XCTAssertNotEqual(workout2!.name, workout1!.name)
         workoutService.updateUserWorkout(id, optionalWorkout: workout2!, workoutTime: 1.0)
 
         let workout3 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: true)
@@ -131,10 +131,10 @@ class WorkoutServiceTest: XCTestCase {
         let userWorkout = workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
 
         let workout1 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
-        XCTAssertNotNil(workout1!.name())
+        XCTAssertNotNil(workout1!.name)
         workoutService.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
         let workout2 = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
-        XCTAssertNotNil(workout2!.name())
+        XCTAssertNotNil(workout2!.name)
     }
 
     func testSaveUserWorkout() {
@@ -170,27 +170,27 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.loadDataIfNeeded()
         let prebensWorkouts = workoutService.fetchPrebensWorkouts()!
         XCTAssertEqual(2, prebensWorkouts.count);
-        XCTAssertEqual(Type.Prebens, prebensWorkouts[0].type());
+        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkouts[0].type);
         XCTAssertEqual(7, prebensWorkouts[0].workouts.count);
         for p in prebensWorkouts {
-            let category = WorkoutCategory(rawValue: p.modelCategories)!
+            let category = WorkoutCategory(rawValue: p.categories)!
             switch category {
             case .UpperBody :
-                XCTAssertEqual("Bicep curl", p.workouts[0].workoutName())
-                XCTAssertEqual("Front bench press", p.workouts[1].workoutName())
-                XCTAssertEqual("Military press", p.workouts[2].workoutName())
-                XCTAssertEqual("Ryck", p.workouts[3].workoutName())
-                XCTAssertEqual("Hakdrag", p.workouts[4].workoutName())
-                XCTAssertEqual("Standing rowing", p.workouts[5].workoutName())
-                XCTAssertEqual("Squats", p.workouts[6].workoutName())
+                XCTAssertEqual("Bicep curl", p.workouts[0].workoutName)
+                XCTAssertEqual("Front bench press", p.workouts[1].workoutName)
+                XCTAssertEqual("Military press", p.workouts[2].workoutName)
+                XCTAssertEqual("Ryck", p.workouts[3].workoutName)
+                XCTAssertEqual("Hakdrag", p.workouts[4].workoutName)
+                XCTAssertEqual("Standing rowing", p.workouts[5].workoutName)
+                XCTAssertEqual("Squats", p.workouts[6].workoutName)
             case .LowerBody :
-                XCTAssertEqual("Russians", p.workouts[0].workoutName())
-                XCTAssertEqual("Squats", p.workouts[1].workoutName())
-                XCTAssertEqual("Flat foot jumps", p.workouts[2].workoutName())
-                XCTAssertEqual("Lunges", p.workouts[3].workoutName())
-                XCTAssertEqual("Lunge jumps", p.workouts[4].workoutName())
-                XCTAssertEqual("Marklyft", p.workouts[5].workoutName())
-                XCTAssertEqual("Stallion Burpees", p.workouts[6].workoutName())
+                XCTAssertEqual("Russians", p.workouts[0].workoutName)
+                XCTAssertEqual("Squats", p.workouts[1].workoutName)
+                XCTAssertEqual("Flat foot jumps", p.workouts[2].workoutName)
+                XCTAssertEqual("Lunges", p.workouts[3].workoutName)
+                XCTAssertEqual("Lunge jumps", p.workouts[4].workoutName)
+                XCTAssertEqual("Marklyft", p.workouts[5].workoutName)
+                XCTAssertEqual("Stallion Burpees", p.workouts[6].workoutName)
             default:
                 println("should not happen yet.")
             }
@@ -200,29 +200,29 @@ class WorkoutServiceTest: XCTestCase {
     func testUpperBodyPrebens() {
         workoutService.loadDataIfNeeded()
         let prebensWorkout = workoutService.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
-        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName())
-        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName())
-        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName())
-        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName())
-        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName())
-        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName())
-        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName())
+        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
+        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName)
+        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName)
+        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName)
+        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName)
+        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName)
+        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName)
     }
 
     func testLowerBodyPrebens() {
         workoutService.loadDataIfNeeded()
         let prebensWorkout = workoutService.fetchWorkout("LowerBodyPrebens") as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
-        XCTAssertEqual("Russians", prebensWorkout.workouts[0].workoutName())
-        XCTAssertEqual("Squats", prebensWorkout.workouts[1].workoutName())
-        XCTAssertEqual("Flat foot jumps", prebensWorkout.workouts[2].workoutName())
-        XCTAssertEqual("Lunges", prebensWorkout.workouts[3].workoutName())
-        XCTAssertEqual("Lunge jumps", prebensWorkout.workouts[4].workoutName())
-        XCTAssertEqual("Marklyft", prebensWorkout.workouts[5].workoutName())
-        XCTAssertEqual("Stallion Burpees", prebensWorkout.workouts[6].workoutName())
+        XCTAssertEqual("Russians", prebensWorkout.workouts[0].workoutName)
+        XCTAssertEqual("Squats", prebensWorkout.workouts[1].workoutName)
+        XCTAssertEqual("Flat foot jumps", prebensWorkout.workouts[2].workoutName)
+        XCTAssertEqual("Lunges", prebensWorkout.workouts[3].workoutName)
+        XCTAssertEqual("Lunge jumps", prebensWorkout.workouts[4].workoutName)
+        XCTAssertEqual("Marklyft", prebensWorkout.workouts[5].workoutName)
+        XCTAssertEqual("Stallion Burpees", prebensWorkout.workouts[6].workoutName)
     }
 
     func testOrderOfPrebens() {
@@ -236,22 +236,22 @@ class WorkoutServiceTest: XCTestCase {
         workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
         let userWorkout = workoutService.fetchUserWorkouts()![0]
         var w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
-        while w?.modelName != "UpperBodyPrebens" {
+        while w?.name != "UpperBodyPrebens" {
             w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
         }
 
         let prebensWorkout = w as! PrebensWorkout
-        XCTAssertEqual(Type.Prebens, prebensWorkout.type());
+        XCTAssertEqual(Type.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
-        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName())
-        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName())
-        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName())
-        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName())
-        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName())
-        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName())
-        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName())
+        XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
+        XCTAssertEqual("Front bench press", prebensWorkout.workouts[1].workoutName)
+        XCTAssertEqual("Military press", prebensWorkout.workouts[2].workoutName)
+        XCTAssertEqual("Ryck", prebensWorkout.workouts[3].workoutName)
+        XCTAssertEqual("Hakdrag", prebensWorkout.workouts[4].workoutName)
+        XCTAssertEqual("Standing rowing", prebensWorkout.workouts[5].workoutName)
+        XCTAssertEqual("Squats", prebensWorkout.workouts[6].workoutName)
         for item in prebensWorkout.workouts {
-            println(item.modelName)
+            println(item.name)
         }
     }
 
@@ -263,7 +263,7 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
         XCTAssertEqual(1, userWorkout.workouts.count);
         let warmup = userWorkout.workouts[0] as! Workout
-        let warmupCategory = warmup.categories().filter( { (x) in x == WorkoutCategory.Warmup })
+        let warmupCategory = warmup.lazyCategories.filter( { (x) in x == WorkoutCategory.Warmup })
         XCTAssertFalse(warmupCategory.isEmpty)
         XCTAssertEqual(warmupCategory[0].rawValue, WorkoutCategory.Warmup.rawValue)
     }
@@ -276,7 +276,7 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
         XCTAssertEqual(1, userWorkout.workouts.count);
         let warmup = userWorkout.workouts[0] as! Workout
-        let warmupCategory = warmup.categories().filter( { (x) in x == WorkoutCategory.Warmup })
+        let warmupCategory = warmup.lazyCategories.filter( { (x) in x == WorkoutCategory.Warmup })
         XCTAssertTrue(warmupCategory.isEmpty)
     }
 

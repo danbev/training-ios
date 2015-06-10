@@ -8,17 +8,6 @@
 
 import Foundation
 
-public protocol WorkoutProtocol {
-    func name() -> String
-    func workoutName() -> String
-    func desc() -> String
-    func categories() -> [WorkoutCategory]
-    func language() -> String
-    func type() -> Type
-    func restTime() -> NSNumber
-
-}
-
 public enum WorkoutCategory: String {
     case UpperBody = "Upperbody"
     case LowerBody = "Lowerbody"

@@ -31,7 +31,7 @@
 		C54B3A941B260F3B0033854E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A931B260F3B0033854E /* Settings.swift */; };
 		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
 		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
-		C573BDC21A90882500B84FE0 /* WorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */; };
+		C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */; };
 		C573BDC41A90CFE000B84FE0 /* WorkoutCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC31A90CFE000B84FE0 /* WorkoutCategoryTests.swift */; };
 		C5801CE61A62B3A800051140 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* Workout.swift */; };
 		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
@@ -91,7 +91,7 @@
 		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C573BDBF1A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
 		C573BDC01A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutProtocol.swift; path = Core/WorkoutProtocol.swift; sourceTree = "<group>"; };
+		C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutCategory.swift; path = Core/WorkoutCategory.swift; sourceTree = "<group>"; };
 		C573BDC31A90CFE000B84FE0 /* WorkoutCategoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCategoryTests.swift; sourceTree = "<group>"; };
 		C5801CE51A62B3A800051140 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */,
-				C573BDC11A90882500B84FE0 /* WorkoutProtocol.swift */,
+				C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */,
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
 				C54B3A931B260F3B0033854E /* Settings.swift */,
 			);
@@ -405,7 +405,7 @@
 				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,
 				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,
 				C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */,
-				C573BDC21A90882500B84FE0 /* WorkoutProtocol.swift in Sources */,
+				C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */,
 				C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */,
 				C5C67FF51AE8251700C1D55C /* SettingsViewController.swift in Sources */,
 				C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */,
