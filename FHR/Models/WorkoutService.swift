@@ -386,6 +386,50 @@ public class WorkoutService {
                     saveContext()
                 }
             }
+            let intervalArray = workoutDict.valueForKeyPath("intervalbased") as! NSArray
+            for jsonDictionary in intervalArray {
+                let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
+                let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
+                let workout = workouts[jsonDictionary["workout"] as! String!]!
+                intervalWorkout.workoutName = jsonDictionary["name"] as! String
+                intervalWorkout.type = WorkoutType.Interval.rawValue
+                intervalWorkout.name = workout.name
+                intervalWorkout.workoutDescription = workout.desc
+                intervalWorkout.language = workout.language
+                intervalWorkout.weights = workout.weights
+                intervalWorkout.dryGround = workout.dryGround
+                intervalWorkout.categories = jsonDictionary["categories"] as! String!
+                let work = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
+                let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
+                let workWorkout = workouts[workJson["workout"] as! String]!
+                work.name = workWorkout.name
+                work.workoutName = workJson["name"] as! String
+                work.duration = workJson["duration"] as! Double
+                work.restTime = workJson["rest"] as! Int
+                work.categories = workJson["categories"] as! String!
+                work.workoutDescription = workout.desc
+                work.videoUrl = workout.videoUrl
+                work.language = workout.language
+                work.weights = workout.weights
+                work.dryGround = workout.dryGround
+                intervalWorkout.work = work
+
+                let rest = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
+                let restJson = jsonDictionary["restWorkout"] as! NSDictionary
+                let restWorkout = workouts[restJson["workout"] as! String]!
+                rest.name = restWorkout.name
+                rest.workoutName = restJson["name"] as! String
+                rest.duration = restJson["duration"] as! Double
+                rest.restTime = restJson["rest"] as! Int
+                rest.categories = restJson["categories"] as! String!
+                rest.workoutDescription = restWorkout.desc
+                rest.videoUrl = restWorkout.videoUrl
+                rest.language = restWorkout.language
+                rest.weights = restWorkout.weights
+                rest.dryGround = restWorkout.dryGround
+                intervalWorkout.rest = rest
+                saveContext()
+            }
             saveContext()
         } else {
             println("could not parse json data.")

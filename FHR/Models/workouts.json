@@ -21,7 +21,10 @@
        {"name":"FlatFootJumps","desc":"Perform a squat and then jump as high as you can and land in the squat position again and repeat","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
        {"name":"LungeJumps","desc":"Lunges but with jumping","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
        {"name":"Marklyft","desc":"With a bar...","language": "en", "videoUrl":"TestVideo.m4v","weights":true,"dryGround":false},
-       {"name":"StallionBurpees","desc":"Like a normal burpee, but when you go to stand up you kick your back legs back and up like a horse","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false}
+       {"name":"StallionBurpees","desc":"Like a normal burpee, but when you go to stand up you kick your back legs back and up like a horse","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
+       {"name":"WormInterval","desc":"Interval with a work and rest interval...","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
+       {"name":"Worm","desc":"Stand with feet a little more that shoulder width...","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
+       {"name":"MountainClimber","desc":"On all fours...","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false}
     ],
     "repbased": [
        {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 6,"approx": 120, "categories": "Warmup"},
@@ -56,6 +59,10 @@
            {"name": "Marklyft", "workout": "Marklyft", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"}
        ]}
+    ],
+    "intervalbased": [
+          {"name":"Worm interval","workout":"WormInterval","rest":5,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 40, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 20,"categories":"Interval"}
+          }
     ]
   }
 }

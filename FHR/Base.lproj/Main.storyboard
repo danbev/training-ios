@@ -116,6 +116,7 @@
                         <segue destination="E2K-5C-CaN" kind="modal" identifier="repsSegue" id="7hv-jR-TCk"/>
                         <segue destination="fms-NL-3Y8" kind="modal" identifier="durationSegue" id="cIS-PX-RLw"/>
                         <segue destination="72f-wf-6kL" kind="modal" identifier="prebensSegue" id="K4T-ht-lyx"/>
+                        <segue destination="iut-CO-vFa" kind="modal" identifier="intervalSegue" id="1EO-IE-8nU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -230,7 +231,38 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pW-Ki-aPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1146" y="772"/>
+            <point key="canvasLocation" x="1152" y="885"/>
+        </scene>
+        <!--Interval View Controller-->
+        <scene sceneID="Tgh-JH-bg1">
+            <objects>
+                <viewController id="iut-CO-vFa" customClass="IntervalViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4w1-jC-2ji"/>
+                        <viewControllerLayoutGuide type="bottom" id="1En-lc-kl7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gjc-nh-9Z5">
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TaskName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqe-Pl-Ofw">
+                                <rect key="frame" x="16" y="65" width="154" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="VNP-Fn-LtV"/>
+                    <connections>
+                        <outlet property="taskLabel" destination="Fqe-Pl-Ofw" id="Olu-FN-Cda"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rWB-Nj-hLD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="733" y="941"/>
         </scene>
         <!--Duration View Controller-->
         <scene sceneID="6kW-Oy-67m">
@@ -565,7 +597,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="sGY-fS-knj"/>
+        <segue reference="n4z-nV-VYb"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

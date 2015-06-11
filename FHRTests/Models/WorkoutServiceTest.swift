@@ -285,5 +285,13 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual(WorkoutCategory.LowerBody.rawValue, userWorkout.category);
         XCTAssertNotEqual(lastWorkout.workouts[0].name, userWorkout.workouts[0].name)
     }
+
+    func testIntervalWorkout() {
+        workoutService.loadDataIfNeeded()
+        let intervalWorkout = workoutService.fetchWorkout("WormInterval") as! IntervalWorkout
+        XCTAssertEqual(WorkoutType.Interval.rawValue, intervalWorkout.type);
+        XCTAssertEqual("The Worm", intervalWorkout.work.workoutName)
+        XCTAssertEqual("Mountain climber", intervalWorkout.rest.workoutName)
+    }
 }
 
