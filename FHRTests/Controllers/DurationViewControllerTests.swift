@@ -32,18 +32,19 @@ class DurationViewControllerTests: XCTestCase {
     }
 
     func testWithRestTimer() {
-        /*
-        let workout = workoutService.fetchWorkout("Getups") as! DurationWorkout
-        controller.workout = workout
-        let expectation = expectationWithDescription("Testing timer...")
-        let timer = CountDownTimer(callback: { (t) -> () in expectation.fulfill() }, countDown: 60)
-        controller.restTimer(timer)
+        let workout = workoutService.fetchWorkout("Getups")!
+        let expectation = expectationWithDescription("Testing timer2...")
+        let timer = CountDownTimer(callback: { (dt) -> () in
+            debugPrintln("in duration test CountDownTimer closure")
+            expectation.fulfill()
+            dt.stop()
+            }, countDown: 60)
+        controller.initWith(workout, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
-            XCTAssertTrue(self.controller.isTimeLabelVisible())
+            XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
-        */
     }
 
 }

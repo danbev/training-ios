@@ -1,27 +1,26 @@
 //
-//  PrebensViewControllerTests.swift
+//  DurationViewControllerTests.swift
 //  FHR
 //
-//  Created by Daniel Bevenius on 03/06/15.
+//  Created by Daniel Bevenius on 21/05/15.
 //  Copyright (c) 2015 Daniel Bevenius. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Foundation
 import FHR
 import XCTest
 
-class PrebensViewControllerTests: XCTestCase {
+class IntervalViewControllerTests: XCTestCase {
 
-    var controller: PrebensViewController!
+    var controller: IntervalViewController!
     let coreDataStack: CoreDataStack = TestCoreDataStack()
     var workoutService: WorkoutService!
 
     override func setUp() {
         super.setUp()
         var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
-        controller = storyboard.instantiateViewControllerWithIdentifier("PrebensViewController") as! PrebensViewController
+        controller = storyboard.instantiateViewControllerWithIdentifier("IntervalViewController") as! IntervalViewController
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         controller.loadView()
@@ -31,11 +30,11 @@ class PrebensViewControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testWithRestTimer() {
-        let workout = workoutService.fetchWorkout("UpperBodyPrebens")!
+    func testWorkRestTimer() {
+        let workout = workoutService.fetchWorkout("WormInterval")!
         let expectation = expectationWithDescription("Testing timer...")
         let timer = CountDownTimer(callback: { (t) -> () in
-            debugPrintln("in Prebends test CountDownTimer closure")
+            debugPrintln("in interval test CountDownTimer closure")
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
@@ -45,6 +44,8 @@ class PrebensViewControllerTests: XCTestCase {
             XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
+        XCTAssertFalse(self.controller.isTimeLabelVisible())
+        XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
     }
-    
+
 }

@@ -224,7 +224,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         case .Timed:
             performSegueWithIdentifier("durationSegue", sender: self)
         case .Interval:
-            println("interval task...")
+            performSegueWithIdentifier("intervalSegue", sender: self)
         case .Prebens:
             performSegueWithIdentifier("prebensSegue", sender: self)
         }

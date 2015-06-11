@@ -36,8 +36,8 @@ public class IntervalViewController: BaseWorkoutController {
     }
 
     public override func startWorkTimer(workout: Workout) {
-        let dw = workout as! DurationWorkout
-        countDownTimer = CountDownTimer(callback: durationCallback, countDown: dw.duration.doubleValue)
+        let intervalWorkout = workout as! IntervalWorkout
+        countDownTimer = CountDownTimer(callback: durationCallback, countDown: intervalWorkout.work.duration.doubleValue)
     }
 
     public func durationCallback(timer: CountDownTimer) {
