@@ -61,7 +61,7 @@
        ]}
     ],
     "intervalbased": [
-          {"name":"Worm interval","workout":"WormInterval","rest":5,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 40, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 20,"categories":"Interval"}
+          {"name":"Worm interval","workout":"WormInterval","intervals": 5,"rest":5,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 10, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 10,"categories":"Interval"}
           }
     ]
   }

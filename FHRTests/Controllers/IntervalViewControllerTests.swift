@@ -30,22 +30,36 @@ class IntervalViewControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testWorkRestTimer() {
+    func testRestTimer() {
         let workout = workoutService.fetchWorkout("WormInterval")!
-        let expectation = expectationWithDescription("Testing timer...")
-        let timer = CountDownTimer(callback: { (t) -> () in
-            debugPrintln("in interval test CountDownTimer closure")
+        let expectation = expectationWithDescription("Testing rest timer...")
+        let restTimer = CountDownTimer(callback: { (t) -> () in
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
-        controller.initWith(workout, restTimer: timer) { controller, duration in }
+        controller.initWith(workout, restTimer: restTimer) { controller, duration in }
+        controller.viewDidLoad()
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertFalse(self.controller.isTimeLabelVisible())
+            XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
+        }
+    }
+
+    func testWorkTimer() {
+        let workout = workoutService.fetchWorkout("WormInterval")!
+        let expectation = expectationWithDescription("Testing work timer...")
+        let restTimer = CountDownTimer(callback: { (t) -> () in
+            expectation.fulfill()
+            t.stop()
+            }, countDown: 60)
+        controller.initWith(workout, restTimer: restTimer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
-        XCTAssertFalse(self.controller.isTimeLabelVisible())
-        XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
+        controller.startWorkTimer(workout)
     }
 
 }

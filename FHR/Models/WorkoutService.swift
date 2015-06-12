@@ -394,6 +394,7 @@ public class WorkoutService {
                 intervalWorkout.workoutName = jsonDictionary["name"] as! String
                 intervalWorkout.type = WorkoutType.Interval.rawValue
                 intervalWorkout.name = workout.name
+                intervalWorkout.intervals = jsonDictionary["intervals"] as! Int
                 intervalWorkout.workoutDescription = workout.desc
                 intervalWorkout.language = workout.language
                 intervalWorkout.weights = workout.weights
