@@ -24,6 +24,7 @@ public class IntervalViewController: BaseWorkoutController {
     @IBOutlet weak var durationLabel: UILabel!
     var intervalWorkout : IntervalWorkout!
     var countDownTimer: CountDownTimer!
+    var intervals: Int!
     var intervalCounter: Int = 0
 
     public override func viewDidLoad() {
@@ -35,6 +36,7 @@ public class IntervalViewController: BaseWorkoutController {
     public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
         intervalWorkout = workout as! IntervalWorkout
+        intervals = intervalWorkout.intervals.integerValue
     }
 
     public override func viewWillAppear(animated: Bool) {
@@ -78,7 +80,9 @@ public class IntervalViewController: BaseWorkoutController {
             if intervalCounter < intervalWorkout.intervals.integerValue {
                 countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
             } else {
-                //self.didFinish!(self, duration: intervalWorkout.workoutDuration.)
+                let duration = intervalWorkout.work.duration.integerValue * intervals + intervalWorkout.rest.duration.integerValue * intervals
+                println("Number of workouts was reached. Duration=\(duration)")
+                self.didFinish!(self, duration: Double(duration))
             }
         }
     }
