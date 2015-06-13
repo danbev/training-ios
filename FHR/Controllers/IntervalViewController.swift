@@ -26,6 +26,8 @@ public class IntervalViewController: BaseWorkoutController {
     var countDownTimer: CountDownTimer!
     var intervals: Int!
     var intervalCounter: Int = 0
+    private static let white = UIColor.whiteColor()
+    private static let orange = UIColor.orangeColor()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +47,29 @@ public class IntervalViewController: BaseWorkoutController {
 
     public override func startWorkTimer(workout: Workout) {
         let intervalWorkout = workout as! IntervalWorkout
-        workoutLabel.textColor = UIColor.orangeColor()
-        workoutTimeLabel.textColor = UIColor.orangeColor()
-        restWorkoutLabel.textColor = UIColor.whiteColor()
-        restTimeLabel.textColor = UIColor.whiteColor()
+        labelsWorkoutState()
         countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
+    }
+
+    private func labelsWorkoutState() {
+        workoutLabel.textColor = IntervalViewController.orange
+        workoutTimeLabel.textColor = IntervalViewController.orange
+        restWorkoutLabel.textColor = IntervalViewController.white
+        restTimeLabel.textColor = IntervalViewController.white
+    }
+
+    private func labelsRestState() {
+        workoutLabel.textColor = IntervalViewController.white
+        workoutTimeLabel.textColor = IntervalViewController.white
+        restWorkoutLabel.textColor = IntervalViewController.orange
+        restTimeLabel.textColor = IntervalViewController.orange
+    }
+
+    private func labelsDoneState() {
+        workoutLabel.textColor = IntervalViewController.white
+        workoutTimeLabel.textColor = IntervalViewController.white
+        restWorkoutLabel.textColor = IntervalViewController.white
+        restTimeLabel.textColor = IntervalViewController.white
     }
 
     public func workDurationCallback(timer: CountDownTimer) {
@@ -60,10 +80,7 @@ public class IntervalViewController: BaseWorkoutController {
         } else {
             workoutTimeLabel.text = "00:00"
             timer.stop()
-            workoutLabel.textColor = UIColor.whiteColor()
-            workoutTimeLabel.textColor = UIColor.whiteColor()
-            restWorkoutLabel.textColor = UIColor.orangeColor()
-            restTimeLabel.textColor = UIColor.orangeColor()
+            labelsRestState()
             countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest.duration.doubleValue)
             intervalCounter++
         }
@@ -78,8 +95,10 @@ public class IntervalViewController: BaseWorkoutController {
             restTimeLabel.text = "00:00"
             timer.stop()
             if intervalCounter < intervalWorkout.intervals.integerValue {
+                labelsWorkoutState()
                 countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
             } else {
+                labelsDoneState()
                 let duration = intervalWorkout.work.duration.integerValue * intervals + intervalWorkout.rest.duration.integerValue * intervals
                 println("Number of workouts was reached. Duration=\(duration)")
                 self.didFinish!(self, duration: Double(duration))
