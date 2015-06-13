@@ -47,6 +47,8 @@ public class IntervalViewController: BaseWorkoutController {
 
     public override func startWorkTimer(workout: Workout) {
         let intervalWorkout = workout as! IntervalWorkout
+        timeLabel.hidden = true
+        restTimerLabel.hidden = true
         labelsWorkoutState()
         countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
     }
