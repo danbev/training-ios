@@ -317,6 +317,18 @@
                                     <outlet property="delegate" destination="iut-CO-vFa" id="SVj-qm-Ew6"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Intervals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGe-rz-z5V">
+                                <rect key="frame" x="178" y="65" width="73" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apT-iA-Qia">
+                                <rect key="frame" x="262" y="65" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -324,6 +336,7 @@
                     <navigationItem key="navigationItem" id="VNP-Fn-LtV"/>
                     <connections>
                         <outlet property="descLabel" destination="M5W-VA-bXw" id="dxB-Jg-erw"/>
+                        <outlet property="intervalsLabel" destination="apT-iA-Qia" id="o9M-MB-ezU"/>
                         <outlet property="restTimerLabel" destination="pkb-Sr-rjQ" id="WaD-FX-MhO"/>
                         <outlet property="tableView" destination="hWI-QN-Qsv" id="PaE-M8-nqp"/>
                         <outlet property="taskLabel" destination="Fqe-Pl-Ofw" id="Olu-FN-Cda"/>

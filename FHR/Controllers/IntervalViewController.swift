@@ -17,6 +17,7 @@ Controls a interval based workout
 */
 public class IntervalViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var intervalsLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var restTimeLabel: UILabel!
     @IBOutlet weak var workoutTimeLabel: UILabel!
@@ -32,6 +33,8 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.reloadData()
+        intervalsLabel.text = String(intervals)
     }
 
     public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
@@ -40,7 +43,6 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         intervals = intervalWorkout.intervals.integerValue
         workouts.append(intervalWorkout.work)
         workouts.append(intervalWorkout.rest)
-        tableView.reloadData()
     }
 
     public override func viewWillAppear(animated: Bool) {
