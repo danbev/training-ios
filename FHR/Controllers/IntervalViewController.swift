@@ -15,34 +15,47 @@ import AVFoundation
 Controls a interval based workout
 
 */
-public class IntervalViewController: BaseWorkoutController {
+public class IntervalViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var restWorkoutLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var restTimeLabel: UILabel!
-    @IBOutlet weak var workoutLabel: UILabel!
     @IBOutlet weak var workoutTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
+    private let tableCell = "intervalCell"
     var intervalWorkout : IntervalWorkout!
     var countDownTimer: CountDownTimer!
     var intervals: Int!
     var intervalCounter: Int = 0
     private static let white = UIColor.whiteColor()
     private static let orange = UIColor.orangeColor()
+    var workouts = [DurationWorkout]()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        workoutLabel.text = intervalWorkout.work.workoutName
-        restWorkoutLabel.text = intervalWorkout.rest.workoutName
     }
 
     public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
         intervalWorkout = workout as! IntervalWorkout
         intervals = intervalWorkout.intervals.integerValue
+        workouts.append(intervalWorkout.work)
+        workouts.append(intervalWorkout.rest)
+        tableView.reloadData()
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return workouts.count
+    }
+
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let workout = workouts[indexPath.row]
+        cell.textLabel!.text = workout.workoutName
+        return cell;
     }
 
     public override func startWorkTimer(workout: Workout) {
@@ -54,33 +67,55 @@ public class IntervalViewController: BaseWorkoutController {
     }
 
     private func labelsWorkoutState() {
-        workoutLabel.textColor = IntervalViewController.orange
-        workoutTimeLabel.textColor = IntervalViewController.orange
-        restWorkoutLabel.textColor = IntervalViewController.white
-        restTimeLabel.textColor = IntervalViewController.white
+        let work = workCell()!
+        work.textLabel?.textColor = IntervalViewController.orange
+        work.detailTextLabel?.textColor = IntervalViewController.orange
+        work.tintColor = IntervalViewController.orange
+
+        let rest = restCell()!
+        rest.textLabel?.textColor = IntervalViewController.white
+        rest.detailTextLabel?.textColor = IntervalViewController.white
+        rest.tintColor = IntervalViewController.white
     }
 
     private func labelsRestState() {
-        workoutLabel.textColor = IntervalViewController.white
-        workoutTimeLabel.textColor = IntervalViewController.white
-        restWorkoutLabel.textColor = IntervalViewController.orange
-        restTimeLabel.textColor = IntervalViewController.orange
+        let work = workCell()!
+        work.textLabel?.textColor = IntervalViewController.white
+        work.detailTextLabel?.textColor = IntervalViewController.white
+        work.tintColor = IntervalViewController.white
+
+        let rest = restCell()!
+        rest.textLabel?.textColor = IntervalViewController.orange
+        rest.detailTextLabel?.textColor = IntervalViewController.orange
+        rest.tintColor = IntervalViewController.orange
     }
 
     private func labelsDoneState() {
-        workoutLabel.textColor = IntervalViewController.white
-        workoutTimeLabel.textColor = IntervalViewController.white
-        restWorkoutLabel.textColor = IntervalViewController.white
-        restTimeLabel.textColor = IntervalViewController.white
+        let work = workCell()!
+        work.textLabel?.textColor = IntervalViewController.white
+        work.detailTextLabel?.textColor = IntervalViewController.white
+        work.tintColor = IntervalViewController.white
+
+        let rest = restCell()!
+        rest.textLabel?.textColor = IntervalViewController.white
+        rest.detailTextLabel?.textColor = IntervalViewController.white
+        rest.tintColor = IntervalViewController.white
+    }
+
+    private func workCell() -> UITableViewCell? {
+        return tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+    }
+
+    private func restCell() -> UITableViewCell? {
+        return tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
     }
 
     public func workDurationCallback(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
-        println("workout duration: \(min):\(sec)")
         if min >= 0 && sec > 0 {
-            workoutTimeLabel.text = CountDownTimer.timeAsString(min, sec: sec)
+            workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
-            workoutTimeLabel.text = "00:00"
+            workCell()?.detailTextLabel?.text = "00:00"
             timer.stop()
             labelsRestState()
             countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest.duration.doubleValue)
@@ -92,9 +127,9 @@ public class IntervalViewController: BaseWorkoutController {
         let (min, sec) = timer.elapsedTime()
         println("rest duration: \(min):\(sec)")
         if min >= 0 && sec > 0 {
-            restTimeLabel.text = CountDownTimer.timeAsString(min, sec: sec)
+            restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
-            restTimeLabel.text = "00:00"
+            restCell()?.detailTextLabel?.text = "00:00"
             timer.stop()
             if intervalCounter < intervalWorkout.intervals.integerValue {
                 labelsWorkoutState()
@@ -102,7 +137,6 @@ public class IntervalViewController: BaseWorkoutController {
             } else {
                 labelsDoneState()
                 let duration = intervalWorkout.work.duration.integerValue * intervals + intervalWorkout.rest.duration.integerValue * intervals
-                println("Number of workouts was reached. Duration=\(duration)")
                 self.didFinish!(self, duration: Double(duration))
             }
         }
@@ -112,8 +146,4 @@ public class IntervalViewController: BaseWorkoutController {
         super.didReceiveMemoryWarning()
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        BaseWorkoutController.showVideo(segue, workout: workout)
-    }
-    
 }
