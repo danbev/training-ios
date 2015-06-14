@@ -65,8 +65,9 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = "\(task.repititions) \(task.workoutName)"
+        cell.textLabel!.text = task.workoutName
         cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.detailTextLabel?.text = task.repititions.stringValue
         return cell;
     }
 

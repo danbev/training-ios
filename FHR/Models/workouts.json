@@ -57,7 +57,7 @@
            {"name": "Lunges", "workout": "Utfall", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Lunge jumps", "workout": "LungeJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Marklyft", "workout": "Marklyft", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
-           {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"}
+           {"name": "Stallion Burpees", "workout": "StallionBurpees", "reps": 5, "rest": 0,"approx": 10,"categories": "Prebens"}
        ]}
     ],
     "intervalbased": [
