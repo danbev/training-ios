@@ -54,8 +54,4 @@ public class DurationViewController: BaseWorkoutController {
         super.didReceiveMemoryWarning()
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        BaseWorkoutController.showVideo(segue, workout: workout)
-    }
-
 }

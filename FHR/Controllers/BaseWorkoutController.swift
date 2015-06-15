@@ -18,10 +18,10 @@ public class BaseWorkoutController: UIViewController {
     var didFinish: FinishDelegate?
 
     @IBOutlet weak var taskLabel: UILabel!
-    @IBOutlet weak var descLabel: UITextView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var infoButton: UIButton!
 
     public var workout : Workout!
     var restTimer: CountDownTimer!
@@ -104,12 +104,8 @@ public class BaseWorkoutController: UIViewController {
         restTimerLabel.text = Timer.timeAsString(min, sec: sec)
     }
 
-    public class func showVideo(segue: UIStoryboardSegue, workout: Workout) {
-        if segue.identifier == "videoSegue" {
-            let videoURL = NSBundle.mainBundle().URLForResource(workout.videoUrl, withExtension: nil)
-            let videoViewController = segue.destinationViewController as! AVPlayerViewController
-            videoViewController.player = AVPlayer(URL: videoURL)
-        }
+    @IBAction func info(sender: AnyObject) {
+        performSegueWithIdentifier("infoSegue", sender: self)
     }
 
     public func isRestTimerLabelVisible() -> Bool {
@@ -126,6 +122,29 @@ public class BaseWorkoutController: UIViewController {
 
     public func timeLabelText() -> String? {
         return timeLabel.text
+    }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println("prepareForSeque \(segue.identifier)")
+        if segue.identifier == "infoSegue" {
+            let infoViewController = segue.destinationViewController as! InfoViewController
+            infoViewController.initWith(workout)
+        }
+    }
+
+    public class func showVideo(segue: UIStoryboardSegue, workout: Workout) {
+        if segue.identifier == "videoSegue" {
+            let videoURL = NSBundle.mainBundle().URLForResource(workout.videoUrl, withExtension: nil)
+            let videoViewController = segue.destinationViewController as! AVPlayerViewController
+            videoViewController.player = AVPlayer(URL: videoURL)
+        }
+    }
+
+    public class func infoView(segue: UIStoryboardSegue, workout: Workout) {
+        if segue.identifier == "infoSegue" {
+            let infoViewController = segue.destinationViewController as! InfoViewController
+            infoViewController.initWith(workout)
+        }
     }
 
 }

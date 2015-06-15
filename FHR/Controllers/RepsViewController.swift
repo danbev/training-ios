@@ -31,7 +31,4 @@ public class RepsViewController: BaseWorkoutController {
         repsWorkout = workout as! RepsWorkout
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        BaseWorkoutController.showVideo(segue, workout: workout)
-    }
 }

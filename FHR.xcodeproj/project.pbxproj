@@ -39,6 +39,7 @@
 		C5801CE61A62B3A800051140 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* Workout.swift */; };
 		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
 		C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkout.swift */; };
+		C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C586D8291B2EE0020078493B /* InfoViewController.swift */; };
 		C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
 		C5A092CB1B1B9016003FFCA4 /* restwarning.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CA1B1B9016003FFCA4 /* restwarning.wav */; };
@@ -102,6 +103,7 @@
 		C5801CE51A62B3A800051140 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
 		C5801CE81A62B3C200051140 /* DurationWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkout.swift; sourceTree = "<group>"; };
+		C586D8291B2EE0020078493B /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeWorkout.swift; path = Core/RuntimeWorkout.swift; sourceTree = "<group>"; };
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
 		C5A092CA1B1B9016003FFCA4 /* restwarning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = restwarning.wav; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				C599317F1AAAF503007ABB93 /* DurationViewController.swift */,
 				C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */,
 				C54B3A971B28C7250033854E /* IntervalViewController.swift */,
+				C586D8291B2EE0020078493B /* InfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				C54B3A941B260F3B0033854E /* Settings.swift in Sources */,
 				C54B3A981B28C7250033854E /* IntervalViewController.swift in Sources */,
 				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
+				C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */,
 				C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
