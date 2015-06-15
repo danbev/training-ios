@@ -39,7 +39,18 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let indexPath = tableView.indexPathForSelectedRow()!;
-        let task = tasks[indexPath.row]
+        let workout = tasks[indexPath.row]
+        println(workout.workoutName)
+        performSegueWithIdentifier("infoSegue", sender: workout)
+    }
+    
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "infoSegue" {
+            let indexPath = tableView.indexPathForSelectedRow()!;
+            let workout = tasks[indexPath.row]
+            let infoController = segue.destinationViewController as! InfoViewController
+            infoController.initWith(workout)
+        }
     }
 
     /**
@@ -69,12 +80,6 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
         cell.textLabel!.textColor = UIColor.whiteColor()
         cell.detailTextLabel?.text = task.repititions.stringValue
         return cell;
-    }
-
-    @IBAction func infoButton(sender: AnyObject) {
-        let alert = UIAlertController(title: workout.workoutName, message: workout.workoutDescription, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     public override func didReceiveMemoryWarning() {
