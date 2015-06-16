@@ -148,4 +148,24 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         super.didReceiveMemoryWarning()
     }
 
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "infoSegue" {
+            println(sender)
+            let workout: Workout
+            if sender is Workout {
+                workout = sender as! Workout
+            } else {
+                let indexPath = tableView.indexPathForSelectedRow()!;
+                workout = workouts[indexPath.row]
+            }
+            let infoController = segue.destinationViewController as! InfoViewController
+            infoController.initWith(workout)
+        }
+    }
+
+    public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let workout = workouts[indexPath.row]
+        performSegueWithIdentifier("infoSegue", sender: workout)
+    }
+
 }
