@@ -150,16 +150,13 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
-            println(sender)
-            let workout: Workout
-            if sender is Workout {
-                workout = sender as! Workout
-            } else {
-                let indexPath = tableView.indexPathForSelectedRow()!;
-                workout = workouts[indexPath.row]
-            }
             let infoController = segue.destinationViewController as! InfoViewController
-            infoController.initWith(workout)
+            println(sender)
+            if sender is Workout {
+                infoController.initWith(sender as! Workout)
+            } else {
+                infoController.initWith(intervalWorkout)
+            }
         }
     }
 

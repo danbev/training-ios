@@ -17,7 +17,7 @@ public class Workout: NSManagedObject {
     @NSManaged public var language: String
     @NSManaged public var categories: String
     @NSManaged public var type: String
-    @NSManaged public var videoUrl: String
+    @NSManaged public var videoUrl: String?
     @NSManaged public var restTime: NSNumber
     @NSManaged public var userWorkout: UserWorkout
     @NSManaged public var workoutDuration: NSDate?

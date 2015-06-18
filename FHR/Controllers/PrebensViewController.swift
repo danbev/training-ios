@@ -46,6 +46,8 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
             let workout: Workout
             if sender is Workout {
                 workout = sender as! Workout
+            } else if sender is PrebensViewController {
+                workout = prebensWorkout
             } else {
                 let indexPath = tableView.indexPathForSelectedRow()!;
                 workout = tasks[indexPath.row]
