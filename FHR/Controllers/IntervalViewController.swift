@@ -22,11 +22,13 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     @IBOutlet weak var restTimeLabel: UILabel!
     @IBOutlet weak var workoutTimeLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var intervalLabel: UILabel!
+    @IBOutlet weak var intervalTitleLabel: UILabel!
     private let tableCell = "intervalCell"
     var intervalWorkout : IntervalWorkout!
     var countDownTimer: CountDownTimer!
     var intervals: Int!
-    var intervalCounter: Int = 0
+    var intervalCounter: Int = 1
     private static let white = UIColor.whiteColor()
     private static let orange = UIColor.orangeColor()
     var workouts = [DurationWorkout]()
@@ -64,6 +66,9 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         let intervalWorkout = workout as! IntervalWorkout
         timeLabel.hidden = true
         restTimerLabel.hidden = true
+        intervalTitleLabel.hidden = false
+        intervalLabel.textColor = IntervalViewController.orange
+        intervalLabel.text = "1"
         labelsWorkoutState()
         countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
     }
@@ -121,13 +126,11 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
             timer.stop()
             labelsRestState()
             countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest.duration.doubleValue)
-            intervalCounter++
         }
     }
 
     public func restDurationCallback(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
-        println("rest duration: \(min):\(sec)")
         if min >= 0 && sec > 0 {
             restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
         } else {
@@ -135,6 +138,8 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
             timer.stop()
             if intervalCounter < intervalWorkout.intervals.integerValue {
                 labelsWorkoutState()
+                intervalCounter++
+                intervalLabel.text = String(intervalCounter)
                 countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
             } else {
                 labelsDoneState()
