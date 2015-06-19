@@ -9,10 +9,10 @@
 import Foundation
 
 public enum WorkoutType: String {
-    case Reps = "reps"
-    case Timed = "timed"
-    case Interval = "interval"
-    case Prebens = "prebens"
+    case Reps = "Repitition"
+    case Timed = "Duration"
+    case Interval = "Interval"
+    case Prebens = "Prebens"
 
     static func asCsvString(types: [WorkoutType]) -> String {
         return ",".join(types.map { $0.rawValue })

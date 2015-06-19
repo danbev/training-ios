@@ -715,6 +715,19 @@
                                     <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="tVY-xq-PjK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type of workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gt-jR-rN3">
+                                <rect key="frame" x="32" y="83" width="258" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nkn-gi-2xe">
+                                <rect key="frame" x="71" y="112" width="179" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="RVY-Hg-4kA" id="F8A-if-kf1"/>
+                                    <outlet property="delegate" destination="RVY-Hg-4kA" id="VsW-Td-7MG"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
