@@ -22,6 +22,7 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var infoButton: UIButton!
+    let audioWarning = AudioWarning.instance
 
     public var workout : Workout!
     var restTimer: CountDownTimer!
@@ -29,7 +30,7 @@ public class BaseWorkoutController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        setTextLabels(workout)
+        taskLabel.text = workout.workoutName
         initializeTimer()
     }
 
@@ -61,10 +62,6 @@ public class BaseWorkoutController: UIViewController {
         workTimer = Timer(callback: updateWorkTime)
     }
 
-    func setTextLabels(workout: Workout) {
-        taskLabel.text = workout.workoutName
-    }
-
     func setWorkoutTimeLabel() {
         timeLabel.tintColor = UIColor.whiteColor()
         timeLabel.text = "Workout time:"
@@ -84,10 +81,13 @@ public class BaseWorkoutController: UIViewController {
     public func updateTime(timer: CountDownTimer) {
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            if (min == 0 && sec < 10) {
+            if min == 0 && sec < 10 {
                 restTimerLabel.textColor = UIColor.orangeColor()
             }
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
+            if  min == 0 && sec <= 3 {
+                audioWarning.play()
+            }
         } else {
             if doneButton != nil {
                 doneButton.hidden = false

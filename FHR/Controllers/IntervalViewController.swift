@@ -121,6 +121,9 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
+            if  min == 0 && sec <= 3 {
+                audioWarning.play()
+            }
         } else {
             workCell()?.detailTextLabel?.text = "00:00"
             timer.stop()
@@ -133,6 +136,9 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         let (min, sec) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
+            if  min == 0 && sec <= 3 {
+                audioWarning.play()
+            }
         } else {
             restCell()?.detailTextLabel?.text = "00:00"
             timer.stop()
