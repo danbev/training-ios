@@ -113,7 +113,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         clearWorkoutTasks()
         let workoutDuration = settings.duration
-        println("workout duration = \(workoutDuration)")
+        debugPrintln("workout duration = \(workoutDuration)")
 
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
 
@@ -122,7 +122,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
-                println("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
+                debugPrintln("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
@@ -157,7 +157,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
-        println("add a new workout...")
+        debugPrintln("add a new workout...")
     }
 
     @IBAction func settingsButton(sender: AnyObject) {
@@ -255,10 +255,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
-        println("Finished workout \(workout.name), duration=\(duration)")
+        debugPrintln("Finished workout \(workout.name), duration=\(duration)")
         timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
-        println("Elapsed time \(totalTime.min):\(totalTime.sec)")
+        debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
         let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
@@ -279,13 +279,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                     insertNewWorkout(workout)
                 } else {
-                    println("There are no more workouts for category \(runtimeWorkout.category())")
+                    debugPrintln("There are no more workouts for category \(runtimeWorkout.category())")
                     stopWorkout()
                 }
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            println("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
+            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
             stopWorkout()
         }
     }

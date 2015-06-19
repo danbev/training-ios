@@ -125,7 +125,6 @@ public class BaseWorkoutController: UIViewController {
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("prepareForSeque \(segue.identifier)")
         if segue.identifier == "infoSegue" {
             let infoViewController = segue.destinationViewController as! InfoViewController
             infoViewController.initWith(workout)

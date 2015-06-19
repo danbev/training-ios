@@ -46,7 +46,7 @@ public class CoreDataStack {
     func saveContext() {
         var error: NSError? = nil
         if context.hasChanges && !context.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+            debugPrintln("Could not save \(error), \(error?.userInfo)")
         }
     }
 

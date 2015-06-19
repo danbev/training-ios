@@ -28,7 +28,6 @@ class WorkoutServiceTest: XCTestCase {
         let optionalWorkouts = workoutService.fetchRepsWorkouts()!;
         XCTAssertEqual(3, optionalWorkouts.count)
         let chopups = optionalWorkouts.filter( { (w) in w.workoutName == "Chop ups" })[0]
-        println(chopups.workoutName)
         XCTAssertEqual("Chop ups", chopups.workoutName)
         XCTAssertNotNil(chopups.workoutDescription)
     }
@@ -192,7 +191,7 @@ class WorkoutServiceTest: XCTestCase {
                 XCTAssertEqual("Marklyft", p.workouts[5].workoutName)
                 XCTAssertEqual("Stallion Burpees", p.workouts[6].workoutName)
             default:
-                println("should not happen yet.")
+                debugPrintln("should not happen yet.")
             }
         }
     }

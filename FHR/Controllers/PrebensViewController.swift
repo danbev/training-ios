@@ -42,7 +42,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
-            println(sender)
+            debugPrintln(sender)
             let workout: Workout
             if sender is Workout {
                 workout = sender as! Workout

@@ -114,7 +114,7 @@ public class WorkoutService {
             saveContext()
             return userWorkout
         } else {
-            println("Could not update \(error), \(error!.userInfo)")
+            debugPrintln("Could not update \(error), \(error!.userInfo)")
             return nil
         }
     }
@@ -160,7 +160,7 @@ public class WorkoutService {
         if let results = fetchedResults {
             return results[0]
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
             return Optional.None
         }
     }
@@ -174,7 +174,7 @@ public class WorkoutService {
         if let results = fetchedResults {
             return results[0]
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
             return nil
         }
     }
@@ -192,7 +192,7 @@ public class WorkoutService {
         if var ids = optionalIds {
             return randomWorkout(&ids, excludedWorkouts: exludedWorkouts)
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
         }
         return nil
     }
@@ -222,7 +222,7 @@ public class WorkoutService {
                 return workout
             }
         } else {
-            println("Could not get a random workout \(error), \(error!.userInfo)")
+            debugPrintln("Could not get a random workout \(error), \(error!.userInfo)")
             return nil
         }
     }
@@ -241,7 +241,7 @@ public class WorkoutService {
                 return results[0]
             }
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
             return nil
         }
     }
@@ -274,10 +274,10 @@ public class WorkoutService {
             if ids.count > 0 {
                 return randomWorkout(&ids, excludedWorkouts: excludedWorkouts)
             } else {
-                println("No ids!!!")
+                debugPrintln("No ids!!!")
             }
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
         }
         return nil
     }
@@ -297,7 +297,7 @@ public class WorkoutService {
         let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
         let jsonData = NSData(contentsOfURL: jsonURL!)!
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
-        println("Import seed data...")
+        debugPrintln("Import seed data...")
         var workouts = [String: WorkoutContainer]()
         if let json = jsonDict {
             let workoutDict = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
@@ -433,7 +433,7 @@ public class WorkoutService {
             }
             saveContext()
         } else {
-            println("could not parse json data.")
+            debugPrintln("could not parse json data.")
         }
     }
 
@@ -449,7 +449,7 @@ public class WorkoutService {
     private func saveContext() {
         var error: NSError?
         if !context.save(&error) {
-            println("Could not save \(error), \(error?.userInfo)")
+            debugPrintln("Could not save \(error), \(error?.userInfo)")
         }
     }
 
@@ -469,7 +469,7 @@ public class WorkoutService {
         if let results = fetchedResults {
             return results
         } else {
-            println("Could not fetch \(error), \(error!.userInfo)")
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
             return nil
         }
     }
