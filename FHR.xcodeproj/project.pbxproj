@@ -55,6 +55,7 @@
 		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
 		C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */; };
 		C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5F7C9171B33FA5F004E6A3B /* bleep.wav */; };
+		C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
 		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioWarning.swift; sourceTree = "<group>"; };
 		C5F7C9171B33FA5F004E6A3B /* bleep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bleep.wav; sourceTree = "<group>"; };
+		C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +241,7 @@
 				C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */,
 				C54B3A971B28C7250033854E /* IntervalViewController.swift */,
 				C586D8291B2EE0020078493B /* InfoViewController.swift */,
+				C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */,
 				C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */,
 				C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */,
+				C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
 				C56944B51B19D5FC006745B0 /* Timer.swift in Sources */,
 				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,

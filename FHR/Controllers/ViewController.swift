@@ -152,7 +152,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
-        debugPrintln("add a new workout...")
+        performSegueWithIdentifier("addSegue", sender: self)
     }
 
     @IBAction func settingsButton(sender: AnyObject) {
@@ -235,6 +235,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if segue.identifier == "settings" {
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
+        } else if segue.identifier == "addSegue" {
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]

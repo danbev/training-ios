@@ -103,6 +103,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addWorkout:" destination="BYZ-38-t0r" id="HaT-DG-TfT"/>
+                                <segue destination="RVY-Hg-4kA" kind="modal" identifier="addSegue" id="D9G-S7-Z24"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -150,7 +151,8 @@
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-hz-94z">
-                                <rect key="frame" x="237" y="509" width="37" height="30"/>
+                                <rect key="frame" x="222" y="505" width="52" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -559,7 +561,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZ9-lS-8PY">
-                                <rect key="frame" x="225" y="487" width="37" height="30"/>
+                                <rect key="frame" x="213" y="487" width="49" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -624,7 +627,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKf-fa-FiM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1146" y="-514"/>
+            <point key="canvasLocation" x="921" y="-649"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="G5n-Xa-fuW">
@@ -654,6 +657,7 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-jM-9Z5">
                                 <rect key="frame" x="234" y="459" width="46" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -688,6 +692,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YCS-y1-tKH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1674" y="501"/>
+        </scene>
+        <!--AddWorkoutViewController-->
+        <scene sceneID="5Yx-lX-X8b">
+            <objects>
+                <viewController storyboardIdentifier="AddWorkoutViewController" title="AddWorkoutViewController" id="RVY-Hg-4kA" customClass="AddWorkoutViewController" customModule="FHR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8Xp-Dy-iHi"/>
+                        <viewControllerLayoutGuide type="bottom" id="OwB-I5-dQV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="70Z-6l-h0j">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba9-SX-z0O">
+                                <rect key="frame" x="32" y="511" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="tVY-xq-PjK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1cD-hD-gBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1580" y="-801"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="Fld-cd-r6e">
@@ -732,7 +767,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GKa-6a-z4m"/>
+        <segue reference="wFi-Va-VqV"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
