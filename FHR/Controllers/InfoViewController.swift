@@ -15,6 +15,8 @@ public class InfoViewController: UIViewController {
 
     @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var noVideoLabel: UILabel!
     public var workout : Workout!
 
     public override func viewDidLoad() {
@@ -36,7 +38,16 @@ public class InfoViewController: UIViewController {
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        BaseWorkoutController.showVideo(segue, workout: workout)
+        if segue.identifier == "videoSegue" {
+            if let videoUrl = workout.videoUrl {
+                let videoURL = NSBundle.mainBundle().URLForResource(videoUrl, withExtension: nil)
+                let videoViewController = segue.destinationViewController as! AVPlayerViewController
+                videoViewController.player = AVPlayer(URL: videoURL)
+            } else {
+                container.hidden = true
+                noVideoLabel.hidden = false
+            }
+        }
     }
 
 }

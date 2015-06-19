@@ -132,19 +132,6 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    public class func showVideo(segue: UIStoryboardSegue, workout: Workout) {
-        if segue.identifier == "videoSegue" {
-            println(workout.videoUrl)
-            if let videoUrl = workout.videoUrl {
-                let videoURL = NSBundle.mainBundle().URLForResource(videoUrl, withExtension: nil)
-                let videoViewController = segue.destinationViewController as! AVPlayerViewController
-                videoViewController.player = AVPlayer(URL: videoURL)
-            } else {
-                println("There was no video to display")
-            }
-        }
-    }
-
     public class func infoView(segue: UIStoryboardSegue, workout: Workout) {
         if segue.identifier == "infoSegue" {
             let infoViewController = segue.destinationViewController as! InfoViewController

@@ -644,12 +644,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LJJ-t6-pTo">
-                                <rect key="frame" x="40" y="90" width="240" height="128"/>
-                                <connections>
-                                    <segue destination="uBZ-I9-UIw" kind="embed" identifier="videoSegue" id="QHc-fh-StV"/>
-                                </connections>
-                            </containerView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HcN-Dh-16Y">
                                 <rect key="frame" x="40" y="244" width="240" height="157"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -668,12 +662,26 @@
                                     <action selector="doneAction:" destination="FMn-yo-4cm" eventType="touchUpInside" id="Pr3-9m-GUo"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No video available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ua-cy-BtD">
+                                <rect key="frame" x="40" y="143" width="240" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LJJ-t6-pTo">
+                                <rect key="frame" x="40" y="90" width="240" height="128"/>
+                                <connections>
+                                    <segue destination="uBZ-I9-UIw" kind="embed" identifier="videoSegue" id="QHc-fh-StV"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="container" destination="LJJ-t6-pTo" id="15S-7q-pxh"/>
                         <outlet property="descriptionLabel" destination="HcN-Dh-16Y" id="gqd-CR-2AX"/>
+                        <outlet property="noVideoLabel" destination="9ua-cy-BtD" id="jUX-qL-CHu"/>
                         <outlet property="workoutNameLabel" destination="dKn-IT-2UM" id="f9f-pF-Rlr"/>
                     </connections>
                 </viewController>
