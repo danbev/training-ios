@@ -236,6 +236,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let settingsController = segue.destinationViewController as! SettingViewController
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else if segue.identifier == "addSegue" {
+            let addController = segue.destinationViewController as! AddWorkoutViewController
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]

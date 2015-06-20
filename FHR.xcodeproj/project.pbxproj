@@ -50,6 +50,7 @@
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5C67FF51AE8251700C1D55C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */; };
+		C5C9A3051B3544F20040DC7D /* AddWorkoutInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C9A3041B3544F20040DC7D /* AddWorkoutInfoViewController.swift */; };
 		C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */; };
 		C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */; };
 		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
@@ -116,6 +117,7 @@
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCoreDataStack.swift; path = Models/TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5C67FF41AE8251700C1D55C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C5C9A3041B3544F20040DC7D /* AddWorkoutInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutInfoViewController.swift; sourceTree = "<group>"; };
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				C54B3A971B28C7250033854E /* IntervalViewController.swift */,
 				C586D8291B2EE0020078493B /* InfoViewController.swift */,
 				C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */,
+				C5C9A3041B3544F20040DC7D /* AddWorkoutInfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */,
 				C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */,
 				C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */,
+				C5C9A3051B3544F20040DC7D /* AddWorkoutInfoViewController.swift in Sources */,
 				C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */,
 				C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */,
 				C56944B51B19D5FC006745B0 /* Timer.swift in Sources */,

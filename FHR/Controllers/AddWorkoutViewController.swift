@@ -15,10 +15,15 @@ import AVFoundation
 */
 public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
+    @IBOutlet weak var pickerView: UIPickerView!
     var workoutTypes = [WorkoutType.Reps, WorkoutType.Timed, WorkoutType.Interval, WorkoutType.Prebens]
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -38,15 +43,29 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        debugPrintln("picked \(workoutTypes[row].rawValue)")
+        let type = workoutTypes[row]
+        debugPrintln("picked \(type.rawValue)")
     }
 
-    /*
-    public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSAttributedString(string: workoutTypes[row].rawValue, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 10.0)!, NSForegroundColorAttributeName : UIColor.whiteColor()])
-        return attributedString
+    @IBAction func next(sender: AnyObject) {
+        let type = workoutTypes[pickerView.selectedRowInComponent(0)]
+        debugPrintln("next \(type.rawValue)")
+        switch type {
+        case .Reps:
+            debugPrintln("preform segue with Identifier")
+            performSegueWithIdentifier("repsDetailsSegue", sender: self)
+        case .Timed:
+            performSegueWithIdentifier("durationDetailsSegue", sender: self)
+        case .Interval:
+            performSegueWithIdentifier("intervalDetailsSegue", sender: self)
+        case .Prebens:
+            performSegueWithIdentifier("prebensDetailsSegue", sender: self)
+        }
     }
-    */
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println("Prepare for segue:\(segue.identifier)")
+    }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
         let pickerLabel = UILabel()

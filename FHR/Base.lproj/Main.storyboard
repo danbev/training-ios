@@ -103,7 +103,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addWorkout:" destination="BYZ-38-t0r" id="HaT-DG-TfT"/>
-                                <segue destination="RVY-Hg-4kA" kind="modal" identifier="addSegue" id="D9G-S7-Z24"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -119,6 +118,7 @@
                         <segue destination="fms-NL-3Y8" kind="modal" identifier="durationSegue" id="cIS-PX-RLw"/>
                         <segue destination="72f-wf-6kL" kind="modal" identifier="prebensSegue" id="K4T-ht-lyx"/>
                         <segue destination="iut-CO-vFa" kind="modal" identifier="intervalSegue" id="1EO-IE-8nU"/>
+                        <segue destination="RVY-Hg-4kA" kind="modal" identifier="addSegue" id="E3z-XT-krp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -728,14 +728,115 @@
                                     <outlet property="delegate" destination="RVY-Hg-4kA" id="VsW-Td-7MG"/>
                                 </connections>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-1p-HGw">
+                                <rect key="frame" x="243" y="511" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="next:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="oo6-eV-UBG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="nY0-jT-pwY"/>
+                    <connections>
+                        <outlet property="pickerView" destination="nkn-gi-2xe" id="Yma-AE-0mP"/>
+                        <segue destination="lbE-km-Yzs" kind="modal" identifier="repsDetailsSegue" id="yLw-AI-2eM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1cD-hD-gBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1580" y="-801"/>
+            <point key="canvasLocation" x="1842" y="-787"/>
+        </scene>
+        <!--Add Workout Info View Controller-->
+        <scene sceneID="LUm-61-rId">
+            <objects>
+                <viewController storyboardIdentifier="AddWorkoutInfoViewController" id="lbE-km-Yzs" customClass="AddWorkoutInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SeO-oc-q7v"/>
+                        <viewControllerLayoutGuide type="bottom" id="rDS-BG-6NA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cu1-vo-1xT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-UZ-plq">
+                                <rect key="frame" x="22" y="36" width="123" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SNV-cK-N8z">
+                                <rect key="frame" x="153" y="33" width="151" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ini-V2-2iv">
+                                <rect key="frame" x="22" y="74" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Textual description of the workout" translatesAutoresizingMaskIntoConstraints="NO" id="0PI-M6-HVq">
+                                <rect key="frame" x="22" y="103" width="282" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Video" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEm-NY-zOs">
+                                <rect key="frame" x="22" y="255" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzn-qa-d0C">
+                                <rect key="frame" x="165" y="251" width="139" height="30"/>
+                                <state key="normal" title="Take/Include video">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="videoButtonAction:" destination="lbE-km-Yzs" eventType="touchUpInside" id="85d-Ld-ZbT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FqZ-3C-PdC">
+                                <rect key="frame" x="16" y="500" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="1gq-DG-Dil"/>
+                                    <action selector="cancel:" destination="lbE-km-Yzs" eventType="touchUpInside" id="ZE5-Sd-WYk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pg5-qS-lFZ">
+                                <rect key="frame" x="243" y="500" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="ng1-JY-LUV"/>
+                                    <action selector="save:" destination="lbE-km-Yzs" eventType="touchUpInside" id="VgE-4Q-asz"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mYe-0z-MpW"/>
+                    <connections>
+                        <outlet property="workoutDescription" destination="0PI-M6-HVq" id="Uhh-OP-NFo"/>
+                        <outlet property="workoutName" destination="SNV-cK-N8z" id="bs8-ti-qmv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="by9-wb-bOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2297" y="-780"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="Fld-cd-r6e">
@@ -780,7 +881,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wFi-Va-VqV"/>
+        <segue reference="Uce-f4-LAX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
