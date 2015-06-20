@@ -16,10 +16,13 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
+    private lazy var coreDataStack = CoreDataStack()
+    private var workoutService: WorkoutService!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutDescription.delegate = self
+        workoutService = WorkoutService(context: coreDataStack.context)
     }
 
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -67,6 +70,8 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         debugPrintln("Workout name: \(workoutName.text)")
         debugPrintln("Workout description: \(workoutDescription.text)")
         debugPrintln("Workout video: \(imageView.description)")
+        let repsworkout = workoutService.addRepsWorkout(workoutName.text, desc: workoutDescription.text, reps: 100, videoUrl: "videoUrlHere", categories: WorkoutCategory.Cardio)
+        debugPrintln("Saved \(repsworkout)")
     }
 
     @IBAction func cancel(sender: AnyObject) {

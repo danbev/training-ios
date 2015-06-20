@@ -22,9 +22,9 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddRepsWorkout() {
-        workoutService.addRepsWorkout("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100, categories: WorkoutCategory.UpperBody)
-        workoutService.addRepsWorkout("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100, categories: WorkoutCategory.UpperBody)
-        workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50, categories: WorkoutCategory.Cardio, WorkoutCategory.UpperBody)
+        workoutService.addRepsWorkout("Burpees", desc: "Start from standing, squat down for a pushup, touch chest on ground, and jump up", reps: 100, videoUrl: nil, categories: WorkoutCategory.UpperBody)
+        workoutService.addRepsWorkout("Chop ups", desc: "Start from lying posistion and bring your legs towards you buttocks, then stand up", reps: 100, videoUrl: nil, categories: WorkoutCategory.UpperBody)
+        workoutService.addRepsWorkout("Get ups", desc: "long description...", reps: 50, videoUrl: nil, categories: WorkoutCategory.Cardio, WorkoutCategory.UpperBody)
         let optionalWorkouts = workoutService.fetchRepsWorkouts()!;
         XCTAssertEqual(3, optionalWorkouts.count)
         let chopups = optionalWorkouts.filter( { (w) in w.workoutName == "Chop ups" })[0]

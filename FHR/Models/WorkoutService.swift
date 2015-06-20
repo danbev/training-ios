@@ -24,15 +24,18 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func addRepsWorkout(name: String, desc: String, reps: Int, categories: WorkoutCategory...) -> RepsWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
+    public func addRepsWorkout(name: String, desc: String, reps: Int, videoUrl: String?, categories: WorkoutCategory...) -> RepsWorkout {
         let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
         let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-        repsWorkout.repititions = reps
-        repsWorkout.workoutDescription = desc
         repsWorkout.name = name
         repsWorkout.workoutName = name
+        repsWorkout.workoutDescription = desc
+        repsWorkout.repititions = reps
         repsWorkout.categories = WorkoutCategory.asCsvString(categories)
+        repsWorkout.type = WorkoutType.Reps.rawValue
+        if let url = videoUrl {
+            repsWorkout.videoUrl = videoUrl
+        }
         saveContext()
         return repsWorkout
     }
