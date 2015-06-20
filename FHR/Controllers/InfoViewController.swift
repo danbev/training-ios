@@ -40,9 +40,14 @@ public class InfoViewController: UIViewController {
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "videoSegue" {
             if let videoUrl = workout.videoUrl {
-                let videoURL = NSBundle.mainBundle().URLForResource(videoUrl, withExtension: nil)
+                println("vidoeUrl: \(videoUrl)")
+                var url = NSBundle.mainBundle().URLForResource(videoUrl, withExtension: nil)
+                if url == nil {
+                    println("Is fileUrl: \(url?.fileURL)")
+                    url = NSURL.fileURLWithPath(videoUrl)
+                }
                 let videoViewController = segue.destinationViewController as! AVPlayerViewController
-                videoViewController.player = AVPlayer(URL: videoURL)
+                videoViewController.player = AVPlayer(URL: url)
             } else {
                 container.hidden = true
                 noVideoLabel.hidden = false
