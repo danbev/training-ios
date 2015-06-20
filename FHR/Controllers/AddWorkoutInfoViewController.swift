@@ -51,8 +51,10 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
 
     @IBAction func selectVideo(sender: AnyObject) {
         var picker = UIImagePickerController()
-        picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
         picker.delegate = self
+        //picker.sourceType = UIImagePickerControllerSourceType.Camera
+        picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        picker.mediaTypes = [kUTTypeMovie]
         self.presentViewController(picker, animated: true, completion: nil)
     }
 
@@ -73,6 +75,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
         videoUrl = tempImage.relativePath
+        println("videoUrl:\(videoUrl)")
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
