@@ -11,8 +11,9 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate {
+public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
 
@@ -30,14 +31,57 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate 
     }
 
     @IBAction func videoButtonAction(sender: AnyObject) {
-        debugPrintln("take a video")
+        debugPrintln("take/pick a video")
+        var picker = UIImagePickerController()
+
+        let sourceType = UIImagePickerControllerSourceType.Camera
+        if (UIImagePickerController.isSourceTypeAvailable(sourceType)) {
+            // we can use the camera
+            picker.sourceType = UIImagePickerControllerSourceType.Camera
+
+            let frontCamera = UIImagePickerControllerCameraDevice.Front
+            let rearCamera = UIImagePickerControllerCameraDevice.Rear
+            //use the front-facing camera if available
+            if (UIImagePickerController.isCameraDeviceAvailable(frontCamera)) {
+                picker.cameraDevice = frontCamera
+            }
+            else {
+                picker.cameraDevice = rearCamera
+            }
+            // make this object be the delegate for the picker
+            picker.delegate = self
+
+            self.presentViewController(picker, animated: true,
+                completion: nil)
+        }
+    }
+
+    @IBAction func selectVideo(sender: AnyObject) {
+        var picker = UIImagePickerController()
+        picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        picker.delegate = self
+        self.presentViewController(picker, animated: true, completion: nil)
     }
 
     @IBAction func save(sender: AnyObject) {
-        debugPrintln("save new workout")
+        debugPrintln("Workout name: \(workoutName.text)")
+        debugPrintln("Workout description: \(workoutDescription.text)")
+        debugPrintln("Workout video: \(imageView.description)")
     }
 
     @IBAction func cancel(sender: AnyObject) {
         debugPrintln("cancel add workout")
+        dismissViewControllerAnimated(true, completion: {})
+    }
+
+    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
+    {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.imageView.image = image
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    public func imagePickerControllerDidCancel(picker: UIImagePickerController){
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

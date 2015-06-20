@@ -787,21 +787,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Video" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEm-NY-zOs">
-                                <rect key="frame" x="22" y="255" width="94" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzn-qa-d0C">
-                                <rect key="frame" x="165" y="251" width="139" height="30"/>
-                                <state key="normal" title="Take/Include video">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="videoButtonAction:" destination="lbE-km-Yzs" eventType="touchUpInside" id="85d-Ld-ZbT"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FqZ-3C-PdC">
                                 <rect key="frame" x="16" y="500" width="61" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -824,12 +809,34 @@
                                     <action selector="save:" destination="lbE-km-Yzs" eventType="touchUpInside" id="VgE-4Q-asz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzn-qa-d0C">
+                                <rect key="frame" x="165" y="398" width="139" height="30"/>
+                                <state key="normal" title="Select video">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectVideo:" destination="lbE-km-Yzs" eventType="touchUpInside" id="j7A-lA-1Hg"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91t-Q9-cMS">
+                                <rect key="frame" x="22" y="253" width="282" height="128"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vx9-O7-cS6">
+                                <rect key="frame" x="14" y="398" width="139" height="30"/>
+                                <state key="normal" title="Take video">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="videoButtonAction:" destination="lbE-km-Yzs" eventType="touchUpInside" id="dNL-n3-GPj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mYe-0z-MpW"/>
                     <connections>
+                        <outlet property="imageView" destination="91t-Q9-cMS" id="IJO-7e-zgO"/>
                         <outlet property="workoutDescription" destination="0PI-M6-HVq" id="Uhh-OP-NFo"/>
                         <outlet property="workoutName" destination="SNV-cK-N8z" id="bs8-ti-qmv"/>
                     </connections>
