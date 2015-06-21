@@ -291,15 +291,13 @@ public class WorkoutService {
                     dryGround: jsonDictionary["dryGround"] as! Bool!)
                 workouts[workout.name] = workout
             }
-            let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
             for jsonDictionary in repsbasedArray {
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
-                let repsWorkout = RepsBuilder(context: context)
+                let repsWorkout = reps(jsonDictionary["reps"] as! NSNumber)
                     .name(workout.name)
                     .workoutName(jsonDictionary["name"] as! String)
                     .description(workout.desc)
-                    .reps(jsonDictionary["reps"] as! NSNumber)
                     .videoUrl(workout.videoUrl)
                     .language(workout.language)
                     .weights(workout.weights)
@@ -310,23 +308,20 @@ public class WorkoutService {
                     .build()
             }
 
-            let durationWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
             let timebasedArray = workoutDict.valueForKeyPath("timebased") as! NSArray
             for jsonDictionary in timebasedArray {
-                let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
-                durationWorkout.workoutName = jsonDictionary["name"] as! String!
-                durationWorkout.name = workout.name
-                durationWorkout.workoutDescription = workout.desc
-                durationWorkout.videoUrl = workout.videoUrl
-                durationWorkout.language = workout.language
-                durationWorkout.weights = workout.weights
-                durationWorkout.dryGround = workout.dryGround
-
-                durationWorkout.duration = jsonDictionary["duration"] as! NSNumber!
-                durationWorkout.categories = jsonDictionary["categories"] as! String!
-                durationWorkout.type = WorkoutType.Timed.rawValue
-                durationWorkout.restTime = jsonDictionary["rest"] as! Double!
+                let durationWorkout = duration(jsonDictionary["duration"] as! NSNumber!)
+                    .name(workout.name)
+                    .workoutName(jsonDictionary["name"] as! String!)
+                    .description(workout.desc)
+                    .videoUrl(workout.videoUrl)
+                    .language(workout.language)
+                    .weights(workout.weights)
+                    .dryGround(workout.dryGround)
+                    .postRestTime(jsonDictionary["rest"] as! NSNumber)
+                    .categories(jsonDictionary["categories"] as! String)
+                    .build()
             }
             let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
             for jsonDictionary in prebensArray {
@@ -378,35 +373,34 @@ public class WorkoutService {
                 intervalWorkout.weights = workout.weights
                 intervalWorkout.dryGround = workout.dryGround
                 intervalWorkout.categories = jsonDictionary["categories"] as! String!
-                let work = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
+
                 let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
                 let workWorkout = workouts[workJson["workout"] as! String]!
-                work.name = workWorkout.name
-                work.workoutName = workJson["name"] as! String
-                work.duration = workJson["duration"] as! Double
-                work.restTime = workJson["rest"] as! Int
-                work.categories = workJson["categories"] as! String!
-                work.workoutDescription = workout.desc
-                work.videoUrl = workout.videoUrl
-                work.language = workout.language
-                work.weights = workout.weights
-                work.dryGround = workout.dryGround
-                intervalWorkout.work = work
+                intervalWorkout.work = duration(workJson["duration"] as! NSNumber!)
+                    .name(workWorkout.name)
+                    .workoutName(workJson["name"] as! String!)
+                    .description(workWorkout.desc)
+                    .videoUrl(workWorkout.videoUrl)
+                    .language(workWorkout.language)
+                    .weights(workWorkout.weights)
+                    .dryGround(workWorkout.dryGround)
+                    .postRestTime(workJson["rest"] as! NSNumber)
+                    .categories(workJson["categories"] as! String)
+                    .build()
 
-                let rest = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let restJson = jsonDictionary["restWorkout"] as! NSDictionary
                 let restWorkout = workouts[restJson["workout"] as! String]!
-                rest.name = restWorkout.name
-                rest.workoutName = restJson["name"] as! String
-                rest.duration = restJson["duration"] as! Double
-                rest.restTime = restJson["rest"] as! Int
-                rest.categories = restJson["categories"] as! String!
-                rest.workoutDescription = restWorkout.desc
-                rest.videoUrl = restWorkout.videoUrl
-                rest.language = restWorkout.language
-                rest.weights = restWorkout.weights
-                rest.dryGround = restWorkout.dryGround
-                intervalWorkout.rest = rest
+                intervalWorkout.rest = duration(restJson["duration"] as! NSNumber!)
+                    .name(restWorkout.name)
+                    .workoutName(restJson["name"] as! String!)
+                    .description(restWorkout.desc)
+                    .videoUrl(restWorkout.videoUrl)
+                    .language(restWorkout.language)
+                    .weights(restWorkout.weights)
+                    .dryGround(restWorkout.dryGround)
+                    .postRestTime(restJson["rest"] as! NSNumber)
+                    .categories(restJson["categories"] as! String)
+                    .build()
                 saveContext()
             }
             saveContext()
