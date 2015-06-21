@@ -12,12 +12,12 @@ import CoreData
 
 public class WorkoutService {
 
-    private let workoutEntityName = "Workout"
-    private let userWorkoutEntityName = "UserWorkout"
     private static let repsEntityName = "RepsWorkout"
     private static let durationEntityName = "DurationWorkout"
     private static let intervalEntityName = "IntervalWorkout"
-    private let prebensEntityName = "PrebensWorkout"
+    private static let prebensEntityName = "PrebensWorkout"
+    private let workoutEntityName = "Workout"
+    private let userWorkoutEntityName = "UserWorkout"
     private var context: NSManagedObjectContext
 
     public init(context: NSManagedObjectContext) {
@@ -114,7 +114,7 @@ public class WorkoutService {
     }
 
     public func fetchPrebensWorkouts() -> Optional<[PrebensWorkout]> {
-        let iw: [PrebensWorkout]? = fetchWorkouts(prebensEntityName);
+        let iw: [PrebensWorkout]? = fetchWorkouts(WorkoutService.prebensEntityName);
         return iw;
     }
 
@@ -312,24 +312,20 @@ public class WorkoutService {
             }
             let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
             for jsonDictionary in prebensArray {
-                let prebensWorkoutEntity = NSEntityDescription.entityForName(self.prebensEntityName, inManagedObjectContext: context)
-
-                let prebensWorkout = PrebensWorkout(entity: prebensWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
-                prebensWorkout.workoutName = jsonDictionary["name"] as! String
-                prebensWorkout.type = WorkoutType.Prebens.rawValue
-                prebensWorkout.name = workout.name
-                prebensWorkout.workoutDescription = workout.desc
-                prebensWorkout.language = workout.language
-                prebensWorkout.weights = workout.weights
-                prebensWorkout.dryGround = workout.dryGround
-                prebensWorkout.categories = jsonDictionary["categories"] as! String!
+                let prebensWorkout = prebens()
+                    .name(workout.name)
+                    .workoutName(jsonDictionary["name"] as! String)
+                    .description(workout.desc)
+                    .language(workout.language)
+                    .weights(workout.weights)
+                    .dryGround(workout.dryGround)
+                    .categories(jsonDictionary["categories"] as! String)
 
                 let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
-                var prebensWorkouts = prebensWorkout.workouts.mutableCopy() as! NSMutableOrderedSet
                 for (i, w) in enumerate(tasks) {
                     let workout = workouts[w["workout"] as! String!]!
-                    let repsWorkout = reps(w["reps"] as! NSNumber)
+                    prebensWorkout.workItem(reps(w["reps"] as! NSNumber)
                         .name(workout.name)
                         .workoutName(w["name"] as! String)
                         .description(workout.desc)
@@ -340,9 +336,7 @@ public class WorkoutService {
                         .approx(w["approx"] as! NSNumber)
                         .postRestTime(w["rest"] as! NSNumber)
                         .categories(w["categories"] as! String)
-                        .build()
-                    prebensWorkouts.addObject(repsWorkout)
-                    prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
+                        .build())
                     saveContext()
                 }
             }
@@ -446,6 +440,10 @@ public class WorkoutService {
 
     public func interval(work: DurationWorkout, rest: DurationWorkout) -> IntervalBuilder<IntervalWorkout> {
         return IntervalBuilder(context: context).work(work).rest(rest)
+    }
+
+    public func prebens() -> PrebensBuilder<PrebensWorkout> {
+        return PrebensBuilder(context: context)
     }
 
 }
@@ -581,4 +579,26 @@ public class IntervalBuilder<T: IntervalWorkout>: WorkoutBuilder<IntervalWorkout
     }
 
 }
+
+public class PrebensBuilder<T: PrebensWorkout>: WorkoutBuilder<PrebensWorkout> {
+
+    let prebensWorkout: PrebensWorkout
+    var prebensWorkouts: NSMutableOrderedSet
+
+    init(context: NSManagedObjectContext) {
+        let prebensEntity = NSEntityDescription.entityForName(WorkoutService.prebensEntityName, inManagedObjectContext: context)
+        prebensWorkout = PrebensWorkout(entity: prebensEntity!, insertIntoManagedObjectContext: context)
+        prebensWorkout.type = WorkoutType.Prebens.rawValue
+        prebensWorkouts = prebensWorkout.workouts.mutableCopy() as! NSMutableOrderedSet
+        super.init(workout: prebensWorkout)
+    }
+
+    public func workItem(repsWorkout: RepsWorkout) -> PrebensBuilder {
+        prebensWorkouts.addObject(repsWorkout)
+        prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
+        return self
+    }
+
+}
+
 
