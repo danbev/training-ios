@@ -22,7 +22,7 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddRepsWorkout() {
-        ws.addRepsWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Burpees")
                         .workoutName("100 Burpees")
                         .description("Start from standing, squat down for a pushup, touch chest on ground, and jump up")
@@ -32,7 +32,7 @@ class WorkoutServiceTest: XCTestCase {
                         .approx(300)
                         .postRestTime(60)
                         .categories(WorkoutCategory.UpperBody.rawValue))
-        ws.addRepsWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Chopups")
                         .workoutName("100 Chop ups")
                         .description("Start from lying posistion and bring your legs towards you buttocks, then stand up")
@@ -42,7 +42,7 @@ class WorkoutServiceTest: XCTestCase {
                         .approx(300)
                         .postRestTime(60)
                         .categories(WorkoutCategory.UpperBody))
-        ws.addRepsWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Getups")
                         .workoutName("100 Get ups")
                         .description("Some description...")

@@ -24,36 +24,10 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func addRepsWorkout(repsBuilder: RepsBuilder) -> RepsWorkout {
+    public func saveRepsWorkout(repsBuilder: RepsBuilder) -> RepsWorkout {
         let repsWorkout = repsBuilder.build()
         saveContext()
         return repsWorkout
-    }
-
-    private func newRepsWorkout(name: String, desc: String, reps: Int, videoUrl: String?, language: String, weights: Bool, dryGround: Bool, approx: Double, postRestTime: Double, categories: [WorkoutCategory]) -> RepsWorkout {
-        let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
-        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-        commonProperties(repsWorkout, name: name, desc: desc, videoUrl: videoUrl, language: language, weights: weights, dryGround: dryGround, postRestTime: postRestTime, categories: categories)
-        repsWorkout.repititions = reps
-        repsWorkout.type = WorkoutType.Reps.rawValue
-        repsWorkout.approx = approx
-        return repsWorkout
-    }
-
-    private func commonProperties(workout: Workout, name: String, desc: String, videoUrl: String?, language: String, weights: Bool, dryGround: Bool, postRestTime: Double, categories: [WorkoutCategory]) -> Workout {
-        workout.name = name
-        workout.workoutName = name
-        workout.workoutDescription = desc
-        workout.categories = WorkoutCategory.asCsvString(categories)
-        workout.type = WorkoutType.Reps.rawValue
-        workout.language = language
-        workout.weights = weights
-        workout.dryGround = dryGround
-        workout.restTime = postRestTime
-        if let url = videoUrl {
-            workout.videoUrl = videoUrl
-        }
-        return workout
     }
 
     public func addDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
