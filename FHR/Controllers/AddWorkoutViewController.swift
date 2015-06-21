@@ -24,10 +24,15 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        var nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     @IBAction func cancel(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: {})
+        navigationController?.popViewControllerAnimated(true)
+        //dismissViewControllerAnimated(true, completion: {})
     }
 
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

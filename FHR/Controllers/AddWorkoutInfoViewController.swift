@@ -26,6 +26,10 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         super.viewDidLoad()
         workoutDescription.delegate = self
         workoutService = WorkoutService(context: coreDataStack.context)
+        var nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.Black
+        nav?.tintColor = UIColor.whiteColor()
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
 
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -76,7 +80,8 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
 
     @IBAction func cancel(sender: AnyObject) {
         debugPrintln("cancel add workout")
-        dismissViewControllerAnimated(true, completion: {})
+        navigationController?.popToRootViewControllerAnimated(true)
+        //dismissViewControllerAnimated(true, completion: {})
     }
 
     public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {

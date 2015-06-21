@@ -118,7 +118,7 @@
                         <segue destination="fms-NL-3Y8" kind="modal" identifier="durationSegue" id="cIS-PX-RLw"/>
                         <segue destination="72f-wf-6kL" kind="modal" identifier="prebensSegue" id="K4T-ht-lyx"/>
                         <segue destination="iut-CO-vFa" kind="modal" identifier="intervalSegue" id="1EO-IE-8nU"/>
-                        <segue destination="RVY-Hg-4kA" kind="modal" identifier="addSegue" id="E3z-XT-krp"/>
+                        <segue destination="RVY-Hg-4kA" kind="push" identifier="addSegue" id="E3z-XT-krp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -702,55 +702,37 @@
                         <viewControllerLayoutGuide type="bottom" id="OwB-I5-dQV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="70Z-6l-h0j">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba9-SX-z0O">
-                                <rect key="frame" x="32" y="511" width="61" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="tVY-xq-PjK"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type of workout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gt-jR-rN3">
-                                <rect key="frame" x="32" y="83" width="258" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <pickerView contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nkn-gi-2xe">
-                                <rect key="frame" x="71" y="112" width="179" height="162"/>
+                                <rect key="frame" x="71" y="20" width="179" height="162"/>
                                 <connections>
                                     <outlet property="dataSource" destination="RVY-Hg-4kA" id="F8A-if-kf1"/>
                                     <outlet property="delegate" destination="RVY-Hg-4kA" id="VsW-Td-7MG"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzW-1p-HGw">
-                                <rect key="frame" x="243" y="511" width="61" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="next:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="oo6-eV-UBG"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nY0-jT-pwY"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="31I-ky-3k5">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="yS8-Ce-vZQ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="next:" destination="RVY-Hg-4kA" id="fae-RF-Vg6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="pickerView" destination="nkn-gi-2xe" id="Yma-AE-0mP"/>
-                        <segue destination="lbE-km-Yzs" kind="modal" identifier="repsDetailsSegue" id="yLw-AI-2eM"/>
+                        <segue destination="lbE-km-Yzs" kind="push" identifier="repsDetailsSegue" id="yLw-AI-2eM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1cD-hD-gBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1842" y="-787"/>
+            <point key="canvasLocation" x="1674" y="-780"/>
         </scene>
         <!--Add Workout Info View Controller-->
         <scene sceneID="LUm-61-rId">
@@ -761,7 +743,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rDS-BG-6NA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cu1-vo-1xT">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-UZ-plq">
@@ -788,7 +770,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FqZ-3C-PdC">
-                                <rect key="frame" x="16" y="500" width="61" height="30"/>
+                                <rect key="frame" x="16" y="444" width="61" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -796,17 +778,6 @@
                                 <connections>
                                     <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="1gq-DG-Dil"/>
                                     <action selector="cancel:" destination="lbE-km-Yzs" eventType="touchUpInside" id="ZE5-Sd-WYk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pg5-qS-lFZ">
-                                <rect key="frame" x="243" y="500" width="61" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="ng1-JY-LUV"/>
-                                    <action selector="save:" destination="lbE-km-Yzs" eventType="touchUpInside" id="VgE-4Q-asz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzn-qa-d0C">
@@ -828,6 +799,17 @@
                                 </state>
                                 <connections>
                                     <action selector="videoButtonAction:" destination="lbE-km-Yzs" eventType="touchUpInside" id="dNL-n3-GPj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pg5-qS-lFZ">
+                                <rect key="frame" x="243" y="444" width="61" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="RVY-Hg-4kA" eventType="touchUpInside" id="ng1-JY-LUV"/>
+                                    <action selector="save:" destination="lbE-km-Yzs" eventType="touchUpInside" id="VgE-4Q-asz"/>
                                 </connections>
                             </button>
                         </subviews>
