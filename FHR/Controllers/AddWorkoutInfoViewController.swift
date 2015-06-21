@@ -52,19 +52,26 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBAction func selectVideo(sender: AnyObject) {
         var picker = UIImagePickerController()
         picker.delegate = self
-        //picker.sourceType = UIImagePickerControllerSourceType.Camera
         picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
         picker.mediaTypes = [kUTTypeMovie]
         self.presentViewController(picker, animated: true, completion: nil)
     }
 
     @IBAction func save(sender: AnyObject) {
-        debugPrintln("Workout name: \(workoutName.text)")
-        debugPrintln("Workout description: \(workoutDescription.text)")
-        debugPrintln("Workout video: \(videoUrl)")
-        UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
-        let repsworkout = workoutService.addRepsWorkout(workoutName.text, desc: workoutDescription.text, reps: 100, videoUrl: videoUrl, categories: WorkoutCategory.Cardio)
-        debugPrintln("Saved \(repsworkout)")
+        if let url = videoUrl {
+            UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
+        }
+        workoutService.addRepsWorkout(workoutService.reps(100)
+            .name(workoutName.text)
+            .workoutName(workoutName.text)
+            .description(workoutDescription.text)
+            .videoUrl(videoUrl)
+            .language("en")
+            .weights(false)
+            .dryGround(false)
+            .approx(300)
+            .postRestTime(60)
+            .categories(WorkoutCategory.Cardio))
     }
 
     @IBAction func cancel(sender: AnyObject) {

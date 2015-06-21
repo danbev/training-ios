@@ -14,7 +14,7 @@ public class WorkoutService {
 
     private let workoutEntityName = "Workout"
     private let userWorkoutEntityName = "UserWorkout"
-    private let repsEntityName = "RepsWorkout"
+    private static let repsEntityName = "RepsWorkout"
     private let durationEntityName = "DurationWorkout"
     private let intervalEntityName = "IntervalWorkout"
     private let prebensEntityName = "PrebensWorkout"
@@ -24,20 +24,36 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func addRepsWorkout(name: String, desc: String, reps: Int, videoUrl: String?, categories: WorkoutCategory...) -> RepsWorkout {
-        let repsWorkoutEntity = NSEntityDescription.entityForName(repsEntityName, inManagedObjectContext: context)
-        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
-        repsWorkout.name = name
-        repsWorkout.workoutName = name
-        repsWorkout.workoutDescription = desc
-        repsWorkout.repititions = reps
-        repsWorkout.categories = WorkoutCategory.asCsvString(categories)
-        repsWorkout.type = WorkoutType.Reps.rawValue
-        if let url = videoUrl {
-            repsWorkout.videoUrl = videoUrl
-        }
+    public func addRepsWorkout(repsBuilder: RepsBuilder) -> RepsWorkout {
+        let repsWorkout = repsBuilder.build()
         saveContext()
         return repsWorkout
+    }
+
+    private func newRepsWorkout(name: String, desc: String, reps: Int, videoUrl: String?, language: String, weights: Bool, dryGround: Bool, approx: Double, postRestTime: Double, categories: [WorkoutCategory]) -> RepsWorkout {
+        let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
+        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
+        commonProperties(repsWorkout, name: name, desc: desc, videoUrl: videoUrl, language: language, weights: weights, dryGround: dryGround, postRestTime: postRestTime, categories: categories)
+        repsWorkout.repititions = reps
+        repsWorkout.type = WorkoutType.Reps.rawValue
+        repsWorkout.approx = approx
+        return repsWorkout
+    }
+
+    private func commonProperties(workout: Workout, name: String, desc: String, videoUrl: String?, language: String, weights: Bool, dryGround: Bool, postRestTime: Double, categories: [WorkoutCategory]) -> Workout {
+        workout.name = name
+        workout.workoutName = name
+        workout.workoutDescription = desc
+        workout.categories = WorkoutCategory.asCsvString(categories)
+        workout.type = WorkoutType.Reps.rawValue
+        workout.language = language
+        workout.weights = weights
+        workout.dryGround = dryGround
+        workout.restTime = postRestTime
+        if let url = videoUrl {
+            workout.videoUrl = videoUrl
+        }
+        return workout
     }
 
     public func addDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
@@ -135,7 +151,7 @@ public class WorkoutService {
     }
 
     public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
-        let rw: [RepsWorkout]? = fetchWorkouts(repsEntityName);
+        let rw: [RepsWorkout]? = fetchWorkouts(WorkoutService.repsEntityName);
         return rw
     }
 
@@ -314,24 +330,23 @@ public class WorkoutService {
                     dryGround: jsonDictionary["dryGround"] as! Bool!)
                 workouts[workout.name] = workout
             }
-            let repsWorkoutEntity = NSEntityDescription.entityForName(self.repsEntityName, inManagedObjectContext: context)
+            let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
             let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
             for jsonDictionary in repsbasedArray {
-                let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
-                repsWorkout.workoutName = jsonDictionary["name"] as! String!
-                repsWorkout.name = workout.name
-                repsWorkout.workoutDescription = workout.desc
-                repsWorkout.videoUrl = workout.videoUrl
-                repsWorkout.language = workout.language
-                repsWorkout.weights = workout.weights
-                repsWorkout.dryGround = workout.dryGround
-
-                repsWorkout.repititions = jsonDictionary["reps"] as! NSNumber!
-                repsWorkout.approx = jsonDictionary["approx"] as! NSNumber!
-                repsWorkout.categories = jsonDictionary["categories"] as! String!
-                repsWorkout.restTime = jsonDictionary["rest"] as! Double!
-                repsWorkout.type = WorkoutType.Reps.rawValue
+                let repsWorkout = RepsBuilder(context: context)
+                    .name(workout.name)
+                    .workoutName(jsonDictionary["name"] as! String)
+                    .description(workout.desc)
+                    .reps(jsonDictionary["reps"] as! NSNumber)
+                    .videoUrl(workout.videoUrl)
+                    .language(workout.language)
+                    .weights(workout.weights)
+                    .dryGround(workout.dryGround)
+                    .approx(jsonDictionary["approx"] as! NSNumber)
+                    .postRestTime(jsonDictionary["rest"] as! NSNumber)
+                    .categories(jsonDictionary["categories"] as! String)
+                    .build()
             }
 
             let durationWorkoutEntity = NSEntityDescription.entityForName(self.durationEntityName, inManagedObjectContext: context)
@@ -370,20 +385,19 @@ public class WorkoutService {
                 let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
                 var prebensWorkouts = prebensWorkout.workouts.mutableCopy() as! NSMutableOrderedSet
                 for (i, w) in enumerate(tasks) {
-                    let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
                     let workout = workouts[w["workout"] as! String!]!
-                    repsWorkout.workoutName = w["name"] as! String!
-                    repsWorkout.name = workout.name
-                    repsWorkout.workoutDescription = workout.desc
-                    repsWorkout.videoUrl = workout.videoUrl
-                    repsWorkout.language = workout.language
-                    repsWorkout.weights = workout.weights
-                    repsWorkout.dryGround = workout.dryGround
-                    repsWorkout.repititions = w["reps"] as! NSNumber!
-                    repsWorkout.approx = w["approx"] as! NSNumber!
-                    repsWorkout.categories = w["categories"] as! String!
-                    repsWorkout.restTime = w["rest"] as! Double!
-                    repsWorkout.type = WorkoutType.Reps.rawValue
+                    let repsWorkout = reps(w["reps"] as! NSNumber)
+                        .name(workout.name)
+                        .workoutName(w["name"] as! String)
+                        .description(workout.desc)
+                        .videoUrl(workout.videoUrl)
+                        .language(workout.language)
+                        .weights(workout.weights)
+                        .dryGround(workout.dryGround)
+                        .approx(w["approx"] as! NSNumber)
+                        .postRestTime(w["rest"] as! NSNumber)
+                        .categories(w["categories"] as! String)
+                        .build()
                     prebensWorkouts.addObject(repsWorkout)
                     prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
                     saveContext()
@@ -483,4 +497,84 @@ public class WorkoutService {
         return Int(l + r)
     }
 
+    public func reps(reps: NSNumber) -> RepsBuilder {
+        return RepsBuilder(context: context).reps(reps)
+    }
+
 }
+
+public class RepsBuilder {
+
+    let repsWorkout: RepsWorkout
+
+    init(context: NSManagedObjectContext) {
+        let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
+        repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
+        repsWorkout.type = WorkoutType.Reps.rawValue
+    }
+
+    public func name(name: String) -> RepsBuilder {
+        repsWorkout.name = name
+        return self
+    }
+
+    public func workoutName(name: String) -> RepsBuilder {
+        repsWorkout.workoutName = name
+        return self
+    }
+
+    public func description(description: String) -> RepsBuilder {
+        repsWorkout.workoutDescription = description
+        return self
+    }
+
+    public func reps(reps: NSNumber) -> RepsBuilder {
+        repsWorkout.repititions = reps
+        return self
+    }
+
+    public func videoUrl(videoUrl: String?) -> RepsBuilder {
+        repsWorkout.videoUrl = videoUrl
+        return self
+    }
+
+    public func language(language: String) -> RepsBuilder {
+        repsWorkout.language = language
+        return self
+    }
+
+    public func weights(weights: Bool) -> RepsBuilder {
+        repsWorkout.weights = weights
+        return self
+    }
+
+    public func dryGround(dryGround: Bool) -> RepsBuilder {
+        repsWorkout.dryGround = dryGround
+        return self
+    }
+
+    public func approx(approx: NSNumber) -> RepsBuilder {
+        repsWorkout.approx = approx
+        return self
+    }
+
+    public func postRestTime(restTime: NSNumber) -> RepsBuilder {
+        repsWorkout.restTime = restTime
+        return self
+    }
+
+    public func categories(categories: WorkoutCategory...) -> RepsBuilder {
+        repsWorkout.categories = WorkoutCategory.asCsvString(categories)
+        return self
+    }
+
+    public func categories(categories: String) -> RepsBuilder {
+        repsWorkout.categories = categories
+        return self
+    }
+
+    public func build() -> RepsWorkout {
+        return repsWorkout
+    }
+}
+
