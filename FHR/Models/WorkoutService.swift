@@ -254,7 +254,6 @@ public class WorkoutService {
         var error: NSError? = nil
         let results = context.countForFetchRequest(fetchRequest, error: &error)
         if (results == 0) {
-            var fetchError: NSError? = nil
             importSeedData()
         }
     }
@@ -264,126 +263,17 @@ public class WorkoutService {
         let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
         let jsonData = NSData(contentsOfURL: jsonURL!)!
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
-        debugPrintln("Import seed data...")
-        var workouts = [String: WorkoutContainer]()
         if let json = jsonDict {
-            let workoutDict = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
-            let workoutsArray = workoutDict.valueForKeyPath("workout") as! NSArray
-            for jsonDictionary in workoutsArray {
-                let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
-                    desc: jsonDictionary["desc"] as! String!,
-                    language: jsonDictionary["language"] as! String!,
-                    videoUrl: jsonDictionary["videoUrl"] as! String!,
-                    weights: jsonDictionary["weights"] as! Bool!,
-                    dryGround: jsonDictionary["dryGround"] as! Bool!)
-                workouts[workout.name] = workout
-            }
-            let repsbasedArray = workoutDict.valueForKeyPath("repbased") as! NSArray
-            for jsonDictionary in repsbasedArray {
-                let workout = workouts[jsonDictionary["workout"] as! String!]!
-                let repsWorkout = reps(jsonDictionary["reps"] as! NSNumber)
-                    .name(workout.name)
-                    .workoutName(jsonDictionary["name"] as! String)
-                    .description(workout.desc)
-                    .videoUrl(workout.videoUrl)
-                    .language(workout.language)
-                    .weights(workout.weights)
-                    .dryGround(workout.dryGround)
-                    .approx(jsonDictionary["approx"] as! NSNumber)
-                    .postRestTime(jsonDictionary["rest"] as! NSNumber)
-                    .categories(jsonDictionary["categories"] as! String)
-                    .build()
-            }
-
-            let timebasedArray = workoutDict.valueForKeyPath("timebased") as! NSArray
-            for jsonDictionary in timebasedArray {
-                let workout = workouts[jsonDictionary["workout"] as! String!]!
-                let durationWorkout = duration(jsonDictionary["duration"] as! NSNumber!)
-                    .name(workout.name)
-                    .workoutName(jsonDictionary["name"] as! String!)
-                    .description(workout.desc)
-                    .videoUrl(workout.videoUrl)
-                    .language(workout.language)
-                    .weights(workout.weights)
-                    .dryGround(workout.dryGround)
-                    .postRestTime(jsonDictionary["rest"] as! NSNumber)
-                    .categories(jsonDictionary["categories"] as! String)
-                    .build()
-            }
-            let prebensArray = workoutDict.valueForKeyPath("prebensbased") as! NSArray
-            for jsonDictionary in prebensArray {
-                let workout = workouts[jsonDictionary["workout"] as! String!]!
-                let prebensWorkout = prebens()
-                    .name(workout.name)
-                    .workoutName(jsonDictionary["name"] as! String)
-                    .description(workout.desc)
-                    .language(workout.language)
-                    .weights(workout.weights)
-                    .dryGround(workout.dryGround)
-                    .categories(jsonDictionary["categories"] as! String)
-
-                let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
-                for (i, w) in enumerate(tasks) {
-                    let workout = workouts[w["workout"] as! String!]!
-                    prebensWorkout.workItem(reps(w["reps"] as! NSNumber)
-                        .name(workout.name)
-                        .workoutName(w["name"] as! String)
-                        .description(workout.desc)
-                        .videoUrl(workout.videoUrl)
-                        .language(workout.language)
-                        .weights(workout.weights)
-                        .dryGround(workout.dryGround)
-                        .approx(w["approx"] as! NSNumber)
-                        .postRestTime(w["rest"] as! NSNumber)
-                        .categories(w["categories"] as! String)
-                        .build())
-                    saveContext()
-                }
-            }
-            let intervalArray = workoutDict.valueForKeyPath("intervalbased") as! NSArray
-            for jsonDictionary in intervalArray {
-                let workout = workouts[jsonDictionary["workout"] as! String!]!
-                let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
-                let workWorkout = workouts[workJson["workout"] as! String]!
-                let restJson = jsonDictionary["restWorkout"] as! NSDictionary
-                let restWorkout = workouts[restJson["workout"] as! String]!
-                let work = duration(workJson["duration"] as! NSNumber!)
-                    .name(workWorkout.name)
-                    .workoutName(workJson["name"] as! String!)
-                    .description(workWorkout.desc)
-                    .videoUrl(workWorkout.videoUrl)
-                    .language(workWorkout.language)
-                    .weights(workWorkout.weights)
-                    .dryGround(workWorkout.dryGround)
-                    .postRestTime(workJson["rest"] as! NSNumber)
-                    .categories(workJson["categories"] as! String)
-                    .build()
-                let rest = duration(restJson["duration"] as! NSNumber!)
-                    .name(restWorkout.name)
-                    .workoutName(restJson["name"] as! String!)
-                    .description(restWorkout.desc)
-                    .videoUrl(restWorkout.videoUrl)
-                    .language(restWorkout.language)
-                    .weights(restWorkout.weights)
-                    .dryGround(restWorkout.dryGround)
-                    .postRestTime(restJson["rest"] as! NSNumber)
-                    .categories(restJson["categories"] as! String)
-                    .build()
-                let intervalWorkout = interval(work, rest: rest)
-                    .name(workout.name)
-                    .workoutName(jsonDictionary["name"] as! String)
-                    .intervals(jsonDictionary["intervals"] as! Int)
-                    .description(workout.desc)
-                    .language(workout.language)
-                    .weights(workout.weights)
-                    .dryGround(workout.dryGround)
-                    .categories(jsonDictionary["categories"] as! String)
-                    .build()
-                saveContext()
-            }
+            debugPrintln("Import seed data...")
+            let workoutsJson = jsonDict!.valueForKeyPath("workouts") as! NSDictionary
+            var workouts = parseWorkouts(workoutsJson)
+            addRepWorkouts(workoutsJson, workouts: workouts)
+            addDurationWorkouts(workoutsJson, workouts: workouts)
+            addPrebensWorkouts(workoutsJson, workouts: workouts)
+            addIntervalWorkouts(workoutsJson, workouts: workouts)
             saveContext()
         } else {
-            debugPrintln("could not parse json data.")
+            debugPrintln("could not parse json data. \(error)")
         }
     }
 
@@ -444,6 +334,132 @@ public class WorkoutService {
 
     public func prebens() -> PrebensBuilder<PrebensWorkout> {
         return PrebensBuilder(context: context)
+    }
+
+    private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutContainer] {
+        var workouts = [String: WorkoutContainer]()
+        let workoutsArray = workoutsJson.valueForKeyPath("workout") as! NSArray
+        for jsonDictionary in workoutsArray {
+            let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
+                desc: jsonDictionary["desc"] as! String!,
+                language: jsonDictionary["language"] as! String!,
+                videoUrl: jsonDictionary["videoUrl"] as! String!,
+                weights: jsonDictionary["weights"] as! Bool!,
+                dryGround: jsonDictionary["dryGround"] as! Bool!)
+                workouts[workout.name] = workout
+        }
+    return workouts
+    }
+
+    private func addRepWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+        for json in workoutsJson.valueForKeyPath("repbased") as! NSArray {
+            let workout = workouts[json["workout"] as! String!]!
+            let repsWorkout = reps(json["reps"] as! NSNumber)
+                .name(workout.name)
+                .workoutName(json["name"] as! String)
+                .description(workout.desc)
+                .videoUrl(workout.videoUrl)
+                .language(workout.language)
+                .weights(workout.weights)
+                .dryGround(workout.dryGround)
+                .approx(json["approx"] as! NSNumber)
+                .postRestTime(json["rest"] as! NSNumber)
+                .categories(json["categories"] as! String)
+                .build()
+        }
+
+    }
+
+    private func addDurationWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+        for jsonDictionary in workoutsJson.valueForKeyPath("timebased") as! NSArray {
+            let workout = workouts[jsonDictionary["workout"] as! String!]!
+            let durationWorkout = duration(jsonDictionary["duration"] as! NSNumber!)
+                .name(workout.name)
+                .workoutName(jsonDictionary["name"] as! String!)
+                .description(workout.desc)
+                .videoUrl(workout.videoUrl)
+                .language(workout.language)
+                .weights(workout.weights)
+                .dryGround(workout.dryGround)
+                .postRestTime(jsonDictionary["rest"] as! NSNumber)
+                .categories(jsonDictionary["categories"] as! String)
+                .build()
+        }
+    }
+
+    private func addPrebensWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+        for jsonDictionary in workoutsJson.valueForKeyPath("prebensbased") as! NSArray {
+            let workout = workouts[jsonDictionary["workout"] as! String!]!
+            let prebensWorkout = prebens()
+                .name(workout.name)
+                .workoutName(jsonDictionary["name"] as! String)
+                .description(workout.desc)
+                .language(workout.language)
+                .weights(workout.weights)
+                .dryGround(workout.dryGround)
+                .categories(jsonDictionary["categories"] as! String)
+
+            let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
+            for (i, w) in enumerate(tasks) {
+                let workout = workouts[w["workout"] as! String!]!
+                prebensWorkout.workItem(reps(w["reps"] as! NSNumber)
+                    .name(workout.name)
+                    .workoutName(w["name"] as! String)
+                    .description(workout.desc)
+                    .videoUrl(workout.videoUrl)
+                    .language(workout.language)
+                    .weights(workout.weights)
+                    .dryGround(workout.dryGround)
+                    .approx(w["approx"] as! NSNumber)
+                    .postRestTime(w["rest"] as! NSNumber)
+                    .categories(w["categories"] as! String)
+                    .build())
+                saveContext()
+            }
+        }
+    }
+
+    private func addIntervalWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+        for jsonDictionary in workoutsJson.valueForKeyPath("intervalbased") as! NSArray {
+            let workout = workouts[jsonDictionary["workout"] as! String!]!
+            let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
+            let workWorkout = workouts[workJson["workout"] as! String]!
+            let restJson = jsonDictionary["restWorkout"] as! NSDictionary
+            let restWorkout = workouts[restJson["workout"] as! String]!
+            let work = duration(workJson["duration"] as! NSNumber!)
+                .name(workWorkout.name)
+                .workoutName(workJson["name"] as! String!)
+                .description(workWorkout.desc)
+                .videoUrl(workWorkout.videoUrl)
+                .language(workWorkout.language)
+                .weights(workWorkout.weights)
+                .dryGround(workWorkout.dryGround)
+                .postRestTime(workJson["rest"] as! NSNumber)
+                .categories(workJson["categories"] as! String)
+                .build()
+            let rest = duration(restJson["duration"] as! NSNumber!)
+                .name(restWorkout.name)
+                .workoutName(restJson["name"] as! String!)
+                .description(restWorkout.desc)
+                .videoUrl(restWorkout.videoUrl)
+                .language(restWorkout.language)
+                .weights(restWorkout.weights)
+                .dryGround(restWorkout.dryGround)
+                .postRestTime(restJson["rest"] as! NSNumber)
+                .categories(restJson["categories"] as! String)
+                .build()
+            let intervalWorkout = interval(work, rest: rest)
+                .name(workout.name)
+                .workoutName(jsonDictionary["name"] as! String)
+                .intervals(jsonDictionary["intervals"] as! Int)
+                .description(workout.desc)
+                .language(workout.language)
+                .weights(workout.weights)
+                .dryGround(workout.dryGround)
+                .categories(jsonDictionary["categories"] as! String)
+                .build()
+            saveContext()
+        }
     }
 
 }
