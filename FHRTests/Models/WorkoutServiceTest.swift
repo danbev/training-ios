@@ -66,14 +66,14 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddDurationWorkout() {
-        ws.addDurationWorkout("Chopups", desc: "Chopues", duration: 5)
+        ws.saveDurationWorkout("Chopups", desc: "Chopues", duration: 5)
         let optionalWorkouts = ws.fetchDurationWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
     }
 
     func testAddIntervalWorkout() {
-        let burpees = ws.addDurationWorkout("Burpees", desc: "Burpees", duration: 40)
-        let chopups = ws.addDurationWorkout("Chopups", desc: "Chopups", duration: 20)
+        let burpees = ws.saveDurationWorkout("Burpees", desc: "Burpees", duration: 40)
+        let chopups = ws.saveDurationWorkout("Chopups", desc: "Chopups", duration: 20)
         ws.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
         let optionalWorkouts = ws.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
