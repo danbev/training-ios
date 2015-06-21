@@ -30,19 +30,6 @@ public class WorkoutService {
         return workout
     }
 
-    public func saveDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
-        let durationWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
-        let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
-        durationWorkout.duration = duration
-        durationWorkout.workoutDescription = desc
-        durationWorkout.name = name
-        durationWorkout.workoutName = name
-        durationWorkout.categories = WorkoutCategory.asCsvString(categories)
-        saveContext()
-        return durationWorkout
-    }
-
     public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: WorkoutCategory...) -> IntervalWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
         let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
@@ -473,6 +460,10 @@ public class WorkoutService {
 
     public func reps(reps: NSNumber) -> RepsBuilder<RepsWorkout> {
         return RepsBuilder(context: context).reps(reps)
+    }
+
+    public func duration(duration: NSNumber) -> DurationBuilder<DurationWorkout> {
+        return DurationBuilder(context: context).duration(duration)
     }
 
 }

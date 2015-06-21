@@ -66,14 +66,39 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddDurationWorkout() {
-        ws.saveDurationWorkout("Chopups", desc: "Chopues", duration: 5)
+        ws.saveWorkout(ws.duration(5)
+                        .name("Chopups")
+                        .workoutName("Get ups")
+                        .description("Some description...")
+                        .language("en")
+                        .weights(false)
+                        .dryGround(false)
+                        .postRestTime(60)
+                        .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
+        //ws.saveDurationWorkout("Chopups", desc: "Chopues", duration: 5)
         let optionalWorkouts = ws.fetchDurationWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
     }
 
     func testAddIntervalWorkout() {
-        let burpees = ws.saveDurationWorkout("Burpees", desc: "Burpees", duration: 40)
-        let chopups = ws.saveDurationWorkout("Chopups", desc: "Chopups", duration: 20)
+        let burpees = ws.saveWorkout(ws.duration(40)
+                        .name("Burpees")
+                        .workoutName("Burpees")
+                        .description("Burpees..")
+                        .language("en")
+                        .weights(false)
+                        .dryGround(false)
+                        .postRestTime(60)
+                        .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
+        let chopups = ws.saveWorkout(ws.duration(40)
+                        .name("Chopups")
+                        .workoutName("Chopups")
+                        .description("Start from lying position..")
+                        .language("en")
+                        .weights(false)
+                        .dryGround(false)
+                        .postRestTime(60)
+                        .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
         ws.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
         let optionalWorkouts = ws.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
