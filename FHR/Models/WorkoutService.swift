@@ -16,7 +16,7 @@ public class WorkoutService {
     private let userWorkoutEntityName = "UserWorkout"
     private static let repsEntityName = "RepsWorkout"
     private static let durationEntityName = "DurationWorkout"
-    private let intervalEntityName = "IntervalWorkout"
+    private static let intervalEntityName = "IntervalWorkout"
     private let prebensEntityName = "PrebensWorkout"
     private var context: NSManagedObjectContext
 
@@ -32,7 +32,7 @@ public class WorkoutService {
 
     public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: WorkoutCategory...) -> IntervalWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
-        let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
+        let intervalWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.intervalEntityName, inManagedObjectContext: context)
         let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
         intervalWorkout.work = work
         intervalWorkout.rest = rest
@@ -122,7 +122,7 @@ public class WorkoutService {
     }
 
     public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
-        let iw: [IntervalWorkout]? = fetchWorkouts(intervalEntityName);
+        let iw: [IntervalWorkout]? = fetchWorkouts(WorkoutService.intervalEntityName);
         return iw;
     }
 
@@ -361,22 +361,12 @@ public class WorkoutService {
             }
             let intervalArray = workoutDict.valueForKeyPath("intervalbased") as! NSArray
             for jsonDictionary in intervalArray {
-                let intervalWorkoutEntity = NSEntityDescription.entityForName(intervalEntityName, inManagedObjectContext: context)
-                let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
                 let workout = workouts[jsonDictionary["workout"] as! String!]!
-                intervalWorkout.workoutName = jsonDictionary["name"] as! String
-                intervalWorkout.type = WorkoutType.Interval.rawValue
-                intervalWorkout.name = workout.name
-                intervalWorkout.intervals = jsonDictionary["intervals"] as! Int
-                intervalWorkout.workoutDescription = workout.desc
-                intervalWorkout.language = workout.language
-                intervalWorkout.weights = workout.weights
-                intervalWorkout.dryGround = workout.dryGround
-                intervalWorkout.categories = jsonDictionary["categories"] as! String!
-
                 let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
                 let workWorkout = workouts[workJson["workout"] as! String]!
-                intervalWorkout.work = duration(workJson["duration"] as! NSNumber!)
+                let restJson = jsonDictionary["restWorkout"] as! NSDictionary
+                let restWorkout = workouts[restJson["workout"] as! String]!
+                let work = duration(workJson["duration"] as! NSNumber!)
                     .name(workWorkout.name)
                     .workoutName(workJson["name"] as! String!)
                     .description(workWorkout.desc)
@@ -387,10 +377,7 @@ public class WorkoutService {
                     .postRestTime(workJson["rest"] as! NSNumber)
                     .categories(workJson["categories"] as! String)
                     .build()
-
-                let restJson = jsonDictionary["restWorkout"] as! NSDictionary
-                let restWorkout = workouts[restJson["workout"] as! String]!
-                intervalWorkout.rest = duration(restJson["duration"] as! NSNumber!)
+                let rest = duration(restJson["duration"] as! NSNumber!)
                     .name(restWorkout.name)
                     .workoutName(restJson["name"] as! String!)
                     .description(restWorkout.desc)
@@ -400,6 +387,16 @@ public class WorkoutService {
                     .dryGround(restWorkout.dryGround)
                     .postRestTime(restJson["rest"] as! NSNumber)
                     .categories(restJson["categories"] as! String)
+                    .build()
+                let intervalWorkout = interval(work, rest: rest)
+                    .name(workout.name)
+                    .workoutName(jsonDictionary["name"] as! String)
+                    .intervals(jsonDictionary["intervals"] as! Int)
+                    .description(workout.desc)
+                    .language(workout.language)
+                    .weights(workout.weights)
+                    .dryGround(workout.dryGround)
+                    .categories(jsonDictionary["categories"] as! String)
                     .build()
                 saveContext()
             }
@@ -458,6 +455,10 @@ public class WorkoutService {
 
     public func duration(duration: NSNumber) -> DurationBuilder<DurationWorkout> {
         return DurationBuilder(context: context).duration(duration)
+    }
+
+    public func interval(work: DurationWorkout, rest: DurationWorkout) -> IntervalBuilder<IntervalWorkout> {
+        return IntervalBuilder(context: context).work(work).rest(rest)
     }
 
 }
@@ -561,6 +562,34 @@ public class DurationBuilder<T: DurationWorkout>: WorkoutBuilder<DurationWorkout
 
     public func duration(duration: NSNumber) -> DurationBuilder {
         durationWorkout.duration = duration
+        return self
+    }
+
+}
+
+public class IntervalBuilder<T: IntervalWorkout>: WorkoutBuilder<IntervalWorkout> {
+
+    let intervalWorkout: IntervalWorkout
+
+    init(context: NSManagedObjectContext) {
+        let intervalEntity = NSEntityDescription.entityForName(WorkoutService.intervalEntityName, inManagedObjectContext: context)
+        intervalWorkout = IntervalWorkout(entity: intervalEntity!, insertIntoManagedObjectContext: context)
+        intervalWorkout.type = WorkoutType.Interval.rawValue
+        super.init(workout: intervalWorkout)
+    }
+
+    public func work(work: DurationWorkout) -> IntervalBuilder {
+        intervalWorkout.work = work
+        return self
+    }
+
+    public func rest(rest: DurationWorkout) -> IntervalBuilder {
+        intervalWorkout.rest = rest
+        return self
+    }
+
+    public func intervals(intervals: Int) -> IntervalBuilder {
+        intervalWorkout.intervals = intervals
         return self
     }
 
