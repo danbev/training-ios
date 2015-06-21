@@ -61,7 +61,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         if let url = videoUrl {
             UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
         }
-        workoutService.saveRepsWorkout(workoutService.reps(100)
+        workoutService.saveWorkout(workoutService.reps(100)
             .name(workoutName.text)
             .workoutName(workoutName.text)
             .description(workoutDescription.text)

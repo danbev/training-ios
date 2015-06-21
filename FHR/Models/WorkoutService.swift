@@ -24,19 +24,11 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func saveRepsWorkout(repsBuilder: RepsBuilder<RepsWorkout>) -> RepsWorkout {
-        let repsWorkout = repsBuilder.build()
-        saveContext()
-        return repsWorkout
-    }
-
-    /*
-    public func saveWorkout<T: Workout, B: WorkoutBuilder<T>>(workoutBuilder: B) -> T {
-        let workout:T = workoutBuilder.build()
+    public func saveWorkout<T: Workout>(workoutBuilder: WorkoutBuilder<T>) -> T {
+        let workout = workoutBuilder.build()
         saveContext()
         return workout
     }
-    */
 
     public func saveDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
