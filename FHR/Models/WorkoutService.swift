@@ -15,7 +15,7 @@ public class WorkoutService {
     private let workoutEntityName = "Workout"
     private let userWorkoutEntityName = "UserWorkout"
     private static let repsEntityName = "RepsWorkout"
-    private let durationEntityName = "DurationWorkout"
+    private static let durationEntityName = "DurationWorkout"
     private let intervalEntityName = "IntervalWorkout"
     private let prebensEntityName = "PrebensWorkout"
     private var context: NSManagedObjectContext
@@ -24,15 +24,23 @@ public class WorkoutService {
         self.context = context
     }
 
-    public func saveRepsWorkout(repsBuilder: RepsBuilder) -> RepsWorkout {
+    public func saveRepsWorkout(repsBuilder: RepsBuilder<RepsWorkout>) -> RepsWorkout {
         let repsWorkout = repsBuilder.build()
         saveContext()
         return repsWorkout
     }
 
+    /*
+    public func saveWorkout<T: Workout, B: WorkoutBuilder<T>>(workoutBuilder: B) -> T {
+        let workout:T = workoutBuilder.build()
+        saveContext()
+        return workout
+    }
+    */
+
     public func saveDurationWorkout(name: String, desc: String, duration: Int, categories: WorkoutCategory...) -> DurationWorkout {
         let workout = newWorkoutEntity(name, desc: desc, categories: categories)
-        let durationWorkoutEntity = NSEntityDescription.entityForName(durationEntityName, inManagedObjectContext: context)
+        let durationWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
         let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.duration = duration
         durationWorkout.workoutDescription = desc
@@ -130,7 +138,7 @@ public class WorkoutService {
     }
 
     public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
-        let dw: [DurationWorkout]? = fetchWorkouts(durationEntityName);
+        let dw: [DurationWorkout]? = fetchWorkouts(WorkoutService.durationEntityName);
         return dw;
     }
 
@@ -323,7 +331,7 @@ public class WorkoutService {
                     .build()
             }
 
-            let durationWorkoutEntity = NSEntityDescription.entityForName(self.durationEntityName, inManagedObjectContext: context)
+            let durationWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
             let timebasedArray = workoutDict.valueForKeyPath("timebased") as! NSArray
             for jsonDictionary in timebasedArray {
                 let durationWorkout = DurationWorkout(entity: durationWorkoutEntity!, insertIntoManagedObjectContext: context)
@@ -471,13 +479,76 @@ public class WorkoutService {
         return Int(l + r)
     }
 
-    public func reps(reps: NSNumber) -> RepsBuilder {
+    public func reps(reps: NSNumber) -> RepsBuilder<RepsWorkout> {
         return RepsBuilder(context: context).reps(reps)
     }
 
 }
 
-public class RepsBuilder {
+public class WorkoutBuilder<T: Workout> {
+
+    let workout: T
+
+    init(workout: T) {
+        self.workout = workout
+    }
+
+    public func name(name: String) -> Self {
+        workout.name = name
+        return self
+    }
+
+    public func workoutName(name: String) -> Self {
+        workout.workoutName = name
+        return self
+    }
+
+    public func description(description: String) -> Self {
+        workout.workoutDescription = description
+        return self
+    }
+
+    public func videoUrl(videoUrl: String?) -> Self {
+        workout.videoUrl = videoUrl
+        return self
+    }
+
+    public func language(language: String) -> Self {
+        workout.language = language
+        return self
+    }
+
+    public func weights(weights: Bool) -> Self {
+        workout.weights = weights
+        return self
+    }
+
+    public func dryGround(dryGround: Bool) -> Self {
+        workout.dryGround = dryGround
+        return self
+    }
+
+    public func postRestTime(restTime: NSNumber) -> Self {
+        workout.restTime = restTime
+        return self
+    }
+
+    public func categories(categories: WorkoutCategory...) -> Self {
+        workout.categories = WorkoutCategory.asCsvString(categories)
+        return self
+    }
+
+    public func categories(categories: String) -> Self {
+        workout.categories = categories
+        return self
+    }
+
+    public func build() -> T {
+        return workout
+    }
+}
+
+public class RepsBuilder<T: RepsWorkout>: WorkoutBuilder<RepsWorkout> {
 
     let repsWorkout: RepsWorkout
 
@@ -485,45 +556,11 @@ public class RepsBuilder {
         let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
         repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.type = WorkoutType.Reps.rawValue
-    }
-
-    public func name(name: String) -> RepsBuilder {
-        repsWorkout.name = name
-        return self
-    }
-
-    public func workoutName(name: String) -> RepsBuilder {
-        repsWorkout.workoutName = name
-        return self
-    }
-
-    public func description(description: String) -> RepsBuilder {
-        repsWorkout.workoutDescription = description
-        return self
+        super.init(workout: repsWorkout)
     }
 
     public func reps(reps: NSNumber) -> RepsBuilder {
         repsWorkout.repititions = reps
-        return self
-    }
-
-    public func videoUrl(videoUrl: String?) -> RepsBuilder {
-        repsWorkout.videoUrl = videoUrl
-        return self
-    }
-
-    public func language(language: String) -> RepsBuilder {
-        repsWorkout.language = language
-        return self
-    }
-
-    public func weights(weights: Bool) -> RepsBuilder {
-        repsWorkout.weights = weights
-        return self
-    }
-
-    public func dryGround(dryGround: Bool) -> RepsBuilder {
-        repsWorkout.dryGround = dryGround
         return self
     }
 
@@ -532,23 +569,23 @@ public class RepsBuilder {
         return self
     }
 
-    public func postRestTime(restTime: NSNumber) -> RepsBuilder {
-        repsWorkout.restTime = restTime
+}
+
+public class DurationBuilder<T: DurationWorkout>: WorkoutBuilder<DurationWorkout> {
+
+    let durationWorkout: DurationWorkout
+
+    init(context: NSManagedObjectContext) {
+        let durationEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
+        durationWorkout = DurationWorkout(entity: durationEntity!, insertIntoManagedObjectContext: context)
+        durationWorkout.type = WorkoutType.Timed.rawValue
+        super.init(workout: durationWorkout)
+    }
+
+    public func duration(duration: NSNumber) -> DurationBuilder {
+        durationWorkout.duration = duration
         return self
     }
 
-    public func categories(categories: WorkoutCategory...) -> RepsBuilder {
-        repsWorkout.categories = WorkoutCategory.asCsvString(categories)
-        return self
-    }
-
-    public func categories(categories: String) -> RepsBuilder {
-        repsWorkout.categories = categories
-        return self
-    }
-
-    public func build() -> RepsWorkout {
-        return repsWorkout
-    }
 }
 
