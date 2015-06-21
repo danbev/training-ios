@@ -75,7 +75,6 @@ class WorkoutServiceTest: XCTestCase {
                         .dryGround(false)
                         .postRestTime(60)
                         .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
-        //ws.saveDurationWorkout("Chopups", desc: "Chopues", duration: 5)
         let optionalWorkouts = ws.fetchDurationWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
     }
@@ -99,7 +98,13 @@ class WorkoutServiceTest: XCTestCase {
                         .dryGround(false)
                         .postRestTime(60)
                         .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
-        ws.addIntervalWorkout("BurpeesInterval", desc: "Burpees and Chopups", work: burpees, rest: chopups)
+        let interval = ws.interval(burpees, rest: chopups)
+            .name("BurpeesInterval")
+            .workoutName("BurpeesInterval")
+            .description("Burpees and Chopups")
+            .intervals(5)
+            .categories(WorkoutCategory.UpperBody)
+        ws.saveWorkout(interval)
         let optionalWorkouts = ws.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
         let intervalWorkout = optionalWorkouts.filter( { (workout) in workout.workoutName == "BurpeesInterval" })[0]

@@ -30,19 +30,6 @@ public class WorkoutService {
         return workout
     }
 
-    public func addIntervalWorkout(name: String, desc: String, work: DurationWorkout, rest: DurationWorkout, categories: WorkoutCategory...) -> IntervalWorkout {
-        let workout = newWorkoutEntity(name, desc: desc, categories: categories)
-        let intervalWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.intervalEntityName, inManagedObjectContext: context)
-        let intervalWorkout = IntervalWorkout(entity: intervalWorkoutEntity!, insertIntoManagedObjectContext: context)
-        intervalWorkout.work = work
-        intervalWorkout.rest = rest
-        intervalWorkout.name = name
-        intervalWorkout.workoutName = name
-        intervalWorkout.workoutDescription = desc
-        saveContext()
-        return intervalWorkout
-    }
-
     public func newUserWorkout(lastUserWorkout: UserWorkout?, settings: Settings) -> UserWorkout? {
         let id = NSUUID().UUIDString
         if settings.ignoredCategories.contains(WorkoutCategory.Warmup) {
