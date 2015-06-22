@@ -21,6 +21,12 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var videoUrl: String?
+    private var workoutType: WorkoutType!
+
+    public func setWorkoutType(workoutType: WorkoutType) {
+        println("workouttype: \(workoutType.rawValue)")
+        self.workoutType = workoutType
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +59,36 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         }
     }
 
+    @IBAction func nextButtonAction(sender: UIBarButtonItem) {
+        switch workoutType! {
+        case .Reps:
+            performSegueWithIdentifier("saveRepsSegue", sender: self)
+        case .Timed:
+            performSegueWithIdentifier("durationSegue", sender: self)
+        case .Interval:
+            performSegueWithIdentifier("intervalSegue", sender: self)
+        case .Prebens:
+            performSegueWithIdentifier("prebensSegue", sender: self)
+        }
+    }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "saveRepsSegue" {
+            let reps = segue.destinationViewController as! RepsInfoViewController
+            let builder = workoutService.reps()
+                .name(workoutName.text)
+                .workoutName(workoutName.text)
+                .description(workoutDescription.text)
+                .videoUrl(videoUrl)
+                .language("en")
+                .weights(false)
+                .dryGround(false)
+                .postRestTime(60)
+                .categories(WorkoutCategory.Cardio)
+            reps.setWorkoutBuilder(builder)
+        }
+    }
+
     @IBAction func selectVideo(sender: AnyObject) {
         var picker = UIImagePickerController()
         picker.delegate = self
@@ -81,7 +117,6 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBAction func cancel(sender: AnyObject) {
         debugPrintln("cancel add workout")
         navigationController?.popToRootViewControllerAnimated(true)
-        //dismissViewControllerAnimated(true, completion: {})
     }
 
     public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {

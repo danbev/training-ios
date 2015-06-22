@@ -324,6 +324,10 @@ public class WorkoutService {
         return RepsBuilder(context: context).reps(reps)
     }
 
+    public func reps() -> RepsBuilder<RepsWorkout> {
+        return RepsBuilder(context: context)
+    }
+
     public func duration(duration: NSNumber) -> DurationBuilder<DurationWorkout> {
         return DurationBuilder(context: context).duration(duration)
     }
