@@ -468,7 +468,7 @@ public class WorkoutService {
 
 }
 
-public class WorkoutBuilder<T: Workout> {
+public class WorkoutBuilder<T: Workout>: Printable {
 
     let workout: T
 
@@ -529,6 +529,11 @@ public class WorkoutBuilder<T: Workout> {
     public func build() -> T {
         return workout
     }
+
+    public var description: String {
+        return "name=\(workout.name), workoutName=\(workout.workoutName), description=\(workout.description), videoUrl=\(workout.videoUrl), language=\(workout.language), weights=\(workout.weights), dryGround=\(workout.dryGround), restTime=\(workout.restTime), categories=\(workout.categories)"
+    }
+
 }
 
 public class RepsBuilder<T: RepsWorkout>: WorkoutBuilder<RepsWorkout> {
@@ -552,6 +557,10 @@ public class RepsBuilder<T: RepsWorkout>: WorkoutBuilder<RepsWorkout> {
         return self
     }
 
+    public override var description: String {
+        return "RepsWorkout[reps=\(repsWorkout.repititions), approx=\(repsWorkout.approx), \(super.description)]"
+    }
+
 }
 
 public class DurationBuilder<T: DurationWorkout>: WorkoutBuilder<DurationWorkout> {
@@ -568,6 +577,10 @@ public class DurationBuilder<T: DurationWorkout>: WorkoutBuilder<DurationWorkout
     public func duration(duration: NSNumber) -> DurationBuilder {
         durationWorkout.duration = duration
         return self
+    }
+
+    public override var description: String {
+        return "DurationWorkout[duration=\(durationWorkout.duration), \(super.description)]"
     }
 
 }

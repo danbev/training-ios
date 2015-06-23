@@ -13,4 +13,8 @@ public class DurationWorkout: Workout {
 
     @NSManaged public var duration: NSNumber
 
+    public override var description: String {
+        return "DurationWorkout[duration=\(duration), \(super.description)]"
+    }
+
 }

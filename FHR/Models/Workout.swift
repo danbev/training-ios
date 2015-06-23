@@ -32,4 +32,8 @@ public class Workout: NSManagedObject {
         return array.map { WorkoutCategory(rawValue: $0)! }
         }()
 
+    public override var description: String {
+        return "name=\(name), workoutName=\(workoutName), description=\(workoutDescription), videoUrl=\(videoUrl), language=\(language), weights=\(weights), dryGround=\(dryGround), restTime=\(restTime), categories=\(categories)"
+    }
+
 }
