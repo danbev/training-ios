@@ -13,7 +13,6 @@ import AVFoundation
 
 public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
-    private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var workoutType: WorkoutType!
     private var builder: RepsBuilder<RepsWorkout>!
@@ -24,9 +23,12 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         repsTextField.delegate = self
         approxTextField.delegate = self
-        workoutService = WorkoutService(context: coreDataStack.context)
     }
 
+    public func setWorkoutService(workoutService: WorkoutService) {
+        self.workoutService = workoutService
+    }
+    
     public func setWorkoutBuilder(builder: RepsBuilder<RepsWorkout>) {
         self.builder = builder
     }

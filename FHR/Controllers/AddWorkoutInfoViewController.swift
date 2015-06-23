@@ -75,7 +75,8 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "saveRepsSegue" {
             let reps = segue.destinationViewController as! RepsInfoViewController
-            let builder = workoutService.reps()
+            reps.setWorkoutService(workoutService)
+            reps.setWorkoutBuilder(workoutService.reps()
                 .name(workoutName.text)
                 .workoutName(workoutName.text)
                 .description(workoutDescription.text)
@@ -84,8 +85,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
                 .weights(false)
                 .dryGround(false)
                 .postRestTime(60)
-                .categories(WorkoutCategory.Cardio)
-            reps.setWorkoutBuilder(builder)
+                .categories(WorkoutCategory.Cardio))
         }
     }
 
