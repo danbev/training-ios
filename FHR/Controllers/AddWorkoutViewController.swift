@@ -18,6 +18,7 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
     @IBOutlet weak var pickerView: UIPickerView!
     var workoutTypes = [WorkoutType.Reps, WorkoutType.Timed, WorkoutType.Interval, WorkoutType.Prebens]
     var selectedType: WorkoutType = WorkoutType.Reps
+    var workoutService: WorkoutService!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,10 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         debugPrintln("picked \(type.rawValue)")
     }
 
+    public func setWorkoutService(workoutService: WorkoutService) {
+        self.workoutService = workoutService
+    }
+
     @IBAction func next(sender: AnyObject) {
         selectedType = workoutTypes[pickerView.selectedRowInComponent(0)]
         debugPrintln("next \(selectedType.rawValue)")
@@ -59,9 +64,18 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch selectedType {
+        case .Reps:
+            let controller = segue.destinationViewController as! RepsInfoViewController
+            controller.setWorkoutService(workoutService)
+        case .Timed:
+            println(workoutService)
+        case .Interval:
+            println(workoutService)
+        case .Prebens:
+            println(workoutService)
+        }
         println("Prepare for segue:\(segue.identifier)")
-        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setWorkoutType(selectedType)
     }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {

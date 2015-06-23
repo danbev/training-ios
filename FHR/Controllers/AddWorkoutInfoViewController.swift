@@ -18,24 +18,30 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
-    private lazy var coreDataStack = CoreDataStack()
     private var workoutService: WorkoutService!
     private var videoUrl: String?
     private var workoutType: WorkoutType!
+    private var workoutBuilder: WorkoutBuilder<Workout>!
 
     public func setWorkoutType(workoutType: WorkoutType) {
-        println("workouttype: \(workoutType.rawValue)")
         self.workoutType = workoutType
     }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutDescription.delegate = self
-        workoutService = WorkoutService(context: coreDataStack.context)
         var nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    }
+
+    public func setWorkoutService(workoutService: WorkoutService) {
+        self.workoutService = workoutService
+    }
+
+    public func setBuilder(workoutBuilder: WorkoutBuilder<Workout>) {
+        self.workoutBuilder = workoutBuilder
     }
 
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

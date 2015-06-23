@@ -28,16 +28,20 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
     public func setWorkoutService(workoutService: WorkoutService) {
         self.workoutService = workoutService
     }
-    
-    public func setWorkoutBuilder(builder: RepsBuilder<RepsWorkout>) {
-        self.builder = builder
+
+    @IBAction func next(sender: AnyObject) {
+        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
     }
 
-    @IBAction func save(sender: AnyObject) {
-        builder.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!)
-        let workout = workoutService.saveWorkout(builder)
-        println("saved \(workout)")
-        navigationController?.popToRootViewControllerAnimated(true)
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
+        controller.setWorkoutService(workoutService)
+        //let builder:WorkoutBuilder<Workout> = workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!)
+        controller.setBuilder(builder)
+    }
+
+    public func setWorkoutBuilder(builder: RepsBuilder<RepsWorkout>) {
+        self.builder = builder
     }
 
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -46,11 +50,6 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
             return false
         }
         return true
-    }
-
-    @IBAction func cancel(sender: AnyObject) {
-        debugPrintln("cancel add workout")
-        navigationController?.popToRootViewControllerAnimated(true)
     }
 
 }
