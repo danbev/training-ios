@@ -18,7 +18,6 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
-    private var workoutService: WorkoutService!
     private var videoUrl: String?
     private var workoutType: WorkoutType!
     private var workoutBuilder: WorkoutBuilder!
@@ -34,10 +33,6 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-    }
-
-    public func setWorkoutService(workoutService: WorkoutService) {
-        self.workoutService = workoutService
     }
 
     public func setBuilder(workoutBuilder: WorkoutBuilder) {
@@ -65,36 +60,6 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         }
     }
 
-    @IBAction func nextButtonAction(sender: UIBarButtonItem) {
-        switch workoutType! {
-        case .Reps:
-            performSegueWithIdentifier("saveRepsSegue", sender: self)
-        case .Timed:
-            performSegueWithIdentifier("durationSegue", sender: self)
-        case .Interval:
-            performSegueWithIdentifier("intervalSegue", sender: self)
-        case .Prebens:
-            performSegueWithIdentifier("prebensSegue", sender: self)
-        }
-    }
-
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "saveRepsSegue" {
-            let reps = segue.destinationViewController as! RepsInfoViewController
-            reps.setWorkoutService(workoutService)
-            reps.setWorkoutBuilder(workoutService.reps()
-                .name(workoutName.text)
-                .workoutName(workoutName.text)
-                .description(workoutDescription.text)
-                .videoUrl(videoUrl)
-                .language("en")
-                .weights(false)
-                .dryGround(false)
-                .postRestTime(60)
-                .categories(WorkoutCategory.Cardio))
-        }
-    }
-
     @IBAction func selectVideo(sender: AnyObject) {
         var picker = UIImagePickerController()
         picker.delegate = self
@@ -104,23 +69,18 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     }
 
     @IBAction func save(sender: AnyObject) {
-        if let url = videoUrl {
-            UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
-        }
-        workoutBuilder.build()
-        /*
-        workoutService.saveWorkout(workoutService.reps(100)
-            .name(workoutName.text)
+        let workout = workoutBuilder.name(workoutName.text)
             .workoutName(workoutName.text)
             .description(workoutDescription.text)
             .videoUrl(videoUrl)
             .language("en")
             .weights(false)
             .dryGround(false)
-            .approx(300)
             .postRestTime(60)
-            .categories(WorkoutCategory.Cardio))
-        */
+            .categories(WorkoutCategory.Cardio)
+            .save()
+        debugPrintln("saved workout \(workout.description)")
+        navigationController?.popToRootViewControllerAnimated(true)
     }
 
     @IBAction func cancel(sender: AnyObject) {
@@ -131,7 +91,10 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
         videoUrl = tempImage.relativePath
-        println("videoUrl:\(videoUrl)")
+        if let url = videoUrl {
+            debugPrintln("Saving video : :\(videoUrl)")
+            UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
+        }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 

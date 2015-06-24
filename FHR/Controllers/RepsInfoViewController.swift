@@ -35,9 +35,7 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setWorkoutService(workoutService)
-        let builder = workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!)
-        controller.setBuilder(builder)
+        controller.setBuilder(workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!))
     }
 
     public func setWorkoutBuilder(builder: RepsBuilder) {

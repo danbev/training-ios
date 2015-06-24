@@ -816,14 +816,7 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mYe-0z-MpW">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="3Ft-zh-PPQ">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="nextButtonAction:" destination="lbE-km-Yzs" id="nNa-Ql-jIi"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="mYe-0z-MpW"/>
                     <connections>
                         <outlet property="imageView" destination="91t-Q9-cMS" id="IJO-7e-zgO"/>
                         <outlet property="workoutDescription" destination="0PI-M6-HVq" id="Uhh-OP-NFo"/>
