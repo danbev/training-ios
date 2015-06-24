@@ -21,7 +21,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     private var workoutService: WorkoutService!
     private var videoUrl: String?
     private var workoutType: WorkoutType!
-    private var workoutBuilder: WorkoutBuilder<Workout>!
+    private var workoutBuilder: WorkoutBuilder!
 
     public func setWorkoutType(workoutType: WorkoutType) {
         self.workoutType = workoutType
@@ -40,7 +40,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         self.workoutService = workoutService
     }
 
-    public func setBuilder(workoutBuilder: WorkoutBuilder<Workout>) {
+    public func setBuilder(workoutBuilder: WorkoutBuilder) {
         self.workoutBuilder = workoutBuilder
     }
 
@@ -107,6 +107,8 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         if let url = videoUrl {
             UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
         }
+        workoutBuilder.build()
+        /*
         workoutService.saveWorkout(workoutService.reps(100)
             .name(workoutName.text)
             .workoutName(workoutName.text)
@@ -118,6 +120,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
             .approx(300)
             .postRestTime(60)
             .categories(WorkoutCategory.Cardio))
+        */
     }
 
     @IBAction func cancel(sender: AnyObject) {

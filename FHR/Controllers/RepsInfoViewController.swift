@@ -15,7 +15,7 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
     private var workoutService: WorkoutService!
     private var workoutType: WorkoutType!
-    private var builder: RepsBuilder<RepsWorkout>!
+    private var builder: RepsBuilder!
     @IBOutlet weak var repsTextField: UITextField!
     @IBOutlet weak var approxTextField: UITextField!
 
@@ -36,11 +36,11 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
         controller.setWorkoutService(workoutService)
-        //let builder:WorkoutBuilder<Workout> = workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!)
+        let builder = workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!)
         controller.setBuilder(builder)
     }
 
-    public func setWorkoutBuilder(builder: RepsBuilder<RepsWorkout>) {
+    public func setWorkoutBuilder(builder: RepsBuilder) {
         self.builder = builder
     }
 

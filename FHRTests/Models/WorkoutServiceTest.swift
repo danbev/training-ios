@@ -22,7 +22,7 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddRepsWorkout() {
-        ws.saveWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Burpees")
                         .workoutName("100 Burpees")
                         .description("Start from standing, squat down for a pushup, touch chest on ground, and jump up")
@@ -32,7 +32,7 @@ class WorkoutServiceTest: XCTestCase {
                         .approx(300)
                         .postRestTime(60)
                         .categories(WorkoutCategory.UpperBody.rawValue))
-        ws.saveWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Chopups")
                         .workoutName("100 Chop ups")
                         .description("Start from lying posistion and bring your legs towards you buttocks, then stand up")
@@ -42,7 +42,7 @@ class WorkoutServiceTest: XCTestCase {
                         .approx(300)
                         .postRestTime(60)
                         .categories(WorkoutCategory.UpperBody))
-        ws.saveWorkout(ws.reps(100)
+        ws.saveRepsWorkout(ws.reps(100)
                         .name("Getups")
                         .workoutName("100 Get ups")
                         .description("Some description...")
@@ -66,7 +66,7 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddDurationWorkout() {
-        ws.saveWorkout(ws.duration(5)
+        ws.saveDurationWorkout(ws.duration(5)
                         .name("Chopups")
                         .workoutName("Get ups")
                         .description("Some description...")
@@ -80,7 +80,7 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testAddIntervalWorkout() {
-        let burpees = ws.saveWorkout(ws.duration(40)
+        let burpees = ws.saveDurationWorkout(ws.duration(40)
                         .name("Burpees")
                         .workoutName("Burpees")
                         .description("Burpees..")
@@ -89,7 +89,7 @@ class WorkoutServiceTest: XCTestCase {
                         .dryGround(false)
                         .postRestTime(60)
                         .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
-        let chopups = ws.saveWorkout(ws.duration(40)
+        let chopups = ws.saveDurationWorkout(ws.duration(40)
                         .name("Chopups")
                         .workoutName("Chopups")
                         .description("Start from lying position..")
@@ -99,12 +99,15 @@ class WorkoutServiceTest: XCTestCase {
                         .postRestTime(60)
                         .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody))
         let interval = ws.interval(burpees, rest: chopups)
-            .name("BurpeesInterval")
-            .workoutName("BurpeesInterval")
-            .description("Burpees and Chopups")
-            .intervals(5)
-            .categories(WorkoutCategory.UpperBody)
-        ws.saveWorkout(interval)
+                .name("BurpeesInterval")
+                .workoutName("BurpeesInterval")
+                .intervals(5)
+                .description("Burpees and Chopups")
+                .language("en")
+                .weights(false)
+                .dryGround(false)
+                .categories(WorkoutCategory.Cardio)
+        ws.saveIntervalWorkout(interval)
         let optionalWorkouts = ws.fetchIntervalWorkouts()!;
         XCTAssertEqual(1, optionalWorkouts.count)
         let intervalWorkout = optionalWorkouts.filter( { (workout) in workout.workoutName == "BurpeesInterval" })[0]
