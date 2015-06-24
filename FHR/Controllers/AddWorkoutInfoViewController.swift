@@ -39,6 +39,20 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         self.workoutBuilder = workoutBuilder
     }
 
+    @IBAction func next(sender: AnyObject) {
+        performSegueWithIdentifier("generalWorkoutDetails2", sender: self)
+    }
+
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        workoutBuilder.name(workoutName.text)
+            .workoutName(workoutName.text)
+            .description(workoutDescription.text)
+            .videoUrl(videoUrl)
+        let controller = segue.destinationViewController as! GeneralDetails2
+        controller.setBuilder(workoutBuilder)
+    }
+
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
@@ -66,21 +80,6 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
         picker.mediaTypes = [kUTTypeMovie]
         self.presentViewController(picker, animated: true, completion: nil)
-    }
-
-    @IBAction func save(sender: AnyObject) {
-        let workout = workoutBuilder.name(workoutName.text)
-            .workoutName(workoutName.text)
-            .description(workoutDescription.text)
-            .videoUrl(videoUrl)
-            .language("en")
-            .weights(false)
-            .dryGround(false)
-            .postRestTime(60)
-            .categories(WorkoutCategory.Cardio)
-            .save()
-        debugPrintln("saved workout \(workout.description)")
-        navigationController?.popToRootViewControllerAnimated(true)
     }
 
     @IBAction func cancel(sender: AnyObject) {

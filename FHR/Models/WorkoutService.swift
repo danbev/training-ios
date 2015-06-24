@@ -543,6 +543,11 @@ public class WorkoutBuilder: Printable {
         return self
     }
 
+    public func categories(categories: [WorkoutCategory]) -> Self {
+        workout.categories = WorkoutCategory.asCsvString(categories)
+        return self
+    }
+
     public func categories(categories: String) -> Self {
         workout.categories = categories
         return self
