@@ -59,8 +59,17 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     @IBAction func next(sender: AnyObject) {
         selectedType = workoutTypes[pickerView.selectedRowInComponent(0)]
-        debugPrintln("next \(selectedType.rawValue)")
-        performSegueWithIdentifier("repsDetailsSegue", sender: self)
+        switch selectedType {
+        case .Reps:
+            debugPrintln("next \(selectedType.rawValue)")
+            performSegueWithIdentifier("repsDetailsSegue", sender: self)
+        case .Timed:
+            performSegueWithIdentifier("durationDetailSegue", sender: self)
+        case .Interval:
+            println(workoutService)
+        case .Prebens:
+            println(workoutService)
+        }
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -69,7 +78,8 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
             let controller = segue.destinationViewController as! RepsInfoViewController
             controller.setWorkoutService(workoutService)
         case .Timed:
-            println(workoutService)
+            let controller = segue.destinationViewController as! DurationInfoViewController
+            controller.setWorkoutService(workoutService)
         case .Interval:
             println(workoutService)
         case .Prebens:

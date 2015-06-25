@@ -728,6 +728,7 @@
                     <connections>
                         <outlet property="pickerView" destination="nkn-gi-2xe" id="Yma-AE-0mP"/>
                         <segue destination="uo1-hw-v2I" kind="push" identifier="repsDetailsSegue" id="iLa-CI-clR"/>
+                        <segue destination="B5T-AN-cDZ" kind="push" identifier="durationDetailSegue" id="EVt-xz-tPm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1cD-hD-gBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1028,6 +1029,50 @@
             </objects>
             <point key="canvasLocation" x="1775" y="-372"/>
         </scene>
+        <!--Duration Info View Controller-->
+        <scene sceneID="81u-tg-VE1">
+            <objects>
+                <viewController storyboardIdentifier="DurationInfoViewController" id="B5T-AN-cDZ" customClass="DurationInfoViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="703-KH-6Pr"/>
+                        <viewControllerLayoutGuide type="bottom" id="FX4-mB-ifH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xXo-fR-ghw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHb-jP-Ath">
+                                <rect key="frame" x="22" y="54" width="132" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BML-Kk-CYm">
+                                <rect key="frame" x="195" y="51" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6mS-0k-57k">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="iG2-h6-gGY">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="next:" destination="B5T-AN-cDZ" id="BAB-Nx-9ld"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="durationTextField" destination="BML-Kk-CYm" id="7W7-MX-A3m"/>
+                        <segue destination="lbE-km-Yzs" kind="push" identifier="generalWorkoutDetails" id="fU6-wJ-mkI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m67-8f-j19" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2366" y="-70"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qqs-nj-uNR">
             <objects>
@@ -1063,6 +1108,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="fU6-wJ-mkI"/>
         <segue reference="Uce-f4-LAX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
