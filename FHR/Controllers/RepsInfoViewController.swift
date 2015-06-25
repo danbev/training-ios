@@ -13,15 +13,14 @@ import AVFoundation
 
 public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var repsLabel: UILabel!
     private var workoutService: WorkoutService!
     private var workoutType: WorkoutType!
     private var builder: RepsBuilder!
-    @IBOutlet weak var repsTextField: UITextField!
     @IBOutlet weak var approxTextField: UITextField!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        repsTextField.delegate = self
         approxTextField.delegate = self
     }
 
@@ -35,7 +34,7 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.reps(repsTextField.text.toInt()!).approx(approxTextField.text.toInt()!))
+        controller.setBuilder(workoutService.reps(repsLabel.text!.toInt()!).approx(approxTextField.text.toInt()!))
     }
 
     public func setWorkoutBuilder(builder: RepsBuilder) {
@@ -48,6 +47,14 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
             return false
         }
         return true
+    }
+
+    @IBAction func cancel(sender: AnyObject) {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
+
+    @IBAction func stepper(sender: UIStepper) {
+        repsLabel.text = Int(sender.value).description
     }
 
 }
