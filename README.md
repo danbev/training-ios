@@ -1,8 +1,5 @@
 # Faster Harder Stronger
 
-## Prerequisites 
-Xcode Version 6.1.1
-
 ## Building
 
 Building can be done by opening the project in Xcode:
