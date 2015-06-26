@@ -16,11 +16,10 @@ public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
     private var workoutService: WorkoutService!
     private var workoutType: WorkoutType!
     private var builder: DurationBuilder!
-    @IBOutlet weak var durationTextField: UITextField!
+    @IBOutlet weak var durationLabel: UILabel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        durationTextField.delegate = self
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
@@ -33,7 +32,7 @@ public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.duration(durationTextField.text.toInt()!))
+        controller.setBuilder(workoutService.duration(durationLabel.text!.toInt()!))
     }
 
     public func setWorkoutBuilder(builder: DurationBuilder) {
@@ -48,4 +47,7 @@ public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    @IBAction func stepper(sender: UIStepper) {
+        durationLabel.text = Int(sender.value).description
+    }
 }
