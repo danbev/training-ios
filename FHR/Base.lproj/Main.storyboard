@@ -872,11 +872,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="60" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jgy-6I-Tlv">
-                                <rect key="frame" x="176" y="266" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weights" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R8-df-flI">
                                 <rect key="frame" x="32" y="30" width="156" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -940,6 +935,18 @@
                                     <action selector="cancel:" destination="TNG-Ey-Qh9" eventType="touchUpInside" id="O2h-iN-pjJ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-tx-SXE">
+                                <rect key="frame" x="231" y="266" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="R8V-pF-ar3">
+                                <rect key="frame" x="145" y="262" width="94" height="29"/>
+                                <connections>
+                                    <action selector="stepper:" destination="TNG-Ey-Qh9" eventType="valueChanged" id="sVV-fp-mnP"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -949,7 +956,7 @@
                         <outlet property="cardioSwitch" destination="YAL-XV-kdZ" id="FuX-07-zhY"/>
                         <outlet property="dryGroundSwitch" destination="9EJ-Qy-rnq" id="506-dV-pOG"/>
                         <outlet property="lowerbodySwitch" destination="fsv-NK-Y8S" id="NNI-1I-PYH"/>
-                        <outlet property="postRestTimeField" destination="jgy-6I-Tlv" id="EIN-G9-70q"/>
+                        <outlet property="postRestLabel" destination="6zh-tx-SXE" id="yWd-PR-P0r"/>
                         <outlet property="upperbodySwitch" destination="0LQ-hF-Hta" id="IGk-jf-6W5"/>
                         <outlet property="warmupSwitch" destination="wkv-RJ-BPn" id="yuB-N0-ZtS"/>
                         <outlet property="weightsSwitch" destination="iQ5-dj-yjc" id="TC6-Ed-Y2X"/>

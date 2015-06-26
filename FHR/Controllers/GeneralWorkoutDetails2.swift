@@ -23,7 +23,7 @@ public class GeneralDetails2: UIViewController {
     @IBOutlet weak var upperbodySwitch: UISwitch!
     @IBOutlet weak var lowerbodySwitch: UISwitch!
     @IBOutlet weak var cardioSwitch: UISwitch!
-    @IBOutlet weak var postRestTimeField: UITextField!
+    @IBOutlet weak var postRestLabel: UILabel!
     private var categories = Set<WorkoutCategory>()
 
     public override func viewDidLoad() {
@@ -65,7 +65,7 @@ public class GeneralDetails2: UIViewController {
         let workout = workoutBuilder.language("en")
             .weights(weightsSwitch.on)
             .dryGround(dryGroundSwitch.on)
-            .postRestTime(postRestTimeField.text.toInt()!)
+            .postRestTime(postRestLabel.text!.toInt()!)
             .categories(gatherCategories())
             .save()
         debugPrintln("saved workout \(workout.description)")
@@ -77,4 +77,7 @@ public class GeneralDetails2: UIViewController {
         navigationController?.popToRootViewControllerAnimated(true)
     }
 
+    @IBAction func stepper(sender: UIStepper) {
+        postRestLabel.text = Int(sender.value).description
+    }
 }
