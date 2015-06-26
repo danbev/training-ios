@@ -729,6 +729,7 @@
                         <outlet property="pickerView" destination="nkn-gi-2xe" id="Yma-AE-0mP"/>
                         <segue destination="uo1-hw-v2I" kind="push" identifier="repsDetailsSegue" id="iLa-CI-clR"/>
                         <segue destination="B5T-AN-cDZ" kind="push" identifier="durationDetailSegue" id="EVt-xz-tPm"/>
+                        <segue destination="BSG-jK-eZL" kind="push" identifier="intervalDetailsSegue" id="Ekc-jF-i8u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1cD-hD-gBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1046,7 +1047,7 @@
                 <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="uBZ-I9-UIw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JU5-GJ-qsO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="-372"/>
+            <point key="canvasLocation" x="1829" y="-92"/>
         </scene>
         <!--Duration Info View Controller-->
         <scene sceneID="81u-tg-VE1">
@@ -1099,6 +1100,141 @@
             </objects>
             <point key="canvasLocation" x="2366" y="-70"/>
         </scene>
+        <!--Interval Info View Controller-->
+        <scene sceneID="90v-Sb-A5o">
+            <objects>
+                <viewController storyboardIdentifier="IntervalInfoViewController" id="BSG-jK-eZL" customClass="IntervalInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VIA-zd-0m5"/>
+                        <viewControllerLayoutGuide type="bottom" id="3QZ-ah-khY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="08F-de-lHq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout task" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M6P-of-9aY">
+                                <rect key="frame" x="105" y="20" width="111" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WSU-aV-cNT">
+                                <rect key="frame" x="77" y="37" width="166" height="137"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BSG-jK-eZL" id="0rn-1P-2pl"/>
+                                    <outlet property="delegate" destination="BSG-jK-eZL" id="R55-b5-hel"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rest task" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDW-Kc-Jaa">
+                                <rect key="frame" x="105" y="220" width="111" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hw5-rl-R55">
+                                <rect key="frame" x="87" y="241" width="147" height="126"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BSG-jK-eZL" id="Ari-RZ-Ivy"/>
+                                    <outlet property="delegate" destination="BSG-jK-eZL" id="1Nf-6s-kDZ"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of intervals" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fB-YF-jRf">
+                                <rect key="frame" x="16" y="418" width="160" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buk-7l-Q3S">
+                                <rect key="frame" x="262" y="418" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="jIj-Tv-cEs">
+                                <rect key="frame" x="178" y="414" width="94" height="29"/>
+                                <connections>
+                                    <action selector="stepper:" destination="BSG-jK-eZL" eventType="valueChanged" id="6se-We-MIh"/>
+                                </connections>
+                            </stepper>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXm-RB-QKa">
+                                <rect key="frame" x="16" y="460" width="63" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="BSG-jK-eZL" eventType="touchUpInside" id="ZZP-Jd-wMK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmM-ya-b31">
+                                <rect key="frame" x="16" y="182" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54h-Ue-IIG">
+                                <rect key="frame" x="262" y="182" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="oqA-GZ-MMp">
+                                <rect key="frame" x="178" y="178" width="94" height="29"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="workDurationStepper:" destination="BSG-jK-eZL" eventType="valueChanged" id="a4S-jW-xB4"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXu-h1-UYi">
+                                <rect key="frame" x="16" y="367" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPd-7h-6eM">
+                                <rect key="frame" x="262" y="367" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="iyK-UO-8G8">
+                                <rect key="frame" x="178" y="363" width="94" height="29"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="restDurationStepper:" destination="BSG-jK-eZL" eventType="valueChanged" id="H0n-0J-sv9"/>
+                                </connections>
+                            </stepper>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NND-D9-7p0">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="fAZ-Oe-F20">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="next:" destination="BSG-jK-eZL" id="7YS-bg-58T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="intervalsLabel" destination="Buk-7l-Q3S" id="k6D-J4-7GG"/>
+                        <outlet property="restDurationLabel" destination="YPd-7h-6eM" id="7IF-bR-0yu"/>
+                        <outlet property="restPicker" destination="hw5-rl-R55" id="Hh3-ni-NXc"/>
+                        <outlet property="workDurationLabel" destination="54h-Ue-IIG" id="3Xy-oo-QM9"/>
+                        <outlet property="workoutPicker" destination="WSU-aV-cNT" id="vhv-ZA-aZu"/>
+                        <segue destination="lbE-km-Yzs" kind="push" identifier="generalWorkoutDetails" id="q3O-VS-miu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="at1-BX-TIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2801" y="3"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qqs-nj-uNR">
             <objects>
@@ -1134,7 +1270,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zlv-4g-cht"/>
+        <segue reference="q3O-VS-miu"/>
         <segue reference="Uce-f4-LAX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

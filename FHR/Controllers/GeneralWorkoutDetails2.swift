@@ -73,7 +73,6 @@ public class GeneralDetails2: UIViewController {
     }
 
     @IBAction func cancel(sender: AnyObject) {
-        debugPrintln("cancel add workout")
         navigationController?.popToRootViewControllerAnimated(true)
     }
 
