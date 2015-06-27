@@ -27,7 +27,7 @@ public struct Settings {
     public static func settings() -> Settings {
         let weights = enabled("weights", defaultValue: true)
         let dryGround = enabled("dryGround", defaultValue: true)
-        let warmup = enabled("warmup", defaultValue: true)
+        let warmup = enabled(WorkoutCategory.Warmup.rawValue, defaultValue: true)
         let duration = readDuration(2700)
         return Settings(weights: weights, dryGround: dryGround, warmup: warmup, duration: duration, ignoredCategories: readIgnoredCategories())
     }
