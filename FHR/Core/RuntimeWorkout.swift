@@ -29,7 +29,7 @@ public class RuntimeWorkout {
 
     public func warmupCompleted(warmupSetting: Bool, numberOfWarmups: Int) -> Bool {
         if !warmupSetting {
-            return false
+            return true
         }
         return currentUserWorkout.workouts.count >= numberOfWarmups
     }

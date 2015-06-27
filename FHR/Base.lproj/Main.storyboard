@@ -1712,8 +1712,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Uce-f4-LAX"/>
         <segue reference="q3O-VS-miu"/>
+        <segue reference="wFi-Va-VqV"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

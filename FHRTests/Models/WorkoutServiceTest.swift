@@ -121,8 +121,8 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertNotNil(intervalWorkout)
         XCTAssertEqual("BurpeesInterval", intervalWorkout.workoutName)
         XCTAssertEqual("Burpees and Chopups", intervalWorkout.workoutDescription)
-        XCTAssertEqual(burpees, intervalWorkout.work)
-        XCTAssertEqual(chopups, intervalWorkout.rest)
+        XCTAssertEqual(burpees.workoutName, intervalWorkout.work.workoutName)
+        XCTAssertEqual(chopups.workoutName, intervalWorkout.rest.workoutName)
     }
 
     func testLoadDatabase() {

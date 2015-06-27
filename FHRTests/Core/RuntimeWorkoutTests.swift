@@ -111,4 +111,18 @@ class RuntimeWorkoutTests: XCTestCase {
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category())
     }
 
+    func testWarmupCompleted() {
+        workoutService.loadDataIfNeeded()
+        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let lastId = NSUUID().UUIDString
+        let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
+        workoutService.updateUserWorkout(lastId, optionalWorkout: nil, workoutTime: 5.0, done: true)
+
+        let currentId = NSUUID().UUIDString
+        let currentWorkout = workoutService.saveUserWorkout(currentId, category: WorkoutCategory.UpperBody, workout: warmup)
+
+        let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
+        XCTAssertTrue(runtimeWorkout.warmupCompleted(false, numberOfWarmups: 2))
+    }
+
 }
