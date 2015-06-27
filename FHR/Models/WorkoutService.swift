@@ -354,8 +354,8 @@ public class WorkoutService {
         return DurationBuilder(workoutService: self).duration(duration)
     }
 
-    public func interval(work: DurationWorkout, rest: DurationWorkout) -> IntervalBuilder {
-        return IntervalBuilder(workoutService: self).work(work).rest(rest)
+    public func interval(work: DurationWorkout, duration: Int) -> IntervalBuilder {
+        return IntervalBuilder(workoutService: self).work(work, duration: duration)
     }
 
     public func prebens() -> PrebensBuilder {
@@ -473,7 +473,8 @@ public class WorkoutService {
                 .postRestTime(restJson["rest"] as! NSNumber)
                 .categories(restJson["categories"] as! String)
                 .save()
-            let intervalWorkout = interval(work, rest: rest)
+            let intervalWorkout = interval(work, duration: work.duration.integerValue)
+                .rest(rest, duration: rest.duration.integerValue)
                 .name(workout.name)
                 .workoutName(jsonDictionary["name"] as! String)
                 .intervals(jsonDictionary["intervals"] as! Int)
@@ -626,19 +627,25 @@ public class DurationBuilder: WorkoutBuilder {
 public class IntervalBuilder: WorkoutBuilder {
 
     let intervalWorkout: IntervalWorkout
+    var work: DurationWorkout!
+    var rest: DurationWorkout!
+    var workDuration: Int!
+    var restWorkoutDuration: Int!
 
     init(workoutService: WorkoutService) {
         intervalWorkout = workoutService.newIntervalWorkout()
         super.init(workout: intervalWorkout, workoutService: workoutService)
     }
 
-    public func work(work: DurationWorkout) -> Self {
-        intervalWorkout.work = work
+    public func work(work: DurationWorkout, duration: Int) -> Self {
+        self.work = work
+        workDuration = duration
         return self
     }
 
-    public func rest(rest: DurationWorkout) -> Self {
-        intervalWorkout.rest = rest
+    public func rest(rest: DurationWorkout, duration: Int) -> Self {
+        self.rest = rest
+        restWorkoutDuration = duration
         return self
     }
 
@@ -648,8 +655,25 @@ public class IntervalBuilder: WorkoutBuilder {
     }
 
     override public func save() -> IntervalWorkout {
+        intervalWorkout.work = fromWorkout(work, duration: workDuration)
+        intervalWorkout.rest = fromWorkout(rest, duration: restWorkoutDuration)
         saveContext()
         return intervalWorkout
+    }
+
+    private func fromWorkout(workout: DurationWorkout, duration: Int) -> DurationWorkout {
+        let newWorkout = workoutService.newDurationWorkout()
+        newWorkout.duration = duration
+        newWorkout.name = workout.name
+        newWorkout.workoutName = workout.workoutName
+        newWorkout.workoutDescription = workout.workoutDescription
+        newWorkout.videoUrl = workout.videoUrl
+        newWorkout.language = workout.language
+        newWorkout.weights = workout.weights
+        newWorkout.dryGround = workout.dryGround
+        newWorkout.restTime = 0
+        newWorkout.categories = "Interval"
+        return newWorkout
     }
 
 }

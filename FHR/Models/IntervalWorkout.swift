@@ -17,7 +17,7 @@ public class IntervalWorkout: Workout {
     @NSManaged public var intervals: NSNumber
 
     public override var description: String {
-        return "IntervalWorkout[name=\(workoutName), work=\(work.description)), rest=\(rest.description), intervals=\(intervals)]"
+        return "IntervalWorkout[\(super.description), intervals=\(intervals), work=\(work.description)), rest=\(rest.description)]"
     }
 
 }
