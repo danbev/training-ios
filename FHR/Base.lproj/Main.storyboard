@@ -1496,7 +1496,7 @@
                     <connections>
                         <outlet property="tableView" destination="kml-bw-qqG" id="hrV-zr-ZBk"/>
                         <segue destination="FMn-yo-4cm" kind="modal" identifier="infoSegue" id="Avh-Av-anV"/>
-                        <segue destination="lbE-km-Yzs" kind="push" identifier="generalWorkoutDetails" id="qct-GB-qzC"/>
+                        <segue destination="lbE-km-Yzs" kind="push" identifier="k" id="qct-GB-qzC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VsP-FF-rzA" userLabel="First Responder" sceneMemberID="firstResponder"/>

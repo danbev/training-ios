@@ -23,6 +23,7 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
     public override func viewDidLoad() {
         super.viewDidLoad()
         workouts = workoutService.fetchRepsWorkouts()!
+        tableView.allowsMultipleSelectionDuringEditing = false;
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
@@ -101,5 +102,12 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
         cell.textLabel!.textColor = UIColor.whiteColor()
         cell.detailTextLabel?.text = task.repititions.stringValue
         return cell;
+    }
+
+    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            selectedWorkouts.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
     }
 }
