@@ -689,6 +689,13 @@ public class PrebensBuilder: WorkoutBuilder {
         super.init(workout: prebensWorkout, workoutService: workoutService)
     }
 
+    public func workouts(workouts: [RepsWorkout]) -> Self {
+        for w in workouts {
+            workItem(w)
+        }
+        return self
+    }
+
     public func workItem(repsWorkout: RepsWorkout) -> Self {
         prebensWorkouts.addObject(repsWorkout)
         prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet

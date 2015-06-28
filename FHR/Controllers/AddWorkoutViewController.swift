@@ -66,10 +66,9 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         case .Timed:
             performSegueWithIdentifier("durationDetailSegue", sender: self)
         case .Interval:
-            println(workoutService)
             performSegueWithIdentifier("intervalDetailsSegue", sender: self)
         case .Prebens:
-            println(workoutService)
+            performSegueWithIdentifier("prebensDetailsSegue", sender: self)
         }
     }
 
@@ -85,7 +84,8 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
             let controller = segue.destinationViewController as! IntervalInfoViewController
             controller.setWorkoutService(workoutService)
         case .Prebens:
-            println(workoutService)
+            let controller = segue.destinationViewController as! PrebensInfoViewController
+            controller.setWorkoutService(workoutService)
         }
         println("Prepare for segue:\(segue.identifier)")
     }
