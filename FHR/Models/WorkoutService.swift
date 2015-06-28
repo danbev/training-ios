@@ -696,6 +696,23 @@ public class PrebensBuilder: WorkoutBuilder {
         return self
     }
 
+    public func workItemFrom(workout: RepsWorkout, reps: Int) -> Self {
+        let newRepsWorkout = workoutService.newRepsWorkout()
+        newRepsWorkout.repititions = reps
+        newRepsWorkout.name = workout.name
+        newRepsWorkout.workoutName = workout.name
+        newRepsWorkout.workoutDescription = workout.workoutDescription
+        newRepsWorkout.videoUrl = workout.videoUrl
+        newRepsWorkout.language = workout.language
+        newRepsWorkout.weights = workout.weights
+        newRepsWorkout.dryGround = workout.dryGround
+        newRepsWorkout.approx = workout.approx
+        newRepsWorkout.restTime = workout.restTime
+        newRepsWorkout.categories = "Prebens"
+        workItem(newRepsWorkout)
+        return self
+    }
+
     public func workItem(repsWorkout: RepsWorkout) -> Self {
         prebensWorkouts.addObject(repsWorkout)
         prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet

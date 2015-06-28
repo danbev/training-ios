@@ -17,7 +17,7 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
     private var workoutService: WorkoutService!
     private var builder: PrebensBuilder!
     private var workouts = [RepsWorkout]()
-    private var selectedWorkouts = [RepsWorkout]()
+    private var selectedWorkouts = [WorkoutContainer]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
@@ -42,7 +42,11 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
             infoController.initWith(workout)
         } else {
             let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-            controller.setBuilder(workoutService.prebens().workouts(selectedWorkouts))
+            let prebensBuilder = workoutService.prebens()
+            for r in selectedWorkouts {
+                prebensBuilder.workItemFrom(r.workout, reps: r.reps)
+            }
+            controller.setBuilder(prebensBuilder)
         }
     }
 
@@ -61,18 +65,28 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         println("picked row: \(row)")
         let workout = workouts[row]
-        selectedWorkouts.append(workout)
-        tableView.reloadData()
+        var alert = UIAlertController(title: "Reps", message: "Enter number of reps", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = "10"
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { [unowned self] (action) -> Void in
+        }))
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { [unowned self] (action) -> Void in
+            let textField = alert.textFields![0] as! UITextField
+            self.selectedWorkouts.append(WorkoutContainer(workout: workout, reps: textField.text.toInt()!))
+            self.tableView.reloadData()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let workoutName = workouts[row].workoutName
+        let workoutName = workouts[row].name
         let attributedString = NSAttributedString(string: workoutName, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 10.0)!, NSForegroundColorAttributeName : UIColor.whiteColor()])
         return attributedString
     }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
-        let titleData = workouts[row].workoutName
+        let titleData = workouts[row].name
         let pickerLabel = UILabel()
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
         pickerLabel.attributedText = myTitle
@@ -87,8 +101,8 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
     }
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let workout = selectedWorkouts[indexPath.row]
-        performSegueWithIdentifier("infoSegue", sender: workout)
+        let workoutContainer = selectedWorkouts[indexPath.row]
+        performSegueWithIdentifier("infoSegue", sender: workoutContainer.workout)
     }
 
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,10 +111,10 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
-        let task = selectedWorkouts[indexPath.row]
-        cell.textLabel!.text = task.workoutName
+        let workoutContainer = selectedWorkouts[indexPath.row]
+        cell.textLabel!.text = workoutContainer.workout.name
         cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.detailTextLabel?.text = task.repititions.stringValue
+        cell.detailTextLabel?.text = String(workoutContainer.reps)
         return cell;
     }
 
@@ -110,4 +124,10 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }
+
+    private struct WorkoutContainer {
+        let workout: RepsWorkout
+        let reps: Int
+    }
 }
+
