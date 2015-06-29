@@ -23,21 +23,25 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var infoButton: UIButton!
     let audioWarning = AudioWarning.instance
+    let bgQueue = NSOperationQueue()
 
     public var workout : Workout!
     var restTimer: CountDownTimer!
+    var restTimerFromMain: CountDownTimer?
     var workTimer: Timer!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.workoutName
+        // the timer callback should not be called before this view is loaded.
+        restTimer(restTimerFromMain)
         initializeTimer()
     }
 
     public func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         self.workout = workout
         self.didFinish = finishDelegate
-        self.restTimer(restTimer)
+        restTimerFromMain = restTimer
     }
 
     func initializeTimer() {
@@ -79,29 +83,31 @@ public class BaseWorkoutController: UIViewController {
     }
 
     public func updateTime(timer: CountDownTimer) {
-        let (min, sec) = timer.elapsedTime()
-        if min >= 0 && sec > 0 {
-            if min == 0 && sec < 10 {
-                restTimerLabel.textColor = UIColor.orangeColor()
-            }
-            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
-            if  min == 0 && sec <= 3 {
-                audioWarning.play()
-            }
-        } else {
-            if doneButton != nil {
-                doneButton.hidden = false
-            }
+        let (min, sec, fra) = timer.elapsedTime()
+        if min == 0 && sec == 0 && fra == 0 {
             restTimer.stop()
             timeLabel.text = "Workout time:"
             restTimerLabel.textColor = UIColor.whiteColor()
             startWorkTimer(workout)
+            if doneButton != nil {
+                doneButton.hidden = false
+            }
+        } else {
+            if min == 0 && sec < 10 {
+                restTimerLabel.textColor = UIColor.orangeColor()
+            }
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+            if  min == 0 && sec <= 3 {
+                bgQueue.addOperationWithBlock() {
+                    self.audioWarning.play()
+                }
+            }
         }
     }
 
     public func updateWorkTime(timer: Timer) {
-        let (min, sec) = timer.elapsedTime()
-        restTimerLabel.text = Timer.timeAsString(min, sec: sec)
+        let (min, sec, fra) = timer.elapsedTime()
+        restTimerLabel.text = Timer.timeAsString(min, sec: sec, fra: fra)
     }
 
     @IBAction func info(sender: AnyObject) {

@@ -118,14 +118,14 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     }
 
     public func workDurationCallback(timer: CountDownTimer) {
-        let (min, sec) = timer.elapsedTime()
+        let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
+            workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
             if  min == 0 && sec <= 3 {
                 audioWarning.play()
             }
         } else {
-            workCell()?.detailTextLabel?.text = "00:00"
+            workCell()?.detailTextLabel?.text = "00:00:00"
             timer.stop()
             labelsRestState()
             countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest.duration.doubleValue)
@@ -133,14 +133,14 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     }
 
     public func restDurationCallback(timer: CountDownTimer) {
-        let (min, sec) = timer.elapsedTime()
+        let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec)
+            restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
             if  min == 0 && sec <= 3 {
                 audioWarning.play()
             }
         } else {
-            restCell()?.detailTextLabel?.text = "00:00"
+            restCell()?.detailTextLabel?.text = "00:00:00"
             timer.stop()
             if intervalCounter < intervalWorkout.intervals.integerValue {
                 labelsWorkoutState()

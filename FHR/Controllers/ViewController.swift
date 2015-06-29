@@ -67,19 +67,23 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    var bgQueue = NSOperationQueue()
+
     public func updateTime(timer: CountDownTimer) {
         if timerLabel.hidden == true {
             timerLabel.hidden = false
         }
-        let (min, sec) = timer.elapsedTime()
+        let (min, sec, fra) = timer.elapsedTime()
         if min == 0 && sec < 10 {
             timerLabel.textColor = UIColor.orangeColor()
         }
         if min == 0 && sec <= 3 {
-            audioWarning.play()
+            bgQueue.addOperationWithBlock() {
+                self.audioWarning.play()
+            }
         }
-        timerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
-        if min == 0 && sec <= 0 {
+        timerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+        if min == 0 && sec == 0 && fra <= 0 {
             timer.stop()
             if !preparedForSeque {
                 transition()
@@ -282,7 +286,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec)).")
+            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec, fra: elapsedTime.fra)).")
             stopWorkout()
         }
     }
@@ -332,7 +336,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var counter: Int = 0 {
         didSet {
-            let fractionalProgress = Float(counter) / 100.0
+            let fractionalProgress = Float(counter) / 1000.0
             let animated = counter != 0
             progressView.setProgress(fractionalProgress, animated: animated)
         }

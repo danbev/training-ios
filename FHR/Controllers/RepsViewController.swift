@@ -47,7 +47,7 @@ public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UIT
             cell.textLabel!.textAlignment = NSTextAlignment.Center
             cell.textLabel!.textColor = UIColor.whiteColor()
         } else {
-            cell.textLabel!.text = "00:00"
+            cell.textLabel!.text = "00:00:00"
             cell.textLabel!.textAlignment = NSTextAlignment.Center
             cell.textLabel!.textColor = UIColor.whiteColor()
         }

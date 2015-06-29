@@ -41,12 +41,12 @@ public class DurationViewController: BaseWorkoutController {
     }
 
     public func durationCallback(timer: CountDownTimer) {
-        let (min, sec) = timer.elapsedTime()
-        if min >= 0 && sec > 0 {
-            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec)
-        } else {
+        let (min, sec, fra) = timer.elapsedTime()
+        if min == 0 && sec == 0 && fra == 0 {
             timer.stop()
             self.didFinish!(self, duration: durationWorkout.duration.doubleValue)
+        } else {
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
         }
     }
 

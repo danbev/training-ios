@@ -23,7 +23,7 @@ public class Timer: NSObject {
         self.callback = callback
         start = startTime
         super.init()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target:self, selector: Selector("updateTime:"), userInfo: nil, repeats: true)
     }
 
     public class func fromTimer(timer: Timer, callback: Callback) -> Timer {
@@ -48,16 +48,19 @@ public class Timer: NSObject {
         return currentTime - start
     }
 
-    public func elapsedTime() -> (min: UInt8, sec: UInt8) {
+    public func elapsedTime() -> (min: UInt8, sec: UInt8, fra: UInt8) {
         var currentTime = NSDate.timeIntervalSinceReferenceDate()
-        var elapsedTime = (currentTime - start)
+        var elapsedTime: NSTimeInterval = currentTime - start
         let minutes = UInt8(elapsedTime / 60.0)
         elapsedTime -= (NSTimeInterval(minutes) * 60)
-        return (minutes, UInt8(elapsedTime))
+        let seconds = UInt8(elapsedTime)
+        elapsedTime -= NSTimeInterval(seconds)
+        let fraction = UInt8(elapsedTime * 100)
+        return (minutes, seconds, fraction)
     }
 
-    public class func timeAsString(min: UInt8, sec: UInt8) -> String {
-        return "\(prefix(min)):\(prefix(sec))"
+    public class func timeAsString(min: UInt8, sec: UInt8, fra: UInt8) -> String {
+        return "\(prefix(min)):\(prefix(sec)):\(prefix(fra))"
     }
 
     private class func prefix(time: UInt8) -> String {
