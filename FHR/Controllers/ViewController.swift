@@ -336,7 +336,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var counter: Int = 0 {
         didSet {
-            let fractionalProgress = Float(counter) / 1000.0
+            let fractionalProgress = Float(counter) / 60000.0
             let animated = counter != 0
             progressView.setProgress(fractionalProgress, animated: animated)
         }
