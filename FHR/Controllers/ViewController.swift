@@ -32,6 +32,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var preparedForSeque = false
     private var runtimeWorkout: RuntimeWorkout!
     private var audioWarning = AudioWarning.instance
+    private var bgQueue = NSOperationQueue()
     var settings: Settings!
 
     public override func viewDidLoad() {
@@ -42,6 +43,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         loadLastWorkout()
         updateTitle()
         settings = Settings.settings()
+        timerLabel.textColor = UIColor.orangeColor()
     }
 
     private func loadLastWorkout() {
@@ -67,16 +69,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    var bgQueue = NSOperationQueue()
-
     public func updateTime(timer: CountDownTimer) {
         if timerLabel.hidden == true {
             timerLabel.hidden = false
         }
         let (min, sec, fra) = timer.elapsedTime()
-        if min == 0 && sec < 10 {
-            timerLabel.textColor = UIColor.orangeColor()
-        }
         if min == 0 && sec <= 3 {
             bgQueue.addOperationWithBlock() {
                 self.audioWarning.play()
@@ -259,7 +256,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         preparedForSeque = false;
         debugPrintln("Finished workout \(workout.name), duration=\(duration)")
         workoutService.saveUserWorkouts(workout.workoutName, duration: duration)
-        timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
         debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
         let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())

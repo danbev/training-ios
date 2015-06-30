@@ -36,6 +36,7 @@ public class BaseWorkoutController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.workoutName
+        restTimerLabel.textColor = UIColor.orangeColor()
         // the timer callback should not be called before this view is loaded.
         restTimer(restTimerFromMain)
         initializeTimer()
@@ -71,7 +72,7 @@ public class BaseWorkoutController: UIViewController {
     }
 
     func setWorkoutTimeLabel() {
-        timeLabel.tintColor = UIColor.whiteColor()
+        timeLabel.textColor = UIColor.whiteColor()
         timeLabel.text = "Workout time:"
     }
 
@@ -91,16 +92,12 @@ public class BaseWorkoutController: UIViewController {
         if min == 0 && sec == 0 && fra == 0 {
             restTimer.stop()
             timeLabel.text = "Workout time:"
-            restTimerLabel.textColor = UIColor.whiteColor()
             startWorkTimer(workout)
             showLastWorkoutTime()
             if doneButton != nil {
                 doneButton.hidden = false
             }
         } else {
-            if min == 0 && sec < 10 {
-                restTimerLabel.textColor = UIColor.orangeColor()
-            }
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
             if  min == 0 && sec <= 3 {
                 bgQueue.addOperationWithBlock() {
