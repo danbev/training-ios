@@ -37,7 +37,7 @@ class IntervalViewControllerTests: XCTestCase {
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
-        controller.initWith(workout, restTimer: restTimer) { controller, duration in }
+        controller.initWith(workout, userWorkouts: nil, restTimer: restTimer) { controller, duration in }
         controller.viewDidLoad()
 
         waitForExpectationsWithTimeout(3) { (error) in
@@ -53,7 +53,7 @@ class IntervalViewControllerTests: XCTestCase {
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
-        controller.initWith(workout, restTimer: restTimer) { controller, duration in }
+        controller.initWith(workout, userWorkouts: nil, restTimer: restTimer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())

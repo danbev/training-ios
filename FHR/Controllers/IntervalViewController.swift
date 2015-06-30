@@ -39,8 +39,8 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         intervalsLabel.text = String(intervals)
     }
 
-    public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
-        super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
+    public override func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         intervalWorkout = workout as! IntervalWorkout
         intervals = intervalWorkout.intervals.integerValue
         workouts.append(intervalWorkout.work)

@@ -245,9 +245,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]
-            self.workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+            workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
-            baseViewController.initWith(workout, restTimer: restTimer) {
+            let userWorkouts = workoutService.fetchUserWorkouts(workout.workoutName)
+            baseViewController.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer) {
                 [unowned self] controller, duration in
                 self.finishedWorkout(indexPath, workout: workout, duration: duration)
             }
@@ -257,6 +258,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
         debugPrintln("Finished workout \(workout.name), duration=\(duration)")
+        workoutService.saveUserWorkouts(workout.workoutName, duration: duration)
         timerLabel.textColor = UIColor.whiteColor()
         var totalTime = workoutTimer.elapsedTime()
         debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")

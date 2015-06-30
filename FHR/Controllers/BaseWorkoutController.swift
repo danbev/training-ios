@@ -22,11 +22,14 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var restTimerLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var previousWorkTimeLabel: UILabel!
+    @IBOutlet weak var previousWorkTime: UILabel!
     let audioWarning = AudioWarning.instance
     let bgQueue = NSOperationQueue()
 
     public var workout : Workout!
     var restTimer: CountDownTimer!
+    var userWorkouts: UserWorkouts?
     var restTimerFromMain: CountDownTimer?
     var workTimer: Timer!
 
@@ -38,9 +41,10 @@ public class BaseWorkoutController: UIViewController {
         initializeTimer()
     }
 
-    public func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         self.workout = workout
         self.didFinish = finishDelegate
+        self.userWorkouts = userWorkouts
         restTimerFromMain = restTimer
     }
 
@@ -89,6 +93,7 @@ public class BaseWorkoutController: UIViewController {
             timeLabel.text = "Workout time:"
             restTimerLabel.textColor = UIColor.whiteColor()
             startWorkTimer(workout)
+            showLastWorkoutTime()
             if doneButton != nil {
                 doneButton.hidden = false
             }
@@ -102,6 +107,15 @@ public class BaseWorkoutController: UIViewController {
                     self.audioWarning.play()
                 }
             }
+        }
+    }
+
+    private func showLastWorkoutTime() {
+        if let last = userWorkouts {
+            previousWorkTimeLabel?.hidden = false
+            previousWorkTime?.hidden = false
+            let (min, sec, fra) = Timer.elapsedTime(last.duration)
+            previousWorkTime?.text = Timer.timeAsString(min, sec: sec, fra: fra)
         }
     }
 

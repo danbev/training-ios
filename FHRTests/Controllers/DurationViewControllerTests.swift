@@ -23,7 +23,6 @@ class DurationViewControllerTests: XCTestCase {
         controller = storyboard.instantiateViewControllerWithIdentifier("DurationViewController") as! DurationViewController
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
-        //let dummy = controller.view
         controller.loadView()
     }
 
@@ -39,7 +38,7 @@ class DurationViewControllerTests: XCTestCase {
             expectation.fulfill()
             dt.stop()
             }, countDown: 60)
-        controller.initWith(workout, restTimer: timer) { controller, duration in }
+        controller.initWith(workout, userWorkouts: nil, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())

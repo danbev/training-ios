@@ -28,8 +28,8 @@ public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UIT
         repsLabel.text = repsWorkout.repititions.stringValue
     }
 
-    public override func initWith(workout: Workout, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
-        super.initWith(workout, restTimer: restTimer, finishDelegate: finishDelegate)
+    public override func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+        super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         repsWorkout = workout as! RepsWorkout
     }
 

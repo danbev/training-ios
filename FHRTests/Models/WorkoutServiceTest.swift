@@ -365,5 +365,23 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("The Worm", intervalWorkout.work.workoutName)
         XCTAssertEqual("Mountain climber", intervalWorkout.rest.workoutName)
     }
+
+    func testSaveUserWorkouts() {
+        ws.loadDataIfNeeded()
+        var userWorkouts = ws.saveUserWorkouts("Getups", duration: 10.0)
+        XCTAssertEqual("Getups", userWorkouts!.workoutName);
+        XCTAssertEqual(10.0, userWorkouts!.duration);
+        userWorkouts = ws.saveUserWorkouts("Getups", duration: 8.0)
+        XCTAssertEqual(8.0, userWorkouts!.duration);
+    }
+
+    func testFetchUserWorkouts() {
+        ws.loadDataIfNeeded()
+        ws.saveUserWorkouts("Getups", duration: 10.0)
+        let userWorkouts = ws.fetchUserWorkouts("Getups")
+        XCTAssertNotNil(userWorkouts)
+        XCTAssertEqual("Getups", userWorkouts!.workoutName);
+        XCTAssertEqual(10.0, userWorkouts!.duration);
+    }
 }
 

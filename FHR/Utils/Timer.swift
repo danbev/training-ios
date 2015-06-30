@@ -59,6 +59,17 @@ public class Timer: NSObject {
         return (minutes, seconds, fraction)
     }
 
+    public class func elapsedTime(duration: Double) -> (min: UInt8, sec: UInt8, fra: UInt8) {
+        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        var elapsedTime: NSTimeInterval = duration
+        let minutes = UInt8(elapsedTime / 60.0)
+        elapsedTime -= (NSTimeInterval(minutes) * 60)
+        let seconds = UInt8(elapsedTime)
+        elapsedTime -= NSTimeInterval(seconds)
+        let fraction = UInt8(elapsedTime * 100)
+        return (minutes, seconds, fraction)
+    }
+
     public class func timeAsString(min: UInt8, sec: UInt8, fra: UInt8) -> String {
         return "\(prefix(min)):\(prefix(sec)):\(prefix(fra))"
     }

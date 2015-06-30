@@ -18,6 +18,7 @@ public class WorkoutService {
     private static let prebensEntityName = "PrebensWorkout"
     private let workoutEntityName = "Workout"
     private let userWorkoutEntityName = "UserWorkout"
+    private let userWorkoutsEntityName = "UserWorkouts"
     private var context: NSManagedObjectContext
 
     public init(context: NSManagedObjectContext) {
@@ -156,6 +157,28 @@ public class WorkoutService {
             debugPrintln("Could not fetch \(error), \(error!.userInfo)")
         }
         return nil
+    }
+
+    public func saveUserWorkouts(workoutName: String, duration: Double) -> UserWorkouts? {
+        let userWorkoutsEntity = NSEntityDescription.entityForName(userWorkoutsEntityName, inManagedObjectContext: context)
+        let userWorkouts = UserWorkouts(entity: userWorkoutsEntity!, insertIntoManagedObjectContext: context)
+        userWorkouts.workoutName = workoutName
+        userWorkouts.duration = duration
+        saveContext()
+        return userWorkouts
+    }
+
+    public func fetchUserWorkouts(workoutName: String) -> UserWorkouts? {
+        let fetchRequest = NSFetchRequest(entityName: userWorkoutsEntityName)
+        fetchRequest.predicate = NSPredicate(format: "workoutName == %@", workoutName)
+        var error: NSError?
+        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkouts]?
+        if let results = fetchedResults {
+            return results.first
+        } else {
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
+            return nil
+        }
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {

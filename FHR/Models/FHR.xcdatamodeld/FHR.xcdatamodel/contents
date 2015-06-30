@@ -25,6 +25,10 @@
         <attribute name="weights" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Workout" inverseName="userWorkout" inverseEntity="Workout" syncable="YES"/>
     </entity>
+    <entity name="UserWorkouts" representedClassName="FHR.UserWorkouts" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="workoutName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Workout" representedClassName="FHR.Workout" isAbstract="YES" syncable="YES">
         <attribute name="categories" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dryGround" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -46,5 +50,6 @@
         <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="75"/>
         <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="165"/>
         <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
+        <element name="UserWorkouts" positionX="-1233" positionY="-549" width="128" height="75"/>
     </elements>
 </model>

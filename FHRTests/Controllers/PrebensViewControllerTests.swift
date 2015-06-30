@@ -39,7 +39,7 @@ class PrebensViewControllerTests: XCTestCase {
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
-        controller.initWith(workout, restTimer: timer) { controller, duration in }
+        controller.initWith(workout, userWorkouts: nil, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())
