@@ -34,12 +34,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var audioWarning = AudioWarning.instance
     private var bgQueue = NSOperationQueue()
     var settings: Settings!
+    let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
-        progressView.progressTintColor = UIColor.greenColor()
+        progressView.progressTintColor = greenColor
         loadLastWorkout()
         updateTitle()
         settings = Settings.settings()
@@ -142,7 +143,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))!
         cell.userInteractionEnabled = false
         cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        cell.tintColor = UIColor.greenColor()
+        cell.tintColor = greenColor
         return cell
     }
 
@@ -311,7 +312,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         progressView.setProgress(1.0, animated: false)
         startButton.hidden = false
         startButton.setTitle("Start \(runtimeWorkout.category())", forState: UIControlState.Normal)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.greenColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:greenColor]
         cancelButton.hidden = true
     }
 

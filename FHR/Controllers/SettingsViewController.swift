@@ -31,7 +31,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     var currentUserWorkout: UserWorkout!
     var userDefaults: NSUserDefaults!
-    let onTintColor = UIColor.greenColor()
+    let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
     var times = [Times.Thirty, Times.ThirtyFive, Times.Fourty, Times.FourtyFive]
 
     @IBOutlet weak var doneButton: UIButton!

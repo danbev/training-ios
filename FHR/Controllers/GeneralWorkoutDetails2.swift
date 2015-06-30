@@ -25,6 +25,7 @@ public class GeneralDetails2: UIViewController {
     @IBOutlet weak var cardioSwitch: UISwitch!
     @IBOutlet weak var postRestLabel: UILabel!
     private var categories = Set<WorkoutCategory>()
+    private let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,11 +34,17 @@ public class GeneralDetails2: UIViewController {
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         weightsSwitch.setOn(false, animated: false)
+        weightsSwitch.onTintColor = onTintColor
         dryGroundSwitch.setOn(false, animated: false)
+        dryGroundSwitch.onTintColor = onTintColor
         warmupSwitch.setOn(false, animated: false)
+        warmupSwitch.onTintColor = onTintColor
         upperbodySwitch.setOn(false, animated: false)
+        upperbodySwitch.onTintColor = onTintColor
         lowerbodySwitch.setOn(false, animated: false)
+        lowerbodySwitch.onTintColor = onTintColor
         cardioSwitch.setOn(false, animated: false)
+        cardioSwitch.onTintColor = onTintColor
     }
 
     func gatherCategories() -> [WorkoutCategory] {
