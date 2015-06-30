@@ -98,7 +98,7 @@ public class BaseWorkoutController: UIViewController {
                 doneButton.hidden = false
             }
         } else {
-            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
             if  min == 0 && sec <= 3 {
                 bgQueue.addOperationWithBlock() {
                     self.audioWarning.play()

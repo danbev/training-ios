@@ -68,7 +68,7 @@ public class CountDownTimer: NSObject {
         return (minutes, seconds, fraction)
     }
 
-    public class func timeAsString(min: UInt8, sec: UInt8, fra: UInt8) -> String {
+    public class func timeAsString(min: UInt8,_ sec: UInt8,_ fra: UInt8) -> String {
         return "\(prefix(min)):\(prefix(sec)):\(prefix(fra))"
     }
 

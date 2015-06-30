@@ -79,7 +79,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.audioWarning.play()
             }
         }
-        timerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+        timerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
         if min == 0 && sec == 0 && fra <= 0 {
             timer.stop()
             if !preparedForSeque {
@@ -284,7 +284,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, sec: elapsedTime.sec, fra: elapsedTime.fra)).")
+            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, elapsedTime.sec, elapsedTime.fra)).")
             stopWorkout()
         }
     }

@@ -46,7 +46,7 @@ public class DurationViewController: BaseWorkoutController {
             timer.stop()
             self.didFinish!(self, duration: durationWorkout.duration.doubleValue)
         } else {
-            restTimerLabel.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+            restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
         }
     }
 

@@ -120,7 +120,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     public func workDurationCallback(timer: CountDownTimer) {
         let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+            workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec, fra)
             if  min == 0 && sec <= 3 {
                 audioWarning.play()
             }
@@ -135,7 +135,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     public func restDurationCallback(timer: CountDownTimer) {
         let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
-            restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec: sec, fra: fra)
+            restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec, fra)
             if  min == 0 && sec <= 3 {
                 audioWarning.play()
             }
