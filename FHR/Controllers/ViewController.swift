@@ -33,8 +33,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var runtimeWorkout: RuntimeWorkout!
     private var audioWarning = AudioWarning.instance
     private var bgQueue = NSOperationQueue()
-    var settings: Settings!
-    let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
+    private var settings: Settings!
+    private let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
+    private var interruptedWorkout = false
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,8 +120,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
-                debugPrintln("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration)")
-                workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: runtimeWorkout.lastUserWorkout!.duration)
+                debugPrintln("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration) workoutDuration=\(workoutDuration)")
+                interruptedWorkout = true
+                workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration - runtimeWorkout.lastUserWorkout!.duration)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
                     for (index, w) in enumerate(workouts) {
                         tasks.append(w as! Workout)
@@ -269,7 +271,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         checkmark(indexPath.row)
         tableView.reloadData()
 
-        if totalTime.min != 0 {
+        if totalTime.min != 0 || interruptedWorkout {
+            interruptedWorkout = false
             restLabel.hidden = false
             restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime.doubleValue)
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
