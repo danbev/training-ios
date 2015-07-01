@@ -98,6 +98,33 @@ public class WorkoutService {
         return rw
     }
 
+    public func fetchRepsWorkoutsDestinct() -> [String]? {
+        let fetchRequest = NSFetchRequest(entityName: WorkoutService.repsEntityName)
+        fetchRequest.propertiesToFetch = ["name"]
+        fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
+        fetchRequest.returnsDistinctResults = true
+        fetchRequest.returnsObjectsAsFaults = false
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        var error: NSError?
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) {
+            var workoutNames = Set<String>()
+            for var i = 0; i < results.count; i++ {
+                if let dic = (results[i] as? [String : String]) {
+                    if let name = dic["name"] {
+                        workoutNames.insert(name)
+                    }
+                }
+            }
+            var a = Array(workoutNames)
+            sort(&a)
+            return a
+        } else {
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
+            return nil
+        }
+    }
+
     public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
         let dw: [DurationWorkout]? = fetchWorkouts(WorkoutService.durationEntityName);
         return dw;
@@ -719,7 +746,8 @@ public class PrebensBuilder: WorkoutBuilder {
         return self
     }
 
-    public func workItemFrom(workout: RepsWorkout, reps: Int) -> Self {
+    public func workItemFrom(workoutName: String, reps: Int) -> Self {
+        let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkout
         let newRepsWorkout = workoutService.newRepsWorkout()
         newRepsWorkout.repititions = reps
         newRepsWorkout.name = workout.name
