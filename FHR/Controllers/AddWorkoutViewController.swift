@@ -50,7 +50,6 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let type = workoutTypes[row]
-        debugPrintln("picked \(type.rawValue)")
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
@@ -61,7 +60,6 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         selectedType = workoutTypes[pickerView.selectedRowInComponent(0)]
         switch selectedType {
         case .Reps:
-            debugPrintln("next \(selectedType.rawValue)")
             performSegueWithIdentifier("repsDetailsSegue", sender: self)
         case .Timed:
             performSegueWithIdentifier("durationDetailSegue", sender: self)
@@ -87,7 +85,6 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
             let controller = segue.destinationViewController as! PrebensInfoViewController
             controller.setWorkoutService(workoutService)
         }
-        println("Prepare for segue:\(segue.identifier)")
     }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {

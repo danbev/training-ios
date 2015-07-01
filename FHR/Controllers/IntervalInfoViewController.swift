@@ -73,7 +73,6 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        println("picked row: \(row)")
     }
 
     public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
