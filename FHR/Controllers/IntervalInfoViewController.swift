@@ -31,6 +31,8 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
         super.viewDidLoad()
         workouts = workoutService.fetchDurationWorkouts()
         restWorkouts = workoutService.fetchDurationWorkouts()
+        workoutPicker.selectRow(workouts.count/2, inComponent: 0, animated: false)
+        restPicker.selectRow(workouts.count/2, inComponent: 0, animated: false)
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
