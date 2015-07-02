@@ -1554,6 +1554,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="picker" destination="CSq-vF-6PZ" id="IRk-ja-8Oz"/>
                         <outlet property="tableView" destination="kml-bw-qqG" id="hrV-zr-ZBk"/>
                         <segue destination="FMn-yo-4cm" kind="modal" identifier="infoSegue" id="Avh-Av-anV"/>
                         <segue destination="lbE-km-Yzs" kind="push" identifier="generalWorkoutDetails" id="qct-GB-qzC"/>
@@ -1808,8 +1809,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="q3O-VS-miu"/>
-        <segue reference="GKa-6a-z4m"/>
+        <segue reference="Avh-Av-anV"/>
+        <segue reference="qct-GB-qzC"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

@@ -14,6 +14,7 @@ import AVFoundation
 public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var picker: UIPickerView!
     private var workoutService: WorkoutService!
     private var builder: PrebensBuilder!
     private var workouts = [String]()
@@ -23,6 +24,7 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
     public override func viewDidLoad() {
         super.viewDidLoad()
         workouts = workoutService.fetchRepsWorkoutsDestinct()!
+        picker.selectRow(workouts.count / 2, inComponent: 0, animated: false)
         tableView.allowsMultipleSelectionDuringEditing = false;
     }
 
