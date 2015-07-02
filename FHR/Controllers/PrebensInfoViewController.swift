@@ -38,8 +38,9 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
-            debugPrintln(sender)
-            let workout = sender as! RepsWorkout
+            let workoutName = sender as! String
+            debugPrintln(workoutName)
+            let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkout
             let infoController = segue.destinationViewController as! InfoViewController
             infoController.initWith(workout)
         } else {
