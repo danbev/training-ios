@@ -13,7 +13,7 @@ import AVFoundation
 import MediaPlayer
 import MobileCoreServices
 
-public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
@@ -30,6 +30,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public override func viewDidLoad() {
         super.viewDidLoad()
         workoutDescription.delegate = self
+        workoutName.delegate = self
         var nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
@@ -57,6 +58,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
+            self.view.endEditing(true)
             return false
         }
         return true
@@ -102,5 +104,11 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     public func imagePickerControllerDidCancel(picker: UIImagePickerController){
         noVideoLabel.hidden = false
         picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.view.endEditing(true)
+        return true
     }
 }
