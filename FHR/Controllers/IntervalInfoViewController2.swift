@@ -1,5 +1,5 @@
 //
-//  IntervalInfoViewController.swift
+//  IntervalInfoViewController2.swift
 //  FHR
 //
 //  Created by Daniel Bevenius on 20/06/15.
@@ -11,19 +11,26 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class IntervalInfoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     private var workoutService: WorkoutService!
-    private var workoutType: WorkoutType!
+    private var builder: IntervalBuilder!
+    @IBOutlet weak var durationLabel: UILabel!
 
-    @IBOutlet weak var workoutPicker: UIPickerView!
-    @IBOutlet weak var workDurationLabel: UILabel!
-    private var workouts: [DurationWorkout]!
+    @IBOutlet weak var restPicker: UIPickerView!
+    @IBOutlet weak var intervalsLabel: UILabel!
+    @IBOutlet weak var restDurationLabel: UILabel!
+    private var restWorkouts: [DurationWorkout]!
+
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        workouts = workoutService.fetchDurationWorkouts()
-        workoutPicker.selectRow(workouts.count/2, inComponent: 0, animated: false)
+        restWorkouts = workoutService.fetchDurationWorkouts()
+        restPicker.selectRow(restWorkouts.count/2, inComponent: 0, animated: false)
+    }
+
+    public func setBuilder(builder: IntervalBuilder) {
+        self.builder = builder
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
@@ -31,15 +38,18 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     }
 
     @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("intervalDetails2Segue", sender: self)
+        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as! IntervalInfoViewController2
-        controller.setWorkoutService(workoutService)
-        let workout = workouts[workoutPicker.selectedRowInComponent(0)]
-        let builder = workoutService.interval(workout, duration: workDurationLabel.text!.toInt()!)
+        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
+        let rest = restWorkouts[restPicker.selectedRowInComponent(0)]
+        builder.rest(rest, duration: restDurationLabel.text!.toInt()!).intervals(intervalsLabel.text!.toInt()!)
         controller.setBuilder(builder)
+    }
+
+    @IBAction func stepper(sender: UIStepper) {
+        intervalsLabel.text = Int(sender.value).description
     }
 
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -47,24 +57,24 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     }
 
     public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return workouts.count
+        return restWorkouts.count
     }
 
     public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return workouts[row].workoutName
+        return restWorkouts[row].workoutName
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     }
 
     public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let workoutName = workouts[row].workoutName
+        let workoutName = restWorkouts[row].workoutName
         let attributedString = NSAttributedString(string: workoutName, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 10.0)!, NSForegroundColorAttributeName : UIColor.whiteColor()])
         return attributedString
     }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
-        let titleData = workouts[row].workoutName
+        let titleData = restWorkouts[row].workoutName
         let pickerLabel = UILabel()
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
         pickerLabel.attributedText = myTitle
@@ -75,8 +85,8 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
         navigationController?.popToRootViewControllerAnimated(true)
     }
 
-    @IBAction func workDurationStepper(sender: UIStepper) {
-        workDurationLabel.text = Int(sender.value).description
+    @IBAction func restDurationStepper(sender: UIStepper) {
+        restDurationLabel.text = Int(sender.value).description
     }
-
+    
 }

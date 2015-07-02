@@ -36,6 +36,7 @@
 		C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A951B28BC7D0033854E /* WorkoutType.swift */; };
 		C54B3A981B28C7250033854E /* IntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A971B28C7250033854E /* IntervalViewController.swift */; };
 		C54B3A9A1B29D4650033854E /* IntervalViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A991B29D4650033854E /* IntervalViewControllerTests.swift */; };
+		C5628A5E1B45BE2B00EE907B /* IntervalInfoViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */; };
 		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
 		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
 		C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */; };
@@ -108,6 +109,7 @@
 		C54B3A951B28BC7D0033854E /* WorkoutType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		C54B3A971B28C7250033854E /* IntervalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalViewController.swift; sourceTree = "<group>"; };
 		C54B3A991B29D4650033854E /* IntervalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalViewControllerTests.swift; sourceTree = "<group>"; };
+		C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController2.swift; sourceTree = "<group>"; };
 		C56944B21B19D576006745B0 /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C573BDBF1A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				C5C6FF5A1B3AC14D00015477 /* GeneralWorkoutDetails2.swift */,
 				C526EC4C1B3C1A97000FD9DC /* DurationInfoViewController.swift */,
 				C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */,
+				C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				C54B3A981B28C7250033854E /* IntervalViewController.swift in Sources */,
 				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
 				C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */,
+				C5628A5E1B45BE2B00EE907B /* IntervalInfoViewController2.swift in Sources */,
 				C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
