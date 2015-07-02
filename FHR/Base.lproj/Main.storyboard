@@ -1370,6 +1370,7 @@
                         <outlet property="dryGroundSwitch" destination="9EJ-Qy-rnq" id="506-dV-pOG"/>
                         <outlet property="lowerbodySwitch" destination="fsv-NK-Y8S" id="NNI-1I-PYH"/>
                         <outlet property="postRestLabel" destination="6zh-tx-SXE" id="yWd-PR-P0r"/>
+                        <outlet property="stepper" destination="R8V-pF-ar3" id="qBH-Mb-E0c"/>
                         <outlet property="upperbodySwitch" destination="0LQ-hF-Hta" id="IGk-jf-6W5"/>
                         <outlet property="warmupSwitch" destination="wkv-RJ-BPn" id="yuB-N0-ZtS"/>
                         <outlet property="weightsSwitch" destination="iQ5-dj-yjc" id="TC6-Ed-Y2X"/>

@@ -24,6 +24,7 @@ public class GeneralDetails2: UIViewController {
     @IBOutlet weak var lowerbodySwitch: UISwitch!
     @IBOutlet weak var cardioSwitch: UISwitch!
     @IBOutlet weak var postRestLabel: UILabel!
+    @IBOutlet weak var stepper: UIStepper!
     private var categories = Set<WorkoutCategory>()
     private let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
 
@@ -45,6 +46,8 @@ public class GeneralDetails2: UIViewController {
         lowerbodySwitch.onTintColor = onTintColor
         cardioSwitch.setOn(false, animated: false)
         cardioSwitch.onTintColor = onTintColor
+        stepper.value = 1
+
     }
 
     func gatherCategories() -> [WorkoutCategory] {
