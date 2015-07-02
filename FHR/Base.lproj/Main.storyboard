@@ -1144,6 +1144,12 @@
                                     <action selector="videoButtonAction:" destination="lbE-km-Yzs" eventType="touchUpInside" id="dNL-n3-GPj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No video selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPj-dp-CGM">
+                                <rect key="frame" x="27" y="306" width="277" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1187,6 +1193,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="91t-Q9-cMS" id="IJO-7e-zgO"/>
+                        <outlet property="noVideoLabel" destination="mPj-dp-CGM" id="Pob-r4-xWU"/>
                         <outlet property="workoutDescription" destination="0PI-M6-HVq" id="Uhh-OP-NFo"/>
                         <outlet property="workoutName" destination="SNV-cK-N8z" id="bs8-ti-qmv"/>
                         <segue destination="TNG-Ey-Qh9" kind="push" identifier="generalWorkoutDetails2" id="7Vm-Na-4r7"/>

@@ -18,6 +18,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
+    @IBOutlet weak var noVideoLabel: UILabel!
     private var videoUrl: String?
     private var workoutType: WorkoutType!
     private var workoutBuilder: WorkoutBuilder!
@@ -92,12 +93,14 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         videoUrl = tempImage.relativePath
         if let url = videoUrl {
             debugPrintln("Saving video : :\(videoUrl)")
+            noVideoLabel.hidden = true
             UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
     public func imagePickerControllerDidCancel(picker: UIImagePickerController){
+        noVideoLabel.hidden = false
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
