@@ -383,5 +383,11 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertEqual("Getups", userWorkouts!.workoutName);
         XCTAssertEqual(10.0, userWorkouts!.duration);
     }
+
+    func testFetchRepsWorkoutDestinct() {
+        ws.loadDataIfNeeded()
+        let repsWorkouts = ws.fetchRepsWorkoutsDestinct()
+        XCTAssertNotNil(repsWorkouts)
+    }
 }
 
