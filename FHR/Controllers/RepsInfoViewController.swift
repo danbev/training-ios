@@ -11,17 +11,18 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
+public class RepsInfoViewController: UIViewController {
 
     @IBOutlet weak var repsLabel: UILabel!
     private var workoutService: WorkoutService!
     private var workoutType: WorkoutType!
     private var builder: RepsBuilder!
-    @IBOutlet weak var approxTextField: UITextField!
+    @IBOutlet weak var approxTimeStepper: UIStepper!
+    @IBOutlet weak var repsStepper: UIStepper!
+    @IBOutlet weak var approxTimeLabel: UILabel!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        approxTextField.delegate = self
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
@@ -34,19 +35,11 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.reps(repsLabel.text!.toInt()!).approx(approxTextField.text.toInt()!))
+        controller.setBuilder(workoutService.reps(repsLabel.text!.toInt()!).approx(approxTimeLabel.text!.toInt()!))
     }
 
     public func setWorkoutBuilder(builder: RepsBuilder) {
         self.builder = builder
-    }
-
-    public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
     }
 
     @IBAction func cancel(sender: AnyObject) {
@@ -57,4 +50,7 @@ public class RepsInfoViewController: UIViewController, UITextFieldDelegate {
         repsLabel.text = Int(sender.value).description
     }
 
+    @IBAction func approxStepper(sender: UIStepper) {
+        approxTimeLabel.text = Int(sender.value).description
+    }
 }
