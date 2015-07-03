@@ -18,7 +18,6 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
     @IBOutlet weak var durationLabel: UILabel!
 
     @IBOutlet weak var restPicker: UIPickerView!
-    @IBOutlet weak var intervalsLabel: UILabel!
     @IBOutlet weak var restDurationLabel: UILabel!
     private var restWorkouts: [DurationWorkout]!
 
@@ -38,18 +37,14 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
     }
 
     @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
+        performSegueWithIdentifier("intervalDetails3Segue", sender: self)
     }
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
+        let controller = segue.destinationViewController as! IntervalInfoViewController3
         let rest = restWorkouts[restPicker.selectedRowInComponent(0)]
-        builder.rest(rest, duration: restDurationLabel.text!.toInt()!).intervals(intervalsLabel.text!.toInt()!)
+        builder.rest(rest, duration: restDurationLabel.text!.toInt()!)
         controller.setBuilder(builder)
-    }
-
-    @IBAction func stepper(sender: UIStepper) {
-        intervalsLabel.text = Int(sender.value).description
     }
 
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -76,6 +71,7 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
         let titleData = restWorkouts[row].workoutName
         let pickerLabel = UILabel()
+        pickerLabel.textAlignment = NSTextAlignment.Center
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
         pickerLabel.attributedText = myTitle
         return pickerLabel

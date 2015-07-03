@@ -61,6 +61,7 @@
 		C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */; };
 		C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */; };
 		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
+		C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */; };
 		C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */; };
 		C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5F7C9171B33FA5F004E6A3B /* bleep.wav */; };
 		C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */; };
@@ -135,6 +136,7 @@
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
+		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalInfoViewController3.swift; path = FHR/Controllers/IntervalInfoViewController3.swift; sourceTree = "<group>"; };
 		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioWarning.swift; sourceTree = "<group>"; };
 		C5F7C9171B33FA5F004E6A3B /* bleep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bleep.wav; sourceTree = "<group>"; };
 		C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		C515E83A19C5A937001A5BB2 = {
 			isa = PBXGroup;
 			children = (
+				C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */,
 				C537A4851A21F428003697CD /* CoreData.framework */,
 				C515E84519C5A937001A5BB2 /* FHR */,
 				C515E85B19C5A937001A5BB2 /* FHRTests */,
@@ -441,6 +444,7 @@
 				C5B252EE1B37E0B90091584C /* RepsInfoViewController.swift in Sources */,
 				C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */,
 				C5C6FF5B1B3AC14D00015477 /* GeneralWorkoutDetails2.swift in Sources */,
+				C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */,
 				C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */,
 				C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */,
 				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,

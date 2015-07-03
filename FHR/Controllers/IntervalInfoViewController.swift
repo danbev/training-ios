@@ -57,15 +57,10 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     }
 
-    public func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let workoutName = workouts[row].workoutName
-        let attributedString = NSAttributedString(string: workoutName, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 10.0)!, NSForegroundColorAttributeName : UIColor.whiteColor()])
-        return attributedString
-    }
-
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
         let titleData = workouts[row].workoutName
         let pickerLabel = UILabel()
+        pickerLabel.textAlignment = NSTextAlignment.Center
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
         pickerLabel.attributedText = myTitle
         return pickerLabel
