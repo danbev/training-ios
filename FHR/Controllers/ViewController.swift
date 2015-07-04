@@ -326,6 +326,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+        println("unwinding...")
         let settingsViewController = sender.sourceViewController as! SettingViewController
         settings = Settings.settings()
         updateTitle()

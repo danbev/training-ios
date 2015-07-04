@@ -20,7 +20,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     public let warmup = WorkoutCategory.Warmup.rawValue
     public var settings: Settings!
 
-    @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var wSwitch: UISwitch!
     @IBOutlet weak var dgSwitch: UISwitch!
     @IBOutlet weak var cardioSwitch: UISwitch!
@@ -29,6 +28,9 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var warmupSwitch: UISwitch!
     @IBOutlet weak var timePicker: UIPickerView!
 
+    @IBAction func backAction(sender: UIBarButtonItem) {
+        println("backAction...")
+    }
     var currentUserWorkout: UserWorkout!
     var userDefaults: NSUserDefaults!
     let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
@@ -66,10 +68,15 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
         userDefaults = NSUserDefaults.standardUserDefaults()
         var nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.backItem?.titleView?.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem?.title = "bajja"
 
+        /*
+        nav?.barStyle = UIBarStyle.Black
+        */
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         wSwitch.onTintColor = onTintColor
 
@@ -91,8 +98,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         cardioSwitch.setOn(booleanValue(cardio, defaultValue: true), animated: false)
         warmupSwitch.setOn(booleanValue(warmup, defaultValue: true), animated: false)
         timePicker.selectRow(index(duration, defaultValue: Times.FourtyFive), inComponent: 0, animated: false)
-
-        self.backButton = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 
     func booleanValue(keyName: String, defaultValue: Bool) -> Bool {

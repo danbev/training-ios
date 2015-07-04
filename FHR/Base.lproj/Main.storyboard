@@ -746,15 +746,16 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="k26-rg-b8e">
-                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="lb7-hh-YuI">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="0Qu-fY-AA6">
                             <connections>
-                                <segue destination="wXd-Pj-Sfq" kind="unwind" unwindAction="unwindToMainMenu:" id="wOo-Fb-Jab"/>
+                                <segue destination="wXd-Pj-Sfq" kind="unwind" unwindAction="unwindToMainMenu:" id="rce-bj-5Ai"/>
                             </connections>
                         </barButtonItem>
+                        <connections>
+                            <outlet property="leftBarButtonItem" destination="0Qu-fY-AA6" id="aur-wJ-dM9"/>
+                        </connections>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="lb7-hh-YuI" id="D9E-qr-wTb"/>
                         <outlet property="cardioSwitch" destination="zhj-yJ-K5W" id="rMc-JP-hK6"/>
                         <outlet property="dgSwitch" destination="EVb-Wy-TbJ" id="4Mp-8C-aDA"/>
                         <outlet property="lowerBodySwitch" destination="6Db-8Y-BGw" id="Rzc-cj-m9u"/>

@@ -62,6 +62,8 @@
 		C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */; };
 		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
 		C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */; };
+		C5EE21751B47EEE400BA998A /* jumpingjacks.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */; };
+		C5EE21771B47EFAB00BA998A /* getups.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21761B47EFAB00BA998A /* getups.m4v */; };
 		C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */; };
 		C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5F7C9171B33FA5F004E6A3B /* bleep.wav */; };
 		C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */; };
@@ -137,6 +139,8 @@
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
 		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalInfoViewController3.swift; path = FHR/Controllers/IntervalInfoViewController3.swift; sourceTree = "<group>"; };
+		C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = jumpingjacks.m4v; sourceTree = "<group>"; };
+		C5EE21761B47EFAB00BA998A /* getups.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = getups.m4v; sourceTree = "<group>"; };
 		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioWarning.swift; sourceTree = "<group>"; };
 		C5F7C9171B33FA5F004E6A3B /* bleep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bleep.wav; sourceTree = "<group>"; };
 		C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		C515E84519C5A937001A5BB2 /* FHR */ = {
 			isa = PBXGroup;
 			children = (
+				C5EE21761B47EFAB00BA998A /* getups.m4v */,
+				C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */,
 				C5F7C9171B33FA5F004E6A3B /* bleep.wav */,
 				C54B3A911B2454130033854E /* Utils */,
 				C54B3A8D1B24525F0033854E /* Core */,
@@ -412,12 +418,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5EE21751B47EEE400BA998A /* jumpingjacks.m4v in Resources */,
 				C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */,
 				C5A092CF1B1E316B003FFCA4 /* TestVideo.m4v in Resources */,
 				C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */,
 				C515E85319C5A937001A5BB2 /* LaunchScreen.xib in Resources */,
 				C515E85019C5A937001A5BB2 /* Images.xcassets in Resources */,
 				C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */,
+				C5EE21771B47EFAB00BA998A /* getups.m4v in Resources */,
 				C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */,
 				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
 				C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */,
