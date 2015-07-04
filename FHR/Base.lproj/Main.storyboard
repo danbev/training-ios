@@ -745,16 +745,7 @@
                             <constraint firstItem="XpB-Iw-uOp" firstAttribute="leading" secondItem="PR7-x2-rcB" secondAttribute="leading" id="zlY-pj-V2M"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="k26-rg-b8e">
-                        <barButtonItem key="backBarButtonItem" title=" " id="0Qu-fY-AA6">
-                            <connections>
-                                <segue destination="wXd-Pj-Sfq" kind="unwind" unwindAction="unwindToMainMenu:" id="rce-bj-5Ai"/>
-                            </connections>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="0Qu-fY-AA6" id="aur-wJ-dM9"/>
-                        </connections>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="k26-rg-b8e"/>
                     <connections>
                         <outlet property="cardioSwitch" destination="zhj-yJ-K5W" id="rMc-JP-hK6"/>
                         <outlet property="dgSwitch" destination="EVb-Wy-TbJ" id="4Mp-8C-aDA"/>
@@ -763,6 +754,7 @@
                         <outlet property="upperBodySwitch" destination="8pW-pY-Nhr" id="efg-Gg-Bdh"/>
                         <outlet property="wSwitch" destination="8ep-Id-2F3" id="Hbd-E1-nap"/>
                         <outlet property="warmupSwitch" destination="7l9-C4-uId" id="vIc-c4-zxK"/>
+                        <segue destination="wXd-Pj-Sfq" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainMenu:" id="vLK-nS-XKn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vsp-0w-MZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>

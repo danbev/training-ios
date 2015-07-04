@@ -72,8 +72,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         nav?.backItem?.titleView?.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
-        self.navigationItem.leftBarButtonItem?.title = "bajja"
-
         /*
         nav?.barStyle = UIBarStyle.Black
         */
@@ -98,6 +96,11 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         cardioSwitch.setOn(booleanValue(cardio, defaultValue: true), animated: false)
         warmupSwitch.setOn(booleanValue(warmup, defaultValue: true), animated: false)
         timePicker.selectRow(index(duration, defaultValue: Times.FourtyFive), inComponent: 0, animated: false)
+    }
+
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        performSegueWithIdentifier("unwindToMain", sender: self)
     }
 
     func booleanValue(keyName: String, defaultValue: Bool) -> Bool {
