@@ -22,12 +22,12 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        workouts = workoutService.fetchDurationWorkouts()
         workoutPicker.selectRow(workouts.count/2, inComponent: 0, animated: false)
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
         self.workoutService = workoutService
+        workouts = workoutService.fetchDurationWorkouts()
     }
 
     @IBAction func next(sender: AnyObject) {

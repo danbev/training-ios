@@ -24,7 +24,6 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        restWorkouts = workoutService.fetchDurationWorkouts()
         restPicker.selectRow(restWorkouts.count/2, inComponent: 0, animated: false)
     }
 
@@ -34,6 +33,7 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
 
     public func setWorkoutService(workoutService: WorkoutService) {
         self.workoutService = workoutService
+        restWorkouts = workoutService.fetchDurationWorkouts()
     }
 
     @IBAction func next(sender: AnyObject) {
