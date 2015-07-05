@@ -36,6 +36,7 @@ public class RuntimeWorkout {
 
     public func category() -> String {
         let ignoredCategories = Settings.readIgnoredCategories()
+        println(ignoredCategories)
         if currentUserWorkout != nil {
             if currentUserWorkout?.done == false {
                 return currentUserWorkout!.category
