@@ -931,27 +931,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKn-IT-2UM">
-                                <rect key="frame" x="16" y="44" width="288" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="0xS-U9-Kmz"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="28" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcN-Dh-16Y">
-                                <rect key="frame" x="40" y="244" width="240" height="157"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-jM-9Z5">
-                                <rect key="frame" x="234" y="459" width="46" height="30"/>
+                                <rect key="frame" x="258" y="525" width="46" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="iYy-vo-F7h"/>
-                                    <constraint firstAttribute="width" constant="46" id="xRd-fu-ivY"/>
+                                    <constraint firstAttribute="width" constant="46" id="2VN-DJ-Qt6"/>
+                                    <constraint firstAttribute="height" constant="30" id="uPh-On-YA2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Done">
@@ -964,39 +953,46 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No video available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ua-cy-BtD">
                                 <rect key="frame" x="40" y="143" width="240" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="08e-Vr-JIh"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LJJ-t6-pTo">
-                                <rect key="frame" x="40" y="90" width="240" height="128"/>
+                                <rect key="frame" x="16" y="62" width="288" height="371"/>
                                 <connections>
                                     <segue destination="uBZ-I9-UIw" kind="embed" identifier="videoSegue" id="QHc-fh-StV"/>
                                 </connections>
                             </containerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcN-Dh-16Y">
+                                <rect key="frame" x="16" y="427" width="288" height="96"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="bzL-rN-B6a"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="dKn-IT-2UM" firstAttribute="trailing" secondItem="hkg-oI-0d2" secondAttribute="trailingMargin" id="56O-VZ-0jS"/>
-                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="trailing" secondItem="xRI-jM-9Z5" secondAttribute="trailing" id="6UD-Md-n6Q"/>
-                            <constraint firstItem="9ua-cy-BtD" firstAttribute="leading" secondItem="hkg-oI-0d2" secondAttribute="leadingMargin" constant="24" id="FlO-Id-ADq"/>
-                            <constraint firstItem="9ua-cy-BtD" firstAttribute="centerX" secondItem="dKn-IT-2UM" secondAttribute="centerX" id="KPa-mt-WyB"/>
-                            <constraint firstItem="LJJ-t6-pTo" firstAttribute="top" secondItem="dKn-IT-2UM" secondAttribute="bottom" constant="25" id="LQB-Zg-3CS"/>
-                            <constraint firstItem="dKn-IT-2UM" firstAttribute="leading" secondItem="hkg-oI-0d2" secondAttribute="leadingMargin" id="NTx-Rv-Jyl"/>
-                            <constraint firstItem="dKn-IT-2UM" firstAttribute="top" secondItem="cg4-QQ-Qy6" secondAttribute="bottom" constant="24" id="feW-3W-CqB"/>
-                            <constraint firstItem="xRI-jM-9Z5" firstAttribute="top" secondItem="HcN-Dh-16Y" secondAttribute="bottom" constant="58" id="gQ3-Fg-Tjw"/>
-                            <constraint firstItem="9ua-cy-BtD" firstAttribute="top" secondItem="dKn-IT-2UM" secondAttribute="bottom" constant="78" id="h4r-dY-883"/>
-                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="trailing" secondItem="9ua-cy-BtD" secondAttribute="trailing" id="j9H-E6-Jzb"/>
-                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="leading" secondItem="9ua-cy-BtD" secondAttribute="leading" id="juR-Yy-9bc"/>
-                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="top" secondItem="9ua-cy-BtD" secondAttribute="bottom" constant="80" id="lDG-G2-seS"/>
-                            <constraint firstItem="wLq-1T-WAe" firstAttribute="top" secondItem="xRI-jM-9Z5" secondAttribute="bottom" constant="79" id="oL2-ED-vnJ"/>
-                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="top" secondItem="LJJ-t6-pTo" secondAttribute="bottom" constant="26" id="vAO-bQ-unK"/>
-                            <constraint firstItem="9ua-cy-BtD" firstAttribute="trailing" secondItem="LJJ-t6-pTo" secondAttribute="trailing" id="vJh-pj-ErJ"/>
-                            <constraint firstItem="9ua-cy-BtD" firstAttribute="leading" secondItem="LJJ-t6-pTo" secondAttribute="leading" id="z9i-HX-MNq"/>
+                            <constraint firstItem="xRI-jM-9Z5" firstAttribute="top" secondItem="LJJ-t6-pTo" secondAttribute="bottom" constant="92" id="0k8-5X-fX1"/>
+                            <constraint firstItem="9ua-cy-BtD" firstAttribute="leading" secondItem="hkg-oI-0d2" secondAttribute="leadingMargin" constant="24" id="42g-jP-LUV"/>
+                            <constraint firstItem="xRI-jM-9Z5" firstAttribute="trailing" secondItem="HcN-Dh-16Y" secondAttribute="trailing" id="5G7-Q2-Soi"/>
+                            <constraint firstItem="LJJ-t6-pTo" firstAttribute="trailing" secondItem="HcN-Dh-16Y" secondAttribute="trailing" id="K04-Mq-CMJ"/>
+                            <constraint firstItem="LJJ-t6-pTo" firstAttribute="leading" secondItem="HcN-Dh-16Y" secondAttribute="leading" id="Ndz-ik-8Eo"/>
+                            <constraint firstItem="LJJ-t6-pTo" firstAttribute="top" secondItem="dKn-IT-2UM" secondAttribute="bottom" constant="13" id="PXY-iW-D57"/>
+                            <constraint firstItem="dKn-IT-2UM" firstAttribute="trailing" secondItem="LJJ-t6-pTo" secondAttribute="trailing" id="Qqe-wa-20G"/>
+                            <constraint firstItem="xRI-jM-9Z5" firstAttribute="top" secondItem="HcN-Dh-16Y" secondAttribute="bottom" constant="2" id="Sl9-cS-m2z"/>
+                            <constraint firstItem="dKn-IT-2UM" firstAttribute="leading" secondItem="LJJ-t6-pTo" secondAttribute="leading" id="UaB-H2-xko"/>
+                            <constraint firstItem="wLq-1T-WAe" firstAttribute="top" secondItem="xRI-jM-9Z5" secondAttribute="bottom" constant="13" id="Vue-fz-eoD"/>
+                            <constraint firstItem="dKn-IT-2UM" firstAttribute="centerX" secondItem="9ua-cy-BtD" secondAttribute="centerX" id="X7k-6H-aqF"/>
+                            <constraint firstItem="dKn-IT-2UM" firstAttribute="top" secondItem="cg4-QQ-Qy6" secondAttribute="bottom" constant="8" symbolic="YES" id="YOU-Wh-S5v"/>
+                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="leading" secondItem="hkg-oI-0d2" secondAttribute="leadingMargin" id="cUd-3r-QST"/>
+                            <constraint firstItem="9ua-cy-BtD" firstAttribute="top" secondItem="dKn-IT-2UM" secondAttribute="bottom" constant="94" id="gnV-rD-Jul"/>
+                            <constraint firstItem="HcN-Dh-16Y" firstAttribute="trailing" secondItem="hkg-oI-0d2" secondAttribute="trailingMargin" id="tJY-tW-0xq"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1595,7 +1591,9 @@
         <!--AV Player View Controller-->
         <scene sceneID="Fld-cd-r6e">
             <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="uBZ-I9-UIw" sceneMemberID="viewController"/>
+                <avPlayerViewController extendedLayoutIncludesOpaqueBars="YES" videoGravity="AVLayerVideoGravityResizeAspectFill" id="uBZ-I9-UIw" sceneMemberID="viewController">
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </avPlayerViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JU5-GJ-qsO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2035" y="420"/>
