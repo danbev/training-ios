@@ -721,6 +721,10 @@ public class IntervalBuilder: WorkoutBuilder {
         return self
     }
 
+    public func workoutName() -> String {
+        return work.name
+    }
+
     public func rest(rest: DurationWorkout, duration: Int) -> Self {
         self.rest = rest
         restWorkoutDuration = duration

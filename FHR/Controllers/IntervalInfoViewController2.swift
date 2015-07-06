@@ -29,6 +29,8 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
 
     public func setBuilder(builder: IntervalBuilder) {
         self.builder = builder
+        let workoutName = builder.workoutName()
+        restWorkouts = restWorkouts.filter { $0 != workoutName }
     }
 
     public func setWorkoutService(workoutService: WorkoutService) {
