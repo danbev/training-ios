@@ -125,6 +125,34 @@ public class WorkoutService {
         }
     }
 
+    public func fetchDurationWorkoutsDestinct() -> [String]? {
+        let fetchRequest = NSFetchRequest(entityName: WorkoutService.durationEntityName)
+        fetchRequest.propertiesToFetch = ["name"]
+        fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
+        fetchRequest.returnsDistinctResults = true
+        fetchRequest.returnsObjectsAsFaults = false
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        var error: NSError?
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) {
+            var workoutNames = Set<String>()
+            for var i = 0; i < results.count; i++ {
+                if let dic = (results[i] as? [String : String]) {
+                    if let name = dic["name"] {
+                        workoutNames.insert(name)
+                    }
+                }
+            }
+            var a = Array(workoutNames)
+            sort(&a)
+            return a
+        } else {
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
+            return nil
+        }
+    }
+
+
     public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
         let dw: [DurationWorkout]? = fetchWorkouts(WorkoutService.durationEntityName);
         return dw;

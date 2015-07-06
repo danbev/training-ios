@@ -18,7 +18,7 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
 
     @IBOutlet weak var workoutPicker: UIPickerView!
     @IBOutlet weak var workDurationLabel: UILabel!
-    private var workouts: [DurationWorkout]!
+    private var workouts: [String]!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
 
     public func setWorkoutService(workoutService: WorkoutService) {
         self.workoutService = workoutService
-        workouts = workoutService.fetchDurationWorkouts()
+        workouts = workoutService.fetchDurationWorkoutsDestinct()
     }
 
     @IBAction func next(sender: AnyObject) {
@@ -37,7 +37,8 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! IntervalInfoViewController2
         controller.setWorkoutService(workoutService)
-        let workout = workouts[workoutPicker.selectedRowInComponent(0)]
+        let workoutName = workouts[workoutPicker.selectedRowInComponent(0)]
+        let workout = workoutService.fetchWorkout(workoutName) as! DurationWorkout
         let builder = workoutService.interval(workout, duration: workDurationLabel.text!.toInt()!)
         controller.setBuilder(builder)
     }
@@ -51,14 +52,14 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
     }
 
     public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return workouts[row].workoutName
+        return workouts[row]
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     }
 
     public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
-        let titleData = workouts[row].workoutName
+        let titleData = workouts[row]
         let pickerLabel = UILabel()
         pickerLabel.textAlignment = NSTextAlignment.Center
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
