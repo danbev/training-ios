@@ -45,7 +45,7 @@ public class InfoViewController: UIViewController {
                     url = NSURL.fileURLWithPath(videoUrl)
                 }
                 let videoViewController = segue.destinationViewController as! AVPlayerViewController
-                videoViewController.
+                videoViewController.view.backgroundColor = UIColor.darkGrayColor()
                 videoViewController.player = AVPlayer(URL: url)
             } else {
                 container.hidden = true
