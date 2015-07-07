@@ -89,12 +89,12 @@ public class WorkoutService {
     }
 
     public func fetchUserWorkouts() -> Optional<[UserWorkout]> {
-        let rw: [UserWorkout]? = fetchWorkouts(userWorkoutEntityName);
+        let rw: [UserWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
         return rw
     }
 
     public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
-        let rw: [RepsWorkout]? = fetchWorkouts(WorkoutService.repsEntityName);
+        let rw: [RepsWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
         return rw
     }
 
@@ -134,17 +134,17 @@ public class WorkoutService {
     }
 
     public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
-        let dw: [DurationWorkout]? = fetchWorkouts(WorkoutService.durationEntityName);
+        let dw: [DurationWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
         return dw;
     }
 
     public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
-        let iw: [IntervalWorkout]? = fetchWorkouts(WorkoutService.intervalEntityName);
+        let iw: [IntervalWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
         return iw;
     }
 
     public func fetchPrebensWorkouts() -> Optional<[PrebensWorkout]> {
-        let iw: [PrebensWorkout]? = fetchWorkouts(WorkoutService.prebensEntityName);
+        let iw: [PrebensWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
         return iw;
     }
 
@@ -152,29 +152,16 @@ public class WorkoutService {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
         fetchRequest.fetchLimit = 1
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [Workout]?
-        if let results = fetchedResults {
-            return results[0]
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return Optional.None
-        }
+        return executeFetchWorkout(fetchRequest)?.first
     }
 
     public func fetchWarmup() -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
         fetchRequest.fetchLimit = 1
-        var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [Workout]?
-        if let results = fetchedResults {
-            return results[0]
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return nil
-        }
+        return executeFetchWorkout(fetchRequest)?.first
     }
+
 
     public func fetchWarmup(userWorkout: UserWorkout) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
@@ -382,10 +369,9 @@ public class WorkoutService {
         return prebensWorkout
     }
 
-    private func fetchWorkouts<T:AnyObject>(entityName: String) -> Optional<[T]> {
-        let fetchRequest = NSFetchRequest(entityName: entityName)
+    private func executeFetchWorkout<T: AnyObject>(request: NSFetchRequest) -> [T]? {
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [T]?
+        let fetchedResults = context.executeFetchRequest(request, error: &error) as! [T]?
         if let results = fetchedResults {
             return results
         } else {
