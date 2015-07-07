@@ -60,7 +60,7 @@ public class WorkoutService {
         return userWorkout
     }
 
-    public func updateUserWorkout(id: String, optionalWorkout: Workout?, workoutTime: Double, done: Bool = false) -> Optional<UserWorkout> {
+    public func updateUserWorkout(id: String, optionalWorkout: Workout?, workoutTime: Double, done: Bool = false) -> UserWorkout? {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"id == %@", id)
         var error: NSError?
@@ -88,12 +88,12 @@ public class WorkoutService {
         return (components.year, components.month, components.day)
     }
 
-    public func fetchUserWorkouts() -> Optional<[UserWorkout]> {
+    public func fetchUserWorkouts() -> [UserWorkout]? {
         let rw: [UserWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
         return rw
     }
 
-    public func fetchRepsWorkouts() -> Optional<[RepsWorkout]> {
+    public func fetchRepsWorkouts() -> [RepsWorkout]? {
         let rw: [RepsWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
         return rw
     }
@@ -133,22 +133,22 @@ public class WorkoutService {
         }
     }
 
-    public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
+    public func fetchDurationWorkouts() -> [DurationWorkout]? {
         let dw: [DurationWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
         return dw
     }
 
-    public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
+    public func fetchIntervalWorkouts() -> [IntervalWorkout]? {
         let iw: [IntervalWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
         return iw
     }
 
-    public func fetchPrebensWorkouts() -> Optional<[PrebensWorkout]> {
+    public func fetchPrebensWorkouts() -> [PrebensWorkout]? {
         let iw: [PrebensWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
         return iw
     }
 
-    public func fetchWorkout(name: String) -> Optional<Workout> {
+    public func fetchWorkout(name: String) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
         fetchRequest.fetchLimit = 1
