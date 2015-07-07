@@ -135,17 +135,17 @@ public class WorkoutService {
 
     public func fetchDurationWorkouts() -> Optional<[DurationWorkout]> {
         let dw: [DurationWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
-        return dw;
+        return dw
     }
 
     public func fetchIntervalWorkouts() -> Optional<[IntervalWorkout]> {
         let iw: [IntervalWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
-        return iw;
+        return iw
     }
 
     public func fetchPrebensWorkouts() -> Optional<[PrebensWorkout]> {
         let iw: [PrebensWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
-        return iw;
+        return iw
     }
 
     public func fetchWorkout(name: String) -> Optional<Workout> {
@@ -210,10 +210,10 @@ public class WorkoutService {
         var error: NSError?
         let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as! Workout?
         if let workout = optionalWorkout {
-            var doneLastWorkout = false;
+            var doneLastWorkout = false
             for performedWorkout in excludedWorkouts {
                 if performedWorkout.workoutName == workout.workoutName {
-                    doneLastWorkout = true;
+                    doneLastWorkout = true
                     break
                 }
             }
@@ -338,7 +338,7 @@ public class WorkoutService {
         workout.name = name
         workout.workoutDescription = desc
         workout.categories = WorkoutCategory.asCsvString(categories)
-        return workout;
+        return workout
     }
 
     internal func newRepsWorkout() -> RepsWorkout {
