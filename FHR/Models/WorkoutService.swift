@@ -62,20 +62,17 @@ public class WorkoutService {
     }
 
     private func getDate() -> (year: Int, month: Int, day: Int) {
-        let date = NSDate()
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let components = calendar!.components(.CalendarUnitWeekday, fromDate: date)
+        let components = calendar!.components(.CalendarUnitWeekday, fromDate: NSDate())
         return (components.year, components.month, components.day)
     }
 
     public func fetchUserWorkouts() -> [UserWorkout]? {
-        let rw: [UserWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
-        return rw
+        return executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
     }
 
     public func fetchRepsWorkouts() -> [RepsWorkout]? {
-        let rw: [RepsWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
-        return rw
+        return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
     }
 
     public func fetchRepsWorkoutsDestinct() -> [String]? {
@@ -114,18 +111,15 @@ public class WorkoutService {
     }
 
     public func fetchDurationWorkouts() -> [DurationWorkout]? {
-        let dw: [DurationWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
-        return dw
+        return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
     }
 
     public func fetchIntervalWorkouts() -> [IntervalWorkout]? {
-        let iw: [IntervalWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
-        return iw
+        return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
     }
 
     public func fetchPrebensWorkouts() -> [PrebensWorkout]? {
-        let iw: [PrebensWorkout]? = executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
-        return iw
+        return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
     }
 
     public func fetchWorkout(name: String) -> Workout? {
@@ -141,7 +135,6 @@ public class WorkoutService {
         fetchRequest.fetchLimit = 1
         return executeFetchWorkout(fetchRequest)?.first
     }
-
 
     public func fetchWarmup(userWorkout: UserWorkout) -> Workout? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
