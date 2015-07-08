@@ -165,8 +165,7 @@ public class WorkoutService {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutsEntityName)
         fetchRequest.predicate = NSPredicate(format: "workoutName == %@", workoutName)
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkouts]?
-        if let results = fetchedResults {
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkouts]? {
             return results.first
         } else {
             debugPrintln("Could not fetch \(error), \(error!.userInfo)")
@@ -179,8 +178,7 @@ public class WorkoutService {
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
         var error: NSError?
-        let optionalWorkout: Workout? = context.existingObjectWithID(objectId, error: &error) as! Workout?
-        if let workout = optionalWorkout {
+        if let workout = context.existingObjectWithID(objectId, error: &error) as! Workout? {
             var doneLastWorkout = false
             for performedWorkout in excludedWorkouts {
                 if performedWorkout.workoutName == workout.workoutName {
@@ -210,8 +208,7 @@ public class WorkoutService {
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
-        if let results = fetchedResults {
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
             if results.count == 0 {
                 return nil
             } else {
@@ -347,8 +344,7 @@ public class WorkoutService {
 
     private func executeFetchWorkout<T: AnyObject>(request: NSFetchRequest) -> [T]? {
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(request, error: &error) as! [T]?
-        if let results = fetchedResults {
+        if let results = context.executeFetchRequest(request, error: &error) as! [T]? {
             return results
         } else {
             debugPrintln("Could not fetch \(error), \(error!.userInfo)")
@@ -392,8 +388,7 @@ public class WorkoutService {
 
     private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutContainer] {
         var workouts = [String: WorkoutContainer]()
-        let workoutsArray = workoutsJson.valueForKeyPath("workout") as! NSArray
-        for jsonDictionary in workoutsArray {
+        for jsonDictionary in workoutsJson.valueForKeyPath("workout") as! NSArray {
             let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
                 desc: jsonDictionary["desc"] as! String!,
                 language: jsonDictionary["language"] as! String!,
@@ -402,7 +397,7 @@ public class WorkoutService {
                 dryGround: jsonDictionary["dryGround"] as! Bool!)
                 workouts[workout.name] = workout
         }
-    return workouts
+        return workouts
     }
 
     private func addRepWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
@@ -452,9 +447,7 @@ public class WorkoutService {
                 .weights(workout.weights)
                 .dryGround(workout.dryGround)
                 .categories(jsonDictionary["categories"] as! String)
-
-            let tasks = jsonDictionary.valueForKeyPath("workouts") as! NSArray
-            for (i, w) in enumerate(tasks) {
+            for (i, w) in enumerate(jsonDictionary.valueForKeyPath("workouts") as! NSArray) {
                 let workout = workouts[w["workout"] as! String!]!
                 prebensWorkout.workItem(reps(w["reps"] as! NSNumber)
                     .name(workout.name)
