@@ -258,7 +258,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
         preparedForSeque = false;
         debugPrintln("Finished workout \(workout.name), duration=\(duration)")
-        workoutService.saveUserWorkouts(workout.workoutName, duration: duration)
         var totalTime = workoutTimer.elapsedTime()
         debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
         let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())

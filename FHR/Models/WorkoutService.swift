@@ -53,8 +53,7 @@ public class WorkoutService {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"id == %@", id)
         var error: NSError?
-        let fetchedResults = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]?
-        if let results = fetchedResults {
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
             return userWorkoutFrom(results[0]).done(done).addToDuration(workoutTime).workout(optionalWorkout).save()
         } else {
             debugPrintln("Could not update \(error), \(error!.userInfo)")
@@ -160,15 +159,6 @@ public class WorkoutService {
             debugPrintln("Could not fetch \(error), \(error!.userInfo)")
         }
         return nil
-    }
-
-    public func saveUserWorkouts(workoutName: String, duration: Double) -> UserWorkouts? {
-        let userWorkoutsEntity = NSEntityDescription.entityForName(userWorkoutsEntityName, inManagedObjectContext: context)
-        let userWorkouts = UserWorkouts(entity: userWorkoutsEntity!, insertIntoManagedObjectContext: context)
-        userWorkouts.workoutName = workoutName
-        userWorkouts.duration = duration
-        saveContext()
-        return userWorkouts
     }
 
     public func fetchUserWorkouts(workoutName: String) -> UserWorkouts? {
