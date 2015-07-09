@@ -28,7 +28,6 @@
 		C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */; };
 		C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = C539DA941A8BD0A1005A6D45 /* workouts.json */; };
 		C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C539DA981A8CAA43005A6D45 /* Media.xcassets */; };
-		C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9A1A8D2159005A6D45 /* burpees.mov */; };
 		C539DA9D1A8E33AE005A6D45 /* CountDownTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */; };
 		C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */; };
 		C54B3A901B2453C70033854E /* RuntimeWorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A8F1B2453C70033854E /* RuntimeWorkoutTests.swift */; };
@@ -48,8 +47,6 @@
 		C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
 		C5A092CB1B1B9016003FFCA4 /* restwarning.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CA1B1B9016003FFCA4 /* restwarning.wav */; };
-		C5A092CF1B1E316B003FFCA4 /* TestVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */; };
-		C5A092D01B1E3C07003FFCA4 /* TestVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */; };
 		C5A092D21B1F1046003FFCA4 /* PrebensViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */; };
 		C5A092D41B206544003FFCA4 /* BaseWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */; };
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
@@ -118,7 +115,6 @@
 		C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkout.swift; sourceTree = "<group>"; };
 		C539DA941A8BD0A1005A6D45 /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
 		C539DA981A8CAA43005A6D45 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		C539DA9A1A8D2159005A6D45 /* burpees.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = burpees.mov; path = ../../../../../Desktop/burpees.mov; sourceTree = "<group>"; };
 		C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimerTests.swift; sourceTree = "<group>"; };
 		C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		C54B3A8F1B2453C70033854E /* RuntimeWorkoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeWorkoutTests.swift; sourceTree = "<group>"; };
@@ -140,7 +136,6 @@
 		C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeWorkout.swift; path = Core/RuntimeWorkout.swift; sourceTree = "<group>"; };
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
 		C5A092CA1B1B9016003FFCA4 /* restwarning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = restwarning.wav; sourceTree = "<group>"; };
-		C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestVideo.m4v; sourceTree = "<group>"; };
 		C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewControllerTests.swift; sourceTree = "<group>"; };
 		C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWorkoutController.swift; sourceTree = "<group>"; };
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -215,28 +210,12 @@
 		C515E84519C5A937001A5BB2 /* FHS */ = {
 			isa = PBXGroup;
 			children = (
-				C5EE21921B493DC000BA998A /* mountainclimber.m4v */,
-				C5EE21901B493DB700BA998A /* bicepcurl.m4v */,
-				C5EE218E1B493D7200BA998A /* theworm.m4v */,
-				C5EE218C1B493D0F00BA998A /* frontbenchpress.m4v */,
-				C5EE218A1B493CC600BA998A /* militarypress.m4v */,
-				C5EE21881B493C9300BA998A /* snatch.m4v */,
-				C5EE21861B493C6500BA998A /* pull2chin.m4v */,
-				C5EE21841B493BBC00BA998A /* squats.m4v */,
-				C5EE21821B493B7500BA998A /* chopup2Burpee.m4v */,
-				C5EE21801B493B0300BA998A /* chopups.m4v */,
-				C5EE217E1B493A5B00BA998A /* lunges.m4v */,
-				C5EE217A1B49396200BA998A /* lungejumps.m4v */,
-				C5EE217B1B49396200BA998A /* standingrowing.m4v */,
-				C5EE21781B4938E700BA998A /* russians.m4v */,
-				C5EE21761B47EFAB00BA998A /* getups.m4v */,
-				C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */,
+				C516BD181B4EF71200366B28 /* Videos */,
 				C5F7C9171B33FA5F004E6A3B /* bleep.wav */,
 				C54B3A911B2454130033854E /* Utils */,
 				C54B3A8D1B24525F0033854E /* Core */,
 				C54B3A8A1B230F1F0033854E /* Controllers */,
 				C54B3A891B230ED00033854E /* Models */,
-				C5A092CE1B1E316B003FFCA4 /* TestVideo.m4v */,
 				C5A092CA1B1B9016003FFCA4 /* restwarning.wav */,
 				C515E84819C5A937001A5BB2 /* AppDelegate.swift */,
 				C515E84C19C5A937001A5BB2 /* Main.storyboard */,
@@ -244,7 +223,6 @@
 				C515E85119C5A937001A5BB2 /* LaunchScreen.xib */,
 				C515E84619C5A937001A5BB2 /* Supporting Files */,
 				C539DA981A8CAA43005A6D45 /* Media.xcassets */,
-				C539DA9A1A8D2159005A6D45 /* burpees.mov */,
 				C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */,
 				C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */,
 			);
@@ -277,6 +255,29 @@
 				C515E85D19C5A937001A5BB2 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C516BD181B4EF71200366B28 /* Videos */ = {
+			isa = PBXGroup;
+			children = (
+				C5EE21921B493DC000BA998A /* mountainclimber.m4v */,
+				C5EE21901B493DB700BA998A /* bicepcurl.m4v */,
+				C5EE218E1B493D7200BA998A /* theworm.m4v */,
+				C5EE218C1B493D0F00BA998A /* frontbenchpress.m4v */,
+				C5EE218A1B493CC600BA998A /* militarypress.m4v */,
+				C5EE21881B493C9300BA998A /* snatch.m4v */,
+				C5EE21861B493C6500BA998A /* pull2chin.m4v */,
+				C5EE21841B493BBC00BA998A /* squats.m4v */,
+				C5EE21821B493B7500BA998A /* chopup2Burpee.m4v */,
+				C5EE21801B493B0300BA998A /* chopups.m4v */,
+				C5EE217E1B493A5B00BA998A /* lunges.m4v */,
+				C5EE217A1B49396200BA998A /* lungejumps.m4v */,
+				C5EE217B1B49396200BA998A /* standingrowing.m4v */,
+				C5EE21781B4938E700BA998A /* russians.m4v */,
+				C5EE21761B47EFAB00BA998A /* getups.m4v */,
+				C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */,
+			);
+			path = Videos;
 			sourceTree = "<group>";
 		};
 		C54B3A891B230ED00033854E /* Models */ = {
@@ -466,7 +467,6 @@
 				C5EE218B1B493CC600BA998A /* militarypress.m4v in Resources */,
 				C5EE217C1B49396200BA998A /* lungejumps.m4v in Resources */,
 				C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */,
-				C5A092CF1B1E316B003FFCA4 /* TestVideo.m4v in Resources */,
 				C5EE21911B493DB700BA998A /* bicepcurl.m4v in Resources */,
 				C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */,
 				C5EE21831B493B7500BA998A /* chopup2Burpee.m4v in Resources */,
@@ -483,7 +483,6 @@
 				C539DA9F1A8F2B9B005A6D45 /* Launch.storyboard in Resources */,
 				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
 				C5EE217F1B493A5B00BA998A /* lunges.m4v in Resources */,
-				C539DA9B1A8D2159005A6D45 /* burpees.mov in Resources */,
 				C5A092CB1B1B9016003FFCA4 /* restwarning.wav in Resources */,
 				C5EE21891B493C9300BA998A /* snatch.m4v in Resources */,
 				C5EE21931B493DC000BA998A /* mountainclimber.m4v in Resources */,
@@ -495,7 +494,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51055C61B0DF9F0005980AD /* Main.storyboard in Resources */,
-				C5A092D01B1E3C07003FFCA4 /* TestVideo.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
