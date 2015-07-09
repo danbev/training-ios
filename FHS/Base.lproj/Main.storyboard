@@ -132,7 +132,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Workout" id="uGa-3L-cgr">
                         <barButtonItem key="backBarButtonItem" title="  " id="qod-7m-JGH"/>
-                        <barButtonItem key="leftBarButtonItem" image="three115" style="plain" id="lxL-ud-hmh">
+                        <barButtonItem key="leftBarButtonItem" image="three115" id="lxL-ud-hmh">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="xWX-dZ-otF" kind="push" identifier="settings" id="OE9-t3-zTu"/>
@@ -1968,7 +1968,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Avh-Av-anV"/>
-        <segue reference="Wfl-c2-Foe"/>
+        <segue reference="qct-GB-qzC"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
