@@ -162,7 +162,7 @@
 		C5EE218E1B493D7200BA998A /* theworm.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = theworm.m4v; sourceTree = "<group>"; };
 		C5EE21901B493DB700BA998A /* bicepcurl.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = bicepcurl.m4v; sourceTree = "<group>"; };
 		C5EE21921B493DC000BA998A /* mountainclimber.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = mountainclimber.m4v; sourceTree = "<group>"; };
-		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioWarning.swift; sourceTree = "<group>"; };
+		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; path = AudioWarning.swift; sourceTree = "<group>"; };
 		C5F7C9171B33FA5F004E6A3B /* bleep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bleep.wav; sourceTree = "<group>"; };
 		C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				C516BD181B4EF71200366B28 /* Videos */,
-				C5F7C9171B33FA5F004E6A3B /* bleep.wav */,
 				C54B3A911B2454130033854E /* Utils */,
 				C54B3A8D1B24525F0033854E /* Core */,
 				C54B3A8A1B230F1F0033854E /* Controllers */,
@@ -221,7 +220,6 @@
 				C515E84619C5A937001A5BB2 /* Supporting Files */,
 				C539DA981A8CAA43005A6D45 /* Media.xcassets */,
 				C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */,
-				C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */,
 			);
 			path = FHS;
 			sourceTree = "<group>";
@@ -362,6 +360,8 @@
 		C54B3A911B2454130033854E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C5F7C9171B33FA5F004E6A3B /* bleep.wav */,
+				C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */,
 				C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */,
 				C56944B41B19D5FC006745B0 /* Timer.swift */,
 			);
