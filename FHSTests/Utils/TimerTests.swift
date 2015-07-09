@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import FHR
+import FHS
 import XCTest
 
 class TimerTests: XCTestCase {

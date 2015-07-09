@@ -10,7 +10,7 @@
         <!--Workout-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BJf-Et-2N4"/>
                         <viewControllerLayoutGuide type="bottom" id="SQg-8Q-gc6"/>
@@ -167,7 +167,7 @@
         <!--Prebens View Controller-->
         <scene sceneID="9Vv-WT-UhD">
             <objects>
-                <viewController storyboardIdentifier="PrebensViewController" id="72f-wf-6kL" customClass="PrebensViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrebensViewController" id="72f-wf-6kL" customClass="PrebensViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="048-Gq-Zxj"/>
                         <viewControllerLayoutGuide type="bottom" id="HME-jP-CvB"/>
@@ -347,7 +347,7 @@
         <!--Interval View Controller-->
         <scene sceneID="Tgh-JH-bg1">
             <objects>
-                <viewController storyboardIdentifier="IntervalViewController" id="iut-CO-vFa" customClass="IntervalViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntervalViewController" id="iut-CO-vFa" customClass="IntervalViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4w1-jC-2ji"/>
                         <viewControllerLayoutGuide type="bottom" id="1En-lc-kl7"/>
@@ -519,7 +519,7 @@
         <!--Duration View Controller-->
         <scene sceneID="6kW-Oy-67m">
             <objects>
-                <viewController storyboardIdentifier="DurationViewController" id="fms-NL-3Y8" customClass="DurationViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DurationViewController" id="fms-NL-3Y8" customClass="DurationViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sdU-zw-hCV"/>
                         <viewControllerLayoutGuide type="bottom" id="hlv-WQ-zuv"/>
@@ -619,7 +619,7 @@
         <!--Settings-->
         <scene sceneID="Qv2-sN-n2q">
             <objects>
-                <viewController id="xWX-dZ-otF" customClass="SettingViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController id="xWX-dZ-otF" customClass="SettingViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cSj-2J-IFB"/>
                         <viewControllerLayoutGuide type="bottom" id="mBu-bK-90E"/>
@@ -765,7 +765,7 @@
         <!--Reps View Controller-->
         <scene sceneID="ZJz-8j-jbR">
             <objects>
-                <viewController id="E2K-5C-CaN" userLabel="Reps View Controller" customClass="RepsViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="E2K-5C-CaN" userLabel="Reps View Controller" customClass="RepsViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zQs-O9-DRI"/>
                         <viewControllerLayoutGuide type="bottom" id="gSh-dK-Hnm"/>
@@ -921,7 +921,7 @@
         <!--Info View Controller-->
         <scene sceneID="G5n-Xa-fuW">
             <objects>
-                <viewController storyboardIdentifier="InfoViewController" id="FMn-yo-4cm" customClass="InfoViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoViewController" id="FMn-yo-4cm" customClass="InfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cg4-QQ-Qy6"/>
                         <viewControllerLayoutGuide type="bottom" id="wLq-1T-WAe"/>
@@ -1009,7 +1009,7 @@
         <!--AddWorkoutViewController-->
         <scene sceneID="5Yx-lX-X8b">
             <objects>
-                <viewController storyboardIdentifier="AddWorkoutViewController" title="AddWorkoutViewController" id="RVY-Hg-4kA" customClass="AddWorkoutViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddWorkoutViewController" title="AddWorkoutViewController" id="RVY-Hg-4kA" customClass="AddWorkoutViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Xp-Dy-iHi"/>
                         <viewControllerLayoutGuide type="bottom" id="OwB-I5-dQV"/>
@@ -1059,7 +1059,7 @@
         <!--Description-->
         <scene sceneID="LUm-61-rId">
             <objects>
-                <viewController storyboardIdentifier="AddWorkoutInfoViewController" id="lbE-km-Yzs" customClass="AddWorkoutInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddWorkoutInfoViewController" id="lbE-km-Yzs" customClass="AddWorkoutInfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SeO-oc-q7v"/>
                         <viewControllerLayoutGuide type="bottom" id="rDS-BG-6NA"/>
@@ -1198,7 +1198,7 @@
         <!--Settings-->
         <scene sceneID="xg1-Gb-74B">
             <objects>
-                <viewController id="TNG-Ey-Qh9" customClass="GeneralDetails2" customModule="FHR" sceneMemberID="viewController">
+                <viewController id="TNG-Ey-Qh9" customClass="GeneralDetails2" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LdW-0t-zti"/>
                         <viewControllerLayoutGuide type="bottom" id="nOW-P1-QnY"/>
@@ -1384,7 +1384,7 @@
         <!--Repitition-->
         <scene sceneID="OJA-0l-pGS">
             <objects>
-                <viewController storyboardIdentifier="RepsInfoViewController" id="uo1-hw-v2I" customClass="RepsInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RepsInfoViewController" id="uo1-hw-v2I" customClass="RepsInfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SC0-cZ-fQb"/>
                         <viewControllerLayoutGuide type="bottom" id="Pmy-gm-E2P"/>
@@ -1484,7 +1484,7 @@
         <!--Prebens-->
         <scene sceneID="7NF-3e-Una">
             <objects>
-                <viewController storyboardIdentifier="PrebensInfoViewController" id="aE8-wz-MZl" customClass="PrebensInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrebensInfoViewController" id="aE8-wz-MZl" customClass="PrebensInfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ICw-ny-AHc"/>
                         <viewControllerLayoutGuide type="bottom" id="hAu-gt-8qK"/>
@@ -1601,7 +1601,7 @@
         <!--Duration-->
         <scene sceneID="81u-tg-VE1">
             <objects>
-                <viewController storyboardIdentifier="DurationInfoViewController" id="B5T-AN-cDZ" customClass="DurationInfoViewController" customModule="FHR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DurationInfoViewController" id="B5T-AN-cDZ" customClass="DurationInfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="703-KH-6Pr"/>
                         <viewControllerLayoutGuide type="bottom" id="FX4-mB-ifH"/>
@@ -1669,7 +1669,7 @@
         <!--Workout task-->
         <scene sceneID="90v-Sb-A5o">
             <objects>
-                <viewController storyboardIdentifier="IntervalInfoViewController" id="BSG-jK-eZL" customClass="IntervalInfoViewController" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntervalInfoViewController" id="BSG-jK-eZL" customClass="IntervalInfoViewController" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VIA-zd-0m5"/>
                         <viewControllerLayoutGuide type="bottom" id="3QZ-ah-khY"/>
@@ -1767,7 +1767,7 @@
         <!--Rest task-->
         <scene sceneID="Vha-Pg-QkL">
             <objects>
-                <viewController storyboardIdentifier="IntervalInfoViewController2" id="n9O-2f-8Po" customClass="IntervalInfoViewController2" customModule="FHR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntervalInfoViewController2" id="n9O-2f-8Po" customClass="IntervalInfoViewController2" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hab-zb-Tfm"/>
                         <viewControllerLayoutGuide type="bottom" id="x7I-PN-Zvb"/>
@@ -1864,7 +1864,7 @@
         <!--Number of Intervals-->
         <scene sceneID="T89-mN-mCU">
             <objects>
-                <viewController id="5da-un-Lt1" customClass="IntervalInfoViewController3" customModule="FHR" sceneMemberID="viewController">
+                <viewController id="5da-un-Lt1" customClass="IntervalInfoViewController3" customModule="FHS" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vje-as-R2H"/>
                         <viewControllerLayoutGuide type="bottom" id="Qjm-43-w6d"/>
@@ -1967,8 +1967,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qct-GB-qzC"/>
         <segue reference="Avh-Av-anV"/>
+        <segue reference="Wfl-c2-Foe"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

@@ -1,27 +1,26 @@
 //
-//  PrebensViewControllerTests.swift
+//  DurationViewControllerTests.swift
 //  FHR
 //
-//  Created by Daniel Bevenius on 03/06/15.
+//  Created by Daniel Bevenius on 21/05/15.
 //  Copyright (c) 2015 Daniel Bevenius. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Foundation
-import FHR
+import FHS
 import XCTest
 
-class PrebensViewControllerTests: XCTestCase {
+class DurationViewControllerTests: XCTestCase {
 
-    var controller: PrebensViewController!
+    var controller: DurationViewController!
     let coreDataStack: CoreDataStack = TestCoreDataStack()
     var workoutService: WorkoutService!
 
     override func setUp() {
         super.setUp()
         var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
-        controller = storyboard.instantiateViewControllerWithIdentifier("PrebensViewController") as! PrebensViewController
+        controller = storyboard.instantiateViewControllerWithIdentifier("DurationViewController") as! DurationViewController
         workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
         controller.loadView()
@@ -32,12 +31,12 @@ class PrebensViewControllerTests: XCTestCase {
     }
 
     func testWithRestTimer() {
-        let workout = workoutService.fetchWorkout("UpperBodyPrebens")!
-        let expectation = expectationWithDescription("Testing timer...")
-        let timer = CountDownTimer(callback: { (t) -> () in
-            debugPrintln("in Prebends test CountDownTimer closure")
+        let workout = workoutService.fetchWorkout("Getups")!
+        let expectation = expectationWithDescription("Testing timer2...")
+        let timer = CountDownTimer(callback: { (dt) -> () in
+            debugPrintln("in duration test CountDownTimer closure")
             expectation.fulfill()
-            t.stop()
+            dt.stop()
             }, countDown: 60)
         controller.initWith(workout, userWorkouts: nil, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
@@ -46,5 +45,5 @@ class PrebensViewControllerTests: XCTestCase {
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
     }
-    
+
 }

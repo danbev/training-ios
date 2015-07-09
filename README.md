@@ -5,11 +5,11 @@ A simple app to simulates the training I was used to before becoming a parent. W
 
 Building can be done by opening the project in Xcode:
 
-    open FHR.xcworkspace
+    open FHS.xcworkspace
 
 or you can use the command line:
 
-    xcodebuild -project FHR.xcodeproj -scheme FHR -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xcodebuild -project FHS.xcodeproj -scheme FHS -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 
 Please make sure that you are running the correct version of Xcode also on the command line. You can check
 your version using:
@@ -25,5 +25,5 @@ To set the version to different version:
 Tests can be run from with in Xcode using Product->Test menu option (CMD+U).  
 You can also run test from the command:
 
-    xcodebuild -project FHR.xcodeproj -scheme FHR -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 5s'  test
+    xcodebuild -project FHS.xcodeproj -scheme FHS -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 5s'  test
 

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import XCTest
-import FHR
+import FHS
 
 class WorkoutCategoryTests: XCTestCase {
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Daniel Bevenius. All rights reserved.
 //
 
-import FHR
+import FHS
 import Foundation
 import CoreData
 

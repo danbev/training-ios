@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C515E84219C5A937001A5BB2"
-               BuildableName = "FHR.app"
-               BlueprintName = "FHR"
-               ReferencedContainer = "container:FHR.xcodeproj">
+               BuildableName = "FHS.app"
+               BlueprintName = "FHS"
+               ReferencedContainer = "container:FHS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C515E85719C5A937001A5BB2"
-               BuildableName = "FHRTests.xctest"
-               BlueprintName = "FHRTests"
-               ReferencedContainer = "container:FHR.xcodeproj">
+               BuildableName = "FHSTests.xctest"
+               BlueprintName = "FHSTests"
+               ReferencedContainer = "container:FHS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C515E85719C5A937001A5BB2"
-               BuildableName = "FHRTests.xctest"
-               BlueprintName = "FHRTests"
-               ReferencedContainer = "container:FHR.xcodeproj">
+               BuildableName = "FHSTests.xctest"
+               BlueprintName = "FHSTests"
+               ReferencedContainer = "container:FHS.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C515E84219C5A937001A5BB2"
-            BuildableName = "FHR.app"
-            BlueprintName = "FHR"
-            ReferencedContainer = "container:FHR.xcodeproj">
+            BuildableName = "FHS.app"
+            BlueprintName = "FHS"
+            ReferencedContainer = "container:FHS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -78,9 +78,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C515E84219C5A937001A5BB2"
-            BuildableName = "FHR.app"
-            BlueprintName = "FHR"
-            ReferencedContainer = "container:FHR.xcodeproj">
+            BuildableName = "FHS.app"
+            BlueprintName = "FHS"
+            ReferencedContainer = "container:FHS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,9 +97,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C515E84219C5A937001A5BB2"
-            BuildableName = "FHR.app"
-            BlueprintName = "FHR"
-            ReferencedContainer = "container:FHR.xcodeproj">
+            BuildableName = "FHS.app"
+            BlueprintName = "FHS"
+            ReferencedContainer = "container:FHS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

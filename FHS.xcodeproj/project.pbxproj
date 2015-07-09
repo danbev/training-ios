@@ -22,7 +22,7 @@
 		C526EC4F1B3D6613000FD9DC /* IntervalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */; };
 		C528E9301B42A6D9008CD748 /* UserWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E92F1B42A6D9008CD748 /* UserWorkouts.swift */; };
 		C537A4861A21F428003697CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537A4851A21F428003697CD /* CoreData.framework */; };
-		C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHR.xcdatamodeld */; };
+		C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHS.xcdatamodeld */; };
 		C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */; };
 		C539DA911A87DB26005A6D45 /* WorkoutServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */; };
 		C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */; };
@@ -97,14 +97,14 @@
 		C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewControllerTests.swift; sourceTree = "<group>"; };
 		C51424101AED68EB00153BF0 /* PrebensWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkout.swift; sourceTree = "<group>"; };
 		C51424121AEE9B0600153BF0 /* PrebensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewController.swift; sourceTree = "<group>"; };
-		C515E84319C5A937001A5BB2 /* FHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C515E84319C5A937001A5BB2 /* FHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E84719C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E84819C5A937001A5BB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C515E84A19C5A937001A5BB2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C515E84D19C5A937001A5BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C515E84F19C5A937001A5BB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C515E85219C5A937001A5BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C515E85819C5A937001A5BB2 /* FHRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C515E85819C5A937001A5BB2 /* FHSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E85D19C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		C52494641B3FFF9800038A64 /* PrebensInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensInfoViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController.swift; sourceTree = "<group>"; };
 		C528E92F1B42A6D9008CD748 /* UserWorkouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkouts.swift; sourceTree = "<group>"; };
 		C537A4851A21F428003697CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C537A4B91A21F669003697CD /* FHR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHR.xcdatamodel; sourceTree = "<group>"; };
+		C537A4B91A21F669003697CD /* FHS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHS.xcdatamodel; sourceTree = "<group>"; };
 		C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutServiceTest.swift; path = Models/WorkoutServiceTest.swift; sourceTree = "<group>"; };
 		C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkout.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
-		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalInfoViewController3.swift; path = FHR/Controllers/IntervalInfoViewController3.swift; sourceTree = "<group>"; };
+		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController3.swift; sourceTree = "<group>"; };
 		C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = jumpingjacks.m4v; sourceTree = "<group>"; };
 		C5EE21761B47EFAB00BA998A /* getups.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = getups.m4v; sourceTree = "<group>"; };
 		C5EE21781B4938E700BA998A /* russians.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = russians.m4v; sourceTree = "<group>"; };
@@ -196,10 +196,9 @@
 		C515E83A19C5A937001A5BB2 = {
 			isa = PBXGroup;
 			children = (
-				C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */,
 				C537A4851A21F428003697CD /* CoreData.framework */,
-				C515E84519C5A937001A5BB2 /* FHR */,
-				C515E85B19C5A937001A5BB2 /* FHRTests */,
+				C515E84519C5A937001A5BB2 /* FHS */,
+				C515E85B19C5A937001A5BB2 /* FHSTests */,
 				C515E84419C5A937001A5BB2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -207,13 +206,13 @@
 		C515E84419C5A937001A5BB2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C515E84319C5A937001A5BB2 /* FHR.app */,
-				C515E85819C5A937001A5BB2 /* FHRTests.xctest */,
+				C515E84319C5A937001A5BB2 /* FHS.app */,
+				C515E85819C5A937001A5BB2 /* FHSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C515E84519C5A937001A5BB2 /* FHR */ = {
+		C515E84519C5A937001A5BB2 /* FHS */ = {
 			isa = PBXGroup;
 			children = (
 				C5EE21921B493DC000BA998A /* mountainclimber.m4v */,
@@ -249,7 +248,7 @@
 				C539DA9E1A8F2B9B005A6D45 /* Launch.storyboard */,
 				C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */,
 			);
-			path = FHR;
+			path = FHS;
 			sourceTree = "<group>";
 		};
 		C515E84619C5A937001A5BB2 /* Supporting Files */ = {
@@ -260,7 +259,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C515E85B19C5A937001A5BB2 /* FHRTests */ = {
+		C515E85B19C5A937001A5BB2 /* FHSTests */ = {
 			isa = PBXGroup;
 			children = (
 				C54B3A921B2454880033854E /* Utils */,
@@ -269,7 +268,7 @@
 				C54B3A8B1B244E1C0033854E /* Controllers */,
 				C515E85C19C5A937001A5BB2 /* Supporting Files */,
 			);
-			path = FHRTests;
+			path = FHSTests;
 			sourceTree = "<group>";
 		};
 		C515E85C19C5A937001A5BB2 /* Supporting Files */ = {
@@ -284,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
-				C537A4B81A21F669003697CD /* FHR.xcdatamodeld */,
+				C537A4B81A21F669003697CD /* FHS.xcdatamodeld */,
 				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
 				C5801CE81A62B3C200051140 /* DurationWorkout.swift */,
 				C5801CE51A62B3A800051140 /* Workout.swift */,
@@ -301,6 +300,7 @@
 		C54B3A8A1B230F1F0033854E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */,
 				C52494641B3FFF9800038A64 /* PrebensInfoViewController.swift */,
 				C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */,
 				C515E84A19C5A937001A5BB2 /* ViewController.swift */,
@@ -382,9 +382,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C515E84219C5A937001A5BB2 /* FHR */ = {
+		C515E84219C5A937001A5BB2 /* FHS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHR" */;
+			buildConfigurationList = C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHS" */;
 			buildPhases = (
 				C515E83F19C5A937001A5BB2 /* Sources */,
 				C515E84019C5A937001A5BB2 /* Frameworks */,
@@ -394,14 +394,14 @@
 			);
 			dependencies = (
 			);
-			name = FHR;
+			name = FHS;
 			productName = FHR;
-			productReference = C515E84319C5A937001A5BB2 /* FHR.app */;
+			productReference = C515E84319C5A937001A5BB2 /* FHS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C515E85719C5A937001A5BB2 /* FHRTests */ = {
+		C515E85719C5A937001A5BB2 /* FHSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHRTests" */;
+			buildConfigurationList = C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHSTests" */;
 			buildPhases = (
 				C515E85419C5A937001A5BB2 /* Sources */,
 				C515E85519C5A937001A5BB2 /* Frameworks */,
@@ -412,9 +412,9 @@
 			dependencies = (
 				C515E85A19C5A937001A5BB2 /* PBXTargetDependency */,
 			);
-			name = FHRTests;
+			name = FHSTests;
 			productName = FHRTests;
-			productReference = C515E85819C5A937001A5BB2 /* FHRTests.xctest */;
+			productReference = C515E85819C5A937001A5BB2 /* FHSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -436,7 +436,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHR" */;
+			buildConfigurationList = C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -450,8 +450,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C515E84219C5A937001A5BB2 /* FHR */,
-				C515E85719C5A937001A5BB2 /* FHRTests */,
+				C515E84219C5A937001A5BB2 /* FHS */,
+				C515E85719C5A937001A5BB2 /* FHSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -512,7 +512,7 @@
 				C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */,
 				C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */,
 				C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */,
-				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,
+				C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
 				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
 				C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */,
@@ -566,7 +566,7 @@
 /* Begin PBXTargetDependency section */
 		C515E85A19C5A937001A5BB2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C515E84219C5A937001A5BB2 /* FHR */;
+			target = C515E84219C5A937001A5BB2 /* FHS */;
 			targetProxy = C515E85919C5A937001A5BB2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -678,10 +678,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FHR/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FHS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FHS;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -693,10 +693,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FHR/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FHS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FHS;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -714,10 +714,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = FHRTests/Info.plist;
+				INFOPLIST_FILE = FHSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHR.app/FHR";
+				PRODUCT_NAME = FHSTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHS.app/FHS";
 			};
 			name = Debug;
 		};
@@ -729,17 +729,17 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = FHRTests/Info.plist;
+				INFOPLIST_FILE = FHSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHR.app/FHR";
+				PRODUCT_NAME = FHSTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHS.app/FHS";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHR" */ = {
+		C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86019C5A937001A5BB2 /* Debug */,
@@ -748,7 +748,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHR" */ = {
+		C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86319C5A937001A5BB2 /* Debug */,
@@ -757,7 +757,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHRTests" */ = {
+		C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86619C5A937001A5BB2 /* Debug */,
@@ -769,13 +769,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C537A4B81A21F669003697CD /* FHR.xcdatamodeld */ = {
+		C537A4B81A21F669003697CD /* FHS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C537A4B91A21F669003697CD /* FHR.xcdatamodel */,
+				C537A4B91A21F669003697CD /* FHS.xcdatamodel */,
 			);
-			currentVersion = C537A4B91A21F669003697CD /* FHR.xcdatamodel */;
-			path = FHR.xcdatamodeld;
+			currentVersion = C537A4B91A21F669003697CD /* FHS.xcdatamodel */;
+			path = FHS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
