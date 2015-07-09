@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import FHR
+import FHS
 
 class ViewControllerTests: XCTestCase {
     

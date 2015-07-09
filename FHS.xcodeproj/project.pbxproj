@@ -97,14 +97,14 @@
 		C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewControllerTests.swift; sourceTree = "<group>"; };
 		C51424101AED68EB00153BF0 /* PrebensWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkout.swift; sourceTree = "<group>"; };
 		C51424121AEE9B0600153BF0 /* PrebensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewController.swift; sourceTree = "<group>"; };
-		C515E84319C5A937001A5BB2 /* FHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C515E84319C5A937001A5BB2 /* FHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E84719C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E84819C5A937001A5BB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C515E84A19C5A937001A5BB2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C515E84D19C5A937001A5BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C515E84F19C5A937001A5BB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C515E85219C5A937001A5BB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C515E85819C5A937001A5BB2 /* FHRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C515E85819C5A937001A5BB2 /* FHSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FHSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E85D19C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C515E85E19C5A937001A5BB2 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		C52494641B3FFF9800038A64 /* PrebensInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensInfoViewController.swift; sourceTree = "<group>"; };
@@ -207,8 +207,8 @@
 		C515E84419C5A937001A5BB2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C515E84319C5A937001A5BB2 /* FHR.app */,
-				C515E85819C5A937001A5BB2 /* FHRTests.xctest */,
+				C515E84319C5A937001A5BB2 /* FHS.app */,
+				C515E85819C5A937001A5BB2 /* FHSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -382,9 +382,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C515E84219C5A937001A5BB2 /* FHR */ = {
+		C515E84219C5A937001A5BB2 /* FHS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHR" */;
+			buildConfigurationList = C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHS" */;
 			buildPhases = (
 				C515E83F19C5A937001A5BB2 /* Sources */,
 				C515E84019C5A937001A5BB2 /* Frameworks */,
@@ -394,14 +394,14 @@
 			);
 			dependencies = (
 			);
-			name = FHR;
+			name = FHS;
 			productName = FHR;
-			productReference = C515E84319C5A937001A5BB2 /* FHR.app */;
+			productReference = C515E84319C5A937001A5BB2 /* FHS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C515E85719C5A937001A5BB2 /* FHRTests */ = {
+		C515E85719C5A937001A5BB2 /* FHSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHRTests" */;
+			buildConfigurationList = C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHSTests" */;
 			buildPhases = (
 				C515E85419C5A937001A5BB2 /* Sources */,
 				C515E85519C5A937001A5BB2 /* Frameworks */,
@@ -412,9 +412,9 @@
 			dependencies = (
 				C515E85A19C5A937001A5BB2 /* PBXTargetDependency */,
 			);
-			name = FHRTests;
+			name = FHSTests;
 			productName = FHRTests;
-			productReference = C515E85819C5A937001A5BB2 /* FHRTests.xctest */;
+			productReference = C515E85819C5A937001A5BB2 /* FHSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -436,7 +436,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHR" */;
+			buildConfigurationList = C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -450,8 +450,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C515E84219C5A937001A5BB2 /* FHR */,
-				C515E85719C5A937001A5BB2 /* FHRTests */,
+				C515E84219C5A937001A5BB2 /* FHS */,
+				C515E85719C5A937001A5BB2 /* FHSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -566,7 +566,7 @@
 /* Begin PBXTargetDependency section */
 		C515E85A19C5A937001A5BB2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C515E84219C5A937001A5BB2 /* FHR */;
+			target = C515E84219C5A937001A5BB2 /* FHS */;
 			targetProxy = C515E85919C5A937001A5BB2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -681,7 +681,7 @@
 				INFOPLIST_FILE = FHR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FHS;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -696,7 +696,7 @@
 				INFOPLIST_FILE = FHR/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FHS;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -716,8 +716,8 @@
 				);
 				INFOPLIST_FILE = FHRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHR.app/FHR";
+				PRODUCT_NAME = FHSTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHS.app/FHS";
 			};
 			name = Debug;
 		};
@@ -731,15 +731,15 @@
 				);
 				INFOPLIST_FILE = FHRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHR.app/FHR";
+				PRODUCT_NAME = FHSTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FHS.app/FHS";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHR" */ = {
+		C515E83E19C5A937001A5BB2 /* Build configuration list for PBXProject "FHS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86019C5A937001A5BB2 /* Debug */,
@@ -748,7 +748,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHR" */ = {
+		C515E86219C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86319C5A937001A5BB2 /* Debug */,
@@ -757,7 +757,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHRTests" */ = {
+		C515E86519C5A937001A5BB2 /* Build configuration list for PBXNativeTarget "FHSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C515E86619C5A937001A5BB2 /* Debug */,

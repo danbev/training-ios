@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import FHR
+import FHS
 import XCTest
 
 class IntervalViewControllerTests: XCTestCase {
