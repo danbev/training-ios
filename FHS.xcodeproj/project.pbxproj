@@ -152,7 +152,7 @@
 		C5E36BEE1A95D48F007906E8 /* RepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsViewController.swift; sourceTree = "<group>"; };
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
-		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntervalInfoViewController3.swift; path = Controllers/IntervalInfoViewController3.swift; sourceTree = "<group>"; };
+		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController3.swift; sourceTree = "<group>"; };
 		C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = jumpingjacks.m4v; sourceTree = "<group>"; };
 		C5EE21761B47EFAB00BA998A /* getups.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = getups.m4v; sourceTree = "<group>"; };
 		C5EE21781B4938E700BA998A /* russians.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = russians.m4v; sourceTree = "<group>"; };
@@ -215,7 +215,6 @@
 		C515E84519C5A937001A5BB2 /* FHS */ = {
 			isa = PBXGroup;
 			children = (
-				C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */,
 				C5EE21921B493DC000BA998A /* mountainclimber.m4v */,
 				C5EE21901B493DB700BA998A /* bicepcurl.m4v */,
 				C5EE218E1B493D7200BA998A /* theworm.m4v */,
@@ -301,6 +300,7 @@
 		C54B3A8A1B230F1F0033854E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */,
 				C52494641B3FFF9800038A64 /* PrebensInfoViewController.swift */,
 				C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */,
 				C515E84A19C5A937001A5BB2 /* ViewController.swift */,
