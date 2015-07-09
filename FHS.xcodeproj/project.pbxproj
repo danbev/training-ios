@@ -22,7 +22,7 @@
 		C526EC4F1B3D6613000FD9DC /* IntervalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */; };
 		C528E9301B42A6D9008CD748 /* UserWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C528E92F1B42A6D9008CD748 /* UserWorkouts.swift */; };
 		C537A4861A21F428003697CD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C537A4851A21F428003697CD /* CoreData.framework */; };
-		C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHR.xcdatamodeld */; };
+		C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHS.xcdatamodeld */; };
 		C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */; };
 		C539DA911A87DB26005A6D45 /* WorkoutServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */; };
 		C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */; };
@@ -112,7 +112,7 @@
 		C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController.swift; sourceTree = "<group>"; };
 		C528E92F1B42A6D9008CD748 /* UserWorkouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkouts.swift; sourceTree = "<group>"; };
 		C537A4851A21F428003697CD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C537A4B91A21F669003697CD /* FHR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHR.xcdatamodel; sourceTree = "<group>"; };
+		C537A4B91A21F669003697CD /* FHS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHS.xcdatamodel; sourceTree = "<group>"; };
 		C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutServiceTest.swift; path = Models/WorkoutServiceTest.swift; sourceTree = "<group>"; };
 		C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkout.swift; sourceTree = "<group>"; };
@@ -283,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
-				C537A4B81A21F669003697CD /* FHR.xcdatamodeld */,
+				C537A4B81A21F669003697CD /* FHS.xcdatamodeld */,
 				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
 				C5801CE81A62B3C200051140 /* DurationWorkout.swift */,
 				C5801CE51A62B3A800051140 /* Workout.swift */,
@@ -512,7 +512,7 @@
 				C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */,
 				C5E36BEF1A95D48F007906E8 /* RepsViewController.swift in Sources */,
 				C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */,
-				C537A4BA1A21F669003697CD /* FHR.xcdatamodeld in Sources */,
+				C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
 				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
 				C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */,
@@ -769,13 +769,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C537A4B81A21F669003697CD /* FHR.xcdatamodeld */ = {
+		C537A4B81A21F669003697CD /* FHS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C537A4B91A21F669003697CD /* FHR.xcdatamodel */,
+				C537A4B91A21F669003697CD /* FHS.xcdatamodel */,
 			);
-			currentVersion = C537A4B91A21F669003697CD /* FHR.xcdatamodel */;
-			path = FHR.xcdatamodeld;
+			currentVersion = C537A4B91A21F669003697CD /* FHS.xcdatamodel */;
+			path = FHS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

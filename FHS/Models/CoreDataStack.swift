@@ -9,7 +9,7 @@
 import CoreData
 
 public class CoreDataStack {
-    public var storeName = "FHR"
+    public var storeName = "FHS"
     public var psc: NSPersistentStoreCoordinator?
     public var model: NSManagedObjectModel
     public var store: NSPersistentStore
