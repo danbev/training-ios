@@ -9,39 +9,39 @@
        {"name":"HipSwitches","desc":"Standing on all fours with our knees just above the ground, turn you hips to the side. You should be looking straight ahead during the workout.","language":"en","videoUrl": "","weights":false,"dryGround":false},
        {"name":"JumpingJacks","desc":"From standing upright position, extend your arms over your head and at the same time push you legs out to the sides. You arms should be straight during the whole workout to warm up the shoulders","language": "en", "videoUrl":"jumpingjacks.m4v","weights":false,"dryGround":false},
        {"name":"AllFours","desc":"On all fours move around and do hip switches, turns as a warmup","language": "en", "videoUrl":"","weights":false,"dryGround":true},
-       {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "videoUrl":"chopup2burpee","weights":false,"dryGround":true},
+       {"name":"ChopupToBurpee","desc":"Perform a chopup followed by a burpee, then a chopup followed by a burpee etc","language": "en", "videoUrl":"chopup2Burpee","weights":false,"dryGround":true},
        {"name":"UpperBodyPrebens","desc":"7 upper body excersizes a 10 reps. Start with on excersize, then add the next etc until you have done them all. Then remove the first excersize.","language": "en", "videoUrl":"TestVideo.m4v","weights":true,"dryGround":false},
        {"name":"LowerBodyPrebens","desc":"7 upper body excersizes a 10 reps. Start with on excersize, then add the next etc until you have done them all. Then remove the first excersize.","language": "en", "videoUrl":"TestVideo.m4v","weights":true,"dryGround":false},
        {"name":"BicCurl","desc":"Bicep curl using a barbell","language": "en", "videoUrl":"bicepcurl.m4v","weights":true,"dryGround":false},
        {"name":"FrontBenchPress","desc":"Standing straight bench press","language": "en", "videoUrl":"frontbenchpress.m4v","weights":true,"dryGround":false},
        {"name":"MilitaryPress","desc":"Press a barbell straight up from sholders","language": "en", "videoUrl":"militarypress.m4v","weights":true,"dryGround":false},
-       {"name":"Snatch","desc":"aljfadfj","language": "en", "videoUrl":"snatch.m4v","weights":true,"dryGround":false},
-       {"name":"HakDrag","desc":"aljfadfj","language": "en", "videoUrl":"pull2chin.m4v","weights":true,"dryGround":false},
-       {"name":"StandingRowing","desc":"aljfadfj","language": "en", "videoUrl":"standingrowing.m4v","weights":true,"dryGround":false},
+       {"name":"Snatch","desc":"Snatch...","language": "en", "videoUrl":"snatch.m4v","weights":true,"dryGround":false},
+       {"name":"HakDrag","desc":"Pull to chin with a bar","language": "en", "videoUrl":"pull2chin.m4v","weights":true,"dryGround":false},
+       {"name":"StandingRowing","desc":"Stand a little more than should width apart with you legs and...","language": "en", "videoUrl":"standingrowing.m4v","weights":true,"dryGround":false},
        {"name":"FlatFootJumps","desc":"Perform a squat and then jump as high as you can and land in the squat position again and repeat","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
        {"name":"LungeJumps","desc":"Lunges but with jumping","language": "en", "videoUrl":"lungejumps.m4v","weights":false,"dryGround":false},
        {"name":"Marklyft","desc":"With a bar...","language": "en", "videoUrl":"TestVideo.m4v","weights":true,"dryGround":false},
        {"name":"StallionBurpees","desc":"Like a normal burpee, but when you go to stand up you kick your back legs back and up like a horse","language": "en", "videoUrl":"TestVideo.m4v","weights":false,"dryGround":false},
        {"name":"WormInterval","desc":"Interval with a work and rest interval...","language": "en", "videoUrl":"","weights":false,"dryGround":false},
        {"name":"Worm","desc":"Stand with feet a little more that shoulder width...","language": "en", "videoUrl":"theworm.m4v","weights":false,"dryGround":false},
-       {"name":"MountainClimber","desc":"On all fours...","language": "en", "videoUrl":"mountainclimber.m4v","weights":false,"dryGround":false}
+       {"name":"MountainClimber","desc":"Starting from a pushup position, move one leg past you elbow and then as you move it back do the same with the other leg","language": "en", "videoUrl":"mountainclimber.m4v","weights":false,"dryGround":false}
     ],
     "repbased": [
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 6,"approx": 120, "categories": "Warmup"},
-       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 6,"approx": 120, "categories": "Warmup"},
-       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 6,"approx": 300,"categories": "Lowerbody"},
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 3,"approx":600,"categories": "Upperbody,Cardio"},
-       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 3,"approx":600,"categories": "Lowerbody,Cardio"},
-       {"name": "100 Lunges", "workout": "Lunge", "reps": 100, "rest": 3,"approx":600,"categories": "Lowerbody"},
-       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 6, "categories": "Upperbody,Cardio"},
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 60,"approx": 120, "categories": "Warmup"},
+       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 120, "categories": "Warmup"},
+       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 300,"categories": "Lowerbody"},
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 120,"approx":600,"categories": "Upperbody,Cardio"},
+       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody,Cardio"},
+       {"name": "100 Lunges", "workout": "Lunge", "reps": 100, "rest": 120,"approx":600,"categories": "Lowerbody"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 30, "categories": "Upperbody,Cardio"},
        {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 6,"approx": 300,"categories": "Upperbody"}
     ],
     "timebased": [
-       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 5, "rest": 5, "categories": "Upperbody,Cardio"},
-       {"name": "Getups", "workout": "Getups", "duration": 5, "rest": 5, "categories": "Warmup"}
+       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 300, "rest": 120, "categories": "Upperbody,Cardio"},
+       {"name": "Getups", "workout": "Getups", "duration": 300, "rest": 60, "categories": "Warmup"}
     ],
     "prebensbased": [
-       {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [
+       {"name": "Prebens", "workout": "UpperBodyPrebens","rest":120,"approx":300,"categories":"Upperbody","workouts": [
            {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
@@ -50,7 +50,7 @@
            {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
        ]},
-       {"name": "Prebens", "workout": "LowerBodyPrebens","rest":5,"approx":1200,"categories":"Lowerbody","workouts": [
+       {"name": "Prebens", "workout": "LowerBodyPrebens","rest":120,"approx":1200,"categories":"Lowerbody","workouts": [
            {"name": "Russians", "workout": "Russians", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Flat foot jumps", "workout": "FlatFootJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
@@ -61,7 +61,7 @@
        ]}
     ],
     "intervalbased": [
-          {"name":"Worm interval","workout":"WormInterval","intervals": 5,"rest":5,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 10, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 10,"categories":"Interval"}
+          {"name":"Worm interval","workout":"WormInterval","intervals": 5,"rest":60,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 40, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 20,"categories":"Interval"}
           }
     ]
   }
