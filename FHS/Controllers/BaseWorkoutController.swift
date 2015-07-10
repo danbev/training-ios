@@ -99,7 +99,7 @@ public class BaseWorkoutController: UIViewController {
             }
         } else {
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
-            if  min == 0 && sec <= 3 {
+            if  min == 0 && sec <= 3 && fra < 5 {
                 bgQueue.addOperationWithBlock() {
                     self.audioWarning.play()
                 }

@@ -76,10 +76,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             timerLabel.hidden = false
         }
         let (min, sec, fra) = timer.elapsedTime()
-        if min == 0 && sec <= 3 {
-            bgQueue.addOperationWithBlock() {
-                self.audioWarning.play()
-            }
+        if min == 0 && sec <= 3 && fra < 5 {
+            audioWarning.play()
         }
         timerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
         if min == 0 && sec == 0 && fra <= 0 {
