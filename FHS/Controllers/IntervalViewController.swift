@@ -35,12 +35,16 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.reloadData()
         intervalsLabel.text = String(intervals)
+        tableView.reloadData()
     }
 
     public override func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
+        initWorkout(workout)
+    }
+
+    private func initWorkout(workout: Workout) {
         intervalWorkout = workout as! IntervalWorkout
         intervals = intervalWorkout.intervals.integerValue
         workouts.append(intervalWorkout.work)
@@ -63,7 +67,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     }
 
     public override func startWorkTimer(workout: Workout) {
-        let intervalWorkout = workout as! IntervalWorkout
+        tableView.reloadData()
         timeLabel.hidden = true
         restTimerLabel.hidden = true
         intervalTitleLabel.hidden = false
@@ -121,7 +125,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             workCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec, fra)
-            if  min == 0 && sec <= 3 {
+            if  min == 0 && sec <= 3 && fra < 5 {
                 audioWarning.play()
             }
         } else {
@@ -136,7 +140,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         let (min, sec, fra) = timer.elapsedTime()
         if min >= 0 && sec > 0 {
             restCell()?.detailTextLabel?.text = CountDownTimer.timeAsString(min, sec, fra)
-            if  min == 0 && sec <= 3 {
+            if  min == 0 && sec <= 3 && fra < 5 {
                 audioWarning.play()
             }
         } else {
