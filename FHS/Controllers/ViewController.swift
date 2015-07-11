@@ -122,11 +122,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 interruptedWorkout = true
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration - runtimeWorkout.lastUserWorkout!.duration)
                 if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
-                    for (index, w) in enumerate(workouts) {
-                        tasks.append(w as! Workout)
+                    let count = workouts.count - 1
+                    for index in stride(from: count, through: 0, by: -1) {
+                        tasks.append(workouts[index] as! Workout)
                         tableView.reloadData()
-                        if index != 0 {
-                            checkmark(index)
+                        if index != count {
+                            checkmark(count - index)
                         }
                     }
                 }
