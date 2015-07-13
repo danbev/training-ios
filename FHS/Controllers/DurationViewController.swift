@@ -42,6 +42,9 @@ public class DurationViewController: BaseWorkoutController {
 
     public func durationCallback(timer: CountDownTimer) {
         let (min, sec, fra) = timer.elapsedTime()
+        if min == 0 && sec <= 3 && fra < 5 {
+            audioWarning.play()
+        }
         if min == 0 && sec == 0 && fra == 0 {
             timer.stop()
             self.didFinish!(self, duration: durationWorkout.duration.doubleValue)
