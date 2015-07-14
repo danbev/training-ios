@@ -57,22 +57,6 @@
 		C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */; };
 		C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
 		C5E6A4CB1B467FC300FF93B1 /* IntervalInfoViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */; };
-		C5EE21751B47EEE400BA998A /* jumpingjacks.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */; };
-		C5EE21771B47EFAB00BA998A /* getups.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21761B47EFAB00BA998A /* getups.m4v */; };
-		C5EE21791B4938E700BA998A /* russians.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21781B4938E700BA998A /* russians.m4v */; };
-		C5EE217C1B49396200BA998A /* lungejumps.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE217A1B49396200BA998A /* lungejumps.m4v */; };
-		C5EE217D1B49396200BA998A /* standingrowing.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE217B1B49396200BA998A /* standingrowing.m4v */; };
-		C5EE217F1B493A5B00BA998A /* lunges.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE217E1B493A5B00BA998A /* lunges.m4v */; };
-		C5EE21811B493B0300BA998A /* chopups.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21801B493B0300BA998A /* chopups.m4v */; };
-		C5EE21831B493B7500BA998A /* chopup2Burpee.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21821B493B7500BA998A /* chopup2Burpee.m4v */; };
-		C5EE21851B493BBC00BA998A /* squats.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21841B493BBC00BA998A /* squats.m4v */; };
-		C5EE21871B493C6500BA998A /* pull2chin.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21861B493C6500BA998A /* pull2chin.m4v */; };
-		C5EE21891B493C9300BA998A /* snatch.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21881B493C9300BA998A /* snatch.m4v */; };
-		C5EE218B1B493CC600BA998A /* militarypress.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE218A1B493CC600BA998A /* militarypress.m4v */; };
-		C5EE218D1B493D0F00BA998A /* frontbenchpress.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE218C1B493D0F00BA998A /* frontbenchpress.m4v */; };
-		C5EE218F1B493D7200BA998A /* theworm.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE218E1B493D7200BA998A /* theworm.m4v */; };
-		C5EE21911B493DB700BA998A /* bicepcurl.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21901B493DB700BA998A /* bicepcurl.m4v */; };
-		C5EE21931B493DC000BA998A /* mountainclimber.m4v in Resources */ = {isa = PBXBuildFile; fileRef = C5EE21921B493DC000BA998A /* mountainclimber.m4v */; };
 		C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */; };
 		C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C5F7C9171B33FA5F004E6A3B /* bleep.wav */; };
 		C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */; };
@@ -144,22 +128,6 @@
 		C5E36BF01A961AB6007906E8 /* CountDownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimer.swift; sourceTree = "<group>"; };
 		C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserWorkout.swift; sourceTree = "<group>"; };
 		C5E6A4CA1B467FC300FF93B1 /* IntervalInfoViewController3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController3.swift; sourceTree = "<group>"; };
-		C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = jumpingjacks.m4v; sourceTree = "<group>"; };
-		C5EE21761B47EFAB00BA998A /* getups.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = getups.m4v; sourceTree = "<group>"; };
-		C5EE21781B4938E700BA998A /* russians.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = russians.m4v; sourceTree = "<group>"; };
-		C5EE217A1B49396200BA998A /* lungejumps.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = lungejumps.m4v; sourceTree = "<group>"; };
-		C5EE217B1B49396200BA998A /* standingrowing.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = standingrowing.m4v; sourceTree = "<group>"; };
-		C5EE217E1B493A5B00BA998A /* lunges.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = lunges.m4v; sourceTree = "<group>"; };
-		C5EE21801B493B0300BA998A /* chopups.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = chopups.m4v; sourceTree = "<group>"; };
-		C5EE21821B493B7500BA998A /* chopup2Burpee.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = chopup2Burpee.m4v; sourceTree = "<group>"; };
-		C5EE21841B493BBC00BA998A /* squats.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = squats.m4v; sourceTree = "<group>"; };
-		C5EE21861B493C6500BA998A /* pull2chin.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = pull2chin.m4v; sourceTree = "<group>"; };
-		C5EE21881B493C9300BA998A /* snatch.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = snatch.m4v; sourceTree = "<group>"; };
-		C5EE218A1B493CC600BA998A /* militarypress.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = militarypress.m4v; sourceTree = "<group>"; };
-		C5EE218C1B493D0F00BA998A /* frontbenchpress.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = frontbenchpress.m4v; sourceTree = "<group>"; };
-		C5EE218E1B493D7200BA998A /* theworm.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = theworm.m4v; sourceTree = "<group>"; };
-		C5EE21901B493DB700BA998A /* bicepcurl.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = bicepcurl.m4v; sourceTree = "<group>"; };
-		C5EE21921B493DC000BA998A /* mountainclimber.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = mountainclimber.m4v; sourceTree = "<group>"; };
 		C5F7C9131B33F43A004E6A3B /* AudioWarning.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; path = AudioWarning.swift; sourceTree = "<group>"; };
 		C5F7C9171B33FA5F004E6A3B /* bleep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bleep.wav; sourceTree = "<group>"; };
 		C5F7C92C1B344EBB004E6A3B /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
@@ -252,22 +220,6 @@
 		C516BD181B4EF71200366B28 /* Videos */ = {
 			isa = PBXGroup;
 			children = (
-				C5EE21921B493DC000BA998A /* mountainclimber.m4v */,
-				C5EE21901B493DB700BA998A /* bicepcurl.m4v */,
-				C5EE218E1B493D7200BA998A /* theworm.m4v */,
-				C5EE218C1B493D0F00BA998A /* frontbenchpress.m4v */,
-				C5EE218A1B493CC600BA998A /* militarypress.m4v */,
-				C5EE21881B493C9300BA998A /* snatch.m4v */,
-				C5EE21861B493C6500BA998A /* pull2chin.m4v */,
-				C5EE21841B493BBC00BA998A /* squats.m4v */,
-				C5EE21821B493B7500BA998A /* chopup2Burpee.m4v */,
-				C5EE21801B493B0300BA998A /* chopups.m4v */,
-				C5EE217E1B493A5B00BA998A /* lunges.m4v */,
-				C5EE217A1B49396200BA998A /* lungejumps.m4v */,
-				C5EE217B1B49396200BA998A /* standingrowing.m4v */,
-				C5EE21781B4938E700BA998A /* russians.m4v */,
-				C5EE21761B47EFAB00BA998A /* getups.m4v */,
-				C5EE21741B47EEE400BA998A /* jumpingjacks.m4v */,
 			);
 			path = Videos;
 			sourceTree = "<group>";
@@ -456,28 +408,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5EE21751B47EEE400BA998A /* jumpingjacks.m4v in Resources */,
-				C5EE217D1B49396200BA998A /* standingrowing.m4v in Resources */,
-				C5EE218B1B493CC600BA998A /* militarypress.m4v in Resources */,
-				C5EE217C1B49396200BA998A /* lungejumps.m4v in Resources */,
 				C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */,
-				C5EE21911B493DB700BA998A /* bicepcurl.m4v in Resources */,
 				C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */,
-				C5EE21831B493B7500BA998A /* chopup2Burpee.m4v in Resources */,
 				C515E85319C5A937001A5BB2 /* LaunchScreen.xib in Resources */,
-				C5EE218D1B493D0F00BA998A /* frontbenchpress.m4v in Resources */,
-				C5EE21811B493B0300BA998A /* chopups.m4v in Resources */,
 				C515E85019C5A937001A5BB2 /* Images.xcassets in Resources */,
-				C5EE21791B4938E700BA998A /* russians.m4v in Resources */,
-				C5EE21871B493C6500BA998A /* pull2chin.m4v in Resources */,
-				C5EE218F1B493D7200BA998A /* theworm.m4v in Resources */,
-				C5EE21851B493BBC00BA998A /* squats.m4v in Resources */,
 				C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */,
-				C5EE21771B47EFAB00BA998A /* getups.m4v in Resources */,
 				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
-				C5EE217F1B493A5B00BA998A /* lunges.m4v in Resources */,
-				C5EE21891B493C9300BA998A /* snatch.m4v in Resources */,
-				C5EE21931B493DC000BA998A /* mountainclimber.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
