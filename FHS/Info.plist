@@ -41,5 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>VideoUrl</key>
+	<string>http://fhs.dbevenius.org/</string>
 </dict>
 </plist>

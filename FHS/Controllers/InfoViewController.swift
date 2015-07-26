@@ -40,13 +40,18 @@ public class InfoViewController: UIViewController {
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "videoSegue" {
             if let videoUrl = workout.videoUrl {
-                var url = NSBundle.mainBundle().URLForResource(videoUrl, withExtension: nil)
-                if url == nil {
-                    url = NSURL.fileURLWithPath(videoUrl)
-                }
                 let videoViewController = segue.destinationViewController as! AVPlayerViewController
                 videoViewController.view.backgroundColor = UIColor.darkGrayColor()
-                videoViewController.player = AVPlayer(URL: url)
+                var dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Info", ofType: "plist")!)
+                if videoUrl.rangeOfString("video")?.startIndex == videoUrl.startIndex {
+                    if let remoteUrl = NSURL(string: videoUrl, relativeToURL: NSURL(string: dict!.valueForKey("VideoUrl") as! String)) {
+                        println("remote url:\(remoteUrl)")
+                        videoViewController.player = AVPlayer.playerWithURL(remoteUrl) as! AVPlayer
+                    }
+                } else {
+                    println("local url:\(videoUrl)")
+                    videoViewController.player = AVPlayer(URL: NSURL.fileURLWithPath(videoUrl))
+                }
             } else {
                 container.hidden = true
                 noVideoLabel.hidden = false
