@@ -13,7 +13,7 @@ import FHS
 
 class RuntimeWorkoutTests: XCTestCase {
 
-    let coreDataStack: CoreDataStack = TestCoreDataStack()
+    let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
     var workoutService: WorkoutService!
 
     override func setUp() {

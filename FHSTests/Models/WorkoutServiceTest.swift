@@ -13,7 +13,7 @@ import XCTest
 
 class WorkoutServiceTest: XCTestCase {
 
-    let coreDataStack: CoreDataStack = TestCoreDataStack()
+    let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
     var ws: WorkoutService!
 
     override func setUp() {
@@ -299,7 +299,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testOrderOfPrebens() {
         // use new context
-        let coreDataStack: CoreDataStack = TestCoreDataStack()
+        let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
         var workoutService = WorkoutService(context: coreDataStack.context)
         workoutService.loadDataIfNeeded()
 

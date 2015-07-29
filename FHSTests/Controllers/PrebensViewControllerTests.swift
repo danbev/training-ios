@@ -15,7 +15,7 @@ import XCTest
 class PrebensViewControllerTests: XCTestCase {
 
     var controller: PrebensViewController!
-    let coreDataStack: CoreDataStack = TestCoreDataStack()
+    let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
     var workoutService: WorkoutService!
 
     override func setUp() {

@@ -23,7 +23,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
 
-    private lazy var coreDataStack = CoreDataStack()
+    private lazy var coreDataStack = CoreDataStack(storeName: "FHS")
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
     private var tasks = [Workout]()

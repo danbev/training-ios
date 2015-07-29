@@ -9,7 +9,6 @@
 import CoreData
 
 public class CoreDataStack {
-    public var storeName = "FHS"
     public var psc: NSPersistentStoreCoordinator?
     public var model: NSManagedObjectModel
     public var store: NSPersistentStore
@@ -21,7 +20,7 @@ public class CoreDataStack {
         return context
     }()
 
-    public init() {
+    public init(storeName: String) {
         let bundle = NSBundle.mainBundle()
         let modelUrl = bundle.URLForResource(storeName, withExtension: "momd")
         model = NSManagedObjectModel(contentsOfURL: modelUrl!)!
