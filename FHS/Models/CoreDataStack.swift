@@ -14,17 +14,10 @@ public class CoreDataStack {
     public var model: NSManagedObjectModel
     public var store: NSPersistentStore
 
-    class func applicationDocumentsDirectory() -> NSURL {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
-        return urls[0]
-    }
-
     public lazy var context: NSManagedObjectContext! = {
         var context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = self.psc
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
         return context
     }()
 
@@ -49,6 +42,12 @@ public class CoreDataStack {
         if context.hasChanges && !context.save(&error) {
             debugPrintln("Could not save \(error), \(error?.userInfo)")
         }
+    }
+
+    class func applicationDocumentsDirectory() -> NSURL {
+        let fileManager = NSFileManager.defaultManager()
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
+        return urls[0]
     }
 
 }
