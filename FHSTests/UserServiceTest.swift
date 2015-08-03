@@ -76,7 +76,7 @@ class UserServiceTest: XCTestCase {
         var dateFormatter = UserServiceTest.dateFormatter()
         let augustFirst = dateFormatter.dateFromString("August 1, 2015") as NSDate!
         let augustSecond = dateFormatter.dateFromString("August 2, 2015") as NSDate!
-        let augustThird = dateFormatter.dateFromString("August 2, 2015") as NSDate!
+        let augustThird = dateFormatter.dateFromString("August 3, 2015") as NSDate!
 
         let firstWorkout = userService.newUserWorkout().category(WorkoutCategory.UpperBody).addWorkout("JumpingJacks").date(augustFirst).save()
         let secondWorkout = userService.newUserWorkout().category(WorkoutCategory.UpperBody).addWorkout("JumpingJacks").date(augustSecond).save()

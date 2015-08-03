@@ -39,6 +39,18 @@ public class UserService {
         return UpdateUserWorkoutBuilder(userService: self, userWorkout: userWorkout)
     }
 
+    public func updateUserWorkout(id: String, optionalWorkout: Workout?, workoutTime: Double, done: Bool = false) -> UserWorkout? {
+        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
+        fetchRequest.predicate = NSPredicate(format:"id == %@", id)
+        var error: NSError?
+        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
+            return updateUserWorkout(results[0]).done(done).addToDuration(workoutTime).addWorkout(optionalWorkout?.name).save()
+        } else {
+            debugPrintln("Could not update \(error), \(error!.userInfo)")
+            return nil
+        }
+    }
+
     public func fetchLatestUserWorkout() -> UserWorkout? {
         let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)

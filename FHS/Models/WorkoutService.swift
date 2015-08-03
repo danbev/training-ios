@@ -17,8 +17,6 @@ public class WorkoutService {
     private static let intervalEntityName = "IntervalWorkout"
     private static let prebensEntityName = "PrebensWorkout"
     private let workoutEntityName = "Workout"
-    //private let userWorkoutEntityName = "UserWorkout"
-    //private let userWorkoutsEntityName = "UserWorkouts"
     private var context: NSManagedObjectContext
     private let userService: UserService
 
@@ -54,36 +52,16 @@ public class WorkoutService {
         }
         return nil
     }
-    /*
 
     public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout?) -> UserWorkout {
-        return userWorkout(id).category(category).done(false).date(NSDate()).workout(workout).save()
+        return userService.newUserWorkout(id).category(category).addWorkout(workout?.name).save()
     }
-
-    public func updateUserWorkout(id: String, optionalWorkout: Workout?, workoutTime: Double, done: Bool = false) -> UserWorkout? {
-        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
-        fetchRequest.predicate = NSPredicate(format:"id == %@", id)
-        var error: NSError?
-        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
-            return userWorkoutFrom(results[0]).done(done).addToDuration(workoutTime).workout(optionalWorkout).save()
-        } else {
-            debugPrintln("Could not update \(error), \(error!.userInfo)")
-            return nil
-        }
-    }
-    */
 
     private func getDate() -> (year: Int, month: Int, day: Int) {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let components = calendar!.components(.CalendarUnitWeekday, fromDate: NSDate())
         return (components.year, components.month, components.day)
     }
-
-    /*
-    public func fetchUserWorkouts() -> [UserWorkout]? {
-        return executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
-    }
-    */
 
     public func fetchRepsWorkouts() -> [RepsWorkout]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
@@ -323,13 +301,6 @@ public class WorkoutService {
         return prebensWorkout
     }
 
-    /*
-    internal func newUserWorkout() -> UserWorkout {
-        let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
-        return UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)
-    }
-    */
-
     private func executeFetchWorkout<T: AnyObject>(request: NSFetchRequest) -> [T]? {
         var error: NSError?
         if let results = context.executeFetchRequest(request, error: &error) as! [T]? {
@@ -365,16 +336,6 @@ public class WorkoutService {
     public func prebens() -> PrebensBuilder {
         return PrebensBuilder(workoutService: self)
     }
-
-    /*
-    public func userWorkout(id: String) -> UserWorkoutBuilder {
-        return UserWorkoutBuilder(workoutService: self).id(id)
-    }
-
-    public func userWorkoutFrom(userWorkout: UserWorkout) -> UserWorkoutBuilder {
-        return UserWorkoutBuilder(workoutService: self, userWorkout: userWorkout)
-    }
-    */
 
     private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutContainer] {
         var workouts = [String: WorkoutContainer]()
@@ -741,76 +702,4 @@ public class PrebensBuilder: WorkoutBuilder {
     }
 
 }
-
-/*
-public class UserWorkoutBuilder {
-
-    let workoutService: WorkoutService
-    let userWorkout: UserWorkout
-
-    convenience init(workoutService: WorkoutService) {
-        self.init(workoutService: workoutService, userWorkout: workoutService.newUserWorkout())
-    }
-
-    init(workoutService: WorkoutService, userWorkout: UserWorkout) {
-        self.workoutService = workoutService
-        self.userWorkout = userWorkout
-    }
-
-    public func id(id: String) -> Self {
-        userWorkout.id = id
-        return self
-    }
-
-    public func date(date: NSDate) -> Self {
-        userWorkout.date = date
-        return self
-    }
-
-    public func duration(duration: Double) -> Self {
-        userWorkout.duration = duration
-        return self
-    }
-
-    public func addToDuration(duration: Double) -> Self {
-        userWorkout.duration += duration
-        return self
-    }
-
-    public func done(done: Bool) -> Self {
-        userWorkout.done = done
-        return self
-    }
-
-    public func category(category: String) -> Self {
-        userWorkout.category = category
-        return self
-    }
-
-    public func category(category: WorkoutCategory) -> Self {
-        userWorkout.category = category.rawValue
-        return self
-    }
-
-    public func workout(workout: Workout?) -> Self {
-        if let w = workout {
-            userWorkout.workouts.addObject(w)
-            w.userWorkout = userWorkout
-        }
-        return self
-    }
-
-    public func weights(weights: Bool) -> Self {
-        userWorkout.weights = weights
-        return self
-    }
-
-    public func save() -> UserWorkout {
-        workoutService.saveContext()
-        return userWorkout
-    }
-
-}
-*/
-
 
