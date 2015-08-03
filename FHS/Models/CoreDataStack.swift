@@ -11,7 +11,7 @@ import CoreData
 public class CoreDataStack {
     public var psc: NSPersistentStoreCoordinator?
     public var model: NSManagedObjectModel
-    public var store: NSPersistentStore
+    public var store: NSPersistentStore!
 
     public lazy var context: NSManagedObjectContext! = {
         var context: NSManagedObjectContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
@@ -20,20 +20,37 @@ public class CoreDataStack {
         return context
     }()
 
-    public init(storeName: String) {
-        let bundle = NSBundle.mainBundle()
-        let modelUrl = bundle.URLForResource(storeName, withExtension: "momd")
-        model = NSManagedObjectModel(contentsOfURL: modelUrl!)!
-        psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+    public init(modelName: String, storeNames: [String], copyStore: Bool = false) {
+        let mainBundle = NSBundle.mainBundle()
         let documentUrl = CoreDataStack.applicationDocumentsDirectory()
-        let storeUrl = documentUrl.URLByAppendingPathComponent(storeName)
+        let fhsModelUrl = mainBundle.URLForResource(modelName, withExtension: "momd")
         let options = [NSMigratePersistentStoresAutomaticallyOption: true]
-        var error:NSError? = nil
-        store = psc!.addPersistentStoreWithType(NSSQLiteStoreType,
-            configuration: nil,
-            URL: storeUrl,
-            options: options,
-            error: &error)!
+        model = NSManagedObjectModel(contentsOfURL: fhsModelUrl!)!
+        psc = NSPersistentStoreCoordinator(managedObjectModel: model)
+
+        for storeName in storeNames {
+            let sqliteName = "\(storeName).sqlite"
+            let storeUrl = documentUrl.URLByAppendingPathComponent(sqliteName)
+            let fileManager = NSFileManager.defaultManager()
+            if copyStore && !fileManager.fileExistsAtPath(storeUrl.path!) {
+                let sourceSqliteURLs = [mainBundle.URLForResource(storeName, withExtension: "sqlite")!,
+                    mainBundle.URLForResource(storeName, withExtension: "sqlite-wal")!,
+                    mainBundle.URLForResource(storeName, withExtension: "sqlite-shm")!]
+                let destSqliteURLs = [documentUrl.URLByAppendingPathComponent(sqliteName),
+                    documentUrl.URLByAppendingPathComponent("\(sqliteName)-wal"),
+                    documentUrl.URLByAppendingPathComponent("\(sqliteName)-shm")]
+                var error:NSError? = nil
+                for var index = 0; index < sourceSqliteURLs.count; index++ {
+                    fileManager.copyItemAtURL(sourceSqliteURLs[index], toURL: destSqliteURLs[index], error: &error)
+                }
+            }
+            var error:NSError? = nil
+            store = psc!.addPersistentStoreWithType(NSSQLiteStoreType,
+                configuration: nil,
+                URL: storeUrl,
+                options: options,
+                error: &error)!
+        }
     }
 
     func saveContext() {
@@ -46,6 +63,7 @@ public class CoreDataStack {
     class func applicationDocumentsDirectory() -> NSURL {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
+        //debugPrintln("Documents directory: \(urls[0])")
         return urls[0]
     }
 

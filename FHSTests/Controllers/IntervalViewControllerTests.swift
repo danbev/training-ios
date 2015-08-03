@@ -14,7 +14,7 @@ import XCTest
 class IntervalViewControllerTests: XCTestCase {
 
     var controller: IntervalViewController!
-    let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
+    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     var workoutService: WorkoutService!
 
     override func setUp() {

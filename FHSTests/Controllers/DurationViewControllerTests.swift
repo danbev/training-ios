@@ -14,7 +14,7 @@ import XCTest
 class DurationViewControllerTests: XCTestCase {
 
     var controller: DurationViewController!
-    let coreDataStack: CoreDataStack = TestCoreDataStack(storeName: "FHS")
+    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     var workoutService: WorkoutService!
 
     override func setUp() {

@@ -51,6 +51,62 @@
                BlueprintName = "FHSTests"
                ReferencedContainer = "container:FHS.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CountDownTimerTests">
+               </Test>
+               <Test
+                  Identifier = "DurationViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "IntervalViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "PrebensViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "RuntimeWorkoutTests">
+               </Test>
+               <Test
+                  Identifier = "TimerTests">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testFetchLastUserWorkout()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testFetchLastUserWorkoutNonExisting()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutAdded()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutCategory()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutCompleted()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutDate()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutDone()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutGeneratedId()">
+               </Test>
+               <Test
+                  Identifier = "UserServiceTest/testNewUserWorkoutWithId()">
+               </Test>
+               <Test
+                  Identifier = "ViewControllerTests">
+               </Test>
+               <Test
+                  Identifier = "WorkoutCategoryTests">
+               </Test>
+               <Test
+                  Identifier = "WorkoutServiceTest">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

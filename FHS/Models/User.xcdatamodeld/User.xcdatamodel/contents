@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="UserWorkout" representedClassName="FHS.UserWorkout" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="done" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WorkoutInfo" inverseName="userWorkout" inverseEntity="WorkoutInfo" syncable="YES"/>
+    </entity>
+    <entity name="WorkoutInfo" representedClassName="FHS.WorkoutInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="workoutName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="userWorkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserWorkout" inverseName="workouts" inverseEntity="UserWorkout" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="UserWorkout" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="WorkoutInfo" positionX="-54" positionY="36" width="128" height="105"/>
+    </elements>
+</model>

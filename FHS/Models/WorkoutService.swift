@@ -17,33 +17,44 @@ public class WorkoutService {
     private static let intervalEntityName = "IntervalWorkout"
     private static let prebensEntityName = "PrebensWorkout"
     private let workoutEntityName = "Workout"
-    private let userWorkoutEntityName = "UserWorkout"
-    private let userWorkoutsEntityName = "UserWorkouts"
+    //private let userWorkoutEntityName = "UserWorkout"
+    //private let userWorkoutsEntityName = "UserWorkouts"
     private var context: NSManagedObjectContext
+    private let userService: UserService
 
     public init(context: NSManagedObjectContext) {
         self.context = context
+        userService = UserService.newUserService()
     }
 
     public func newUserWorkout(lastUserWorkout: UserWorkout?, settings: Settings) -> UserWorkout? {
         let id = NSUUID().UUIDString
         if settings.ignoredCategories.contains(WorkoutCategory.Warmup) {
             let category = lastUserWorkout != nil ? lastUserWorkout!.category : WorkoutCategory.Warmup.next(settings.ignoredCategories).rawValue
-            let userWorkout = saveUserWorkout(id, category: WorkoutCategory.Warmup.next(settings.ignoredCategories), workout: nil)
+            let userWorkout = userService.newUserWorkout(id)
+                .category(WorkoutCategory.Warmup.next(settings.ignoredCategories))
+                .save()
             let workout = fetchWorkout(category, currentUserWorkout: userWorkout, lastUserWorkout: lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround)
-            return updateUserWorkout(id, optionalWorkout: workout, workoutTime: 0.0, done: false)
+            return userService.updateUserWorkout(userWorkout).addWorkout(workout!.name).save()
         }
+
         if let lastWorkout = lastUserWorkout {
             if let warmup = fetchWarmup(lastWorkout) {
-                return saveUserWorkout(id, category: WorkoutCategory(rawValue: lastWorkout.category)!.next(settings.ignoredCategories), workout: warmup)
+                return userService.newUserWorkout(id)
+                    .category(WorkoutCategory(rawValue: lastWorkout.category)!.next(settings.ignoredCategories))
+                    .addWorkout(warmup.name)
+                    .save()
             }
         } else {
             if let warmup = fetchWarmup() {
-                return saveUserWorkout(id, category: WorkoutCategory.Warmup.next(settings.ignoredCategories), workout: warmup)
+                return userService.newUserWorkout(id).category(WorkoutCategory.Warmup.next(settings.ignoredCategories))
+                    .addWorkout(warmup.name)
+                    .save()
             }
         }
         return nil
     }
+    /*
 
     public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout?) -> UserWorkout {
         return userWorkout(id).category(category).done(false).date(NSDate()).workout(workout).save()
@@ -60,6 +71,7 @@ public class WorkoutService {
             return nil
         }
     }
+    */
 
     private func getDate() -> (year: Int, month: Int, day: Int) {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
@@ -67,9 +79,11 @@ public class WorkoutService {
         return (components.year, components.month, components.day)
     }
 
+    /*
     public func fetchUserWorkouts() -> [UserWorkout]? {
         return executeFetchWorkout(NSFetchRequest(entityName: userWorkoutEntityName))
     }
+    */
 
     public func fetchRepsWorkouts() -> [RepsWorkout]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
@@ -155,15 +169,8 @@ public class WorkoutService {
     }
 
     public func fetchUserWorkouts(workoutName: String) -> UserWorkouts? {
-        let fetchRequest = NSFetchRequest(entityName: userWorkoutsEntityName)
-        fetchRequest.predicate = NSPredicate(format: "workoutName == %@", workoutName)
-        var error: NSError?
-        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkouts]? {
-            return results.first
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return nil
-        }
+        //return userService.fetchUserWorkouts(workoutName)
+        return nil
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {
@@ -196,21 +203,7 @@ public class WorkoutService {
     }
 
     public func fetchLatestUserWorkout() -> UserWorkout? {
-        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.fetchLimit = 1
-        var error: NSError?
-        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
-            if results.count == 0 {
-                return nil
-            } else {
-                return results[0]
-            }
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return nil
-        }
+        return userService.fetchLatestUserWorkout()
     }
 
     public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool, dryGround: Bool) -> Workout? {
@@ -254,14 +247,15 @@ public class WorkoutService {
         var error: NSError? = nil
         let results = context.countForFetchRequest(fetchRequest, error: &error)
         if (results == 0) {
-            importSeedData()
+            let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
+            importData(jsonURL!)
         }
     }
 
-    private func importSeedData() {
+    public func importData(jsonURL: NSURL) {
         var error: NSError? = nil
-        let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
-        let jsonData = NSData(contentsOfURL: jsonURL!)!
+        //let jsonURL = NSBundle.mainBundle().URLForResource("workouts", withExtension: "json")
+        let jsonData = NSData(contentsOfURL: jsonURL)!
         let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: &error) as! NSDictionary?
         if let json = jsonDict {
             debugPrintln("Import seed data...")
@@ -330,10 +324,12 @@ public class WorkoutService {
         return prebensWorkout
     }
 
+    /*
     internal func newUserWorkout() -> UserWorkout {
         let userWorkoutEntity = NSEntityDescription.entityForName(userWorkoutEntityName, inManagedObjectContext: context)
         return UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: context)
     }
+    */
 
     private func executeFetchWorkout<T: AnyObject>(request: NSFetchRequest) -> [T]? {
         var error: NSError?
@@ -371,6 +367,7 @@ public class WorkoutService {
         return PrebensBuilder(workoutService: self)
     }
 
+    /*
     public func userWorkout(id: String) -> UserWorkoutBuilder {
         return UserWorkoutBuilder(workoutService: self).id(id)
     }
@@ -378,6 +375,7 @@ public class WorkoutService {
     public func userWorkoutFrom(userWorkout: UserWorkout) -> UserWorkoutBuilder {
         return UserWorkoutBuilder(workoutService: self, userWorkout: userWorkout)
     }
+    */
 
     private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutContainer] {
         var workouts = [String: WorkoutContainer]()
@@ -745,6 +743,7 @@ public class PrebensBuilder: WorkoutBuilder {
 
 }
 
+/*
 public class UserWorkoutBuilder {
 
     let workoutService: WorkoutService
@@ -813,5 +812,6 @@ public class UserWorkoutBuilder {
     }
 
 }
+*/
 
 
