@@ -168,9 +168,8 @@ public class WorkoutService {
         return nil
     }
 
-    public func fetchUserWorkouts(workoutName: String) -> UserWorkouts? {
-        //return userService.fetchUserWorkouts(workoutName)
-        return nil
+    public func fetchUserWorkouts(workoutName: String) -> WorkoutInfo? {
+        return userService.fetchPerformedWorkoutInfo(workoutName)
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {

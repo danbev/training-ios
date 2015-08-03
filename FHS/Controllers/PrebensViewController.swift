@@ -26,7 +26,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
         tableView.reloadData()
     }
 
-    public override func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         prebensWorkout = workout as! PrebensWorkout
     }
