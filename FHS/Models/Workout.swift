@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+/**
+Represents a workout in the CoreData model
+*/
 public class Workout: NSManagedObject {
 
     @NSManaged public var name: String

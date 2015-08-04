@@ -25,6 +25,10 @@ public class WorkoutService {
         userService = UserService.newUserService()
     }
 
+    public func getUserService() -> UserService {
+        return userService
+    }
+
     public func newUserWorkout(lastUserWorkout: UserWorkout?, settings: Settings) -> UserWorkout? {
         let id = NSUUID().UUIDString
         if settings.ignoredCategories.contains(WorkoutCategory.Warmup) {
@@ -51,10 +55,6 @@ public class WorkoutService {
             }
         }
         return nil
-    }
-
-    public func saveUserWorkout(id: String, category: WorkoutCategory, workout: Workout?) -> UserWorkout {
-        return userService.newUserWorkout(id).category(category).addWorkout(workout?.name).save()
     }
 
     private func getDate() -> (year: Int, month: Int, day: Int) {
@@ -134,9 +134,10 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
-        var exludedWorkouts = Set<Workout>()
+        var exludedWorkouts = Set<String>()
         for w in userWorkout.workouts {
-            exludedWorkouts.insert(w as! Workout)
+            let workoutInfo = w as! WorkoutInfo
+            exludedWorkouts.insert(workoutInfo.workoutName)
         }
         if var ids = optionalIds {
             return randomWorkout(&ids, excludedWorkouts: exludedWorkouts)
@@ -150,7 +151,7 @@ public class WorkoutService {
         return userService.fetchPerformedWorkoutInfo(workoutName)
     }
 
-    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<Workout>) -> Workout? {
+    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> Workout? {
         let count = objectIds.count
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
@@ -158,7 +159,7 @@ public class WorkoutService {
         if let workout = context.existingObjectWithID(objectId, error: &error) as! Workout? {
             var doneLastWorkout = false
             for performedWorkout in excludedWorkouts {
-                if performedWorkout.workoutName == workout.workoutName {
+                if performedWorkout == workout.workoutName {
                     doneLastWorkout = true
                     break
                 }
@@ -198,13 +199,13 @@ public class WorkoutService {
         }
         var error: NSError?
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
-        var excludedWorkouts = Set<Workout>()
+        var excludedWorkouts = Set<String>()
         for w in currentUserWorkout.workouts {
-            excludedWorkouts.insert(w as! Workout)
+            excludedWorkouts.insert(w.workoutName)
         }
         if let last = lastUserWorkout {
             for w in last.workouts {
-                excludedWorkouts.insert(w as! Workout)
+                excludedWorkouts.insert(w.workoutName)
             }
         }
         if var ids = optionalIds {

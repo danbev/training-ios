@@ -63,7 +63,14 @@ class UserServiceTest: XCTestCase {
         XCTAssertNotNil(userService.fetchLatestUserWorkout());
     }
 
-    func testUpdateDuration() {
+    func testUpdateWorkoutDuration() {
+        let userWorkout = addJumpingJacks()
+        XCTAssertEqual(Double(0.0), userWorkout.duration)
+        userService.updateUserWorkout(userWorkout).addToDuration(60).save()
+        XCTAssertEqual(Double(60.0), userWorkout.duration)
+    }
+
+    func testUpdateSingleWorkoutDuration() {
         let userWorkout = addJumpingJacks()
         XCTAssertEqual(Double(0.0), userService.fetchPerformedWorkoutInfo("JumpingJacks")!.duration)
 
