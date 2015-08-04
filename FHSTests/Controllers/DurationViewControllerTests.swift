@@ -21,7 +21,7 @@ class DurationViewControllerTests: XCTestCase {
         super.setUp()
         var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("DurationViewController") as! DurationViewController
-        workoutService = WorkoutService(context: coreDataStack.context)
+        workoutService = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
         workoutService.loadDataIfNeeded()
         controller.loadView()
     }

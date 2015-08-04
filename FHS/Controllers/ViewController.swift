@@ -26,7 +26,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private lazy var coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
-    private var userService: UserService!
     private var tasks = [Workout]()
     private var restTimer: CountDownTimer!
     private var workoutTimer: CountDownTimer!
@@ -37,18 +36,21 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var settings: Settings!
     private let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
     private var interruptedWorkout = false
+    private let userService = UserService.newUserService()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        workoutService = WorkoutService(context: coreDataStack.context)
-        workoutService.loadDataIfNeeded()
-        userService = workoutService.getUserService()
-
+        createWorkoutService(coreDataStack)
         progressView.progressTintColor = greenColor
         loadLastWorkout()
         updateTitle()
         settings = Settings.settings()
         timerLabel.textColor = UIColor.orangeColor()
+    }
+
+    private func createWorkoutService(coreDataStack: CoreDataStack) {
+        workoutService = WorkoutService(context: coreDataStack.context, userService: userService)
+        workoutService.loadDataIfNeeded()
     }
 
     private func loadLastWorkout() {

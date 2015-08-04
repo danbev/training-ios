@@ -20,9 +20,9 @@ public class WorkoutService {
     private var context: NSManagedObjectContext
     private let userService: UserService
 
-    public init(context: NSManagedObjectContext) {
+    public init(context: NSManagedObjectContext, userService: UserService) {
         self.context = context
-        userService = UserService.newUserService()
+        self.userService = userService
     }
 
     public func getUserService() -> UserService {

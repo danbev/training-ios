@@ -18,7 +18,7 @@ class WorkoutServiceTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.ws = WorkoutService(context: coreDataStack.context)
+        self.ws = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
     }
 
     func testAddRepsWorkout() {
