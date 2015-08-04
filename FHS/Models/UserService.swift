@@ -142,6 +142,10 @@ public class UserService {
             return self
         }
 
+        public func addWorkout(workout: Workout?) -> Self {
+            return addWorkout(workout?.name)
+        }
+
         public func addWorkout(workoutName: String?) -> Self {
             if let name = workoutName {
                 // this is aweful but I can't yet get the Equatable to work with WorkoutInfo.

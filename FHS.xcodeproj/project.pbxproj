@@ -33,6 +33,7 @@
 		C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A951B28BC7D0033854E /* WorkoutType.swift */; };
 		C54B3A981B28C7250033854E /* IntervalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A971B28C7250033854E /* IntervalViewController.swift */; };
 		C54B3A9A1B29D4650033854E /* IntervalViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A991B29D4650033854E /* IntervalViewControllerTests.swift */; };
+		C55AD8501B70D8A8008419BF /* SettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55AD84F1B70D8A8008419BF /* SettingsTest.swift */; };
 		C5628A5E1B45BE2B00EE907B /* IntervalInfoViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */; };
 		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
 		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
@@ -105,6 +106,7 @@
 		C54B3A951B28BC7D0033854E /* WorkoutType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutType.swift; sourceTree = "<group>"; };
 		C54B3A971B28C7250033854E /* IntervalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalViewController.swift; sourceTree = "<group>"; };
 		C54B3A991B29D4650033854E /* IntervalViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalViewControllerTests.swift; sourceTree = "<group>"; };
+		C55AD84F1B70D8A8008419BF /* SettingsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTest.swift; sourceTree = "<group>"; };
 		C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController2.swift; sourceTree = "<group>"; };
 		C56944B21B19D576006745B0 /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			children = (
 				C54B3A8F1B2453C70033854E /* RuntimeWorkoutTests.swift */,
 				C573BDC31A90CFE000B84FE0 /* WorkoutCategoryTests.swift */,
+				C55AD84F1B70D8A8008419BF /* SettingsTest.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				C572B5BA1B6F42D4007DF5C7 /* UserServiceTest.swift in Sources */,
 				C51055C51B0DF77A005980AD /* DurationViewControllerTests.swift in Sources */,
 				C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */,
+				C55AD8501B70D8A8008419BF /* SettingsTest.swift in Sources */,
 				C56944B31B19D576006745B0 /* TimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

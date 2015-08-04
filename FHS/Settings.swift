@@ -14,14 +14,16 @@ public struct Settings {
     public let warmup: Bool
     public let duration: Double
     public let ignoredCategories: Set<WorkoutCategory>
+    public let stores: [String]
     static let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
-    public init(weights: Bool, dryGround: Bool, warmup: Bool, duration: Double, ignoredCategories: Set<WorkoutCategory>) {
+    public init(weights: Bool, dryGround: Bool, warmup: Bool, duration: Double, ignoredCategories: Set<WorkoutCategory>, stores: [String]) {
         self.weights = weights
         self.dryGround = dryGround
         self.warmup = warmup
         self.duration = duration
         self.ignoredCategories = ignoredCategories
+        self.stores = stores
     }
 
     public static func settings() -> Settings {
@@ -29,7 +31,8 @@ public struct Settings {
         let dryGround = enabled("dryGround", defaultValue: true)
         let warmup = enabled(WorkoutCategory.Warmup.rawValue, defaultValue: true)
         let duration = readDuration(2700)
-        return Settings(weights: weights, dryGround: dryGround, warmup: warmup, duration: duration, ignoredCategories: readIgnoredCategories())
+        let stores = readStores()
+        return Settings(weights: weights, dryGround: dryGround, warmup: warmup, duration: duration, ignoredCategories: readIgnoredCategories(), stores: stores)
     }
 
     public static func readIgnoredCategories() -> Set<WorkoutCategory> {
@@ -54,6 +57,15 @@ public struct Settings {
             return value
         }
         return defaultValue;
+    }
+
+    private static func readStores() -> [String] {
+        if let stores = userDefaults.objectForKey("stores") as? [String] {
+            println(stores)
+            return stores
+        } else {
+            return ["FHS"]
+        }
     }
 
     private static func readDuration(defaultValue: Int) -> Double {

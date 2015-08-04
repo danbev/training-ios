@@ -18,4 +18,5 @@ public class UserWorkout: NSManagedObject, Printable {
     @NSManaged public var category: String
     @NSManaged public var workouts: NSOrderedSet
 
+
 }
