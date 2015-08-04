@@ -9,14 +9,18 @@
 import Foundation
 import CoreData
 
-public class WorkoutInfo: NSManagedObject, Printable {
+public class WorkoutInfo: NSManagedObject, Printable, Equatable {
 
     @NSManaged public var date: NSDate
     @NSManaged public var duration: Double
-    @NSManaged public var workoutName: String
+    @NSManaged public var name: String
 
     public override var description: String {
-        return "WorkoutInfo[duration=\(duration), workoutName\(workoutName), date=\(date)]"
+        return "WorkoutInfo[duration=\(duration), name=\(name), date=\(date)]"
     }
 
+
+}
+public func ==(lhs: WorkoutInfo, rhs: WorkoutInfo) -> Bool {
+    return lhs.name == rhs.name
 }

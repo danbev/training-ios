@@ -54,6 +54,15 @@ class UserServiceTest: XCTestCase {
         XCTAssertTrue(userWorkout.done)
     }
 
+    func testNewUserWorkoutAddSameWorkoutMultipleTimes() {
+        var userWorkout = addJumpingJacks()
+        XCTAssertEqual(1, userWorkout.workouts.count)
+        userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
+        userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
+        userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
+        XCTAssertEqual(2, userWorkout.workouts.count)
+    }
+
     func testFetchLastUserWorkoutNonExisting() {
         XCTAssertNil(userService.fetchLatestUserWorkout());
     }

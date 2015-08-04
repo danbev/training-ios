@@ -109,10 +109,13 @@ public class BaseWorkoutController: UIViewController {
 
     private func showLastWorkoutTime() {
         if let last = userWorkouts {
-            previousWorkTimeLabel?.hidden = false
-            previousWorkTime?.hidden = false
-            let (min, sec, fra) = Timer.elapsedTime(last.duration)
-            previousWorkTime?.text = Timer.timeAsString(min, sec: sec, fra: fra)
+            println(last.duration)
+            if last.duration > 0.0 {
+                let (min, sec, fra) = Timer.elapsedTime(last.duration)
+                previousWorkTimeLabel?.hidden = false
+                previousWorkTime?.hidden = false
+                previousWorkTime?.text = Timer.timeAsString(min, sec: sec, fra: fra)
+            }
         }
     }
 

@@ -115,6 +115,7 @@ public class WorkoutService {
     }
 
     public func fetchWorkout(name: String) -> Workout? {
+        println("fetching \(name)")
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
         fetchRequest.fetchLimit = 1
@@ -137,7 +138,7 @@ public class WorkoutService {
         var exludedWorkouts = Set<String>()
         for w in userWorkout.workouts {
             let workoutInfo = w as! WorkoutInfo
-            exludedWorkouts.insert(workoutInfo.workoutName)
+            exludedWorkouts.insert(workoutInfo.name)
         }
         if var ids = optionalIds {
             return randomWorkout(&ids, excludedWorkouts: exludedWorkouts)
@@ -147,8 +148,8 @@ public class WorkoutService {
         return nil
     }
 
-    public func fetchUserWorkouts(workoutName: String) -> WorkoutInfo? {
-        return userService.fetchPerformedWorkoutInfo(workoutName)
+    public func fetchLatestPerformed(name: String) -> WorkoutInfo? {
+        return userService.fetchPerformedWorkoutInfo(name)
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> Workout? {
@@ -159,7 +160,7 @@ public class WorkoutService {
         if let workout = context.existingObjectWithID(objectId, error: &error) as! Workout? {
             var doneLastWorkout = false
             for performedWorkout in excludedWorkouts {
-                if performedWorkout == workout.workoutName {
+                if performedWorkout == workout.name {
                     doneLastWorkout = true
                     break
                 }
@@ -201,11 +202,11 @@ public class WorkoutService {
         let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
         var excludedWorkouts = Set<String>()
         for w in currentUserWorkout.workouts {
-            excludedWorkouts.insert(w.workoutName)
+            excludedWorkouts.insert(w.name)
         }
         if let last = lastUserWorkout {
             for w in last.workouts {
-                excludedWorkouts.insert(w.workoutName)
+                excludedWorkouts.insert(w.name)
             }
         }
         if var ids = optionalIds {

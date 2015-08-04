@@ -59,7 +59,7 @@ public class UserService {
 
     public func fetchPerformedWorkoutInfo(workoutName: String) -> WorkoutInfo? {
         let fetchRequest = NSFetchRequest(entityName: workoutInfoEntityName)
-        fetchRequest.predicate = NSPredicate(format: "workoutName == %@", workoutName)
+        fetchRequest.predicate = NSPredicate(format: "name == %@", workoutName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = 1
         var error: NSError?
@@ -144,8 +144,15 @@ public class UserService {
 
         public func addWorkout(workoutName: String?) -> Self {
             if let name = workoutName {
+                // this is aweful but I can't yet get the Equatable to work with WorkoutInfo.
+                for w in workoutInfos {
+                    if w.name == workoutName {
+                        return self
+                    }
+                }
+
                 let workoutInfo = userService.insertNewWorkoutInfo()
-                workoutInfo.workoutName = name
+                workoutInfo.name = name
                 workoutInfo.date = NSDate()
                 workoutInfos.addObject(workoutInfo)
                 userWorkout.workouts = workoutInfos.copy() as! NSOrderedSet
@@ -156,7 +163,7 @@ public class UserService {
         public func updateDuration(workoutName: String, duration: Double) -> Self {
             workoutInfos.enumerateObjectsUsingBlock { (elem, idx, stop) -> Void in
                 let workoutInfo = elem as! WorkoutInfo
-                if workoutInfo.workoutName == workoutName {
+                if workoutInfo.name == workoutName {
                     workoutInfo.duration = duration
                     stop.initialize(true)
                 }
