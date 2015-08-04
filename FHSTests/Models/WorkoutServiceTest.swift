@@ -362,5 +362,14 @@ class WorkoutServiceTest: XCTestCase {
         let repsWorkouts = ws.fetchRepsWorkoutsDestinct()
         XCTAssertNotNil(repsWorkouts)
     }
+
+    func testUseTestStore() {
+        let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["Testing"])
+        let ws = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        ws.reps(10).name("testWorkout").postRestTime(60).save()
+        let workout = ws.fetchWorkout("testWorkout")!
+        XCTAssertEqual("testWorkout", workout.name)
+
+    }
 }
 

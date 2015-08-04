@@ -74,4 +74,20 @@ public struct Settings {
         }
         return Double(defaultValue)
     }
+
+    public static func findAllStores() -> [String] {
+        var stores = [String]()
+        let fileManager = NSFileManager.defaultManager()
+        let dir = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        var fileManagerError: NSError?
+        if let contents = fileManager.contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, error: &fileManagerError) {
+            let storeFiles = contents.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "sqlite" }
+            for file in storeFiles {
+                if file != "User.sqlite" {
+                    stores.append(file)
+                }
+            }
+        }
+        return stores
+    }
 }

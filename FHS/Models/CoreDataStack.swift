@@ -67,4 +67,8 @@ public class CoreDataStack {
         return urls[0]
     }
 
+    public class func copyToDocumentsDirectory() {
+
+    }
+
 }

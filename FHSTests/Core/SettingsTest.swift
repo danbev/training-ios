@@ -19,4 +19,9 @@ class SettingsTest: XCTestCase {
         XCTAssertEqual("FHS", settings.stores[0])
     }
 
+    func testSearchForSqliteStores() {
+        let stores: [String] = Settings.findAllStores()
+        XCTAssertEqual("FHS.sqlite", stores[0])
+    }
+
 }
