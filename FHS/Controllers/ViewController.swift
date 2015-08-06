@@ -340,7 +340,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         println("unwinding main viewcontroller...")
-        let settingsViewController = sender.sourceViewController as! SettingViewController
+        //let settingsViewController = sender.sourceViewController as! SettingViewController
         settings = Settings.settings()
         updateTitle()
     }

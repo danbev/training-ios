@@ -809,7 +809,14 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Workout Collections" id="kyL-WZ-mNU"/>
+                    <navigationItem key="navigationItem" title="Workout Collections" id="kyL-WZ-mNU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oA5-5o-Qmm">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doneAction:" destination="bf7-P4-S7I" id="8xe-FX-9s0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="HZ4-9w-1QV" id="fxa-p0-eKc"/>
                         <segue destination="K1M-1t-uq5" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainMenu:" id="fSP-c1-wCP"/>

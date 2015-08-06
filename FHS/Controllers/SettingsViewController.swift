@@ -85,6 +85,11 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         nav?.backItem?.titleView?.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        /*
+        if let font = UIFont(name: "Arial", size: 16) {
+            self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
+        }
+        */
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         wSwitch.onTintColor = onTintColor
 

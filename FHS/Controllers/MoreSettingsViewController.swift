@@ -20,6 +20,10 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
         super.viewDidLoad()
     }
 
+    @IBAction func doneAction(sender: UIBarButtonItem) {
+        navigationController?.popToRootViewControllerAnimated(false)
+    }
+
     public func settings(settings: Settings) {
         self.settings = settings
         dataStoreNames = settings.stores
