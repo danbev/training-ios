@@ -115,7 +115,6 @@ public class WorkoutService {
     }
 
     public func fetchWorkout(name: String) -> Workout? {
-        println("fetching \(name)")
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
         fetchRequest.fetchLimit = 1

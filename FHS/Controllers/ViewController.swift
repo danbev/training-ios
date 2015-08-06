@@ -43,8 +43,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         createWorkoutService(coreDataStack)
         progressView.progressTintColor = greenColor
         loadLastWorkout()
-        updateTitle()
         settings = Settings.settings()
+        updateTitle()
         timerLabel.textColor = UIColor.orangeColor()
     }
 
@@ -66,6 +66,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
+        settings = Settings.settings()
+        updateTitle()
     }
 
     public override func viewWillDisappear(animated: Bool) {
@@ -337,6 +339,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+        println("unwinding main viewcontroller...")
         let settingsViewController = sender.sourceViewController as! SettingViewController
         settings = Settings.settings()
         updateTitle()

@@ -369,7 +369,6 @@ class WorkoutServiceTest: XCTestCase {
         ws.reps(10).name("testWorkout").postRestTime(60).save()
         let workout = ws.fetchWorkout("testWorkout")!
         XCTAssertEqual("testWorkout", workout.name)
-
     }
 }
 

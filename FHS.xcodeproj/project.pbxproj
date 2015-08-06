@@ -37,6 +37,7 @@
 		C5628A5E1B45BE2B00EE907B /* IntervalInfoViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */; };
 		C56944B31B19D576006745B0 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B21B19D576006745B0 /* TimerTests.swift */; };
 		C56944B51B19D5FC006745B0 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56944B41B19D5FC006745B0 /* Timer.swift */; };
+		C56EC4E41B7293D300015F22 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56EC4E31B7293D300015F22 /* MoreSettingsViewController.swift */; };
 		C572B5B41B6F4261007DF5C7 /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B21B6F4261007DF5C7 /* User.xcdatamodeld */; };
 		C572B5B61B6F4270007DF5C7 /* WorkoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B51B6F4270007DF5C7 /* WorkoutInfo.swift */; };
 		C572B5B81B6F4278007DF5C7 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B71B6F4278007DF5C7 /* UserService.swift */; };
@@ -110,6 +111,7 @@
 		C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalInfoViewController2.swift; sourceTree = "<group>"; };
 		C56944B21B19D576006745B0 /* TimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
 		C56944B41B19D5FC006745B0 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		C56EC4E31B7293D300015F22 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
 		C572B5B31B6F4261007DF5C7 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		C572B5B51B6F4270007DF5C7 /* WorkoutInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutInfo.swift; sourceTree = "<group>"; };
 		C572B5B71B6F4278007DF5C7 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				C526EC4C1B3C1A97000FD9DC /* DurationInfoViewController.swift */,
 				C526EC4E1B3D6613000FD9DC /* IntervalInfoViewController.swift */,
 				C5628A5D1B45BE2B00EE907B /* IntervalInfoViewController2.swift */,
+				C56EC4E31B7293D300015F22 /* MoreSettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C56EC4E41B7293D300015F22 /* MoreSettingsViewController.swift in Sources */,
 				C5B252EE1B37E0B90091584C /* RepsInfoViewController.swift in Sources */,
 				C5F7C9141B33F43A004E6A3B /* AudioWarning.swift in Sources */,
 				C5C6FF5B1B3AC14D00015477 /* GeneralWorkoutDetails2.swift in Sources */,
