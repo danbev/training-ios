@@ -31,16 +31,16 @@
        {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"approx": 120, "categories": "Warmup"},
        {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 30,"approx": 120, "categories": "Warmup"},
        {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 300,"categories": "Lowerbody"},
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 120,"approx":600,"categories": "Upperbody,Cardio"},
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 90,"approx":600,"categories": "Upperbody,Cardio"},
        {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody,Cardio"},
        {"name": "100 Lunges", "workout": "Lunge", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody"},
        {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 60, "categories": "Upperbody,Cardio"},
        {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 60,"approx": 300,"categories": "Upperbody"}
     ],
     "timebased": [
-       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 300, "rest": 60, "categories": "Upperbody,Cardio"},
+       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 300, "rest": 90, "categories": "Upperbody,Cardio"},
        {"name": "Getups", "workout": "Getups", "duration": 300, "rest": 60, "categories": "Warmup"},
-       {"name": "Pushup to press", "workout": "PushupToPress", "duration": 300, "rest": 60, "categories": "Upperbody"}
+       {"name": "Pushup to press", "workout": "PushupToPress", "duration": 300, "rest": 90, "categories": "Upperbody"}
     ],
     "prebensbased": [
        {"name": "Prebens", "workout": "UpperBodyPrebens","rest":120,"approx":300,"categories":"Upperbody","workouts": [

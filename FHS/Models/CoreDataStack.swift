@@ -22,31 +22,17 @@ public class CoreDataStack {
         return context
     }()
 
-    public init(modelName: String, storeNames: [String], copyStore: Bool = false) {
+    public init(modelName: String, storeNames: [String]) {
         self.storeNames = storeNames
+        let documentUrl = CoreDataStack.storeDirectory()
         let mainBundle = NSBundle.mainBundle()
-        let documentUrl = CoreDataStack.applicationDocumentsDirectory()
         let fhsModelUrl = mainBundle.URLForResource(modelName, withExtension: "momd")
         let options = [NSMigratePersistentStoresAutomaticallyOption: true]
         model = NSManagedObjectModel(contentsOfURL: fhsModelUrl!)!
         psc = NSPersistentStoreCoordinator(managedObjectModel: model)
-
         for storeName in storeNames {
             let sqliteName = "\(storeName).sqlite"
             let storeUrl = documentUrl.URLByAppendingPathComponent(sqliteName)
-            let fileManager = NSFileManager.defaultManager()
-            if copyStore && !fileManager.fileExistsAtPath(storeUrl.path!) {
-                let sourceSqliteURLs = [mainBundle.URLForResource(storeName, withExtension: "sqlite")!,
-                    mainBundle.URLForResource(storeName, withExtension: "sqlite-wal")!,
-                    mainBundle.URLForResource(storeName, withExtension: "sqlite-shm")!]
-                let destSqliteURLs = [documentUrl.URLByAppendingPathComponent(sqliteName),
-                    documentUrl.URLByAppendingPathComponent("\(sqliteName)-wal"),
-                    documentUrl.URLByAppendingPathComponent("\(sqliteName)-shm")]
-                var error:NSError? = nil
-                for var index = 0; index < sourceSqliteURLs.count; index++ {
-                    fileManager.copyItemAtURL(sourceSqliteURLs[index], toURL: destSqliteURLs[index], error: &error)
-                }
-            }
             var error:NSError? = nil
             store = psc!.addPersistentStoreWithType(NSSQLiteStoreType,
                 configuration: nil,
@@ -72,10 +58,6 @@ public class CoreDataStack {
             fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil, error: &error)
         }
         return storesDir
-    }
-
-    public class func copyDefaultStore(storeName: String) -> Bool {
-        return false
     }
 
     public class func listStoreNames() -> [String] {
@@ -126,7 +108,6 @@ public class CoreDataStack {
         let fileManager = NSFileManager.defaultManager()
 
         let storesDir = documentUrl.URLByAppendingPathComponent(storesDirectoryName, isDirectory: true)
-        println("Creating \(storesDir)")
         var error: NSError?
         if !fileManager.fileExistsAtPath(storesDir.path!) {
             fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil, error: &error)

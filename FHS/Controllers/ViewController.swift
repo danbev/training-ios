@@ -44,7 +44,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         timerLabel.textColor = UIColor.orangeColor()
 
         //let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
-        println("Stores: \(settings.stores)")
+        println("ViewController Stores From Settings: \(settings.stores)")
         let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: settings.stores)
         createWorkoutService(coreDataStack)
         loadLastWorkout()
