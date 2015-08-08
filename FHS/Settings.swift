@@ -52,6 +52,19 @@ public struct Settings {
         return ignoredCategories
     }
 
+    public static func addStore(name: String) {
+        var stores = readStores()
+        if !contains(stores, name) {
+            stores.append(name)
+            userDefaults.setValue(stores, forKey: "stores")
+            userDefaults.synchronize()
+        }
+    }
+
+    public static func removeStore(name: String) {
+        userDefaults.setValue(readStores().filter() { $0 != name }, forKey: "stores")
+    }
+
     private static func enabled(keyName: String, defaultValue: Bool) -> Bool {
         if let value = userDefaults.objectForKey(keyName) as? Bool {
             return value
@@ -61,10 +74,12 @@ public struct Settings {
 
     private static func readStores() -> [String] {
         if let stores = userDefaults.objectForKey("stores") as? [String] {
-            println(stores)
             return stores
         } else {
-            return ["FHS"]
+            let defaultStores = ["FHS"]
+            userDefaults.setValue(defaultStores, forKey: "stores")
+            userDefaults.synchronize()
+            return defaultStores
         }
     }
 
@@ -76,6 +91,8 @@ public struct Settings {
     }
 
     public static func findAllStores() -> [String] {
+        return CoreDataStack.listStoreNames().filter() { $0 != "User" }
+        /*
         var stores = [String]()
         let fileManager = NSFileManager.defaultManager()
         let dir = CoreDataStack.storeDirectory()
@@ -89,5 +106,6 @@ public struct Settings {
             }
         }
         return stores
+        */
     }
 }

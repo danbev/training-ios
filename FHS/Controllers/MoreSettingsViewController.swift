@@ -13,7 +13,7 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
 
     @IBOutlet weak var tableView: UITableView!
     public var settings: Settings!
-    var dataStoreNames = [String]()
+    var storeNames = [String]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
@@ -26,9 +26,7 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
 
     public func settings(settings: Settings) {
         self.settings = settings
-        dataStoreNames = Settings.findAllStores()
-        println(settings.stores)
-
+        storeNames = Settings.findAllStores()
     }
 
     public override func viewWillDisappear(animated: Bool) {
@@ -41,24 +39,37 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
         return self.parentViewController
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
-
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let workout = dataStoreNames[indexPath.row]
-        //performSegueWithIdentifier("infoSegue", sender: workout)
+        let name = storeNames[indexPath.row]
     }
 
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataStoreNames.count
+        return storeNames.count
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
-        let name = dataStoreNames[indexPath.row]
+        let name = storeNames[indexPath.row]
         cell.textLabel!.text = name
         cell.textLabel!.textColor = UIColor.whiteColor()
+        if contains(settings.stores, name) {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            println("Yes, settings contains store \(name)")
+        }
         return cell;
+    }
+
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let storeName = storeNames[indexPath.row]
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        if cell.accessoryType == UITableViewCellAccessoryType.None {
+            Settings.addStore(storeName)
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            Settings.removeStore(storeName)
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
 }

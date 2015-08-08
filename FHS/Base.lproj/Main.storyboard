@@ -770,7 +770,7 @@
             </objects>
             <point key="canvasLocation" x="155" y="-869"/>
         </scene>
-        <!--Workout Collections-->
+        <!--Stores-->
         <scene sceneID="7tr-2a-gUG">
             <objects>
                 <viewController storyboardIdentifier="MoreSettingsViewController" id="bf7-P4-S7I" customClass="MoreSettingsViewController" customModule="FHS" customModuleProvider="target" sceneMemberID="viewController">
@@ -809,7 +809,7 @@
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Workout Collections" id="kyL-WZ-mNU">
+                    <navigationItem key="navigationItem" title="Stores" id="kyL-WZ-mNU">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="oA5-5o-Qmm">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

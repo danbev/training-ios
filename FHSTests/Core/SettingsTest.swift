@@ -22,7 +22,15 @@ class SettingsTest: XCTestCase {
     func testSearchForSqliteStores() {
         let stores: [String] = Settings.findAllStores()
         println(stores)
-        XCTAssertEqual("FHS.sqlite", stores[0])
+        XCTAssertEqual("FHS", stores[0])
+    }
+
+    func testSaveAndRemoveStore() {
+        XCTAssertEqual(1, Settings.settings().stores.count)
+        Settings.addStore("Testing")
+        XCTAssertEqual(2, Settings.settings().stores.count)
+        Settings.removeStore("Testing")
+        XCTAssertEqual(1, Settings.settings().stores.count)
     }
 
 }

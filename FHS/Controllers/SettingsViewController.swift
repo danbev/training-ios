@@ -116,7 +116,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        //performSegueWithIdentifier("unwindToMain", sender: self)
     }
 
     func booleanValue(keyName: String, defaultValue: Bool) -> Bool {
