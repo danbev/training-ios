@@ -90,6 +90,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
             self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
         }
         */
+        
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         wSwitch.onTintColor = onTintColor
 

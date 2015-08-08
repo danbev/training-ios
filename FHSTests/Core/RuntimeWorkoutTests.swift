@@ -18,7 +18,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.workoutService = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        self.workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
     }
 
     func testInitWithLastUserWorkout() {

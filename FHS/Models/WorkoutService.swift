@@ -19,14 +19,20 @@ public class WorkoutService {
     private let workoutEntityName = "Workout"
     private var context: NSManagedObjectContext
     private let userService: UserService
+    private let coreDataStack: CoreDataStack
 
-    public init(context: NSManagedObjectContext, userService: UserService) {
-        self.context = context
+    public init(coreDataStack: CoreDataStack, userService: UserService) {
+        self.coreDataStack = coreDataStack
+        context = coreDataStack.context
         self.userService = userService
     }
 
     public func getUserService() -> UserService {
         return userService
+    }
+
+    public func stores() -> [String] {
+        return coreDataStack.storeNames
     }
 
     public func newUserWorkout(lastUserWorkout: UserWorkout?, settings: Settings) -> UserWorkout? {

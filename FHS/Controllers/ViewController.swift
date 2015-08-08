@@ -23,7 +23,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
 
-    private lazy var coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
     private var tasks = [Workout]()
@@ -40,16 +39,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        createWorkoutService(coreDataStack)
-        progressView.progressTintColor = greenColor
-        loadLastWorkout()
         settings = Settings.settings()
-        updateTitle()
+        progressView.progressTintColor = greenColor
         timerLabel.textColor = UIColor.orangeColor()
+
+        //let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+        println("Stores: \(settings.stores)")
+        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: settings.stores)
+        createWorkoutService(coreDataStack)
+        loadLastWorkout()
+        updateTitle()
     }
 
     private func createWorkoutService(coreDataStack: CoreDataStack) {
-        workoutService = WorkoutService(context: coreDataStack.context, userService: userService)
+        workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
         workoutService.loadDataIfNeeded()
     }
 
@@ -65,6 +68,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        settings = Settings.settings()
+        if settings.stores != workoutService.stores() {
+
+        }
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
         settings = Settings.settings()
         updateTitle()
@@ -207,6 +214,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
+        println("task in table: \(task.workoutName)")
         cell.textLabel!.text = task.workoutName
         return cell;
     }

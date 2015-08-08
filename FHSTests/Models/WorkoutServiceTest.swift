@@ -18,7 +18,7 @@ class WorkoutServiceTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        self.ws = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        self.ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
     }
 
     func testAddRepsWorkout() {
@@ -298,7 +298,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testOrderOfPrebens() {
         let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
-        var workoutService = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        var workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
         let userService = workoutService.getUserService()
         workoutService.loadDataIfNeeded()
 
@@ -365,7 +365,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testUseTestStore() {
         let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["Testing"])
-        let ws = WorkoutService(context: coreDataStack.context, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
         ws.reps(10).name("testWorkout").postRestTime(60).save()
         let workout = ws.fetchWorkout("testWorkout")!
         XCTAssertEqual("testWorkout", workout.name)
