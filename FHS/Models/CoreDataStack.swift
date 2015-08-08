@@ -97,14 +97,15 @@ public class CoreDataStack {
     public class func applicationDocumentsDirectory() -> NSURL {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
-        debugPrintln("Documents directory: \(urls[0])")
         return urls[0]
     }
 
     public class func copyStoreFromBundle(storeName: String) -> NSURL {
         let mainBundle = NSBundle.mainBundle()
-        let documentUrl = CoreDataStack.applicationDocumentsDirectory()
+        let documentUrl = CoreDataStack.storeDirectory()
+        debugPrintln("Documents directory: \(documentUrl)")
         let sqliteName = "\(storeName).sqlite"
+        debugPrintln("store name to copy: \(sqliteName)")
         let fileManager = NSFileManager.defaultManager()
 
         let storesDir = documentUrl.URLByAppendingPathComponent(storesDirectoryName, isDirectory: true)

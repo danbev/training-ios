@@ -26,7 +26,7 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
 
     public func settings(settings: Settings) {
         self.settings = settings
-        dataStoreNames = settings.stores
+        dataStoreNames = Settings.findAllStores()
         println(settings.stores)
 
     }

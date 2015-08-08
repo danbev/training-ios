@@ -42,6 +42,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         settings = Settings.settings()
         progressView.progressTintColor = greenColor
         timerLabel.textColor = UIColor.orangeColor()
+        CoreDataStack.copyStoreFromBundle("FHS")
+        CoreDataStack.copyStoreFromBundle("Testing")
 
         //let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
         println("ViewController Stores From Settings: \(settings.stores)")
