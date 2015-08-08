@@ -12,8 +12,8 @@ import CoreData
 
 class TestCoreDataStack: CoreDataStack {
 
-    override init(modelName: String, storeNames: [String], copyStore: Bool = false) {
-        super.init(modelName: modelName, storeNames: storeNames, copyStore: copyStore)
+    override init(modelName: String, storeNames: [String]) {
+        super.init(modelName: modelName, storeNames: storeNames)
         self.psc = {
             var psc: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.model)
             var error: NSError? = nil

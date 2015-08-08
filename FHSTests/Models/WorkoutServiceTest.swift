@@ -370,5 +370,12 @@ class WorkoutServiceTest: XCTestCase {
         let workout = ws.fetchWorkout("testWorkout")!
         XCTAssertEqual("testWorkout", workout.name)
     }
+
+    func testCreateTestStore() {
+        let jsonURL = NSBundle.mainBundle().URLForResource("test-workouts", withExtension: "json")
+        let coreDataStack: CoreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["Testing"])
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        ws.importData(jsonURL!)
+    }
 }
 

@@ -97,7 +97,7 @@ public class CoreDataStack {
     public class func applicationDocumentsDirectory() -> NSURL {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
-        //debugPrintln("Documents directory: \(urls[0])")
+        debugPrintln("Documents directory: \(urls[0])")
         return urls[0]
     }
 

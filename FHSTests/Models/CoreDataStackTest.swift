@@ -34,6 +34,15 @@ class CoreDataStackTest: XCTestCase {
         removeFile(url)
     }
 
+    func testCopyStoreFromBundle() {
+        let storeUrl = CoreDataStack.copyStoreFromBundle("FHS")
+        println("storeUrl: \(storeUrl)")
+        //XCTAssertTrue(storeUrl.e)
+        let storeNames = CoreDataStack.listStoreNames()
+        println("StoreNames: \(storeNames)")
+        XCTAssertFalse(storeNames.isEmpty)
+    }
+
     func removeFile(url: NSURL) {
         var error: NSError?
         fileManager.removeItemAtURL(url, error: &error)

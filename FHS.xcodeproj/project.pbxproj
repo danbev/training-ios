@@ -48,6 +48,13 @@
 		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
 		C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkout.swift */; };
 		C5813D021B74C0D1003EF08B /* CoreDataStackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D011B74C0D1003EF08B /* CoreDataStackTest.swift */; };
+		C5813D051B761957003EF08B /* FHS.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C5813D041B761957003EF08B /* FHS.sqlite */; };
+		C5813D081B76196C003EF08B /* FHS.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = C5813D061B76196C003EF08B /* FHS.sqlite-shm */; };
+		C5813D091B76196C003EF08B /* FHS.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = C5813D071B76196C003EF08B /* FHS.sqlite-wal */; };
+		C5813D0B1B761E79003EF08B /* test-workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0A1B761E79003EF08B /* test-workouts.json */; };
+		C5813D0F1B7620CA003EF08B /* Testing.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0C1B7620CA003EF08B /* Testing.sqlite */; };
+		C5813D101B7620CA003EF08B /* Testing.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0D1B7620CA003EF08B /* Testing.sqlite-shm */; };
+		C5813D111B7620CA003EF08B /* Testing.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0E1B7620CA003EF08B /* Testing.sqlite-wal */; };
 		C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C586D8291B2EE0020078493B /* InfoViewController.swift */; };
 		C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
@@ -125,6 +132,13 @@
 		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
 		C5801CE81A62B3C200051140 /* DurationWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkout.swift; sourceTree = "<group>"; };
 		C5813D011B74C0D1003EF08B /* CoreDataStackTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStackTest.swift; path = Models/CoreDataStackTest.swift; sourceTree = "<group>"; };
+		C5813D041B761957003EF08B /* FHS.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = FHS.sqlite; sourceTree = "<group>"; };
+		C5813D061B76196C003EF08B /* FHS.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FHS.sqlite-shm"; sourceTree = "<group>"; };
+		C5813D071B76196C003EF08B /* FHS.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FHS.sqlite-wal"; sourceTree = "<group>"; };
+		C5813D0A1B761E79003EF08B /* test-workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "test-workouts.json"; sourceTree = "<group>"; };
+		C5813D0C1B7620CA003EF08B /* Testing.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Testing.sqlite; sourceTree = "<group>"; };
+		C5813D0D1B7620CA003EF08B /* Testing.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Testing.sqlite-shm"; sourceTree = "<group>"; };
+		C5813D0E1B7620CA003EF08B /* Testing.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Testing.sqlite-wal"; sourceTree = "<group>"; };
 		C586D8291B2EE0020078493B /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeWorkout.swift; path = Core/RuntimeWorkout.swift; sourceTree = "<group>"; };
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
@@ -186,7 +200,7 @@
 		C515E84519C5A937001A5BB2 /* FHS */ = {
 			isa = PBXGroup;
 			children = (
-				C516BD181B4EF71200366B28 /* Videos */,
+				C5813D031B761934003EF08B /* Stores */,
 				C54B3A911B2454130033854E /* Utils */,
 				C54B3A8D1B24525F0033854E /* Core */,
 				C54B3A8A1B230F1F0033854E /* Controllers */,
@@ -229,13 +243,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C516BD181B4EF71200366B28 /* Videos */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Videos;
-			sourceTree = "<group>";
-		};
 		C54B3A891B230ED00033854E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +259,7 @@
 				C51424101AED68EB00153BF0 /* PrebensWorkout.swift */,
 				C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */,
 				C539DA941A8BD0A1005A6D45 /* workouts.json */,
+				C5813D0A1B761E79003EF08B /* test-workouts.json */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -344,6 +352,19 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		C5813D031B761934003EF08B /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				C5813D0C1B7620CA003EF08B /* Testing.sqlite */,
+				C5813D0D1B7620CA003EF08B /* Testing.sqlite-shm */,
+				C5813D0E1B7620CA003EF08B /* Testing.sqlite-wal */,
+				C5813D061B76196C003EF08B /* FHS.sqlite-shm */,
+				C5813D071B76196C003EF08B /* FHS.sqlite-wal */,
+				C5813D041B761957003EF08B /* FHS.sqlite */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -427,11 +448,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */,
+				C5813D101B7620CA003EF08B /* Testing.sqlite-shm in Resources */,
+				C5813D051B761957003EF08B /* FHS.sqlite in Resources */,
 				C515E84E19C5A937001A5BB2 /* Main.storyboard in Resources */,
 				C515E85319C5A937001A5BB2 /* LaunchScreen.xib in Resources */,
+				C5813D081B76196C003EF08B /* FHS.sqlite-shm in Resources */,
+				C5813D0B1B761E79003EF08B /* test-workouts.json in Resources */,
 				C515E85019C5A937001A5BB2 /* Images.xcassets in Resources */,
+				C5813D0F1B7620CA003EF08B /* Testing.sqlite in Resources */,
 				C5F7C9181B33FA5F004E6A3B /* bleep.wav in Resources */,
 				C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */,
+				C5813D111B7620CA003EF08B /* Testing.sqlite-wal in Resources */,
+				C5813D091B76196C003EF08B /* FHS.sqlite-wal in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
