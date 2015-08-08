@@ -13,12 +13,12 @@ import XCTest
 
 class WorkoutServiceTest: XCTestCase {
 
-    let coreDataStack: CoreDataStack = TestCoreDataStack()
+    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     var ws: WorkoutService!
 
     override func setUp() {
         super.setUp()
-        self.ws = WorkoutService(context: coreDataStack.context)
+        self.ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
     }
 
     func testAddRepsWorkout() {
@@ -147,7 +147,7 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let workout = ws.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
-        let userWorkout = ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
+        let userWorkout = ws.getUserService().newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(workout).save()
         if let warmup = ws.fetchWarmup(userWorkout) {
             XCTAssertNotEqual("Jumping Jacks", warmup.name)
         } else {
@@ -167,7 +167,7 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let workout = ws.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
-        ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
+        ws.getUserService().newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(workout.name)
 
         let optionalLatest = ws.fetchLatestUserWorkout()
         if let userWorkout = optionalLatest {
@@ -180,17 +180,18 @@ class WorkoutServiceTest: XCTestCase {
 
     func testFetchWorkout() {
         ws.loadDataIfNeeded()
+        let us = ws.getUserService()
         let warmup = ws.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
-        let userWorkout = ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
+        let userWorkout = us.newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
 
         let workout1 = ws.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotNil(workout1!.name)
-        ws.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
+        us.updateUserWorkout(userWorkout).addWorkout(workout1).addToDuration(1.0).save()
 
         let workout2 = ws.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotEqual(workout2!.name, workout1!.name)
-        ws.updateUserWorkout(id, optionalWorkout: workout2!, workoutTime: 1.0)
+        us.updateUserWorkout(userWorkout).addWorkout(workout2).addToDuration(1.0).save()
 
         let workout3 = ws.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: true)
         XCTAssertNotNil(workout3)
@@ -200,11 +201,11 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let warmup = ws.fetchWorkout("JumpingJacks")!
         let id = NSUUID().UUIDString
-        let userWorkout = ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: warmup)
+        let userWorkout = ws.getUserService().newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
 
         let workout1 = ws.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotNil(workout1!.name)
-        ws.updateUserWorkout(id, optionalWorkout: workout1!, workoutTime: 1.0)
+        ws.getUserService().updateUserWorkout(userWorkout).addWorkout(workout1).addToDuration(1.0).save()
         let workout2 = ws.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: userWorkout, weights: true, dryGround: false)
         XCTAssertNotNil(workout2!.name)
     }
@@ -213,9 +214,7 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let workout = ws.fetchWorkout("Burpees")!
         let id = NSUUID().UUIDString
-        ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
-        let userWorkouts = ws.fetchUserWorkouts()!
-        let userWorkout = userWorkouts[0]
+        let userWorkout = ws.getUserService().newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(workout).save()
         XCTAssertEqual(id, userWorkout.id)
         XCTAssertNotNil(userWorkout.date)
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category)
@@ -226,16 +225,16 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let workout1 = ws.fetchWorkout("Burpees")!
         let id = NSUUID().UUIDString
-        ws.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout1)
+        let userWorkout = ws.getUserService().newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(workout1).save()
 
         let workout2 = ws.fetchWorkout("Getups")!
-        ws.updateUserWorkout(id, optionalWorkout: workout2, workoutTime: 1.0)
+        ws.getUserService().updateUserWorkout(userWorkout).addWorkout(workout2).addToDuration(1.0)
 
-        let userWorkout = ws.fetchLatestUserWorkout()!
-        XCTAssertEqual(2, userWorkout.workouts.count);
-        XCTAssertEqual(id, userWorkout.id)
-        XCTAssertNotNil(userWorkout.date)
-        XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category)
+        let fetchedUserWorkout = ws.getUserService().fetchLatestUserWorkout()!
+        XCTAssertEqual(2, fetchedUserWorkout.workouts.count);
+        XCTAssertEqual(id, fetchedUserWorkout.id)
+        XCTAssertNotNil(fetchedUserWorkout.date)
+        XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, fetchedUserWorkout.category)
     }
 
     func testFetchPrebensWorkouts() {
@@ -298,15 +297,14 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testOrderOfPrebens() {
-        // use new context
-        let coreDataStack: CoreDataStack = TestCoreDataStack()
-        var workoutService = WorkoutService(context: coreDataStack.context)
+        let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+        var workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        let userService = workoutService.getUserService()
         workoutService.loadDataIfNeeded()
 
         let workout = workoutService.fetchWorkout("Burpees")!
         let id = NSUUID().UUIDString
-        workoutService.saveUserWorkout(id, category: WorkoutCategory.UpperBody, workout: workout)
-        let userWorkout = workoutService.fetchUserWorkouts()![0]
+        let userWorkout = userService.newUserWorkout(id).category(WorkoutCategory.UpperBody).addWorkout(workout).save()
         var w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
         while w?.name != "UpperBodyPrebens" {
             w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
@@ -331,27 +329,20 @@ class WorkoutServiceTest: XCTestCase {
         XCTAssertNotNil(userWorkout)
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
         XCTAssertEqual(1, userWorkout.workouts.count);
-        let warmup = userWorkout.workouts[0] as! Workout
-        let warmupCategory = warmup.lazyCategories.filter( { (x) in x == WorkoutCategory.Warmup })
-        XCTAssertFalse(warmupCategory.isEmpty)
-        XCTAssertEqual(warmupCategory[0].rawValue, WorkoutCategory.Warmup.rawValue)
     }
 
     func testNewUserworkoutNoWarmups() {
         ws.loadDataIfNeeded()
-        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [WorkoutCategory.Warmup])
+        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [WorkoutCategory.Warmup], stores: ["FHS"])
         let userWorkout = ws.newUserWorkout(nil, settings: settings)!
         XCTAssertNotNil(userWorkout)
         XCTAssertEqual(WorkoutCategory.UpperBody.rawValue, userWorkout.category);
         XCTAssertEqual(1, userWorkout.workouts.count);
-        let warmup = userWorkout.workouts[0] as! Workout
-        let warmupCategory = warmup.lazyCategories.filter( { (x) in x == WorkoutCategory.Warmup })
-        XCTAssertTrue(warmupCategory.isEmpty)
     }
 
     func testNewUserworkout() {
         ws.loadDataIfNeeded()
-        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [])
+        let settings = Settings(weights: true, dryGround: true, warmup: false, duration: 2700, ignoredCategories: [], stores: ["FHS"])
         let lastWorkout = ws.newUserWorkout(nil, settings: settings)!
         let userWorkout = ws.newUserWorkout(lastWorkout, settings: settings)!
         XCTAssertEqual(WorkoutCategory.LowerBody.rawValue, userWorkout.category);
@@ -370,6 +361,21 @@ class WorkoutServiceTest: XCTestCase {
         ws.loadDataIfNeeded()
         let repsWorkouts = ws.fetchRepsWorkoutsDestinct()
         XCTAssertNotNil(repsWorkouts)
+    }
+
+    func testUseTestStore() {
+        let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["Testing"])
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        ws.reps(10).name("testWorkout").postRestTime(60).save()
+        let workout = ws.fetchWorkout("testWorkout")!
+        XCTAssertEqual("testWorkout", workout.name)
+    }
+
+    func testCreateTestStore() {
+        let jsonURL = NSBundle.mainBundle().URLForResource("test-workouts", withExtension: "json")
+        let coreDataStack: CoreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["Testing"])
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        ws.importData(jsonURL!)
     }
 }
 

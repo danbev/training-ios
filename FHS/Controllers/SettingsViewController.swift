@@ -28,9 +28,21 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var warmupSwitch: UISwitch!
     @IBOutlet weak var timePicker: UIPickerView!
 
+    @IBAction func moreAction(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("moreSettingsSegue", sender: self)
+    }
+
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "moreSettingsSegue" {
+            let controller = segue.destinationViewController as! MoreSettingsViewController
+            controller.settings(settings)
+        }
+    }
+
     @IBAction func backAction(sender: UIBarButtonItem) {
         println("backAction...")
     }
+
     var currentUserWorkout: UserWorkout!
     var userDefaults: NSUserDefaults!
     let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
@@ -66,12 +78,19 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        settings = Settings.settings()
         userDefaults = NSUserDefaults.standardUserDefaults()
         var nav = self.navigationController?.navigationBar
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         nav?.backItem?.titleView?.tintColor = UIColor.whiteColor()
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        /*
+        if let font = UIFont(name: "Arial", size: 16) {
+            self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
+        }
+        */
+        
         wSwitch.addTarget(self, action: Selector("weightChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         wSwitch.onTintColor = onTintColor
 
@@ -97,7 +116,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
 
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        performSegueWithIdentifier("unwindToMain", sender: self)
+        //performSegueWithIdentifier("unwindToMain", sender: self)
     }
 
     func booleanValue(keyName: String, defaultValue: Bool) -> Bool {
@@ -175,6 +194,11 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     func saveValue(value: Bool, keyName: String) {
         userDefaults!.setBool(value, forKey: keyName)
         userDefaults.synchronize()
+    }
+
+    @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+        println("sender = \(sender.identifier)")
+        let settingsViewController = sender.sourceViewController as! MoreSettingsViewController
     }
 
 }

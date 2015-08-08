@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rnj-L4-V0C">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rnj-L4-V0C">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -745,7 +745,14 @@
                             <constraint firstItem="mBu-bK-90E" firstAttribute="top" secondItem="Lus-GI-xPA" secondAttribute="bottom" constant="103" id="zrj-eV-Q44"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="k26-rg-b8e"/>
+                    <navigationItem key="navigationItem" title="Settings" id="k26-rg-b8e">
+                        <barButtonItem key="rightBarButtonItem" title="Advanced" style="done" id="GyH-Hb-RfQ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="moreAction:" destination="xWX-dZ-otF" id="Llo-hG-cy2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="cardioSwitch" destination="zhj-yJ-K5W" id="rMc-JP-hK6"/>
                         <outlet property="dgSwitch" destination="EVb-Wy-TbJ" id="4Mp-8C-aDA"/>
@@ -754,13 +761,71 @@
                         <outlet property="upperBodySwitch" destination="8pW-pY-Nhr" id="efg-Gg-Bdh"/>
                         <outlet property="wSwitch" destination="8ep-Id-2F3" id="Hbd-E1-nap"/>
                         <outlet property="warmupSwitch" destination="7l9-C4-uId" id="vIc-c4-zxK"/>
-                        <segue destination="wXd-Pj-Sfq" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainMenu:" id="vLK-nS-XKn"/>
+                        <segue destination="wXd-Pj-Sfq" kind="unwind" identifier="unwindToSettings" unwindAction="unwindToMainMenu:" id="vLK-nS-XKn"/>
+                        <segue destination="bf7-P4-S7I" kind="push" identifier="moreSettingsSegue" id="hbn-tw-vPq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vsp-0w-MZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="wXd-Pj-Sfq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="518" y="-562"/>
+            <point key="canvasLocation" x="155" y="-869"/>
+        </scene>
+        <!--Workout Collections-->
+        <scene sceneID="7tr-2a-gUG">
+            <objects>
+                <viewController storyboardIdentifier="MoreSettingsViewController" id="bf7-P4-S7I" customClass="MoreSettingsViewController" customModule="FHS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wIG-WD-29G"/>
+                        <viewControllerLayoutGuide type="bottom" id="a4G-jJ-obo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lgF-PA-kz0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="196" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HZ4-9w-1QV">
+                                <rect key="frame" x="0.0" y="-29" width="320" height="380"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexTrackingBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tableCell" rowHeight="196" id="juk-PF-RkE">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="juk-PF-RkE" id="Gy2-Ng-Mzc">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bf7-P4-S7I" id="8tA-px-UDF"/>
+                                    <outlet property="delegate" destination="bf7-P4-S7I" id="WtR-FC-ar8"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Workout Collections" id="kyL-WZ-mNU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="oA5-5o-Qmm">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doneAction:" destination="bf7-P4-S7I" id="8xe-FX-9s0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="HZ4-9w-1QV" id="fxa-p0-eKc"/>
+                        <segue destination="K1M-1t-uq5" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainMenu:" id="fSP-c1-wCP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G0S-Qj-0Ev" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="K1M-1t-uq5" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="549" y="-604"/>
         </scene>
         <!--Reps View Controller-->
         <scene sceneID="ZJz-8j-jbR">

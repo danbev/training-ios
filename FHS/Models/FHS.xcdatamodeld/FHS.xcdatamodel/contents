@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DurationWorkout" representedClassName="FHS.DurationWorkout" parentEntity="Workout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IntervalWorkout" inverseName="rest" inverseEntity="IntervalWorkout" syncable="YES"/>
@@ -18,20 +18,6 @@
         <attribute name="repititions" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="prebens" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrebensWorkout" inverseName="workouts" inverseEntity="PrebensWorkout" syncable="YES"/>
     </entity>
-    <entity name="UserWorkout" representedClassName="FHS.UserWorkout" syncable="YES">
-        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="done" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="dryGround" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="weights" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Workout" inverseName="userWorkout" inverseEntity="Workout" syncable="YES"/>
-    </entity>
-    <entity name="UserWorkouts" representedClassName="FHS.UserWorkouts" syncable="YES">
-        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="workoutName" optional="YES" attributeType="String" syncable="YES"/>
-    </entity>
     <entity name="Workout" representedClassName="FHS.Workout" isAbstract="YES" syncable="YES">
         <attribute name="categories" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dryGround" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -44,15 +30,12 @@
         <attribute name="workoutDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="workoutDuration" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="workoutName" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="userWorkout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserWorkout" inverseName="workouts" inverseEntity="UserWorkout" syncable="YES"/>
     </entity>
     <elements>
         <element name="DurationWorkout" positionX="-677" positionY="-525" width="128" height="90"/>
         <element name="IntervalWorkout" positionX="-1170" positionY="-430" width="128" height="90"/>
         <element name="PrebensWorkout" positionX="-1233" positionY="-549" width="128" height="60"/>
         <element name="RepsWorkout" positionX="-821" positionY="-648" width="128" height="90"/>
-        <element name="UserWorkout" positionX="-1440" positionY="-675" width="162" height="165"/>
-        <element name="UserWorkouts" positionX="-1233" positionY="-549" width="128" height="75"/>
-        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="225"/>
+        <element name="Workout" positionX="-1188" positionY="-702" width="128" height="210"/>
     </elements>
 </model>

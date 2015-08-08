@@ -26,7 +26,7 @@ public class DurationViewController: BaseWorkoutController {
         durationLabel.text = durationWorkout.duration.stringValue
     }
 
-    public override func initWith(workout: Workout, userWorkouts: UserWorkouts?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         durationWorkout = workout as! DurationWorkout
     }

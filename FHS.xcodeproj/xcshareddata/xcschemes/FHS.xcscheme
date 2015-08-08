@@ -51,6 +51,17 @@
                BlueprintName = "FHSTests"
                ReferencedContainer = "container:FHS.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CoreDataStackTest/testListStoresNames()">
+               </Test>
+               <Test
+                  Identifier = "CoreDataStackTest/testNewStore()">
+               </Test>
+               <Test
+                  Identifier = "WorkoutServiceTest/testCreateTestStore()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

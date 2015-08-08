@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+/**
+Represents a workout in the CoreData model
+*/
 public class Workout: NSManagedObject {
 
     @NSManaged public var name: String
@@ -30,7 +33,7 @@ public class Workout: NSManagedObject {
         [unowned self] in
         let array = split(self.categories) { $0 == "," }
         return array.map { WorkoutCategory(rawValue: $0)! }
-        }()
+    }()
 
     public override var description: String {
         return "name=\(name), workoutName=\(workoutName), description=\(workoutDescription), videoUrl=\(videoUrl), language=\(language), weights=\(weights), dryGround=\(dryGround), restTime=\(restTime), categories=\(categories)"

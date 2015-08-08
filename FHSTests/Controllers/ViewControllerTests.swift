@@ -21,7 +21,7 @@ class ViewControllerTests: XCTestCase {
         storyboard = UIApplication.sharedApplication().keyWindow!.rootViewController?.storyboard
         controller = storyboard.instantiateViewControllerWithIdentifier("ViewController") as? ViewController
 
-        coreDataStack = TestCoreDataStack()
+        coreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     }
     
     func testExample() {

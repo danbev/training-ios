@@ -28,22 +28,22 @@
        {"name":"PushupToPress","desc":"With a bumpbell to a pushup and then a military press","language": "en", "videoUrl":"videos/pushupburpee.mov","weights":true,"dryGround":false}
     ],
     "repbased": [
-       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 30,"approx": 120, "categories": "Warmup"},
-       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 30,"approx": 120, "categories": "Warmup"},
-       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 60,"approx": 300,"categories": "Lowerbody"},
-       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 90,"approx":600,"categories": "Upperbody,Cardio"},
-       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody,Cardio"},
-       {"name": "100 Lunges", "workout": "Lunge", "reps": 100, "rest": 60,"approx":600,"categories": "Lowerbody"},
-       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 60, "categories": "Upperbody,Cardio"},
-       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 60,"approx": 300,"categories": "Upperbody"}
+       {"name": "Jumping Jacks", "workout": "JumpingJacks", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
+       {"name": "Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 120, "categories": "Warmup"},
+       {"name": "100 Russians", "workout": "Russians", "reps": 100, "rest": 5,"approx": 300,"categories": "Lowerbody"},
+       {"name": "100 Burpees", "workout": "Burpees", "reps": 100, "rest": 5,"approx":600,"categories": "Upperbody,Cardio"},
+       {"name": "100 Squats", "workout": "Squats", "reps": 100, "rest": 5,"approx":600,"categories": "Lowerbody,Cardio"},
+       {"name": "100 Lunges", "workout": "Lunge", "reps": 100, "rest": 5,"approx":600,"categories": "Lowerbody"},
+       {"name": "100 Hipswithes", "workout": "HipSwitches", "reps": 100,"approx":300,"rest": 5, "categories": "Upperbody,Cardio"},
+       {"name": "100 Chopups", "workout": "Chopups", "reps": 100, "rest": 5,"approx": 300,"categories": "Upperbody"}
     ],
     "timebased": [
-       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 300, "rest": 90, "categories": "Upperbody,Cardio"},
-       {"name": "Getups", "workout": "Getups", "duration": 300, "rest": 60, "categories": "Warmup"},
-       {"name": "Pushup to press", "workout": "PushupToPress", "duration": 300, "rest": 90, "categories": "Upperbody"}
+       {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 3, "rest": 5, "categories": "Upperbody,Cardio"},
+       {"name": "Getups", "workout": "Getups", "duration": 3, "rest": 5, "categories": "Warmup"},
+       {"name": "Pushup to press", "workout": "PushupToPress", "duration": 3, "rest": 5, "categories": "Upperbody"}
     ],
     "prebensbased": [
-       {"name": "Prebens", "workout": "UpperBodyPrebens","rest":120,"approx":300,"categories":"Upperbody","workouts": [
+       {"name": "Prebens", "workout": "UpperBodyPrebens","rest":5,"approx":300,"categories":"Upperbody","workouts": [
            {"name": "Bicep curl", "workout": "BicCurl", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Front bench press", "workout": "FrontBenchPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Military press", "workout": "MilitaryPress", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
@@ -52,7 +52,7 @@
            {"name": "Standing rowing", "workout": "StandingRowing", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
        ]},
-       {"name": "Prebens", "workout": "LowerBodyPrebens","rest":120,"approx":1200,"categories":"Lowerbody","workouts": [
+       {"name": "Prebens", "workout": "LowerBodyPrebens","rest":3,"approx":1200,"categories":"Lowerbody","workouts": [
            {"name": "Russians", "workout": "Russians", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Squats", "workout": "Squats", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
            {"name": "Flat foot jumps", "workout": "FlatFootJumps", "reps": 10, "rest": 0,"approx": 10,"categories": "Prebens"},
@@ -63,7 +63,7 @@
        ]}
     ],
     "intervalbased": [
-          {"name":"Worm interval","workout":"WormInterval","intervals": 5,"rest":120,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":5,"duration": 40, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 5,"duration": 20,"categories":"Interval"}
+          {"name":"Worm interval","workout":"WormInterval","intervals": 2,"rest":3,"approx":300,"categories":"Upperbody","mainWorkout":{"name": "The Worm","workout": "Worm","rest":0,"duration": 3, "categories":"Interval"}, "restWorkout":{"name": "Mountain climber","workout": "MountainClimber","rest": 3,"duration": 3,"categories":"Interval"}
           }
     ]
   }

@@ -15,14 +15,14 @@ import XCTest
 class PrebensViewControllerTests: XCTestCase {
 
     var controller: PrebensViewController!
-    let coreDataStack: CoreDataStack = TestCoreDataStack()
+    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
     var workoutService: WorkoutService!
 
     override func setUp() {
         super.setUp()
         var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("PrebensViewController") as! PrebensViewController
-        workoutService = WorkoutService(context: coreDataStack.context)
+        workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
         workoutService.loadDataIfNeeded()
         controller.loadView()
     }

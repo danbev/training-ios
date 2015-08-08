@@ -23,7 +23,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
 
-    private lazy var coreDataStack = CoreDataStack()
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
     private var tasks = [Workout]()
@@ -36,16 +35,27 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var settings: Settings!
     private let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
     private var interruptedWorkout = false
+    private let userService = UserService.newUserService()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        workoutService = WorkoutService(context: coreDataStack.context)
-        workoutService.loadDataIfNeeded()
+        settings = Settings.settings()
         progressView.progressTintColor = greenColor
+        timerLabel.textColor = UIColor.orangeColor()
+        CoreDataStack.copyStoreFromBundle("FHS")
+        CoreDataStack.copyStoreFromBundle("Testing")
+
+        //let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+        println("ViewController Stores From Settings: \(settings.stores)")
+        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: settings.stores)
+        createWorkoutService(coreDataStack)
         loadLastWorkout()
         updateTitle()
-        settings = Settings.settings()
-        timerLabel.textColor = UIColor.orangeColor()
+    }
+
+    private func createWorkoutService(coreDataStack: CoreDataStack) {
+        workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
+        workoutService.loadDataIfNeeded()
     }
 
     private func loadLastWorkout() {
@@ -60,14 +70,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        settings = Settings.settings()
+        if settings.stores != workoutService.stores() {
+
+        }
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
+        settings = Settings.settings()
+        updateTitle()
     }
 
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         let workoutTime = workoutTimer?.duration() ?? 0.0
         if runtimeWorkout.currentUserWorkout != nil {
-            workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTime, done: runtimeWorkout.currentUserWorkout.done)
+            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addToDuration(workoutTime).done(runtimeWorkout.currentUserWorkout.done).save()
         }
     }
 
@@ -121,10 +137,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 debugPrintln("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration) workoutDuration=\(workoutDuration)")
                 interruptedWorkout = true
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration - runtimeWorkout.lastUserWorkout!.duration)
-                if let workouts = runtimeWorkout.lastUserWorkout?.workouts {
-                    let count = workouts.count - 1
+                if let workoutInfos = runtimeWorkout.lastUserWorkout?.workouts {
+                    let count = workoutInfos.count - 1
                     for index in stride(from: count, through: 0, by: -1) {
-                        tasks.append(workouts[index] as! Workout)
+                        let workoutInfo = workoutInfos[index] as! WorkoutInfo
+                        let workout = workoutService.fetchWorkout(workoutInfo.name)!
+                        tasks.append(workout)
                         tableView.reloadData()
                         if index != count {
                             checkmark(count - index)
@@ -151,7 +169,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, settings: settings),
             lastUserWorkout: lastUserWorkout)
-        addWorkoutToTable(runtimeWorkout.currentUserWorkout.workouts[0] as! Workout)
+        let workoutInfo = runtimeWorkout.currentUserWorkout.workouts[0] as! WorkoutInfo
+        if let workout = workoutService.fetchWorkout(workoutInfo.name) {
+            addWorkoutToTable(workout)
+        } else {
+//            debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
+        }
     }
 
     @IBAction func addWorkout(sender: AnyObject) {
@@ -193,6 +216,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
+        println("task in table: \(task.workoutName)")
         cell.textLabel!.text = task.workoutName
         return cell;
     }
@@ -244,10 +268,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]
-            workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name).addToDuration(workoutTimer.duration()).save()
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
-            let userWorkouts = workoutService.fetchUserWorkouts(workout.workoutName)
-            baseViewController.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer) {
+            let workoutInfo = workoutService.fetchLatestPerformed(workout.workoutName)
+            println("workoutInfo: \(workoutInfo)")
+            baseViewController.initWith(workout, userWorkouts: workoutInfo, restTimer: restTimer) {
                 [unowned self] controller, duration in
                 self.finishedWorkout(indexPath, workout: workout, duration: duration)
             }
@@ -259,7 +284,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         debugPrintln("Finished workout \(workout.name), duration=\(duration)")
         var totalTime = workoutTimer.elapsedTime()
         debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
-        let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: workout, workoutTime: workoutTimer.duration())
+        let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name).addToDuration(workoutTimer.duration()).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
             restTimer.stop()
@@ -302,7 +327,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func stopWorkout() {
-        let currentUserWorkout = workoutService.updateUserWorkout(runtimeWorkout.currentUserWorkout.id, optionalWorkout: nil, workoutTime: workoutTimer.duration(), done: true)
+        let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addToDuration(workoutTimer.duration()).done(true).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         workoutTimer.stop()
         if restTimer != nil {
@@ -324,7 +349,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        let settingsViewController = sender.sourceViewController as! SettingViewController
+        println("unwinding main viewcontroller...")
+        //let settingsViewController = sender.sourceViewController as! SettingViewController
         settings = Settings.settings()
         updateTitle()
     }
