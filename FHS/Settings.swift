@@ -78,7 +78,7 @@ public struct Settings {
     public static func findAllStores() -> [String] {
         var stores = [String]()
         let fileManager = NSFileManager.defaultManager()
-        let dir = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as! NSURL
+        let dir = CoreDataStack.storeDirectory()
         var fileManagerError: NSError?
         if let contents = fileManager.contentsOfDirectoryAtURL(dir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, error: &fileManagerError) {
             let storeFiles = contents.map(){ $0.lastPathComponent }.filter(){ $0.pathExtension == "sqlite" }
