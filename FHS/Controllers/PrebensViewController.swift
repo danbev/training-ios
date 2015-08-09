@@ -12,22 +12,22 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var prebensLabel: UILabel!
-    var prebensWorkout : PrebensWorkout!
-    var tasks = [RepsWorkout]()
+    var prebensWorkout : PrebensWorkoutManagedObject!
+    var tasks = [RepsWorkoutManagedObject]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        prebensWorkout = workout as! PrebensWorkout
+        prebensWorkout = workout as! PrebensWorkoutManagedObject
         for w in prebensWorkout.workouts {
-            tasks.append(w as! RepsWorkout)
+            tasks.append(w as! RepsWorkoutManagedObject)
         }
         tableView.reloadData()
     }
 
-    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        prebensWorkout = workout as! PrebensWorkout
+        prebensWorkout = workout as! PrebensWorkoutManagedObject
     }
 
     /**
@@ -42,9 +42,9 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
             debugPrintln(sender)
-            let workout: Workout
-            if sender is Workout {
-                workout = sender as! Workout
+            let workout: WorkoutManagedObject
+            if sender is WorkoutManagedObject {
+                workout = sender as! WorkoutManagedObject
             } else if sender is PrebensViewController {
                 workout = prebensWorkout
             } else {

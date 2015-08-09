@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class DurationWorkout: Workout {
+public class DurationWorkoutManagedObject: WorkoutManagedObject {
 
     @NSManaged public var duration: NSNumber
 

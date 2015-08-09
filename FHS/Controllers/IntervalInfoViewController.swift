@@ -38,7 +38,7 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
         let controller = segue.destinationViewController as! IntervalInfoViewController2
         controller.setWorkoutService(workoutService)
         let workoutName = workouts[workoutPicker.selectedRowInComponent(0)]
-        let workout = workoutService.fetchWorkout(workoutName) as! DurationWorkout
+        let workout = workoutService.fetchWorkout(workoutName) as! DurationWorkoutManagedObject
         let builder = workoutService.interval(workout, duration: workDurationLabel.text!.toInt()!)
         controller.setBuilder(builder)
     }

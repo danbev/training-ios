@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class PrebensWorkout: Workout, Printable {
+public class PrebensWorkoutManagedObject: WorkoutManagedObject {
 
     @NSManaged public var workouts: NSOrderedSet
 

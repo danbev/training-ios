@@ -25,13 +25,13 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var intervalTitleLabel: UILabel!
     private let tableCell = "intervalCell"
-    var intervalWorkout : IntervalWorkout!
+    var intervalWorkout : IntervalWorkoutManagedObject!
     var countDownTimer: CountDownTimer!
     var intervals: Int!
     var intervalCounter: Int = 1
     private static let white = UIColor.whiteColor()
     private static let orange = UIColor.orangeColor()
-    var workouts = [DurationWorkout]()
+    var workouts = [DurationWorkoutManagedObject]()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +39,13 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         tableView.reloadData()
     }
 
-    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         initWorkout(workout)
     }
 
-    private func initWorkout(workout: Workout) {
-        intervalWorkout = workout as! IntervalWorkout
+    private func initWorkout(workout: WorkoutManagedObject) {
+        intervalWorkout = workout as! IntervalWorkoutManagedObject
         intervals = intervalWorkout.intervals.integerValue
         workouts.append(intervalWorkout.work)
         workouts.append(intervalWorkout.rest)
@@ -66,7 +66,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         return cell;
     }
 
-    public override func startWorkTimer(workout: Workout) {
+    public override func startWorkTimer(workout: WorkoutManagedObject) {
         tableView.reloadData()
         timeLabel.hidden = true
         restTimerLabel.hidden = true
@@ -166,8 +166,8 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
             let infoController = segue.destinationViewController as! InfoViewController
-            if sender is Workout {
-                infoController.initWith(sender as! Workout)
+            if sender is WorkoutManagedObject {
+                infoController.initWith(sender as! WorkoutManagedObject)
             } else {
                 infoController.initWith(intervalWorkout)
             }

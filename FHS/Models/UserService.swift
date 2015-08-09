@@ -142,7 +142,7 @@ public class UserService {
             return self
         }
 
-        public func addWorkout(workout: Workout?) -> Self {
+        public func addWorkout(workout: WorkoutManagedObject?) -> Self {
             return addWorkout(workout?.name)
         }
 

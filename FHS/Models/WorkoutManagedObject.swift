@@ -12,7 +12,7 @@ import CoreData
 /**
 Represents a workout in the CoreData model
 */
-public class Workout: NSManagedObject {
+public class WorkoutManagedObject: NSManagedObject {
 
     @NSManaged public var name: String
     @NSManaged public var workoutName: String

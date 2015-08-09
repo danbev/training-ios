@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class RepsWorkout: Workout {
+public class RepsWorkoutManagedObject: WorkoutManagedObject {
 
     @NSManaged public var repititions: NSNumber
     @NSManaged public var approx: NSNumber

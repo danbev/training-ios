@@ -69,7 +69,7 @@ public class WorkoutService {
         return (components.year, components.month, components.day)
     }
 
-    public func fetchRepsWorkouts() -> [RepsWorkout]? {
+    public func fetchRepsWorkouts() -> [RepsWorkoutManagedObject]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.repsEntityName))
     }
 
@@ -108,33 +108,33 @@ public class WorkoutService {
         }
     }
 
-    public func fetchDurationWorkouts() -> [DurationWorkout]? {
+    public func fetchDurationWorkouts() -> [DurationWorkoutManagedObject]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.durationEntityName))
     }
 
-    public func fetchIntervalWorkouts() -> [IntervalWorkout]? {
+    public func fetchIntervalWorkouts() -> [IntervalWorkoutManagedObject]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.intervalEntityName))
     }
 
-    public func fetchPrebensWorkouts() -> [PrebensWorkout]? {
+    public func fetchPrebensWorkouts() -> [PrebensWorkoutManagedObject]? {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
     }
 
-    public func fetchWorkout(name: String) -> Workout? {
+    public func fetchWorkout(name: String) -> WorkoutManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
         fetchRequest.fetchLimit = 1
         return executeFetchWorkout(fetchRequest)?.first
     }
 
-    public func fetchWarmup() -> Workout? {
+    public func fetchWarmup() -> WorkoutManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
         fetchRequest.fetchLimit = 1
         return executeFetchWorkout(fetchRequest)?.first
     }
 
-    public func fetchWarmup(userWorkout: UserWorkout) -> Workout? {
+    public func fetchWarmup(userWorkout: UserWorkout) -> WorkoutManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
@@ -157,12 +157,12 @@ public class WorkoutService {
         return userService.fetchPerformedWorkoutInfo(name)
     }
 
-    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> Workout? {
+    private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> WorkoutManagedObject? {
         let count = objectIds.count
         let index: Int = Int(arc4random_uniform(UInt32(count)))
         let objectId = objectIds[index]
         var error: NSError?
-        if let workout = context.existingObjectWithID(objectId, error: &error) as! Workout? {
+        if let workout = context.existingObjectWithID(objectId, error: &error) as! WorkoutManagedObject? {
             var doneLastWorkout = false
             for performedWorkout in excludedWorkouts {
                 if performedWorkout == workout.name {
@@ -190,7 +190,7 @@ public class WorkoutService {
         return userService.fetchLatestUserWorkout()
     }
 
-    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool, dryGround: Bool) -> Workout? {
+    public func fetchWorkout(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool, dryGround: Bool) -> WorkoutManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.resultType = .ManagedObjectIDResultType
         fetchRequest.predicate = NSPredicate(format: "categories contains %@ AND weights = %@", category, weights)
@@ -255,7 +255,7 @@ public class WorkoutService {
         }
     }
 
-    private struct WorkoutContainer {
+    private struct WorkoutStruct {
         var name: String
         var desc: String
         var language: String
@@ -271,39 +271,39 @@ public class WorkoutService {
         }
     }
 
-    private func newWorkoutEntity(name: String, desc: String, categories: [WorkoutCategory]) -> Workout {
+    private func newWorkoutEntity(name: String, desc: String, categories: [WorkoutCategory]) -> WorkoutManagedObject {
         let workoutEntity = NSEntityDescription.entityForName(self.workoutEntityName, inManagedObjectContext: context)
-        let workout = Workout(entity: workoutEntity!, insertIntoManagedObjectContext: context)
+        let workout = WorkoutManagedObject(entity: workoutEntity!, insertIntoManagedObjectContext: context)
         workout.name = name
         workout.workoutDescription = desc
         workout.categories = WorkoutCategory.asCsvString(categories)
         return workout
     }
 
-    internal func newRepsWorkout() -> RepsWorkout {
+    internal func newRepsWorkout() -> RepsWorkoutManagedObject {
         let repsWorkoutEntity = NSEntityDescription.entityForName(WorkoutService.repsEntityName, inManagedObjectContext: context)
-        let repsWorkout = RepsWorkout(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
+        let repsWorkout = RepsWorkoutManagedObject(entity: repsWorkoutEntity!, insertIntoManagedObjectContext: context)
         repsWorkout.type = WorkoutType.Reps.rawValue
         return repsWorkout
     }
 
-    internal func newDurationWorkout() -> DurationWorkout {
+    internal func newDurationWorkout() -> DurationWorkoutManagedObject {
         let durationEntity = NSEntityDescription.entityForName(WorkoutService.durationEntityName, inManagedObjectContext: context)
-        let durationWorkout = DurationWorkout(entity: durationEntity!, insertIntoManagedObjectContext: context)
+        let durationWorkout = DurationWorkoutManagedObject(entity: durationEntity!, insertIntoManagedObjectContext: context)
         durationWorkout.type = WorkoutType.Timed.rawValue
         return durationWorkout
     }
 
-    internal func newIntervalWorkout() -> IntervalWorkout {
+    internal func newIntervalWorkout() -> IntervalWorkoutManagedObject {
         let intervalEntity = NSEntityDescription.entityForName(WorkoutService.intervalEntityName, inManagedObjectContext: context)
-        let intervalWorkout = IntervalWorkout(entity: intervalEntity!, insertIntoManagedObjectContext: context)
+        let intervalWorkout = IntervalWorkoutManagedObject(entity: intervalEntity!, insertIntoManagedObjectContext: context)
         intervalWorkout.type = WorkoutType.Interval.rawValue
         return intervalWorkout
     }
 
-    internal func newPrebensWorkout() -> PrebensWorkout {
+    internal func newPrebensWorkout() -> PrebensWorkoutManagedObject {
         let prebensEntity = NSEntityDescription.entityForName(WorkoutService.prebensEntityName, inManagedObjectContext: context)
-        let prebensWorkout = PrebensWorkout(entity: prebensEntity!, insertIntoManagedObjectContext: context)
+        let prebensWorkout = PrebensWorkoutManagedObject(entity: prebensEntity!, insertIntoManagedObjectContext: context)
         prebensWorkout.type = WorkoutType.Prebens.rawValue
         return prebensWorkout
     }
@@ -336,7 +336,7 @@ public class WorkoutService {
         return DurationBuilder(workoutService: self).duration(duration)
     }
 
-    public func interval(work: DurationWorkout, duration: Int) -> IntervalBuilder {
+    public func interval(work: DurationWorkoutManagedObject, duration: Int) -> IntervalBuilder {
         return IntervalBuilder(workoutService: self).work(work, duration: duration)
     }
 
@@ -344,10 +344,10 @@ public class WorkoutService {
         return PrebensBuilder(workoutService: self)
     }
 
-    private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutContainer] {
-        var workouts = [String: WorkoutContainer]()
+    private func parseWorkouts(workoutsJson: NSDictionary) -> [String: WorkoutStruct] {
+        var workouts = [String: WorkoutStruct]()
         for jsonDictionary in workoutsJson.valueForKeyPath("workout") as! NSArray {
-            let workout = WorkoutContainer(name: jsonDictionary["name"] as! String!,
+            let workout = WorkoutStruct(name: jsonDictionary["name"] as! String!,
                 desc: jsonDictionary["desc"] as! String!,
                 language: jsonDictionary["language"] as! String!,
                 videoUrl: jsonDictionary["videoUrl"] as! String!,
@@ -358,7 +358,7 @@ public class WorkoutService {
         return workouts
     }
 
-    private func addRepWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+    private func addRepWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutStruct]) {
         for json in workoutsJson.valueForKeyPath("repbased") as! NSArray {
             let workout = workouts[json["workout"] as! String!]!
             let repsWorkout = reps(json["reps"] as! NSNumber)
@@ -377,7 +377,7 @@ public class WorkoutService {
 
     }
 
-    private func addDurationWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+    private func addDurationWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutStruct]) {
         for jsonDictionary in workoutsJson.valueForKeyPath("timebased") as! NSArray {
             let workout = workouts[jsonDictionary["workout"] as! String!]!
             let durationWorkout = duration(jsonDictionary["duration"] as! NSNumber!)
@@ -394,7 +394,7 @@ public class WorkoutService {
         }
     }
 
-    private func addPrebensWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+    private func addPrebensWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutStruct]) {
         for jsonDictionary in workoutsJson.valueForKeyPath("prebensbased") as! NSArray {
             let workout = workouts[jsonDictionary["workout"] as! String!]!
             let prebensWorkout = prebens()
@@ -423,7 +423,7 @@ public class WorkoutService {
         }
     }
 
-    private func addIntervalWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutContainer]) {
+    private func addIntervalWorkouts(workoutsJson: NSDictionary, workouts: [String: WorkoutStruct]) {
         for jsonDictionary in workoutsJson.valueForKeyPath("intervalbased") as! NSArray {
             let workout = workouts[jsonDictionary["workout"] as! String!]!
             let workJson = jsonDictionary["mainWorkout"] as! NSDictionary
@@ -471,9 +471,9 @@ public class WorkoutService {
 public class WorkoutBuilder: Printable {
 
     let workoutService: WorkoutService
-    let workout: Workout
+    let workout: WorkoutManagedObject
 
-    init(workout: Workout, workoutService: WorkoutService) {
+    init(workout: WorkoutManagedObject, workoutService: WorkoutService) {
         self.workout = workout
         self.workoutService = workoutService
     }
@@ -533,7 +533,7 @@ public class WorkoutBuilder: Printable {
         return self
     }
 
-    public func save() -> Workout {
+    public func save() -> WorkoutManagedObject {
         saveContext()
         return workout
     }
@@ -550,7 +550,7 @@ public class WorkoutBuilder: Printable {
 
 public class RepsBuilder: WorkoutBuilder {
 
-    let repsWorkout: RepsWorkout
+    let repsWorkout: RepsWorkoutManagedObject
 
     init(workoutService: WorkoutService) {
         repsWorkout = workoutService.newRepsWorkout()
@@ -571,7 +571,7 @@ public class RepsBuilder: WorkoutBuilder {
         return "RepsWorkout[reps=\(repsWorkout.repititions), approx=\(repsWorkout.approx), \(super.description)]"
     }
 
-    override public func save() -> RepsWorkout {
+    override public func save() -> RepsWorkoutManagedObject {
         saveContext()
         return repsWorkout
     }
@@ -580,7 +580,7 @@ public class RepsBuilder: WorkoutBuilder {
 
 public class DurationBuilder: WorkoutBuilder {
 
-    let durationWorkout: DurationWorkout
+    let durationWorkout: DurationWorkoutManagedObject
 
     init(workoutService: WorkoutService) {
         durationWorkout = workoutService.newDurationWorkout()
@@ -596,7 +596,7 @@ public class DurationBuilder: WorkoutBuilder {
         return "DurationWorkout[duration=\(durationWorkout.duration), \(super.description)]"
     }
 
-    override public func save() -> DurationWorkout {
+    override public func save() -> DurationWorkoutManagedObject {
         saveContext()
         return durationWorkout
     }
@@ -605,9 +605,9 @@ public class DurationBuilder: WorkoutBuilder {
 
 public class IntervalBuilder: WorkoutBuilder {
 
-    let intervalWorkout: IntervalWorkout
-    var work: DurationWorkout!
-    var rest: DurationWorkout!
+    let intervalWorkout: IntervalWorkoutManagedObject
+    var work: DurationWorkoutManagedObject!
+    var rest: DurationWorkoutManagedObject!
     var workDuration: Int!
     var restWorkoutDuration: Int!
 
@@ -616,7 +616,7 @@ public class IntervalBuilder: WorkoutBuilder {
         super.init(workout: intervalWorkout, workoutService: workoutService)
     }
 
-    public func work(work: DurationWorkout, duration: Int) -> Self {
+    public func work(work: DurationWorkoutManagedObject, duration: Int) -> Self {
         self.work = work
         workDuration = duration
         return self
@@ -626,7 +626,7 @@ public class IntervalBuilder: WorkoutBuilder {
         return work.name
     }
 
-    public func rest(rest: DurationWorkout, duration: Int) -> Self {
+    public func rest(rest: DurationWorkoutManagedObject, duration: Int) -> Self {
         self.rest = rest
         restWorkoutDuration = duration
         return self
@@ -637,14 +637,14 @@ public class IntervalBuilder: WorkoutBuilder {
         return self
     }
 
-    override public func save() -> IntervalWorkout {
+    override public func save() -> IntervalWorkoutManagedObject {
         intervalWorkout.work = fromWorkout(work, duration: workDuration)
         intervalWorkout.rest = fromWorkout(rest, duration: restWorkoutDuration)
         saveContext()
         return intervalWorkout
     }
 
-    private func fromWorkout(workout: DurationWorkout, duration: Int) -> DurationWorkout {
+    private func fromWorkout(workout: DurationWorkoutManagedObject, duration: Int) -> DurationWorkoutManagedObject {
         let newWorkout = workoutService.newDurationWorkout()
         newWorkout.duration = duration
         newWorkout.name = workout.name
@@ -663,7 +663,7 @@ public class IntervalBuilder: WorkoutBuilder {
 
 public class PrebensBuilder: WorkoutBuilder {
 
-    let prebensWorkout: PrebensWorkout
+    let prebensWorkout: PrebensWorkoutManagedObject
     var prebensWorkouts: NSMutableOrderedSet
 
     init(workoutService: WorkoutService) {
@@ -672,7 +672,7 @@ public class PrebensBuilder: WorkoutBuilder {
         super.init(workout: prebensWorkout, workoutService: workoutService)
     }
 
-    public func workouts(workouts: [RepsWorkout]) -> Self {
+    public func workouts(workouts: [RepsWorkoutManagedObject]) -> Self {
         for w in workouts {
             workItem(w)
         }
@@ -680,7 +680,7 @@ public class PrebensBuilder: WorkoutBuilder {
     }
 
     public func workItemFrom(workoutName: String, reps: Int) -> Self {
-        let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkout
+        let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkoutManagedObject
         let newRepsWorkout = workoutService.newRepsWorkout()
         newRepsWorkout.repititions = reps
         newRepsWorkout.name = workout.name
@@ -697,13 +697,13 @@ public class PrebensBuilder: WorkoutBuilder {
         return self
     }
 
-    public func workItem(repsWorkout: RepsWorkout) -> Self {
+    public func workItem(repsWorkout: RepsWorkoutManagedObject) -> Self {
         prebensWorkouts.addObject(repsWorkout)
         prebensWorkout.workouts = prebensWorkouts.copy() as! NSOrderedSet
         return self
     }
 
-    override public func save() -> PrebensWorkout {
+    override public func save() -> PrebensWorkoutManagedObject {
         saveContext()
         return prebensWorkout
     }

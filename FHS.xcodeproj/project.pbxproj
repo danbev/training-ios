@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C51055C51B0DF77A005980AD /* DurationViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */; };
 		C51055C61B0DF9F0005980AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C515E84C19C5A937001A5BB2 /* Main.storyboard */; };
-		C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424101AED68EB00153BF0 /* PrebensWorkout.swift */; };
+		C51424111AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424101AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift */; };
 		C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424121AEE9B0600153BF0 /* PrebensViewController.swift */; };
 		C515E84919C5A937001A5BB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E84819C5A937001A5BB2 /* AppDelegate.swift */; };
 		C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C515E84A19C5A937001A5BB2 /* ViewController.swift */; };
@@ -24,7 +24,7 @@
 		C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C537A4B81A21F669003697CD /* FHS.xcdatamodeld */; };
 		C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */; };
 		C539DA911A87DB26005A6D45 /* WorkoutServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */; };
-		C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */; };
+		C539DA931A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift */; };
 		C539DA951A8BD0A1005A6D45 /* workouts.json in Resources */ = {isa = PBXBuildFile; fileRef = C539DA941A8BD0A1005A6D45 /* workouts.json */; };
 		C539DA991A8CAA43005A6D45 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C539DA981A8CAA43005A6D45 /* Media.xcassets */; };
 		C539DA9D1A8E33AE005A6D45 /* CountDownTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */; };
@@ -44,9 +44,9 @@
 		C572B5BA1B6F42D4007DF5C7 /* UserServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B91B6F42D4007DF5C7 /* UserServiceTest.swift */; };
 		C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */; };
 		C573BDC41A90CFE000B84FE0 /* WorkoutCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC31A90CFE000B84FE0 /* WorkoutCategoryTests.swift */; };
-		C5801CE61A62B3A800051140 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* Workout.swift */; };
-		C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkout.swift */; };
-		C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkout.swift */; };
+		C5801CE61A62B3A800051140 /* WorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* WorkoutManagedObject.swift */; };
+		C5801CE91A62B3C200051140 /* RepsWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkoutManagedObject.swift */; };
+		C5801CEA1A62B3C200051140 /* DurationWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkoutManagedObject.swift */; };
 		C5813D021B74C0D1003EF08B /* CoreDataStackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D011B74C0D1003EF08B /* CoreDataStackTest.swift */; };
 		C5813D051B761957003EF08B /* FHS.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C5813D041B761957003EF08B /* FHS.sqlite */; };
 		C5813D081B76196C003EF08B /* FHS.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = C5813D061B76196C003EF08B /* FHS.sqlite-shm */; };
@@ -55,6 +55,14 @@
 		C5813D0F1B7620CA003EF08B /* Testing.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0C1B7620CA003EF08B /* Testing.sqlite */; };
 		C5813D101B7620CA003EF08B /* Testing.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0D1B7620CA003EF08B /* Testing.sqlite-shm */; };
 		C5813D111B7620CA003EF08B /* Testing.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = C5813D0E1B7620CA003EF08B /* Testing.sqlite-wal */; };
+		C5813D131B7639CE003EF08B /* WorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D121B7639CE003EF08B /* WorkoutContainer.swift */; };
+		C5813D151B763C00003EF08B /* DurationWorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D141B763C00003EF08B /* DurationWorkoutContainer.swift */; };
+		C5813D171B763FAA003EF08B /* IntervalWorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D161B763FAA003EF08B /* IntervalWorkoutContainer.swift */; };
+		C5813D191B775AAC003EF08B /* WorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D181B775AAC003EF08B /* WorkoutProtocol.swift */; };
+		C5813D1B1B775CDC003EF08B /* DurationWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1A1B775CDC003EF08B /* DurationWorkoutProtocol.swift */; };
+		C5813D1D1B775D4F003EF08B /* RepsWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1C1B775D4F003EF08B /* RepsWorkoutProtocol.swift */; };
+		C5813D1F1B775D8C003EF08B /* IntervalWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1E1B775D8C003EF08B /* IntervalWorkoutProtocol.swift */; };
+		C5813D211B775DDF003EF08B /* PrebensWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D201B775DDF003EF08B /* PrebensWorkoutProtocol.swift */; };
 		C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C586D8291B2EE0020078493B /* InfoViewController.swift */; };
 		C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
@@ -87,7 +95,7 @@
 
 /* Begin PBXFileReference section */
 		C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewControllerTests.swift; sourceTree = "<group>"; };
-		C51424101AED68EB00153BF0 /* PrebensWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkout.swift; sourceTree = "<group>"; };
+		C51424101AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkoutManagedObject.swift; sourceTree = "<group>"; };
 		C51424121AEE9B0600153BF0 /* PrebensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewController.swift; sourceTree = "<group>"; };
 		C515E84319C5A937001A5BB2 /* FHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C515E84719C5A937001A5BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,7 +114,7 @@
 		C537A4B91A21F669003697CD /* FHS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FHS.xcdatamodel; sourceTree = "<group>"; };
 		C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		C539DA901A87DB26005A6D45 /* WorkoutServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutServiceTest.swift; path = Models/WorkoutServiceTest.swift; sourceTree = "<group>"; };
-		C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkout.swift; sourceTree = "<group>"; };
+		C539DA921A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkoutManagedObject.swift; sourceTree = "<group>"; };
 		C539DA941A8BD0A1005A6D45 /* workouts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = workouts.json; sourceTree = "<group>"; };
 		C539DA981A8CAA43005A6D45 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		C539DA9C1A8E33AE005A6D45 /* CountDownTimerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownTimerTests.swift; sourceTree = "<group>"; };
@@ -128,9 +136,9 @@
 		C573BDC01A8F3FDE00B84FE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutCategory.swift; path = Core/WorkoutCategory.swift; sourceTree = "<group>"; };
 		C573BDC31A90CFE000B84FE0 /* WorkoutCategoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutCategoryTests.swift; sourceTree = "<group>"; };
-		C5801CE51A62B3A800051140 /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
-		C5801CE71A62B3C200051140 /* RepsWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkout.swift; sourceTree = "<group>"; };
-		C5801CE81A62B3C200051140 /* DurationWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkout.swift; sourceTree = "<group>"; };
+		C5801CE51A62B3A800051140 /* WorkoutManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutManagedObject.swift; sourceTree = "<group>"; };
+		C5801CE71A62B3C200051140 /* RepsWorkoutManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkoutManagedObject.swift; sourceTree = "<group>"; };
+		C5801CE81A62B3C200051140 /* DurationWorkoutManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkoutManagedObject.swift; sourceTree = "<group>"; };
 		C5813D011B74C0D1003EF08B /* CoreDataStackTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStackTest.swift; path = Models/CoreDataStackTest.swift; sourceTree = "<group>"; };
 		C5813D041B761957003EF08B /* FHS.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = FHS.sqlite; sourceTree = "<group>"; };
 		C5813D061B76196C003EF08B /* FHS.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FHS.sqlite-shm"; sourceTree = "<group>"; };
@@ -139,6 +147,14 @@
 		C5813D0C1B7620CA003EF08B /* Testing.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Testing.sqlite; sourceTree = "<group>"; };
 		C5813D0D1B7620CA003EF08B /* Testing.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Testing.sqlite-shm"; sourceTree = "<group>"; };
 		C5813D0E1B7620CA003EF08B /* Testing.sqlite-wal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Testing.sqlite-wal"; sourceTree = "<group>"; };
+		C5813D121B7639CE003EF08B /* WorkoutContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutContainer.swift; sourceTree = "<group>"; };
+		C5813D141B763C00003EF08B /* DurationWorkoutContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkoutContainer.swift; sourceTree = "<group>"; };
+		C5813D161B763FAA003EF08B /* IntervalWorkoutContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkoutContainer.swift; sourceTree = "<group>"; };
+		C5813D181B775AAC003EF08B /* WorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutProtocol.swift; path = FHS/Core/WorkoutProtocol.swift; sourceTree = SOURCE_ROOT; };
+		C5813D1A1B775CDC003EF08B /* DurationWorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationWorkoutProtocol.swift; sourceTree = "<group>"; };
+		C5813D1C1B775D4F003EF08B /* RepsWorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsWorkoutProtocol.swift; sourceTree = "<group>"; };
+		C5813D1E1B775D8C003EF08B /* IntervalWorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntervalWorkoutProtocol.swift; sourceTree = "<group>"; };
+		C5813D201B775DDF003EF08B /* PrebensWorkoutProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensWorkoutProtocol.swift; sourceTree = "<group>"; };
 		C586D8291B2EE0020078493B /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RuntimeWorkout.swift; path = Core/RuntimeWorkout.swift; sourceTree = "<group>"; };
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
@@ -251,15 +267,18 @@
 				C572B5B21B6F4261007DF5C7 /* User.xcdatamodeld */,
 				C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */,
 				C537A4B81A21F669003697CD /* FHS.xcdatamodeld */,
-				C5801CE71A62B3C200051140 /* RepsWorkout.swift */,
-				C5801CE81A62B3C200051140 /* DurationWorkout.swift */,
-				C5801CE51A62B3A800051140 /* Workout.swift */,
+				C5801CE71A62B3C200051140 /* RepsWorkoutManagedObject.swift */,
+				C5801CE81A62B3C200051140 /* DurationWorkoutManagedObject.swift */,
+				C5801CE51A62B3A800051140 /* WorkoutManagedObject.swift */,
 				C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */,
-				C539DA921A8A7CA3005A6D45 /* IntervalWorkout.swift */,
-				C51424101AED68EB00153BF0 /* PrebensWorkout.swift */,
+				C5813D161B763FAA003EF08B /* IntervalWorkoutContainer.swift */,
+				C539DA921A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift */,
+				C51424101AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift */,
 				C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */,
 				C539DA941A8BD0A1005A6D45 /* workouts.json */,
 				C5813D0A1B761E79003EF08B /* test-workouts.json */,
+				C5813D121B7639CE003EF08B /* WorkoutContainer.swift */,
+				C5813D141B763C00003EF08B /* DurationWorkoutContainer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -318,6 +337,11 @@
 				C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */,
 				C54B3A931B260F3B0033854E /* Settings.swift */,
 				C54B3A951B28BC7D0033854E /* WorkoutType.swift */,
+				C5813D181B775AAC003EF08B /* WorkoutProtocol.swift */,
+				C5813D1A1B775CDC003EF08B /* DurationWorkoutProtocol.swift */,
+				C5813D1C1B775D4F003EF08B /* RepsWorkoutProtocol.swift */,
+				C5813D1E1B775D8C003EF08B /* IntervalWorkoutProtocol.swift */,
+				C5813D201B775DDF003EF08B /* PrebensWorkoutProtocol.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -487,11 +511,14 @@
 				C54B3A961B28BC7D0033854E /* WorkoutType.swift in Sources */,
 				C537A4BA1A21F669003697CD /* FHS.xcdatamodeld in Sources */,
 				C515E84B19C5A937001A5BB2 /* ViewController.swift in Sources */,
-				C539DA931A8A7CA3005A6D45 /* IntervalWorkout.swift in Sources */,
+				C539DA931A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift in Sources */,
 				C5E36BF11A961AB6007906E8 /* CountDownTimer.swift in Sources */,
+				C5813D171B763FAA003EF08B /* IntervalWorkoutContainer.swift in Sources */,
 				C51424131AEE9B0600153BF0 /* PrebensViewController.swift in Sources */,
 				C58CD6901B09CFB400B974C9 /* RuntimeWorkout.swift in Sources */,
-				C51424111AED68EB00153BF0 /* PrebensWorkout.swift in Sources */,
+				C5813D151B763C00003EF08B /* DurationWorkoutContainer.swift in Sources */,
+				C5813D1D1B775D4F003EF08B /* RepsWorkoutProtocol.swift in Sources */,
+				C51424111AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift in Sources */,
 				C5C9A3051B3544F20040DC7D /* AddWorkoutInfoViewController.swift in Sources */,
 				C5F7C92D1B344EBB004E6A3B /* AddWorkoutViewController.swift in Sources */,
 				C526EC4F1B3D6613000FD9DC /* IntervalInfoViewController.swift in Sources */,
@@ -499,21 +526,26 @@
 				C56944B51B19D5FC006745B0 /* Timer.swift in Sources */,
 				C5E36BF31A9CCC8C007906E8 /* UserWorkout.swift in Sources */,
 				C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */,
-				C5801CEA1A62B3C200051140 /* DurationWorkout.swift in Sources */,
+				C5801CEA1A62B3C200051140 /* DurationWorkoutManagedObject.swift in Sources */,
 				C52494651B3FFF9800038A64 /* PrebensInfoViewController.swift in Sources */,
 				C573BDC21A90882500B84FE0 /* WorkoutCategory.swift in Sources */,
+				C5813D211B775DDF003EF08B /* PrebensWorkoutProtocol.swift in Sources */,
 				C539DA8D1A87DA6A005A6D45 /* WorkoutService.swift in Sources */,
+				C5813D1F1B775D8C003EF08B /* IntervalWorkoutProtocol.swift in Sources */,
 				C572B5B41B6F4261007DF5C7 /* User.xcdatamodeld in Sources */,
 				C5C67FF51AE8251700C1D55C /* SettingsViewController.swift in Sources */,
+				C5813D191B775AAC003EF08B /* WorkoutProtocol.swift in Sources */,
 				C572B5B61B6F4270007DF5C7 /* WorkoutInfo.swift in Sources */,
-				C5801CE91A62B3C200051140 /* RepsWorkout.swift in Sources */,
+				C5801CE91A62B3C200051140 /* RepsWorkoutManagedObject.swift in Sources */,
 				C5A092D41B206544003FFCA4 /* BaseWorkoutController.swift in Sources */,
 				C526EC4D1B3C1A97000FD9DC /* DurationInfoViewController.swift in Sources */,
 				C54B3A941B260F3B0033854E /* Settings.swift in Sources */,
 				C572B5B81B6F4278007DF5C7 /* UserService.swift in Sources */,
+				C5813D131B7639CE003EF08B /* WorkoutContainer.swift in Sources */,
 				C54B3A981B28C7250033854E /* IntervalViewController.swift in Sources */,
-				C5801CE61A62B3A800051140 /* Workout.swift in Sources */,
+				C5801CE61A62B3A800051140 /* WorkoutManagedObject.swift in Sources */,
 				C586D82A1B2EE0020078493B /* InfoViewController.swift in Sources */,
+				C5813D1B1B775CDC003EF08B /* DurationWorkoutProtocol.swift in Sources */,
 				C5628A5E1B45BE2B00EE907B /* IntervalInfoViewController2.swift in Sources */,
 				C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */,
 			);

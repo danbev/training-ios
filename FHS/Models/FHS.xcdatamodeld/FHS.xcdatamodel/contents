@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="DurationWorkout" representedClassName="FHS.DurationWorkout" parentEntity="Workout" syncable="YES">
+    <entity name="DurationWorkout" representedClassName="FHS.DurationWorkoutManagedObject" parentEntity="Workout" syncable="YES">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IntervalWorkout" inverseName="rest" inverseEntity="IntervalWorkout" syncable="YES"/>
         <relationship name="work" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IntervalWorkout" inverseName="work" inverseEntity="IntervalWorkout" syncable="YES"/>
     </entity>
-    <entity name="IntervalWorkout" representedClassName="FHS.IntervalWorkout" parentEntity="Workout" syncable="YES">
+    <entity name="IntervalWorkout" representedClassName="FHS.IntervalWorkoutManagedObject" parentEntity="Workout" syncable="YES">
         <attribute name="intervals" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="rest" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" inverseName="rest" inverseEntity="DurationWorkout" syncable="YES"/>
         <relationship name="work" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DurationWorkout" inverseName="work" inverseEntity="DurationWorkout" syncable="YES"/>
     </entity>
-    <entity name="PrebensWorkout" representedClassName="FHS.PrebensWorkout" parentEntity="Workout" syncable="YES">
+    <entity name="PrebensWorkout" representedClassName="FHS.PrebensWorkoutManagedObject" parentEntity="Workout" syncable="YES">
         <relationship name="workouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="RepsWorkout" inverseName="prebens" inverseEntity="RepsWorkout" syncable="YES"/>
     </entity>
-    <entity name="RepsWorkout" representedClassName="FHS.RepsWorkout" parentEntity="Workout" syncable="YES">
+    <entity name="RepsWorkout" representedClassName="FHS.RepsWorkoutManagedObject" parentEntity="Workout" syncable="YES">
         <attribute name="approx" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="repititions" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="prebens" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PrebensWorkout" inverseName="workouts" inverseEntity="PrebensWorkout" syncable="YES"/>
     </entity>
-    <entity name="Workout" representedClassName="FHS.Workout" isAbstract="YES" syncable="YES">
+    <entity name="Workout" representedClassName="FHS.WorkoutManagedObject" isAbstract="YES" syncable="YES">
         <attribute name="categories" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dryGround" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>

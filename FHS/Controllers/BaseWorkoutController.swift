@@ -27,7 +27,7 @@ public class BaseWorkoutController: UIViewController {
     let audioWarning = AudioWarning.instance
     let bgQueue = NSOperationQueue()
 
-    public var workout : Workout!
+    public var workout : WorkoutManagedObject!
     var restTimer: CountDownTimer!
     var userWorkouts: WorkoutInfo?
     var restTimerFromMain: CountDownTimer?
@@ -42,7 +42,7 @@ public class BaseWorkoutController: UIViewController {
         initializeTimer()
     }
 
-    public func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         self.workout = workout
         self.didFinish = finishDelegate
         self.userWorkouts = userWorkouts
@@ -67,7 +67,7 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    public func startWorkTimer(workout: Workout) {
+    public func startWorkTimer(workout: WorkoutManagedObject) {
         workTimer = Timer(callback: updateWorkTime)
     }
 
@@ -151,7 +151,7 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    public class func infoView(segue: UIStoryboardSegue, workout: Workout) {
+    public class func infoView(segue: UIStoryboardSegue, workout: WorkoutManagedObject) {
         if segue.identifier == "infoSegue" {
             let infoViewController = segue.destinationViewController as! InfoViewController
             infoViewController.initWith(workout)

@@ -18,7 +18,7 @@ Controls a duration based workout
 public class DurationViewController: BaseWorkoutController {
 
     @IBOutlet weak var durationLabel: UILabel!
-    var durationWorkout : DurationWorkout!
+    var durationWorkout : DurationWorkoutManagedObject!
     var countDownTimer: CountDownTimer!
 
     public override func viewDidLoad() {
@@ -26,17 +26,17 @@ public class DurationViewController: BaseWorkoutController {
         durationLabel.text = durationWorkout.duration.stringValue
     }
 
-    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        durationWorkout = workout as! DurationWorkout
+        durationWorkout = workout as! DurationWorkoutManagedObject
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    public override func startWorkTimer(workout: Workout) {
-        let dw = workout as! DurationWorkout
+    public override func startWorkTimer(workout: WorkoutManagedObject) {
+        let dw = workout as! DurationWorkoutManagedObject
         countDownTimer = CountDownTimer(callback: durationCallback, countDown: dw.duration.doubleValue)
     }
 

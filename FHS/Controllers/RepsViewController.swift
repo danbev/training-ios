@@ -18,7 +18,7 @@ Controlls a Reps based workout
 public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
     let tableCell = "timeCell"
-    var repsWorkout: RepsWorkout!
+    var repsWorkout: RepsWorkoutManagedObject!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var totalTime: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -28,9 +28,9 @@ public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UIT
         repsLabel.text = repsWorkout.repititions.stringValue
     }
 
-    public override func initWith(workout: Workout, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        repsWorkout = workout as! RepsWorkout
+        repsWorkout = workout as! RepsWorkoutManagedObject
     }
 
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

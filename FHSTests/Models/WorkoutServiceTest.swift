@@ -270,7 +270,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testUpperBodyPrebens() {
         ws.loadDataIfNeeded()
-        let prebensWorkout = ws.fetchWorkout("UpperBodyPrebens") as! PrebensWorkout
+        let prebensWorkout = ws.fetchWorkout("UpperBodyPrebens") as! PrebensWorkoutManagedObject
         XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
@@ -284,7 +284,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testLowerBodyPrebens() {
         ws.loadDataIfNeeded()
-        let prebensWorkout = ws.fetchWorkout("LowerBodyPrebens") as! PrebensWorkout
+        let prebensWorkout = ws.fetchWorkout("LowerBodyPrebens") as! PrebensWorkoutManagedObject
         XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Russians", prebensWorkout.workouts[0].workoutName)
@@ -310,7 +310,7 @@ class WorkoutServiceTest: XCTestCase {
             w = workoutService.fetchWorkout(WorkoutCategory.UpperBody.rawValue, currentUserWorkout: userWorkout, lastUserWorkout: nil, weights: true, dryGround: true)
         }
 
-        let prebensWorkout = w as! PrebensWorkout
+        let prebensWorkout = w as! PrebensWorkoutManagedObject
         XCTAssertEqual(WorkoutType.Prebens.rawValue, prebensWorkout.type);
         XCTAssertEqual(7, prebensWorkout.workouts.count);
         XCTAssertEqual("Bicep curl", prebensWorkout.workouts[0].workoutName)
@@ -351,7 +351,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testIntervalWorkout() {
         ws.loadDataIfNeeded()
-        let intervalWorkout = ws.fetchWorkout("WormInterval") as! IntervalWorkout
+        let intervalWorkout = ws.fetchWorkout("WormInterval") as! IntervalWorkoutManagedObject
         XCTAssertEqual(WorkoutType.Interval.rawValue, intervalWorkout.type);
         XCTAssertEqual("The Worm", intervalWorkout.work.workoutName)
         XCTAssertEqual("Mountain climber", intervalWorkout.rest.workoutName)

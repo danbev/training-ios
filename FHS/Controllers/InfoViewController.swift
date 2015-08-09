@@ -17,18 +17,18 @@ public class InfoViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var noVideoLabel: UILabel!
-    public var workout : Workout!
+    public var workout : WorkoutManagedObject!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setTextLabels(workout)
     }
 
-    public func initWith(workout: Workout) {
+    public func initWith(workout: WorkoutManagedObject) {
         self.workout = workout
     }
 
-    func setTextLabels(workout: Workout) {
+    func setTextLabels(workout: WorkoutManagedObject) {
         workoutNameLabel.text = workout.workoutName
         descriptionLabel.text = workout.workoutDescription
     }

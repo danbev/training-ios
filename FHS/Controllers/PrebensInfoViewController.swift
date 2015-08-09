@@ -40,7 +40,7 @@ public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource
         if segue.identifier == "infoSegue" {
             let workoutName = sender as! String
             debugPrintln(workoutName)
-            let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkout
+            let workout = workoutService.fetchWorkout(workoutName) as! RepsWorkoutManagedObject
             let infoController = segue.destinationViewController as! InfoViewController
             infoController.initWith(workout)
         } else {

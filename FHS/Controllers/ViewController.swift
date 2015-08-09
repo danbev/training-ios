@@ -25,7 +25,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
-    private var tasks = [Workout]()
+    private var tasks = [WorkoutManagedObject]()
     private var restTimer: CountDownTimer!
     private var workoutTimer: CountDownTimer!
     private var preparedForSeque = false
@@ -45,17 +45,23 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         CoreDataStack.copyStoreFromBundle("FHS")
         CoreDataStack.copyStoreFromBundle("Testing")
 
-        //let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+        initStores(settings.stores)
+        /*
         println("ViewController Stores From Settings: \(settings.stores)")
         let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: settings.stores)
         createWorkoutService(coreDataStack)
         loadLastWorkout()
         updateTitle()
+        */
     }
 
-    private func createWorkoutService(coreDataStack: CoreDataStack) {
+    private func initStores(stores: [String]) {
+        println("ViewController initStores: \(stores)")
+        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: stores)
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
         workoutService.loadDataIfNeeded()
+        loadLastWorkout()
+        updateTitle()
     }
 
     private func loadLastWorkout() {
@@ -184,7 +190,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func settingsButton(sender: AnyObject) {
     }
     
-    public func addWorkoutToTable(workout: Workout) {
+    public func addWorkoutToTable(workout: WorkoutManagedObject) {
         tasks.append(workout)
         tableView.reloadData()
     }
@@ -215,6 +221,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        println("tableView : tasks = \(tasks)")
         let task = tasks[indexPath.row]
         println("task in table: \(task.workoutName)")
         cell.textLabel!.text = task.workoutName
@@ -238,7 +245,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         performSegue(tasks[0])
     }
 
-    private func performSegue(workout: Workout) {
+    private func performSegue(workout: WorkoutManagedObject) {
         let type = WorkoutType(rawValue: workout.type)!
         switch type {
         case .Reps:
@@ -279,7 +286,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func finishedWorkout(indexPath: NSIndexPath, workout: Workout, duration: Double) {
+    private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutManagedObject, duration: Double) {
         preparedForSeque = false;
         debugPrintln("Finished workout \(workout.name), duration=\(duration)")
         var totalTime = workoutTimer.elapsedTime()
@@ -316,7 +323,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func insertNewWorkout(workout: Workout) {
+    private func insertNewWorkout(workout: WorkoutManagedObject) {
         tasks.insert(workout, atIndex: 0)
         tableView.reloadData()
         tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -350,9 +357,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         println("unwinding main viewcontroller...")
-        //let settingsViewController = sender.sourceViewController as! SettingViewController
         settings = Settings.settings()
-        updateTitle()
+        println("stores \(settings.stores)")
+        initStores(settings.stores)
+        tableView.reloadData()
+        //updateTitle()
     }
 
     @IBAction func cancelWorkout(sender: AnyObject) {
