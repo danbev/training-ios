@@ -9,11 +9,15 @@
 import Foundation
 
 
-public struct RepsWorkout: RepsWorkoutProtocol {
+public struct RepsWorkout: RepsWorkoutProtocol, Hashable {
 
     let workout: WorkoutProtocol
     let rw_reps: NSNumber
     let rw_approx: NSNumber
+
+    public var hashValue: Int {
+        return self.workout.name().hashValue + rw_reps.hashValue
+    }
 
     public init(workout: WorkoutProtocol, reps: NSNumber, approx: NSNumber) {
         self.workout = workout
@@ -65,5 +69,8 @@ public struct RepsWorkout: RepsWorkoutProtocol {
         return workout.dryGround()
     }
 
+}
 
+public func ==(lhs: RepsWorkout, rhs: RepsWorkout) -> Bool {
+    return lhs.name() == rhs.name() && lhs.repititions() == rhs.repititions()
 }

@@ -25,7 +25,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private let tableCell = "tableCell"
     private var workoutService: WorkoutService!
-    private var tasks = [WorkoutManagedObject]()
+    private var tasks = [WorkoutProtocol]()
     private var restTimer: CountDownTimer!
     private var workoutTimer: CountDownTimer!
     private var preparedForSeque = false
@@ -147,11 +147,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let count = workoutInfos.count - 1
                     for index in stride(from: count, through: 0, by: -1) {
                         let workoutInfo = workoutInfos[index] as! WorkoutInfo
-                        let workout = workoutService.fetchWorkout(workoutInfo.name)!
-                        tasks.append(workout)
-                        tableView.reloadData()
-                        if index != count {
-                            checkmark(count - index)
+                        //let workout = workoutService.fetchWorkout(workoutInfo.name)!
+                        if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
+                            tasks.append(workout)
+                            tableView.reloadData()
+                            if index != count {
+                                checkmark(count - index)
+                            }
                         }
                     }
                 }
@@ -176,7 +178,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, settings: settings),
             lastUserWorkout: lastUserWorkout)
         let workoutInfo = runtimeWorkout.currentUserWorkout.workouts[0] as! WorkoutInfo
-        if let workout = workoutService.fetchWorkout(workoutInfo.name) {
+        //if let workout = workoutService.fetchWorkout(workoutInfo.name) {
+        if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
             addWorkoutToTable(workout)
         } else {
 //            debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
@@ -190,7 +193,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func settingsButton(sender: AnyObject) {
     }
     
-    public func addWorkoutToTable(workout: WorkoutManagedObject) {
+    public func addWorkoutToTable(workout: WorkoutProtocol) {
         tasks.append(workout)
         tableView.reloadData()
     }
@@ -223,8 +226,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         println("tableView : tasks = \(tasks)")
         let task = tasks[indexPath.row]
-        println("task in table: \(task.workoutName)")
-        cell.textLabel!.text = task.workoutName
+        println("task in table: \(task.workoutName())")
+        cell.textLabel!.text = task.workoutName()
         return cell;
     }
 
@@ -245,17 +248,18 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         performSegue(tasks[0])
     }
 
-    private func performSegue(workout: WorkoutManagedObject) {
-        let type = WorkoutType(rawValue: workout.type)!
-        switch type {
-        case .Reps:
+    private func performSegue(workout: WorkoutProtocol) {
+        switch workout {
+        case let reps as RepsWorkout:
             performSegueWithIdentifier("repsSegue", sender: self)
-        case .Timed:
+        case let duration as DurationWorkout:
             performSegueWithIdentifier("durationSegue", sender: self)
-        case .Interval:
+        case let interval as IntervalWorkout:
             performSegueWithIdentifier("intervalSegue", sender: self)
-        case .Prebens:
+        case let prebens as PrebensWorkout:
             performSegueWithIdentifier("prebensSegue", sender: self)
+        default:
+            debugPrintln("No workout type for \(workout)")
         }
     }
 
@@ -275,9 +279,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]
-            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name).addToDuration(workoutTimer.duration()).save()
+            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
-            let workoutInfo = workoutService.fetchLatestPerformed(workout.workoutName)
+            let workoutInfo = workoutService.fetchLatestPerformed(workout.workoutName())
             println("workoutInfo: \(workoutInfo)")
             baseViewController.initWith(workout, userWorkouts: workoutInfo, restTimer: restTimer) {
                 [unowned self] controller, duration in
@@ -286,12 +290,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutManagedObject, duration: Double) {
+    private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutProtocol, duration: Double) {
         preparedForSeque = false;
-        debugPrintln("Finished workout \(workout.name), duration=\(duration)")
+        debugPrintln("Finished workout \(workout.name()), duration=\(duration)")
         var totalTime = workoutTimer.elapsedTime()
         debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
-        let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name).addToDuration(workoutTimer.duration()).save()
+        let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
             restTimer.stop()
@@ -304,12 +308,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if totalTime.min != 0 || interruptedWorkout {
             interruptedWorkout = false
             restLabel.hidden = false
-            restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime.doubleValue)
+            restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
-                let warmup = workoutService.fetchWarmup(runtimeWorkout.currentUserWorkout)
+                let warmup = workoutService.fetchWarmupProtocol(runtimeWorkout.currentUserWorkout)
                 insertNewWorkout(warmup!)
             } else {
-                if let workout = workoutService.fetchWorkout(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
+                if let workout = workoutService.fetchWorkoutProtocol(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                     insertNewWorkout(workout)
                 } else {
                     debugPrintln("There are no more workouts for category \(runtimeWorkout.category())")
@@ -323,7 +327,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func insertNewWorkout(workout: WorkoutManagedObject) {
+    private func insertNewWorkout(workout: WorkoutProtocol) {
         tasks.insert(workout, atIndex: 0)
         tableView.reloadData()
         tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))

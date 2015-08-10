@@ -12,22 +12,22 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var prebensLabel: UILabel!
-    var prebensWorkout : PrebensWorkoutManagedObject!
-    var tasks = [RepsWorkoutManagedObject]()
+    var prebensWorkout : PrebensWorkoutProtocol!
+    var tasks = [RepsWorkoutProtocol]()
     public let tableCell = "tableCell"
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        prebensWorkout = workout as! PrebensWorkoutManagedObject
-        for w in prebensWorkout.workouts {
-            tasks.append(w as! RepsWorkoutManagedObject)
+        prebensWorkout = workout as! PrebensWorkoutProtocol
+        for w in prebensWorkout.workouts() {
+            tasks.append(w)
         }
         tableView.reloadData()
     }
 
-    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        prebensWorkout = workout as! PrebensWorkoutManagedObject
+        prebensWorkout = workout as! PrebensWorkoutProtocol
     }
 
     /**
@@ -41,24 +41,18 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
-            debugPrintln(sender)
-            let workout: WorkoutManagedObject
-            if sender is WorkoutManagedObject {
-                workout = sender as! WorkoutManagedObject
-            } else if sender is PrebensViewController {
-                workout = prebensWorkout
-            } else {
-                let indexPath = tableView.indexPathForSelectedRow()!;
-                workout = tasks[indexPath.row]
-            }
             let infoController = segue.destinationViewController as! InfoViewController
-            infoController.initWith(workout)
+            if let indexPath = tableView.indexPathForSelectedRow() {
+                infoController.initWith(tasks[indexPath.row])
+            } else {
+                infoController.initWith(prebensWorkout)
+            }
         }
     }
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let workout = tasks[indexPath.row]
-        performSegueWithIdentifier("infoSegue", sender: workout)
+        performSegueWithIdentifier("infoSegue", sender: self)
     }
 
     /**
@@ -84,9 +78,9 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let task = tasks[indexPath.row]
-        cell.textLabel!.text = task.workoutName
+        cell.textLabel!.text = task.workoutName()
         cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.detailTextLabel?.text = task.repititions.stringValue
+        cell.detailTextLabel?.text = task.repititions().stringValue
         return cell;
     }
 

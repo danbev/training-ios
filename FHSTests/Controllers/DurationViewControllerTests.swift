@@ -31,7 +31,7 @@ class DurationViewControllerTests: XCTestCase {
     }
 
     func testWithRestTimer() {
-        let workout = workoutService.fetchWorkout("Getups")!
+        let workout = workoutService.fetchWorkoutProtocol("Getups")!
         let expectation = expectationWithDescription("Testing timer2...")
         let timer = CountDownTimer(callback: { (dt) -> () in
             debugPrintln("in duration test CountDownTimer closure")

@@ -18,26 +18,26 @@ Controls a duration based workout
 public class DurationViewController: BaseWorkoutController {
 
     @IBOutlet weak var durationLabel: UILabel!
-    var durationWorkout : DurationWorkoutManagedObject!
+    var durationWorkout : DurationWorkoutProtocol!
     var countDownTimer: CountDownTimer!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        durationLabel.text = durationWorkout.duration.stringValue
+        durationLabel.text = durationWorkout.duration().stringValue
     }
 
-    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        durationWorkout = workout as! DurationWorkoutManagedObject
+        durationWorkout = workout as! DurationWorkoutProtocol
     }
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    public override func startWorkTimer(workout: WorkoutManagedObject) {
-        let dw = workout as! DurationWorkoutManagedObject
-        countDownTimer = CountDownTimer(callback: durationCallback, countDown: dw.duration.doubleValue)
+    public override func startWorkTimer(workout: WorkoutProtocol) {
+        let dw = workout as! DurationWorkoutProtocol
+        countDownTimer = CountDownTimer(callback: durationCallback, countDown: dw.duration().doubleValue)
     }
 
     public func durationCallback(timer: CountDownTimer) {
@@ -47,7 +47,7 @@ public class DurationViewController: BaseWorkoutController {
         }
         if min == 0 && sec == 0 && fra == 0 {
             timer.stop()
-            self.didFinish!(self, duration: durationWorkout.duration.doubleValue)
+            self.didFinish!(self, duration: durationWorkout.duration().doubleValue)
         } else {
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
         }

@@ -17,20 +17,20 @@ public class InfoViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var noVideoLabel: UILabel!
-    public var workout : WorkoutManagedObject!
+    public var workout : WorkoutProtocol!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         setTextLabels(workout)
     }
 
-    public func initWith(workout: WorkoutManagedObject) {
+    public func initWith(workout: WorkoutProtocol) {
         self.workout = workout
     }
 
-    func setTextLabels(workout: WorkoutManagedObject) {
-        workoutNameLabel.text = workout.workoutName
-        descriptionLabel.text = workout.workoutDescription
+    func setTextLabels(workout: WorkoutProtocol) {
+        workoutNameLabel.text = workout.workoutName()
+        descriptionLabel.text = workout.workoutDescription()
     }
 
     @IBAction func doneAction(sender: AnyObject) {
@@ -39,7 +39,7 @@ public class InfoViewController: UIViewController {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "videoSegue" {
-            if let videoUrl = workout.videoUrl {
+            if let videoUrl = workout.videoUrl() {
                 let videoViewController = segue.destinationViewController as! AVPlayerViewController
                 videoViewController.view.backgroundColor = UIColor.darkGrayColor()
                 var dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Info", ofType: "plist")!)

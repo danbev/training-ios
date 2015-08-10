@@ -31,7 +31,7 @@ class IntervalViewControllerTests: XCTestCase {
     }
 
     func testRestTimer() {
-        let workout = workoutService.fetchWorkout("WormInterval")!
+        let workout = workoutService.fetchWorkoutProtocol("WormInterval")!
         let expectation = expectationWithDescription("Testing rest timer...")
         let restTimer = CountDownTimer(callback: { (t) -> () in
             expectation.fulfill()
@@ -47,7 +47,7 @@ class IntervalViewControllerTests: XCTestCase {
     }
 
     func testWorkTimer() {
-        let workout = workoutService.fetchWorkout("WormInterval")!
+        let workout = workoutService.fetchWorkoutProtocol("WormInterval")!
         let expectation = expectationWithDescription("Testing work timer...")
         let restTimer = CountDownTimer(callback: { (t) -> () in
             expectation.fulfill()

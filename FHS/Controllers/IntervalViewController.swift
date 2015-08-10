@@ -25,13 +25,13 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var intervalTitleLabel: UILabel!
     private let tableCell = "intervalCell"
-    var intervalWorkout : IntervalWorkoutManagedObject!
+    var intervalWorkout : IntervalWorkoutProtocol!
     var countDownTimer: CountDownTimer!
     var intervals: Int!
     var intervalCounter: Int = 1
     private static let white = UIColor.whiteColor()
     private static let orange = UIColor.orangeColor()
-    var workouts = [DurationWorkoutManagedObject]()
+    var workouts = [DurationWorkoutProtocol]()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +39,16 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         tableView.reloadData()
     }
 
-    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         initWorkout(workout)
     }
 
-    private func initWorkout(workout: WorkoutManagedObject) {
-        intervalWorkout = workout as! IntervalWorkoutManagedObject
-        intervals = intervalWorkout.intervals.integerValue
-        workouts.append(intervalWorkout.work)
-        workouts.append(intervalWorkout.rest)
+    private func initWorkout(workout: WorkoutProtocol) {
+        intervalWorkout = workout as! IntervalWorkoutProtocol
+        intervals = intervalWorkout.intervals().integerValue
+        workouts.append(intervalWorkout.work())
+        workouts.append(intervalWorkout.rest())
     }
 
     public override func viewWillAppear(animated: Bool) {
@@ -62,11 +62,11 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
         let workout = workouts[indexPath.row]
-        cell.textLabel!.text = workout.workoutName
+        cell.textLabel!.text = workout.workoutName()
         return cell;
     }
 
-    public override func startWorkTimer(workout: WorkoutManagedObject) {
+    public override func startWorkTimer(workout: WorkoutProtocol) {
         tableView.reloadData()
         timeLabel.hidden = true
         restTimerLabel.hidden = true
@@ -74,7 +74,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         intervalLabel.textColor = IntervalViewController.orange
         intervalLabel.text = "1"
         labelsWorkoutState()
-        countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
+        countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work().duration().doubleValue)
     }
 
     private func labelsWorkoutState() {
@@ -132,7 +132,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
             workCell()?.detailTextLabel?.text = "00:00:00"
             timer.stop()
             labelsRestState()
-            countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest.duration.doubleValue)
+            countDownTimer = CountDownTimer(callback: restDurationCallback, countDown: intervalWorkout.rest().duration().doubleValue)
         }
     }
 
@@ -146,14 +146,14 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
         } else {
             restCell()?.detailTextLabel?.text = "00:00:00"
             timer.stop()
-            if intervalCounter < intervalWorkout.intervals.integerValue {
+            if intervalCounter < intervalWorkout.intervals().integerValue {
                 labelsWorkoutState()
                 intervalCounter++
                 intervalLabel.text = String(intervalCounter)
-                countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work.duration.doubleValue)
+                countDownTimer = CountDownTimer(callback: workDurationCallback, countDown: intervalWorkout.work().duration().doubleValue)
             } else {
                 labelsDoneState()
-                let duration = intervalWorkout.work.duration.integerValue * intervals + intervalWorkout.rest.duration.integerValue * intervals
+                let duration = intervalWorkout.work().duration().integerValue * intervals + intervalWorkout.rest().duration().integerValue * intervals
                 self.didFinish!(self, duration: Double(duration))
             }
         }
@@ -166,8 +166,9 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
             let infoController = segue.destinationViewController as! InfoViewController
-            if sender is WorkoutManagedObject {
-                infoController.initWith(sender as! WorkoutManagedObject)
+            if let indexPath = tableView.indexPathForSelectedRow() {
+                let workout = workouts[indexPath.row]
+                infoController.initWith(workout)
             } else {
                 infoController.initWith(intervalWorkout)
             }
@@ -176,7 +177,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let workout = workouts[indexPath.row]
-        performSegueWithIdentifier("infoSegue", sender: workout)
+        performSegueWithIdentifier("infoSegue", sender: self)
     }
 
 }

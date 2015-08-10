@@ -27,7 +27,7 @@ public class BaseWorkoutController: UIViewController {
     let audioWarning = AudioWarning.instance
     let bgQueue = NSOperationQueue()
 
-    public var workout : WorkoutManagedObject!
+    public var workout : WorkoutProtocol!
     var restTimer: CountDownTimer!
     var userWorkouts: WorkoutInfo?
     var restTimerFromMain: CountDownTimer?
@@ -35,14 +35,14 @@ public class BaseWorkoutController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        taskLabel.text = workout.workoutName
+        taskLabel.text = workout.workoutName()
         restTimerLabel.textColor = UIColor.orangeColor()
         // the timer callback should not be called before this view is loaded.
         restTimer(restTimerFromMain)
         initializeTimer()
     }
 
-    public func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         self.workout = workout
         self.didFinish = finishDelegate
         self.userWorkouts = userWorkouts
@@ -67,7 +67,7 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    public func startWorkTimer(workout: WorkoutManagedObject) {
+    public func startWorkTimer(workout: WorkoutProtocol) {
         workTimer = Timer(callback: updateWorkTime)
     }
 
@@ -151,7 +151,7 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    public class func infoView(segue: UIStoryboardSegue, workout: WorkoutManagedObject) {
+    public class func infoView(segue: UIStoryboardSegue, workout: Workout) {
         if segue.identifier == "infoSegue" {
             let infoViewController = segue.destinationViewController as! InfoViewController
             infoViewController.initWith(workout)

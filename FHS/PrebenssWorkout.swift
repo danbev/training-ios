@@ -11,14 +11,14 @@ import Foundation
 public struct PrebensWorkout: PrebensWorkoutProtocol {
 
     let workout: WorkoutProtocol
-    let pw_workouts: NSOrderedSet
+    let pw_workouts: [RepsWorkout]
 
-    public init(workout: WorkoutProtocol, workouts: NSOrderedSet) {
+    public init(workout: WorkoutProtocol, workouts: [RepsWorkout]) {
         self.workout = workout
         pw_workouts = workouts
     }
 
-    func workouts() -> NSOrderedSet {
+    func workouts() -> [RepsWorkout] {
         return pw_workouts
     }
 

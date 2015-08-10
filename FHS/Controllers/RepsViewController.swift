@@ -18,19 +18,19 @@ Controlls a Reps based workout
 public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
     let tableCell = "timeCell"
-    var repsWorkout: RepsWorkoutManagedObject!
+    var repsWorkout: RepsWorkoutProtocol!
     @IBOutlet weak var repsLabel: UILabel!
     @IBOutlet weak var totalTime: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        repsLabel.text = repsWorkout.repititions.stringValue
+        repsLabel.text = repsWorkout.repititions().stringValue
     }
 
-    public override func initWith(workout: WorkoutManagedObject, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
-        repsWorkout = workout as! RepsWorkoutManagedObject
+        repsWorkout = workout as! RepsWorkoutProtocol
     }
 
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

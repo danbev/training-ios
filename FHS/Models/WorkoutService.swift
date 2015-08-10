@@ -120,6 +120,63 @@ public class WorkoutService {
         return executeFetchWorkout(NSFetchRequest(entityName: WorkoutService.prebensEntityName))
     }
 
+    public func fetchWorkoutProtocol(name: String) -> WorkoutProtocol? {
+        if let managedWorkout = fetchWorkout(name) {
+            return managedWorkoutToProtocol(managedWorkout)
+        }
+        return nil
+    }
+
+    public func managedWorkoutToProtocol(managedWorkout: WorkoutManagedObject) -> WorkoutProtocol {
+        let workoutProtocol = workoutFrom(managedWorkout)
+        switch (WorkoutType(rawValue: managedWorkout.type)!) {
+        case .Reps:
+            let managedRepsWorkout = managedWorkout as! RepsWorkoutManagedObject
+            return repsWorkoutFrom(managedRepsWorkout)
+        case .Timed:
+            let managedDurationWorkout = managedWorkout as! DurationWorkoutManagedObject
+            return durationWorkoutFrom(managedDurationWorkout)
+        case .Interval:
+            let managedIntervalWorkout = managedWorkout as! IntervalWorkoutManagedObject
+            return IntervalWorkout(workout: workoutProtocol,
+                work: durationWorkoutFrom(managedIntervalWorkout.work),
+                rest: durationWorkoutFrom(managedIntervalWorkout.rest),
+                intervals: managedIntervalWorkout.intervals)
+        case .Prebens:
+            let managedPrebensWorkout = managedWorkout as! PrebensWorkoutManagedObject
+            let workouts = managedPrebensWorkout.workouts
+            return PrebensWorkout(workout: workoutProtocol, workouts: repsSetFrom(workouts))
+        }
+    }
+
+    private func repsSetFrom(repsWorkouts: NSOrderedSet) -> [RepsWorkout] {
+        var set = [RepsWorkout]()
+        for w in repsWorkouts {
+            set.append(repsWorkoutFrom(w as! RepsWorkoutManagedObject))
+        }
+        return set
+    }
+
+    private func repsWorkoutFrom(managedRepsWorkout: RepsWorkoutManagedObject) -> RepsWorkout {
+        return RepsWorkout(workout: workoutFrom(managedRepsWorkout), reps: managedRepsWorkout.repititions, approx: managedRepsWorkout.approx)
+    }
+
+    private func durationWorkoutFrom(managedDurationWorkout: DurationWorkoutManagedObject) -> DurationWorkout {
+        return DurationWorkout(workout: workoutFrom(managedDurationWorkout), duration: managedDurationWorkout.duration)
+    }
+
+    private func workoutFrom(managedWorkout: WorkoutManagedObject) -> Workout {
+        return Workout(name: managedWorkout.name,
+            workoutName: managedWorkout.workoutName,
+            workoutDescription: managedWorkout.workoutDescription,
+            language: managedWorkout.language,
+            categories: managedWorkout.categories,
+            videoUrl: managedWorkout.videoUrl,
+            restTime: managedWorkout.restTime,
+            weights: managedWorkout.weights?.boolValue ?? false,
+            dryGround: managedWorkout.dryGround?.boolValue ?? false)
+    }
+
     public func fetchWorkout(name: String) -> WorkoutManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
         fetchRequest.predicate = NSPredicate(format:"name == %@", name)
@@ -132,6 +189,25 @@ public class WorkoutService {
         fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
         fetchRequest.fetchLimit = 1
         return executeFetchWorkout(fetchRequest)?.first
+    }
+
+    public func fetchWarmupProtocol(userWorkout: UserWorkout) -> WorkoutProtocol? {
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
+        fetchRequest.resultType = .ManagedObjectIDResultType
+        fetchRequest.predicate = NSPredicate(format: "categories contains %@", "Warmup")
+        var error: NSError?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
+        var exludedWorkouts = Set<String>()
+        for w in userWorkout.workouts {
+            let workoutInfo = w as! WorkoutInfo
+            exludedWorkouts.insert(workoutInfo.name)
+        }
+        if var ids = optionalIds {
+            return randomWorkout2(&ids, excludedWorkouts: exludedWorkouts)
+        } else {
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
+        }
+        return nil
     }
 
     public func fetchWarmup(userWorkout: UserWorkout) -> WorkoutManagedObject? {
@@ -155,6 +231,35 @@ public class WorkoutService {
 
     public func fetchLatestPerformed(name: String) -> WorkoutInfo? {
         return userService.fetchPerformedWorkoutInfo(name)
+    }
+
+    private func randomWorkout2(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> WorkoutProtocol? {
+        let count = objectIds.count
+        let index: Int = Int(arc4random_uniform(UInt32(count)))
+        let objectId = objectIds[index]
+        var error: NSError?
+        if let workout = context.existingObjectWithID(objectId, error: &error) as! WorkoutManagedObject? {
+            var doneLastWorkout = false
+            for performedWorkout in excludedWorkouts {
+                if performedWorkout == workout.name {
+                    doneLastWorkout = true
+                    break
+                }
+            }
+            if doneLastWorkout {
+                objectIds.removeAtIndex(index)
+                if objectIds.count >= 1 {
+                    return randomWorkout2(&objectIds, excludedWorkouts: excludedWorkouts)
+                } else {
+                    return nil
+                }
+            } else {
+                return managedWorkoutToProtocol(workout)
+            }
+        } else {
+            debugPrintln("Could not get a random workout \(error), \(error!.userInfo)")
+            return nil
+        }
     }
 
     private func randomWorkout(inout objectIds: [NSManagedObjectID], excludedWorkouts: Set<String>) -> WorkoutManagedObject? {
@@ -217,6 +322,42 @@ public class WorkoutService {
         if var ids = optionalIds {
             if ids.count > 0 {
                 return randomWorkout(&ids, excludedWorkouts: excludedWorkouts)
+            } else {
+                debugPrintln("No ids!!!")
+            }
+        } else {
+            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
+        }
+        return nil
+    }
+
+    public func fetchWorkoutProtocol(category: String, currentUserWorkout: UserWorkout, lastUserWorkout: UserWorkout?, weights: Bool, dryGround: Bool) -> WorkoutProtocol? {
+        let fetchRequest = NSFetchRequest(entityName: workoutEntityName)
+        fetchRequest.resultType = .ManagedObjectIDResultType
+        fetchRequest.predicate = NSPredicate(format: "categories contains %@ AND weights = %@", category, weights)
+        if !weights && !dryGround {
+            fetchRequest.predicate = NSPredicate(format: "categories contains %@ AND weights = true AND dryGround = true", category)
+        } else if !weights {
+            fetchRequest.predicate = NSPredicate(format: "categories contains %@ AND weights = false", category)
+        } else if !dryGround {
+            fetchRequest.predicate = NSPredicate(format: "categories contains %@ AND dryGround = false", category)
+        } else {
+            fetchRequest.predicate = NSPredicate(format: "categories contains %@", category)
+        }
+        var error: NSError?
+        let optionalIds = context.executeFetchRequest(fetchRequest, error: &error) as! [NSManagedObjectID]?
+        var excludedWorkouts = Set<String>()
+        for w in currentUserWorkout.workouts {
+            excludedWorkouts.insert(w.name)
+        }
+        if let last = lastUserWorkout {
+            for w in last.workouts {
+                excludedWorkouts.insert(w.name)
+            }
+        }
+        if var ids = optionalIds {
+            if ids.count > 0 {
+                return randomWorkout2(&ids, excludedWorkouts: excludedWorkouts)
             } else {
                 debugPrintln("No ids!!!")
             }
