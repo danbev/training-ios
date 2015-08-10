@@ -10,6 +10,6 @@ import Foundation
 
 protocol PrebensWorkoutProtocol: WorkoutProtocol {
 
-    var workouts: NSOrderedSet { get }
+    func workouts() -> NSOrderedSet
 
 }

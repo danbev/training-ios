@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol DurationWorkoutProtocol: WorkoutProtocol {
+public protocol DurationWorkoutProtocol: WorkoutProtocol {
 
-    var duration:NSNumber { get }
+    func duration() -> NSNumber
 
 }

@@ -10,8 +10,8 @@ import Foundation
 
 protocol IntervalWorkoutProtocol: WorkoutProtocol {
 
-    var work: DurationWorkoutProtocol { get }
-    var rest: DurationWorkoutProtocol { get }
-    var intervals: NSNumber { get }
+    func work() -> DurationWorkoutProtocol
+    func rest() -> DurationWorkoutProtocol
+    func intervals() -> NSNumber 
     
 }

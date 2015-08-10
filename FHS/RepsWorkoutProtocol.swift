@@ -10,7 +10,7 @@ import Foundation
 
 protocol RepsWorkoutProtocol: WorkoutProtocol {
 
-    var repititions: NSNumber { get }
-    var approx: NSNumber { get }
+    func repititions() -> NSNumber
+    func approx() -> NSNumber
 
 }
