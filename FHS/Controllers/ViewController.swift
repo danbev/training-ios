@@ -182,7 +182,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
             addWorkoutToTable(workout)
         } else {
-//            debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
+            debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
         }
     }
 
@@ -275,7 +275,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else if segue.identifier == "addSegue" {
             let addController = segue.destinationViewController as! AddWorkoutViewController
-            addController.setWorkoutService(workoutService)
+            addController.setUserService(workoutService.getUserService())
         } else {
             let indexPath = tableView.indexPathForSelectedRow()!
             let workout = tasks[indexPath.row]
@@ -310,8 +310,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             restLabel.hidden = false
             restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
-                let warmup = workoutService.fetchWarmupProtocol(runtimeWorkout.currentUserWorkout)
-                insertNewWorkout(warmup!)
+                if let warmup = workoutService.fetchWarmupProtocol(runtimeWorkout.currentUserWorkout) {
+                    insertNewWorkout(warmup)
+                } else {
+                    debugPrintln("There are no more warmups")
+                    stopWorkout()
+                }
             } else {
                 if let workout = workoutService.fetchWorkoutProtocol(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                     insertNewWorkout(workout)

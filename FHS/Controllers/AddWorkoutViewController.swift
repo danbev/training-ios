@@ -19,9 +19,12 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
     var workoutTypes = [WorkoutType.Reps, WorkoutType.Timed, WorkoutType.Interval, WorkoutType.Prebens]
     var selectedType: WorkoutType = WorkoutType.Reps
     var workoutService: WorkoutService!
+    var userService: UserService!
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["UserWorkouts"])
+        workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
     }
 
     public override func viewDidAppear(animated: Bool) {
@@ -30,6 +33,10 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    }
+
+    public func setUserService(userService: UserService) {
+        self.userService = userService
     }
     
     @IBAction func cancel(sender: AnyObject) {
@@ -50,10 +57,6 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let type = workoutTypes[row]
-    }
-
-    public func setWorkoutService(workoutService: WorkoutService) {
-        self.workoutService = workoutService
     }
 
     @IBAction func next(sender: AnyObject) {
