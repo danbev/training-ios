@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol IntervalWorkoutProtocol: WorkoutProtocol {
+public protocol IntervalWorkoutProtocol: WorkoutProtocol {
 
     func work() -> DurationWorkoutProtocol
     func rest() -> DurationWorkoutProtocol

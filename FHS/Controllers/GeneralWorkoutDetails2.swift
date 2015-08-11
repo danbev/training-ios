@@ -77,8 +77,8 @@ public class GeneralDetails2: UIViewController {
             .dryGround(dryGroundSwitch.on)
             .postRestTime(postRestLabel.text!.toInt()!)
             .categories(gatherCategories())
-            .save()
-        debugPrintln("saved workout \(workout.description)")
+            .saveWorkout()
+        debugPrintln("saved workout \(workout)")
         navigationController?.popToRootViewControllerAnimated(true)
     }
 

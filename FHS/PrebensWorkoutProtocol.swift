@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PrebensWorkoutProtocol: WorkoutProtocol {
+public protocol PrebensWorkoutProtocol: WorkoutProtocol {
 
     func workouts() -> [RepsWorkout]
 

@@ -18,7 +18,7 @@ public struct PrebensWorkout: PrebensWorkoutProtocol {
         pw_workouts = workouts
     }
 
-    func workouts() -> [RepsWorkout] {
+    public func workouts() -> [RepsWorkout] {
         return pw_workouts
     }
 

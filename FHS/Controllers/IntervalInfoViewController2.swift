@@ -45,7 +45,7 @@ public class IntervalInfoViewController2: UIViewController, UIPickerViewDataSour
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! IntervalInfoViewController3
         let restWorkoutName = restWorkouts[restPicker.selectedRowInComponent(0)]
-        let rest = workoutService.fetchWorkout(restWorkoutName) as! DurationWorkoutManagedObject
+        let rest = workoutService.fetchWorkoutProtocol(restWorkoutName) as! DurationWorkoutProtocol
         builder.rest(rest, duration: restDurationLabel.text!.toInt()!)
         controller.setBuilder(builder)
     }

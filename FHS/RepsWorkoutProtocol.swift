@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RepsWorkoutProtocol: WorkoutProtocol {
+public protocol RepsWorkoutProtocol: WorkoutProtocol {
 
     func repititions() -> NSNumber
     func approx() -> NSNumber

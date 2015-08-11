@@ -142,8 +142,8 @@ public class UserService {
             return self
         }
 
-        public func addWorkout(workout: WorkoutManagedObject?) -> Self {
-            return addWorkout(workout?.name)
+        public func addWorkout(workout: WorkoutProtocol?) -> Self {
+            return addWorkout(workout?.name())
         }
 
         public func addWorkout(workoutName: String?) -> Self {

@@ -23,7 +23,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testInitWithLastUserWorkout() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
         let lastId = NSUUID().UUIDString
         /*
         let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
@@ -36,7 +36,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testInitWithLastUserWorkoutNotCompleted() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
         let lastId = NSUUID().UUIDString
         /*
         let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)
@@ -50,7 +50,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentInProgress() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let lastId = NSUUID().UUIDString
         /*
@@ -67,7 +67,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentDone() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let lastId = NSUUID().UUIDString
         /*
@@ -85,7 +85,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentNotDone() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let lastId = NSUUID().UUIDString
         /*
@@ -103,7 +103,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentNil() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let lastId = NSUUID().UUIDString
         /*
@@ -117,7 +117,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentAndLastNil() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let runtimeWorkout = RuntimeWorkout(lastUserWorkout: nil)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category())
@@ -125,7 +125,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testWarmupCompleted() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkout("JumpingJacks")!
+        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
         let lastId = NSUUID().UUIDString
         /*
         let lastWorkout = workoutService.saveUserWorkout(lastId, category: WorkoutCategory.Cardio, workout: warmup)

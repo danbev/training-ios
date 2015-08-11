@@ -22,15 +22,15 @@ public struct IntervalWorkout: IntervalWorkoutProtocol {
         iw_intervals = intervals
     }
 
-    func work() -> DurationWorkoutProtocol {
+    public func work() -> DurationWorkoutProtocol {
         return iw_work
     }
 
-    func rest() -> DurationWorkoutProtocol {
+    public func rest() -> DurationWorkoutProtocol {
         return iw_rest
     }
 
-    func intervals() -> NSNumber {
+    public func intervals() -> NSNumber {
         return iw_intervals
     }
 

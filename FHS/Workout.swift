@@ -45,7 +45,7 @@ public struct Workout: WorkoutProtocol {
     }
 
     public func language() -> String {
-        return language()
+        return w_language
     }
 
     public func categories() -> String {

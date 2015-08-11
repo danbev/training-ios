@@ -25,11 +25,11 @@ public struct RepsWorkout: RepsWorkoutProtocol, Hashable {
         rw_approx = approx
     }
 
-    func repititions() -> NSNumber {
+    public func repititions() -> NSNumber {
         return rw_reps
     }
 
-    func approx() -> NSNumber {
+    public func approx() -> NSNumber {
         return rw_approx
     }
 
