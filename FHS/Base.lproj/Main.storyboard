@@ -1282,6 +1282,7 @@
                                 </state>
                                 <connections>
                                     <action selector="save:" destination="TNG-Ey-Qh9" eventType="touchUpInside" id="71i-R4-Nk8"/>
+                                    <segue destination="FPp-0b-CO4" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainMenu:" id="XnA-tZ-zEf"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post rest time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iga-H9-yAN">
@@ -1443,6 +1444,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Rx-yj-kU9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="FPp-0b-CO4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3075" y="-779"/>
         </scene>

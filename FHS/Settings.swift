@@ -52,6 +52,10 @@ public struct Settings {
         return ignoredCategories
     }
 
+    public static func enableUserWorkoutsStore() {
+        Settings.addStore("UserWorkouts")
+    }
+
     public static func addStore(name: String) {
         var stores = readStores()
         if !contains(stores, name) {

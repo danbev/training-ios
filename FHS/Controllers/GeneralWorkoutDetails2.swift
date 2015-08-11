@@ -71,7 +71,21 @@ public class GeneralDetails2: UIViewController {
         self.workoutBuilder = workoutBuilder
     }
 
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "unwindToMain" {
+            let workout = workoutBuilder.language("en")
+                .weights(weightsSwitch.on)
+                .dryGround(dryGroundSwitch.on)
+                .postRestTime(postRestLabel.text!.toInt()!)
+                .categories(gatherCategories())
+                .saveWorkout()
+            debugPrintln("saved workout \(workout)")
+            Settings.enableUserWorkoutsStore()
+        }
+    }
+
     @IBAction func save(sender: AnyObject) {
+        /*
         let workout = workoutBuilder.language("en")
             .weights(weightsSwitch.on)
             .dryGround(dryGroundSwitch.on)
@@ -79,7 +93,9 @@ public class GeneralDetails2: UIViewController {
             .categories(gatherCategories())
             .saveWorkout()
         debugPrintln("saved workout \(workout)")
+        Settings.enableUserWorkoutsStore()
         navigationController?.popToRootViewControllerAnimated(true)
+        */
     }
 
     @IBAction func cancel(sender: AnyObject) {

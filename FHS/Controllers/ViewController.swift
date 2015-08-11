@@ -355,6 +355,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         settings = Settings.settings()
+        debugPrintln("Unwinding to main. stores \(settings.stores)")
         initStores(settings.stores)
         tableView.reloadData()
     }
