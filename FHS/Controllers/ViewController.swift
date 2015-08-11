@@ -177,12 +177,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, settings: settings),
             lastUserWorkout: lastUserWorkout)
-        let workoutInfo = runtimeWorkout.currentUserWorkout.workouts[0] as! WorkoutInfo
-        //if let workout = workoutService.fetchWorkout(workoutInfo.name) {
-        if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
-            addWorkoutToTable(workout)
+
+        if let workout = runtimeWorkout.currentUserWorkout {
+            let workoutInfo = workout.workouts[0] as! WorkoutInfo
+            if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
+                addWorkoutToTable(workout)
+            } else {
+                debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
+            }
         } else {
-            debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
+            debugPrintln("Looks like there are no workout in the data store")
+            stopWorkout()
         }
     }
 
