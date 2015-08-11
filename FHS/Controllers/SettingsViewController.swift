@@ -40,7 +40,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     }
 
     @IBAction func backAction(sender: UIBarButtonItem) {
-        println("backAction...")
     }
 
     var currentUserWorkout: UserWorkout!
@@ -196,7 +195,6 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        println("sender = \(sender.identifier)")
         let settingsViewController = sender.sourceViewController as! MoreSettingsViewController
     }
 

@@ -44,19 +44,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         timerLabel.textColor = UIColor.orangeColor()
         CoreDataStack.copyStoreFromBundle("FHS")
         CoreDataStack.copyStoreFromBundle("Testing")
-
         initStores(settings.stores)
-        /*
-        println("ViewController Stores From Settings: \(settings.stores)")
-        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: settings.stores)
-        createWorkoutService(coreDataStack)
-        loadLastWorkout()
-        updateTitle()
-        */
     }
 
     private func initStores(stores: [String]) {
-        println("ViewController initStores: \(stores)")
+        println("ViewController stores: \(stores)")
         let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: stores)
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
         workoutService.loadDataIfNeeded()
@@ -131,7 +123,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
         clearWorkoutTasks()
         let workoutDuration = settings.duration
-        debugPrintln("workout duration = \(workoutDuration)")
 
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
 
@@ -147,7 +138,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let count = workoutInfos.count - 1
                     for index in stride(from: count, through: 0, by: -1) {
                         let workoutInfo = workoutInfos[index] as! WorkoutInfo
-                        //let workout = workoutService.fetchWorkout(workoutInfo.name)!
                         if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
                             tasks.append(workout)
                             tableView.reloadData()
@@ -229,9 +219,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
-        println("tableView : tasks = \(tasks)")
         let task = tasks[indexPath.row]
-        println("task in table: \(task.workoutName())")
         cell.textLabel!.text = task.workoutName()
         return cell;
     }
@@ -287,7 +275,6 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
             let workoutInfo = workoutService.fetchLatestPerformed(workout.workoutName())
-            println("workoutInfo: \(workoutInfo)")
             baseViewController.initWith(workout, userWorkouts: workoutInfo, restTimer: restTimer) {
                 [unowned self] controller, duration in
                 self.finishedWorkout(indexPath, workout: workout, duration: duration)
@@ -297,9 +284,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutProtocol, duration: Double) {
         preparedForSeque = false;
-        debugPrintln("Finished workout \(workout.name()), duration=\(duration)")
         var totalTime = workoutTimer.elapsedTime()
-        debugPrintln("Elapsed time \(totalTime.min):\(totalTime.sec)")
         let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
@@ -369,12 +354,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        println("unwinding main viewcontroller...")
         settings = Settings.settings()
-        println("stores \(settings.stores)")
         initStores(settings.stores)
         tableView.reloadData()
-        //updateTitle()
     }
 
     @IBAction func cancelWorkout(sender: AnyObject) {
