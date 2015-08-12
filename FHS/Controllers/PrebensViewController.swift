@@ -37,6 +37,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     :param: indexPath the NSIndexPath identifying the cell to being tapped
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("tableView row selected = \(indexPath)")
     }
     
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -44,6 +45,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
             let infoController = segue.destinationViewController as! InfoViewController
             if let indexPath = tableView.indexPathForSelectedRow() {
                 infoController.initWith(tasks[indexPath.row])
+                tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
                 infoController.initWith(prebensWorkout)
             }
@@ -52,6 +54,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         let workout = tasks[indexPath.row]
+        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
         performSegueWithIdentifier("infoSegue", sender: self)
     }
 
