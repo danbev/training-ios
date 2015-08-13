@@ -43,9 +43,8 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "infoSegue" {
             let infoController = segue.destinationViewController as! InfoViewController
-            if let indexPath = tableView.indexPathForSelectedRow() {
+            if let indexPath = sender as? NSIndexPath {
                 infoController.initWith(tasks[indexPath.row])
-                tableView.deselectRowAtIndexPath(indexPath, animated: false)
             } else {
                 infoController.initWith(prebensWorkout)
             }
@@ -53,9 +52,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     }
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let workout = tasks[indexPath.row]
-        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
-        performSegueWithIdentifier("infoSegue", sender: self)
+        performSegueWithIdentifier("infoSegue", sender: indexPath)
     }
 
     /**
