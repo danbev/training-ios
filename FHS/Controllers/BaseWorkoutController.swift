@@ -25,7 +25,6 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var previousWorkTimeLabel: UILabel!
     @IBOutlet weak var previousWorkTime: UILabel!
     let audioWarning = AudioWarning.instance
-    let bgQueue = NSOperationQueue()
 
     public var workout : WorkoutProtocol!
     var restTimer: CountDownTimer!
@@ -47,6 +46,10 @@ public class BaseWorkoutController: UIViewController {
         self.didFinish = finishDelegate
         self.userWorkouts = userWorkouts
         restTimerFromMain = restTimer
+    }
+
+    func applicationDidEnterBackground(application: UIApplication) {
+        println("entered background")
     }
 
     func initializeTimer() {
@@ -100,9 +103,7 @@ public class BaseWorkoutController: UIViewController {
         } else {
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
             if  min == 0 && sec <= 3 && fra < 5 {
-                bgQueue.addOperationWithBlock() {
-                    self.audioWarning.play()
-                }
+                self.audioWarning.play()
             }
         }
     }
