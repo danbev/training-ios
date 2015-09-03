@@ -13,12 +13,12 @@ import FHS
 
 class RuntimeWorkoutTests: XCTestCase {
 
-    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+    let coreDataStack: CoreDataStack = TestCoreDataStack.storesFromBundle(["FHS"], modelName: "FHS")
     var workoutService: WorkoutService!
 
     override func setUp() {
         super.setUp()
-        self.workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        self.workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
     }
 
     func testInitWithLastUserWorkout() {

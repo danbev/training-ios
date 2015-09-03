@@ -13,12 +13,12 @@ import XCTest
 
 class WorkoutServiceTest: XCTestCase {
 
-    let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
+    let coreDataStack: CoreDataStack = TestCoreDataStack.storesFromBundle(["FHS"], modelName: "FHS")
     var ws: WorkoutService!
 
     override func setUp() {
         super.setUp()
-        self.ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        self.ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
     }
 
     func testAddRepsWorkout() {
@@ -297,8 +297,8 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testOrderOfPrebens() {
-        let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["FHS"])
-        var workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        let coreDataStack: CoreDataStack = TestCoreDataStack.storesFromBundle(["FHS"], modelName: "FHS")
+        var workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         let userService = workoutService.getUserService()
         workoutService.loadDataIfNeeded()
 
@@ -364,8 +364,8 @@ class WorkoutServiceTest: XCTestCase {
     }
 
     func testUseTestStore() {
-        let coreDataStack: CoreDataStack = TestCoreDataStack(modelName: "FHS", storeNames: ["Testing"])
-        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        let coreDataStack: CoreDataStack = TestCoreDataStack.storesFromBundle(["Testing"], modelName: "FHS")
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         ws.reps(10).name("testWorkout").description("testing...").categories(WorkoutCategory.UpperBody).postRestTime(60).saveRepsWorkout()
         let workout = ws.fetchWorkoutProtocol("testWorkout")!
         XCTAssertEqual("testWorkout", workout.name())
@@ -373,8 +373,8 @@ class WorkoutServiceTest: XCTestCase {
 
     func testCreateTestStore() {
         let jsonURL = NSBundle.mainBundle().URLForResource("test-workouts", withExtension: "json")
-        let coreDataStack: CoreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["Testing"])
-        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"])))
+        let coreDataStack: CoreDataStack = CoreDataStack.storesFromBundle(["Testing"], modelName: "FHS")
+        let ws = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         ws.importData(jsonURL!)
     }
 }

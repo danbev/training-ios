@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 import CoreData
 
 public class UserService {
@@ -18,7 +18,7 @@ public class UserService {
     private let workoutInfoEntityName = "WorkoutInfo"
 
     public class func newUserService() -> UserService {
-        let coreDataStack: CoreDataStack = CoreDataStack(modelName: "User", storeNames: ["User"])
+        let coreDataStack: CoreDataStack = CoreDataStack.storesFromBundle(["User"], modelName: "User")
         return UserService(coreDataStack: coreDataStack)
     }
 

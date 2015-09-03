@@ -49,7 +49,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func initStores(stores: [String]) {
         println("ViewController stores: \(stores)")
-        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: stores)
+        let coreDataStack = CoreDataStack.storesFromBundle(stores, modelName: "FHS")
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
         workoutService.loadDataIfNeeded()
         loadLastWorkout()

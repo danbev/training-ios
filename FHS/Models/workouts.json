@@ -40,6 +40,7 @@
     "timebased": [
        {"name": "Chopup to Burpee", "workout": "ChopupToBurpee", "duration": 300, "rest": 90, "categories": "Upperbody,Cardio"},
        {"name": "Getups", "workout": "Getups", "duration": 300, "rest": 60, "categories": "Warmup"},
+       {"name": "All Fours", "workout": "AllFours", "duration": 300, "rest": 60, "categories": "Warmup"},
        {"name": "Pushup to press", "workout": "PushupToPress", "duration": 300, "rest": 90, "categories": "Upperbody"}
     ],
     "prebensbased": [

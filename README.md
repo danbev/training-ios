@@ -32,3 +32,8 @@ You can also run test from the command:
 
     xcodebuild -project FHS.xcodeproj -scheme FHS -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 5s'  test
 
+
+## Creating new workout stores
+
+
+    xcodebuild -project FHS.xcodeproj -scheme StoreCreator install

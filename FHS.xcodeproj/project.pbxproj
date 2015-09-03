@@ -73,6 +73,34 @@
 		C59931801AAAF503007ABB93 /* DurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C599317F1AAAF503007ABB93 /* DurationViewController.swift */; };
 		C5A092D21B1F1046003FFCA4 /* PrebensViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */; };
 		C5A092D41B206544003FFCA4 /* BaseWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */; };
+		C5A81C171B9773AD006CC947 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A81C161B9773AD006CC947 /* main.swift */; };
+		C5A81C1D1B977794006CC947 /* RuntimeWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58CD68F1B09CFB400B974C9 /* RuntimeWorkout.swift */; };
+		C5A81C1E1B977794006CC947 /* WorkoutCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C573BDC11A90882500B84FE0 /* WorkoutCategory.swift */; };
+		C5A81C1F1B977794006CC947 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A931B260F3B0033854E /* Settings.swift */; };
+		C5A81C201B977794006CC947 /* WorkoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54B3A951B28BC7D0033854E /* WorkoutType.swift */; };
+		C5A81C211B977794006CC947 /* WorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D181B775AAC003EF08B /* WorkoutProtocol.swift */; };
+		C5A81C221B977794006CC947 /* DurationWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1A1B775CDC003EF08B /* DurationWorkoutProtocol.swift */; };
+		C5A81C231B977794006CC947 /* RepsWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1C1B775D4F003EF08B /* RepsWorkoutProtocol.swift */; };
+		C5A81C241B977794006CC947 /* IntervalWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D1E1B775D8C003EF08B /* IntervalWorkoutProtocol.swift */; };
+		C5A81C251B977794006CC947 /* PrebensWorkoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D201B775DDF003EF08B /* PrebensWorkoutProtocol.swift */; };
+		C5A81C261B977794006CC947 /* PrebenssWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D2A1B7870DC003EF08B /* PrebenssWorkout.swift */; };
+		C5A81C271B977794006CC947 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D221B7765B7003EF08B /* Workout.swift */; };
+		C5A81C281B977794006CC947 /* RepsWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D241B776630003EF08B /* RepsWorkout.swift */; };
+		C5A81C291B977794006CC947 /* DurationWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D261B786F26003EF08B /* DurationWorkout.swift */; };
+		C5A81C2A1B977794006CC947 /* IntervalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D281B786F89003EF08B /* IntervalWorkout.swift */; };
+		C5A81C2B1B977794006CC947 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B71B6F4278007DF5C7 /* UserService.swift */; };
+		C5A81C2C1B977794006CC947 /* WorkoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C572B5B51B6F4270007DF5C7 /* WorkoutInfo.swift */; };
+		C5A81C2D1B977794006CC947 /* UserWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E36BF21A9CCC8C007906E8 /* UserWorkout.swift */; };
+		C5A81C2E1B977794006CC947 /* RepsWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE71A62B3C200051140 /* RepsWorkoutManagedObject.swift */; };
+		C5A81C2F1B977794006CC947 /* DurationWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE81A62B3C200051140 /* DurationWorkoutManagedObject.swift */; };
+		C5A81C301B977794006CC947 /* WorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5801CE51A62B3A800051140 /* WorkoutManagedObject.swift */; };
+		C5A81C311B977794006CC947 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
+		C5A81C321B977794006CC947 /* IntervalWorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D161B763FAA003EF08B /* IntervalWorkoutContainer.swift */; };
+		C5A81C331B977794006CC947 /* IntervalWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA921A8A7CA3005A6D45 /* IntervalWorkoutManagedObject.swift */; };
+		C5A81C341B977794006CC947 /* PrebensWorkoutManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51424101AED68EB00153BF0 /* PrebensWorkoutManagedObject.swift */; };
+		C5A81C351B977794006CC947 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539DA8C1A87DA6A005A6D45 /* WorkoutService.swift */; };
+		C5A81C361B977794006CC947 /* WorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D121B7639CE003EF08B /* WorkoutContainer.swift */; };
+		C5A81C371B977794006CC947 /* DurationWorkoutContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5813D141B763C00003EF08B /* DurationWorkoutContainer.swift */; };
 		C5AAC23D1A711BF2001A6E01 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */; };
 		C5AAC23F1A83FA5B001A6E01 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */; };
 		C5B252EE1B37E0B90091584C /* RepsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B252ED1B37E0B90091584C /* RepsInfoViewController.swift */; };
@@ -96,7 +124,26 @@
 			remoteGlobalIDString = C515E84219C5A937001A5BB2;
 			remoteInfo = FHR;
 		};
+		C5A81C1B1B97747C006CC947 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C515E83B19C5A937001A5BB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C515E84219C5A937001A5BB2;
+			remoteInfo = FHS;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C5A81C121B9773AD006CC947 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C51055C41B0DF77A005980AD /* DurationViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewControllerTests.swift; sourceTree = "<group>"; };
@@ -170,6 +217,8 @@
 		C599317F1AAAF503007ABB93 /* DurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationViewController.swift; sourceTree = "<group>"; };
 		C5A092D11B1F1046003FFCA4 /* PrebensViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebensViewControllerTests.swift; sourceTree = "<group>"; };
 		C5A092D31B206544003FFCA4 /* BaseWorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWorkoutController.swift; sourceTree = "<group>"; };
+		C5A81C141B9773AD006CC947 /* StoreCreator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StoreCreator; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5A81C161B9773AD006CC947 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C5AAC23C1A711BF2001A6E01 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		C5AAC23E1A83FA5B001A6E01 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestCoreDataStack.swift; path = Models/TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C5B252ED1B37E0B90091584C /* RepsInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepsInfoViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +250,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5A81C111B9773AD006CC947 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -210,6 +266,7 @@
 				C537A4851A21F428003697CD /* CoreData.framework */,
 				C515E84519C5A937001A5BB2 /* FHS */,
 				C515E85B19C5A937001A5BB2 /* FHSTests */,
+				C5A81C151B9773AD006CC947 /* StoreCreator */,
 				C515E84419C5A937001A5BB2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -219,6 +276,7 @@
 			children = (
 				C515E84319C5A937001A5BB2 /* FHS.app */,
 				C515E85819C5A937001A5BB2 /* FHSTests.xctest */,
+				C5A81C141B9773AD006CC947 /* StoreCreator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -404,6 +462,14 @@
 			path = Stores;
 			sourceTree = "<group>";
 		};
+		C5A81C151B9773AD006CC947 /* StoreCreator */ = {
+			isa = PBXGroup;
+			children = (
+				C5A81C161B9773AD006CC947 /* main.swift */,
+			);
+			path = StoreCreator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -442,6 +508,24 @@
 			productReference = C515E85819C5A937001A5BB2 /* FHSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C5A81C131B9773AD006CC947 /* StoreCreator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C5A81C1A1B9773AD006CC947 /* Build configuration list for PBXNativeTarget "StoreCreator" */;
+			buildPhases = (
+				C5A81C101B9773AD006CC947 /* Sources */,
+				C5A81C111B9773AD006CC947 /* Frameworks */,
+				C5A81C121B9773AD006CC947 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C5A81C1C1B97747C006CC947 /* PBXTargetDependency */,
+			);
+			name = StoreCreator;
+			productName = StoreCreator;
+			productReference = C5A81C141B9773AD006CC947 /* StoreCreator */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -458,6 +542,9 @@
 					C515E85719C5A937001A5BB2 = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = C515E84219C5A937001A5BB2;
+					};
+					C5A81C131B9773AD006CC947 = {
+						CreatedOnToolsVersion = 6.4;
 					};
 				};
 			};
@@ -477,6 +564,7 @@
 			targets = (
 				C515E84219C5A937001A5BB2 /* FHS */,
 				C515E85719C5A937001A5BB2 /* FHSTests */,
+				C5A81C131B9773AD006CC947 /* StoreCreator */,
 			);
 		};
 /* End PBXProject section */
@@ -591,6 +679,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C5A81C101B9773AD006CC947 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A81C1D1B977794006CC947 /* RuntimeWorkout.swift in Sources */,
+				C5A81C1E1B977794006CC947 /* WorkoutCategory.swift in Sources */,
+				C5A81C1F1B977794006CC947 /* Settings.swift in Sources */,
+				C5A81C201B977794006CC947 /* WorkoutType.swift in Sources */,
+				C5A81C211B977794006CC947 /* WorkoutProtocol.swift in Sources */,
+				C5A81C221B977794006CC947 /* DurationWorkoutProtocol.swift in Sources */,
+				C5A81C231B977794006CC947 /* RepsWorkoutProtocol.swift in Sources */,
+				C5A81C241B977794006CC947 /* IntervalWorkoutProtocol.swift in Sources */,
+				C5A81C251B977794006CC947 /* PrebensWorkoutProtocol.swift in Sources */,
+				C5A81C261B977794006CC947 /* PrebenssWorkout.swift in Sources */,
+				C5A81C271B977794006CC947 /* Workout.swift in Sources */,
+				C5A81C281B977794006CC947 /* RepsWorkout.swift in Sources */,
+				C5A81C291B977794006CC947 /* DurationWorkout.swift in Sources */,
+				C5A81C2A1B977794006CC947 /* IntervalWorkout.swift in Sources */,
+				C5A81C2B1B977794006CC947 /* UserService.swift in Sources */,
+				C5A81C2C1B977794006CC947 /* WorkoutInfo.swift in Sources */,
+				C5A81C2D1B977794006CC947 /* UserWorkout.swift in Sources */,
+				C5A81C2E1B977794006CC947 /* RepsWorkoutManagedObject.swift in Sources */,
+				C5A81C2F1B977794006CC947 /* DurationWorkoutManagedObject.swift in Sources */,
+				C5A81C301B977794006CC947 /* WorkoutManagedObject.swift in Sources */,
+				C5A81C311B977794006CC947 /* CoreDataStack.swift in Sources */,
+				C5A81C321B977794006CC947 /* IntervalWorkoutContainer.swift in Sources */,
+				C5A81C331B977794006CC947 /* IntervalWorkoutManagedObject.swift in Sources */,
+				C5A81C341B977794006CC947 /* PrebensWorkoutManagedObject.swift in Sources */,
+				C5A81C351B977794006CC947 /* WorkoutService.swift in Sources */,
+				C5A81C361B977794006CC947 /* WorkoutContainer.swift in Sources */,
+				C5A81C371B977794006CC947 /* DurationWorkoutContainer.swift in Sources */,
+				C5A81C171B9773AD006CC947 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -598,6 +721,11 @@
 			isa = PBXTargetDependency;
 			target = C515E84219C5A937001A5BB2 /* FHS */;
 			targetProxy = C515E85919C5A937001A5BB2 /* PBXContainerItemProxy */;
+		};
+		C5A81C1C1B97747C006CC947 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C515E84219C5A937001A5BB2 /* FHS */;
+			targetProxy = C5A81C1B1B97747C006CC947 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -767,6 +895,33 @@
 			};
 			name = Release;
 		};
+		C5A81C181B9773AD006CC947 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C5A81C191B9773AD006CC947 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -796,6 +951,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C5A81C1A1B9773AD006CC947 /* Build configuration list for PBXNativeTarget "StoreCreator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C5A81C181B9773AD006CC947 /* Debug */,
+				C5A81C191B9773AD006CC947 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

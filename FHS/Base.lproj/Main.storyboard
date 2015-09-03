@@ -1501,7 +1501,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="300" minimumValue="1" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="0Lh-mu-VTg">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="300" minimumValue="1" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="0Lh-mu-VTg">
                                 <rect key="frame" x="216" y="185" width="94" height="29"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -1777,7 +1777,7 @@
                                     <outlet property="delegate" destination="BSG-jK-eZL" id="R55-b5-hel"/>
                                 </connections>
                             </pickerView>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="oqA-GZ-MMp">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="oqA-GZ-MMp">
                                 <rect key="frame" x="113" y="338" width="94" height="29"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1857,7 +1857,7 @@
                                     <action selector="cancel:" destination="n9O-2f-8Po" eventType="touchUpInside" id="hkX-yL-wUi"/>
                                 </connections>
                             </button>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="Eqi-vB-OL8">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minimumValue="1" maximumValue="300" translatesAutoresizingMaskIntoConstraints="NO" id="Eqi-vB-OL8">
                                 <rect key="frame" x="113" y="345" width="94" height="29"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

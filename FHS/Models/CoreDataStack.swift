@@ -22,13 +22,27 @@ public class CoreDataStack {
         return context
     }()
 
-    public init(modelName: String, storeNames: [String]) {
+    public class func storesFromBundle(storeNames: [String], modelName: String) -> CoreDataStack {
+        let directory = CoreDataStack.storeDirectory()
+        let modelUrl = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd")!
+        return CoreDataStack(storeNames: storeNames, storeDirectory: directory, modelUrl: modelUrl)
+    }
+
+    public class func newWorkoutStore(storeUrl: NSURL, modelUrl: NSURL) -> CoreDataStack? {
+        if let directory = storeUrl.absoluteString?.stringByDeletingLastPathComponent {
+            let storeDirectory = NSURL(fileURLWithPath: directory, isDirectory: true)!
+            let storeName = directory.lastPathComponent
+            return CoreDataStack(storeNames: [storeName], storeDirectory: storeDirectory, modelUrl: modelUrl)
+        }
+        return nil
+    }
+
+    public init(storeNames: [String], storeDirectory: NSURL, modelUrl: NSURL) {
         self.storeNames = storeNames
-        let documentUrl = CoreDataStack.storeDirectory()
+        let documentUrl = storeDirectory
         let mainBundle = NSBundle.mainBundle()
-        let fhsModelUrl = mainBundle.URLForResource(modelName, withExtension: "momd")
         let options = [NSMigratePersistentStoresAutomaticallyOption: true]
-        model = NSManagedObjectModel(contentsOfURL: fhsModelUrl!)!
+        model = NSManagedObjectModel(contentsOfURL: modelUrl)!
         psc = NSPersistentStoreCoordinator(managedObjectModel: model)
         for storeName in storeNames {
             let sqliteName = "\(storeName).sqlite"

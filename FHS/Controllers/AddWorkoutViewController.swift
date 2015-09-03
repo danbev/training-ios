@@ -23,7 +23,7 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        let coreDataStack = CoreDataStack(modelName: "FHS", storeNames: ["UserWorkouts"])
+        let coreDataStack = CoreDataStack.storesFromBundle(["UserWorkouts"], modelName: "FHS")
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
     }
 

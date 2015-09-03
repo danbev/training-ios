@@ -16,7 +16,7 @@ class UserServiceTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        userService = UserService(coreDataStack: TestCoreDataStack(modelName: "User", storeNames: ["User"]))
+        userService = UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User"))
     }
 
     func testNewUserWorkoutWithId() {
