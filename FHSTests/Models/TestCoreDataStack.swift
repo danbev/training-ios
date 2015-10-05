@@ -12,8 +12,8 @@ import FHS
 
 class TestCoreDataStack: CoreDataStack {
 
-    override init(storeNames: [String], modelUrl: NSURL) {
-        super.init(storeNames: storeNames, modelUrl: modelUrl)
+    override init(storeNames: [String], storeDirectory: NSURL, modelUrl: NSURL) {
+        super.init(storeNames: storeNames, storeDirectory: storeDirectory, modelUrl: modelUrl)
         self.psc = {
             var psc: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.model)
             var error: NSError? = nil
