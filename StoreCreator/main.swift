@@ -21,7 +21,7 @@ for arg in Process.arguments {
 }
 
 if workoutsFile == nil || storeName == nil {
-    println("Usage: \(Process.arguments[0]) file=workouts.json storeName=SomeName")
+    print("Usage: \(Process.arguments[0]) file=workouts.json storeName=SomeName")
     exit(1)
 }
 
@@ -33,7 +33,7 @@ if fileManager.fileExistsAtPath(fileUrl.path!) {
     let storeUrl = pwd.URLByAppendingPathComponent(storeName!).filePathURL!
     let coreDataStack = CoreDataStack.newWorkoutStore(storeUrl, modelUrl: modelUrl)!
     let workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: coreDataStack))
-    println("Found file = \(fileUrl), storeUrl=\(storeUrl), modelUrl=\(modelUrl)")
+    print("Found file = \(fileUrl), storeUrl=\(storeUrl), modelUrl=\(modelUrl)")
     workoutService.importData(fileUrl)
 }
 
