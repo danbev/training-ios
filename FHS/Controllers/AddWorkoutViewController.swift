@@ -29,7 +29,7 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
 
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -51,12 +51,12 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         return workoutTypes.count
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return workoutTypes[row].rawValue
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let type = workoutTypes[row]
+        _ = workoutTypes[row]
     }
 
     @IBAction func next(sender: AnyObject) {
@@ -90,7 +90,7 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
         }
     }
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         let pickerLabel = UILabel()
         let titleData = workoutTypes[row].rawValue
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])

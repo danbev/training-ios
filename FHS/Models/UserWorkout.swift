@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class UserWorkout: NSManagedObject, Printable {
+public class UserWorkout: NSManagedObject {
 
     @NSManaged public var id: String
     @NSManaged public var date: NSDate

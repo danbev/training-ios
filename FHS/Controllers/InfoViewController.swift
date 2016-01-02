@@ -42,14 +42,14 @@ public class InfoViewController: UIViewController {
             if let videoUrl = workout.videoUrl() {
                 let videoViewController = segue.destinationViewController as! AVPlayerViewController
                 videoViewController.view.backgroundColor = UIColor.darkGrayColor()
-                var dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Info", ofType: "plist")!)
+                let dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Info", ofType: "plist")!)
                 if videoUrl.rangeOfString("video")?.startIndex == videoUrl.startIndex {
                     if let remoteUrl = NSURL(string: videoUrl, relativeToURL: NSURL(string: dict!.valueForKey("VideoUrl") as! String)) {
-                        println("remote url:\(remoteUrl)")
-                        videoViewController.player = AVPlayer.playerWithURL(remoteUrl) as! AVPlayer
+                        print("remote url:\(remoteUrl)")
+                        videoViewController.player = AVPlayer(URL: remoteUrl)
                     }
                 } else {
-                    println("local url:\(videoUrl)")
+                    print("local url:\(videoUrl)")
                     videoViewController.player = AVPlayer(URL: NSURL.fileURLWithPath(videoUrl))
                 }
             } else {

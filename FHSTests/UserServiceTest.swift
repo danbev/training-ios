@@ -20,12 +20,12 @@ class UserServiceTest: XCTestCase {
     }
 
     func testNewUserWorkoutWithId() {
-        var userWorkout = userService.newUserWorkout("testID").category(WorkoutCategory.UpperBody).save()
+        let userWorkout = userService.newUserWorkout("testID").category(WorkoutCategory.UpperBody).save()
         XCTAssertEqual("testID", userWorkout.id)
     }
 
     func testNewUserWorkoutGeneratedId() {
-        var userWorkout = userService.newUserWorkout().category(WorkoutCategory.UpperBody).save()
+        let userWorkout = userService.newUserWorkout().category(WorkoutCategory.UpperBody).save()
         XCTAssertNotNil(userWorkout.id)
     }
 
@@ -42,20 +42,20 @@ class UserServiceTest: XCTestCase {
     }
 
     func testNewUserWorkoutAdded() {
-        var userWorkout = addJumpingJacks()
+        let userWorkout = addJumpingJacks()
         XCTAssertEqual(1, userWorkout.workouts.count)
         userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
         XCTAssertEqual(2, userWorkout.workouts.count)
     }
 
     func testNewUserWorkoutCompleted() {
-        var userWorkout = addJumpingJacks()
+        let userWorkout = addJumpingJacks()
         userService.updateUserWorkout(userWorkout).addWorkout("Burpees").done(true).save()
         XCTAssertTrue(userWorkout.done)
     }
 
     func testNewUserWorkoutAddSameWorkoutMultipleTimes() {
-        var userWorkout = addJumpingJacks()
+        let userWorkout = addJumpingJacks()
         XCTAssertEqual(1, userWorkout.workouts.count)
         userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
         userService.updateUserWorkout(userWorkout).addWorkout("Burpees").save()
@@ -89,7 +89,7 @@ class UserServiceTest: XCTestCase {
     }
 
     func testFetchPerformedWorkoutInfo() {
-        var dateFormatter = UserServiceTest.dateFormatter()
+        let dateFormatter = UserServiceTest.dateFormatter()
         let augustFirst = dateFormatter.dateFromString("August 1, 2015") as NSDate!
         let augustSecond = dateFormatter.dateFromString("August 2, 2015") as NSDate!
         let augustThird = dateFormatter.dateFromString("August 3, 2015") as NSDate!
@@ -110,7 +110,7 @@ class UserServiceTest: XCTestCase {
     }
 
     private class func dateFormatter() -> NSDateFormatter {
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         dateFormatter.timeZone = NSTimeZone.localTimeZone()
         return dateFormatter

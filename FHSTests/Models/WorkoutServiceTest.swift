@@ -104,7 +104,7 @@ class WorkoutServiceTest: XCTestCase {
                         .postRestTime(60)
                         .categories(WorkoutCategory.Cardio, WorkoutCategory.UpperBody)
                         .saveDurationWorkout()
-        let interval = ws.interval(burpees, duration: burpees.duration().integerValue)
+        let _ = ws.interval(burpees, duration: burpees.duration().integerValue)
                 .rest(chopups, duration: chopups.duration().integerValue)
                 .name("BurpeesInterval")
                 .workoutName("BurpeesInterval")
@@ -158,7 +158,7 @@ class WorkoutServiceTest: XCTestCase {
     func testFetchLatestWorkoutNoWorkoutsPerformed() {
         ws.loadDataIfNeeded()
         let optionalLatest = ws.fetchLatestUserWorkout()
-        if let userWorkout = optionalLatest {
+        if let _ = optionalLatest {
             XCTFail("No user workouts should exist")
         }
     }
@@ -263,7 +263,7 @@ class WorkoutServiceTest: XCTestCase {
                 XCTAssertEqual("Marklyft", p.workouts[5].workoutName)
                 XCTAssertEqual("Stallion Burpees", p.workouts[6].workoutName)
             default:
-                debugPrintln("should not happen yet.")
+                debugPrint("should not happen yet.")
             }
         }
     }
@@ -298,7 +298,7 @@ class WorkoutServiceTest: XCTestCase {
 
     func testOrderOfPrebens() {
         let coreDataStack: CoreDataStack = TestCoreDataStack.storesFromBundle(["FHS"], modelName: "FHS")
-        var workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
+        let workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         let userService = workoutService.getUserService()
         workoutService.loadDataIfNeeded()
 

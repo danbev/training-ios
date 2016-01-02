@@ -111,7 +111,7 @@ class RuntimeWorkoutTests: XCTestCase {
 
     func testCategoryCurrentAndLastNil() {
         workoutService.loadDataIfNeeded()
-        let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
+        let _ = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
         let runtimeWorkout = RuntimeWorkout(lastUserWorkout: nil)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category())

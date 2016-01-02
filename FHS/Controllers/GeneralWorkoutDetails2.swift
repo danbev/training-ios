@@ -30,7 +30,7 @@ public class GeneralDetails2: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -76,10 +76,10 @@ public class GeneralDetails2: UIViewController {
             let workout = workoutBuilder.language("en")
                 .weights(weightsSwitch.on)
                 .dryGround(dryGroundSwitch.on)
-                .postRestTime(postRestLabel.text!.toInt()!)
+                .postRestTime(Int(postRestLabel.text!)!)
                 .categories(gatherCategories())
                 .saveWorkout()
-            debugPrintln("saved workout \(workout)")
+            debugPrint("saved workout \(workout)")
             Settings.enableUserWorkoutsStore()
         }
     }

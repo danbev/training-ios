@@ -35,7 +35,7 @@ public class RepsInfoViewController: UIViewController {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.reps(repsLabel.text!.toInt()!).approx(approxTimeLabel.text!.toInt()!))
+        controller.setBuilder(workoutService.reps(Int(repsLabel.text!)!).approx(Int(approxTimeLabel.text!)!))
     }
 
     public func setWorkoutBuilder(builder: RepsBuilder) {

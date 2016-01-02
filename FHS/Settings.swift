@@ -58,7 +58,7 @@ public struct Settings {
 
     public static func addStore(name: String) {
         var stores = readStores()
-        if !contains(stores, name) {
+        if !stores.contains(name) {
             stores.append(name)
             userDefaults.setValue(stores, forKey: "stores")
             userDefaults.synchronize()

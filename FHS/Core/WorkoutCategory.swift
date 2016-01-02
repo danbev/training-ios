@@ -16,10 +16,10 @@ public enum WorkoutCategory: String {
 
     public func next() -> WorkoutCategory {
         switch self {
-        case let .Warmup: return .UpperBody
-        case let .UpperBody: return .LowerBody
-        case let .LowerBody: return .Cardio
-        case let .Cardio: return .UpperBody
+        case .Warmup: return .UpperBody
+        case .UpperBody: return .LowerBody
+        case .LowerBody: return .Cardio
+        case .Cardio: return .UpperBody
         }
     }
 
@@ -33,7 +33,7 @@ public enum WorkoutCategory: String {
         }
 
         switch self {
-        case let .Warmup:
+        case .Warmup:
             if !ignore.contains(.UpperBody) {
                 return .UpperBody
             } else if !ignore.contains(.LowerBody) {
@@ -41,7 +41,7 @@ public enum WorkoutCategory: String {
             } else {
                 return .Cardio
             }
-        case let .UpperBody:
+        case .UpperBody:
             if !ignore.contains(.LowerBody) {
                 return .LowerBody
             } else if !ignore.contains(.Cardio) {
@@ -49,7 +49,7 @@ public enum WorkoutCategory: String {
             } else {
                 return .UpperBody
             }
-        case let .LowerBody:
+        case .LowerBody:
             if !ignore.contains(.Cardio) {
                 return .Cardio
             } else if !ignore.contains(.UpperBody) {
@@ -57,7 +57,7 @@ public enum WorkoutCategory: String {
             } else {
                 return .LowerBody
             }
-        case let .Cardio:
+        case .Cardio:
             if !ignore.contains(.UpperBody) {
                 return .UpperBody
             } else if !ignore.contains(.LowerBody) {
@@ -69,7 +69,7 @@ public enum WorkoutCategory: String {
     }
 
     static func asCsvString(categories: [WorkoutCategory]) -> String {
-        return ",".join(categories.map { $0.rawValue })
+        return categories.map { $0.rawValue }.joinWithSeparator(",")
     }
 
 }

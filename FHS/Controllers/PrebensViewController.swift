@@ -33,11 +33,11 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     /**
     Handle taps of items in the workout task list.
 
-    :param: tableView the UITableView which was tapped
-    :param: indexPath the NSIndexPath identifying the cell to being tapped
+    - parameter tableView: the UITableView which was tapped
+    - parameter indexPath: the NSIndexPath identifying the cell to being tapped
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("tableView row selected = \(indexPath)")
+        print("tableView row selected = \(indexPath)")
     }
     
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -58,9 +58,9 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     /**
     Returns the number of rows in the table view section.
 
-    :param: tableView the UITableView for which the number of rows should be returned
-    :param: section the selected section. For example this could be the warmup section or main section.
-    :returns: Int the number of rows in the table view section
+    - parameter tableView: the UITableView for which the number of rows should be returned
+    - parameter section: the selected section. For example this could be the warmup section or main section.
+    - returns: Int the number of rows in the table view section
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
@@ -71,12 +71,12 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
 
     Is called for every visible row in the table view that comes into view.
 
-    :param: tableView the UITableView from which the UITableViewCell should be retrieved
-    :param: indexPath the NSIndexPath identifying the cell to be returned
-    :returns: UITableCellView the table cell view matching the indexPath
+    - parameter tableView: the UITableView from which the UITableViewCell should be retrieved
+    - parameter indexPath: the NSIndexPath identifying the cell to be returned
+    - returns: UITableCellView the table cell view matching the indexPath
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task.workoutName()
         cell.textLabel!.textColor = UIColor.whiteColor()

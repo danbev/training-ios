@@ -20,7 +20,7 @@ class PrebensViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("PrebensViewController") as! PrebensViewController
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         workoutService.loadDataIfNeeded()
@@ -35,7 +35,7 @@ class PrebensViewControllerTests: XCTestCase {
         let workout = workoutService.fetchWorkoutProtocol("UpperBodyPrebens")!
         let expectation = expectationWithDescription("Testing timer...")
         let timer = CountDownTimer(callback: { (t) -> () in
-            debugPrintln("in Prebends test CountDownTimer closure")
+            debugPrint("in Prebends test CountDownTimer closure")
             expectation.fulfill()
             t.stop()
             }, countDown: 60)

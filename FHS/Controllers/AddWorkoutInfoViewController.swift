@@ -31,7 +31,7 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         super.viewDidLoad()
         workoutDescription.delegate = self
         workoutName.delegate = self
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.barStyle = UIBarStyle.Black
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -47,8 +47,8 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
 
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        workoutBuilder.name(workoutName.text)
-            .workoutName(workoutName.text)
+        workoutBuilder.name(workoutName.text!)
+            .workoutName(workoutName.text!)
             .description(workoutDescription.text)
             .videoUrl(videoUrl)
         let controller = segue.destinationViewController as! GeneralDetails2
@@ -66,10 +66,10 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
 
     @IBAction func videoButtonAction(sender: AnyObject) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-            var picker = UIImagePickerController()
+            let picker = UIImagePickerController()
             picker.delegate = self
             picker.sourceType = UIImagePickerControllerSourceType.Camera
-            picker.mediaTypes = [kUTTypeMovie]
+            picker.mediaTypes = [kUTTypeMovie as String]
 
             let frontCamera = UIImagePickerControllerCameraDevice.Front
             picker.cameraDevice = UIImagePickerController.isCameraDeviceAvailable(frontCamera) ? frontCamera: UIImagePickerControllerCameraDevice.Rear
@@ -78,25 +78,25 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
     }
 
     @IBAction func selectVideo(sender: AnyObject) {
-        var picker = UIImagePickerController()
+        let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-        picker.mediaTypes = [kUTTypeMovie]
+        picker.mediaTypes = [kUTTypeMovie as String]
         self.presentViewController(picker, animated: true, completion: nil)
     }
 
     @IBAction func cancel(sender: AnyObject) {
-        debugPrintln("cancel add workout")
+        debugPrint("cancel add workout")
         navigationController?.popToRootViewControllerAnimated(true)
     }
 
-    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
         videoUrl = tempImage.relativePath
-        if let url = videoUrl {
-            debugPrintln("Saving video : :\(videoUrl)")
+        if let _ = videoUrl {
+            debugPrint("Saving video : :\(videoUrl)")
             noVideoLabel.hidden = true
-            UISaveVideoAtPathToSavedPhotosAlbum(videoUrl, nil, nil, nil)
+            UISaveVideoAtPathToSavedPhotosAlbum(videoUrl!, nil, nil, nil)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
     }

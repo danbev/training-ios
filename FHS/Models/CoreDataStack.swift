@@ -29,37 +29,39 @@ public class CoreDataStack {
     }
 
     public class func newWorkoutStore(storeUrl: NSURL, modelUrl: NSURL) -> CoreDataStack? {
-        if let directory = storeUrl.absoluteString?.stringByDeletingLastPathComponent {
-            let storeDirectory = NSURL(fileURLWithPath: directory, isDirectory: true)!
-            let storeName = directory.lastPathComponent
-            return CoreDataStack(storeNames: [storeName], storeDirectory: storeDirectory, modelUrl: modelUrl)
-        }
-        return nil
+        let directory = (storeUrl.absoluteString as NSString).stringByDeletingLastPathComponent
+        let storeDirectory = NSURL(fileURLWithPath: directory, isDirectory: true)
+        let storeName = (directory as NSString).lastPathComponent
+        return CoreDataStack(storeNames: [storeName], storeDirectory: storeDirectory, modelUrl: modelUrl)
     }
 
     public init(storeNames: [String], storeDirectory: NSURL, modelUrl: NSURL) {
         self.storeNames = storeNames
         let documentUrl = storeDirectory
-        let mainBundle = NSBundle.mainBundle()
+        //let mainBundle = NSBundle.mainBundle()
         let options = [NSMigratePersistentStoresAutomaticallyOption: true]
         model = NSManagedObjectModel(contentsOfURL: modelUrl)!
         psc = NSPersistentStoreCoordinator(managedObjectModel: model)
         for storeName in storeNames {
             let sqliteName = "\(storeName).sqlite"
             let storeUrl = documentUrl.URLByAppendingPathComponent(sqliteName)
-            var error:NSError? = nil
-            store = psc!.addPersistentStoreWithType(NSSQLiteStoreType,
+            //var error:NSError? = nil
+            store = try! psc!.addPersistentStoreWithType(NSSQLiteStoreType,
                 configuration: nil,
                 URL: storeUrl,
-                options: options,
-                error: &error)!
+                options: options)
         }
     }
 
     func saveContext() {
         var error: NSError? = nil
-        if context.hasChanges && !context.save(&error) {
-            debugPrintln("Could not save \(error), \(error?.userInfo)")
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch let error1 as NSError {
+                error = error1
+                debugPrint("Could not save \(error), \(error?.userInfo)")
+            }
         }
     }
 
@@ -67,9 +69,12 @@ public class CoreDataStack {
         let documentUrl = CoreDataStack.applicationDocumentsDirectory()
         let storesDir = documentUrl.URLByAppendingPathComponent(storesDirectoryName, isDirectory: true)
         let fileManager = NSFileManager.defaultManager()
-        var error: NSError?
         if !fileManager.fileExistsAtPath(storesDir.path!) {
-            fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil, error: &error)
+            do {
+                try fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil)
+            } catch let error as NSError {
+                print(error)
+            }
         }
         return storesDir
     }
@@ -77,13 +82,18 @@ public class CoreDataStack {
     public class func listStoreNames() -> [String] {
         let storesDir = CoreDataStack.storeDirectory()
         var storeNames = [String]()
-        var error: NSError?
-        let optionalFiles = NSFileManager.defaultManager().contentsOfDirectoryAtURL(storesDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles,error: &error)
+        let optionalFiles: [AnyObject]?
+        do {
+            optionalFiles = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(storesDir, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+        } catch let error as NSError {
+            print(error)
+            optionalFiles = nil
+        }
         // TODO: should be able to use filter instead here
         if let files = optionalFiles {
             for file in files as! [NSURL] {
                 if file.pathExtension == "sqlite" {
-                    storeNames.append(file.lastPathComponent!.stringByDeletingPathExtension)
+                    storeNames.append((file.lastPathComponent! as NSString).stringByDeletingPathExtension)
                 }
             }
         }
@@ -95,22 +105,20 @@ public class CoreDataStack {
         let fhsModelUrl = mainBundle.URLForResource(modelName, withExtension: "momd")
         let model = NSManagedObjectModel(contentsOfURL: fhsModelUrl!)!
         let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
-        let fileManager = NSFileManager.defaultManager()
+        let _ = NSFileManager.defaultManager()
         let storesDir = CoreDataStack.storeDirectory()
         let storeUrl = storesDir.URLByAppendingPathComponent("\(storeName).sqlite")
         let options = [NSMigratePersistentStoresAutomaticallyOption: true]
-        var error: NSError?
-        let store = psc.addPersistentStoreWithType(NSSQLiteStoreType,
+        let _ = try! psc.addPersistentStoreWithType(NSSQLiteStoreType,
                 configuration: nil,
                 URL: storeUrl,
-                options: options,
-                error: &error)!
+                options: options)
         return storeUrl
     }
 
     public class func applicationDocumentsDirectory() -> NSURL {
         let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) 
         return urls[0]
     }
 
@@ -121,9 +129,12 @@ public class CoreDataStack {
         let fileManager = NSFileManager.defaultManager()
 
         let storesDir = documentUrl.URLByAppendingPathComponent(storesDirectoryName, isDirectory: true)
-        var error: NSError?
         if !fileManager.fileExistsAtPath(storesDir.path!) {
-            fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil, error: &error)
+            do {
+                try fileManager.createDirectoryAtURL(storesDir, withIntermediateDirectories: false, attributes: nil)
+            } catch let error as NSError {
+                print(error)
+            }
         }
 
         let storeUrl = storesDir.URLByAppendingPathComponent(sqliteName)
@@ -134,9 +145,12 @@ public class CoreDataStack {
             let destSqliteURLs = [documentUrl.URLByAppendingPathComponent(sqliteName),
                 documentUrl.URLByAppendingPathComponent("\(sqliteName)-wal"),
                 documentUrl.URLByAppendingPathComponent("\(sqliteName)-shm")]
-            var error:NSError? = nil
             for var index = 0; index < sourceSqliteURLs.count; index++ {
-                fileManager.copyItemAtURL(sourceSqliteURLs[index], toURL: destSqliteURLs[index], error: &error)
+                do {
+                    try fileManager.copyItemAtURL(sourceSqliteURLs[index], toURL: destSqliteURLs[index])
+                } catch let error as NSError {
+                    print(error)
+                }
             }
         }
         return storeUrl

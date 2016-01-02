@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class WorkoutInfo: NSManagedObject, Printable, Equatable {
+public class WorkoutInfo: NSManagedObject {
 
     @NSManaged public var date: NSDate
     @NSManaged public var duration: Double

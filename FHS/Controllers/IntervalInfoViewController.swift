@@ -39,7 +39,7 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
         controller.setWorkoutService(workoutService)
         let workoutName = workouts[workoutPicker.selectedRowInComponent(0)]
         let workout = workoutService.fetchWorkoutProtocol(workoutName) as! DurationWorkoutProtocol
-        let builder = workoutService.interval(workout, duration: workDurationLabel.text!.toInt()!)
+        let builder = workoutService.interval(workout, duration: Int(workDurationLabel.text!)!)
         controller.setBuilder(builder)
     }
 
@@ -51,14 +51,14 @@ public class IntervalInfoViewController: UIViewController, UIPickerViewDataSourc
         return workouts.count
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return workouts[row]
     }
 
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     }
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         let titleData = workouts[row]
         let pickerLabel = UILabel()
         pickerLabel.textAlignment = NSTextAlignment.Center

@@ -48,7 +48,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func initStores(stores: [String]) {
-        println("ViewController stores: \(stores)")
+        print("ViewController stores: \(stores)")
         let coreDataStack = CoreDataStack.storesFromBundle(stores, modelName: "FHS")
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
         workoutService.loadDataIfNeeded()
@@ -107,7 +107,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     private func clearWorkoutTasks() {
-        for (i, t) in enumerate(tasks) {
+        for (i, _) in tasks.enumerate() {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))
             cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             cell?.userInteractionEnabled = true
@@ -131,12 +131,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
-                debugPrintln("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration) workoutDuration=\(workoutDuration)")
+                debugPrint("last user workout was not completed!. WorkoutTime=\(runtimeWorkout.lastUserWorkout!.duration) workoutDuration=\(workoutDuration)")
                 interruptedWorkout = true
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration - runtimeWorkout.lastUserWorkout!.duration)
                 if let workoutInfos = runtimeWorkout.lastUserWorkout?.workouts {
                     let count = workoutInfos.count - 1
-                    for index in stride(from: count, through: 0, by: -1) {
+                    for index in count.stride(through: 0, by: -1) {
                         let workoutInfo = workoutInfos[index] as! WorkoutInfo
                         if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
                             tasks.append(workout)
@@ -173,10 +173,10 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
                 addWorkoutToTable(workout)
             } else {
-                debugPrintln("Could not find workout: \(workoutInfo.name) in current workout database")
+                debugPrint("Could not find workout: \(workoutInfo.name) in current workout database")
             }
         } else {
-            debugPrintln("Looks like there are no workout in the data store")
+            debugPrint("Looks like there are no workout in the data store")
             stopWorkout()
         }
     }
@@ -200,9 +200,9 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     /**
     Returns the number of rows in the table view section.
 
-    :param: tableView the UITableView for which the number of rows should be returned
-    :param: section the selected section. For example this could be the warmup section or main section.
-    :returns: Int the number of rows in the table view section
+    - parameter tableView: the UITableView for which the number of rows should be returned
+    - parameter section: the selected section. For example this could be the warmup section or main section.
+    - returns: Int the number of rows in the table view section
     */
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
@@ -213,12 +213,12 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     Is called for every visible row in the table view that comes into view.
 
-    :param: tableView the UITableView from which the UITableViewCell should be retrieved
-    :param: indexPath the NSIndexPath identifying the cell to be returned
-    :returns: UITableCellView the table cell view matching the indexPath
+    - parameter tableView: the UITableView from which the UITableViewCell should be retrieved
+    - parameter indexPath: the NSIndexPath identifying the cell to be returned
+    - returns: UITableCellView the table cell view matching the indexPath
     */
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task.workoutName()
         return cell;
@@ -227,11 +227,11 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     /**
     Handle taps of items in the workout task list.
 
-    :param: tableView the UITableView which was tapped
-    :param: indexPath the NSIndexPath identifying the cell to being tapped
+    - parameter tableView: the UITableView which was tapped
+    - parameter indexPath: the NSIndexPath identifying the cell to being tapped
     */
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow()!;
+        let indexPath = tableView.indexPathForSelectedRow!;
         performSegue(tasks[indexPath.row])
     }
 
@@ -243,23 +243,23 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func performSegue(workout: WorkoutProtocol) {
         switch workout {
-        case let reps as RepsWorkout:
+        case is RepsWorkout:
             performSegueWithIdentifier("repsSegue", sender: self)
-        case let duration as DurationWorkout:
+        case is DurationWorkout:
             performSegueWithIdentifier("durationSegue", sender: self)
-        case let interval as IntervalWorkout:
+        case is IntervalWorkout:
             performSegueWithIdentifier("intervalSegue", sender: self)
-        case let prebens as PrebensWorkout:
+        case is PrebensWorkout:
             performSegueWithIdentifier("prebensSegue", sender: self)
         default:
-            debugPrintln("No workout type for \(workout)")
+            debugPrint("No workout type for \(workout)")
         }
     }
 
     /**
     Prepares the transistion from the main view to the workout task details view.
 
-    :param: segue the UIStoryboardSeque that was called
+    - parameter segue: the UIStoryboardSeque that was called
     */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         preparedForSeque = true;
@@ -270,7 +270,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
             let addController = segue.destinationViewController as! AddWorkoutViewController
             addController.setUserService(workoutService.getUserService())
         } else {
-            let indexPath = tableView.indexPathForSelectedRow()!
+            let indexPath = tableView.indexPathForSelectedRow!
             let workout = tasks[indexPath.row]
             userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
             let baseViewController = segue.destinationViewController as! BaseWorkoutController
@@ -284,7 +284,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutProtocol, duration: Double) {
         preparedForSeque = false;
-        var totalTime = workoutTimer.elapsedTime()
+        let totalTime = workoutTimer.elapsedTime()
         let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         if restTimer != nil {
@@ -303,20 +303,20 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let warmup = workoutService.fetchWarmupProtocol(runtimeWorkout.currentUserWorkout) {
                     insertNewWorkout(warmup)
                 } else {
-                    debugPrintln("There are no more warmups")
+                    debugPrint("There are no more warmups")
                     stopWorkout()
                 }
             } else {
                 if let workout = workoutService.fetchWorkoutProtocol(runtimeWorkout.category(), currentUserWorkout: runtimeWorkout.currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout, weights: settings.weights, dryGround: settings.dryGround) {
                     insertNewWorkout(workout)
                 } else {
-                    debugPrintln("There are no more workouts for category \(runtimeWorkout.category())")
+                    debugPrint("There are no more workouts for category \(runtimeWorkout.category())")
                     stopWorkout()
                 }
             }
         } else {
             let elapsedTime = workoutTimer.elapsedTime()
-            debugPrintln("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, elapsedTime.sec, elapsedTime.fra)).")
+            debugPrint("Workout time completed \(CountDownTimer.timeAsString(elapsedTime.min, elapsedTime.sec, elapsedTime.fra)).")
             stopWorkout()
         }
     }
@@ -355,7 +355,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
         settings = Settings.settings()
-        debugPrintln("Unwinding to main. stores \(settings.stores)")
+        debugPrint("Unwinding to main. stores \(settings.stores)")
         initStores(settings.stores)
         tableView.reloadData()
     }

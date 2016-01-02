@@ -60,7 +60,7 @@ public class IntervalViewController: BaseWorkoutController, UITableViewDelegate,
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
         let workout = workouts[indexPath.row]
         cell.textLabel!.text = workout.workoutName()
         return cell;

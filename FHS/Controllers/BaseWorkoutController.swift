@@ -49,7 +49,7 @@ public class BaseWorkoutController: UIViewController {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        println("entered background")
+        print("entered background")
     }
 
     func initializeTimer() {
@@ -63,7 +63,7 @@ public class BaseWorkoutController: UIViewController {
             if restTimer.isDone() {
                 setWorkoutTimeLabel()
             } else {
-                if let button = doneButton {
+                if let _ = doneButton {
                     doneButton.hidden = true;
                 }
             }

@@ -19,7 +19,7 @@ class IntervalViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("IntervalViewController") as! IntervalViewController
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         workoutService.loadDataIfNeeded()

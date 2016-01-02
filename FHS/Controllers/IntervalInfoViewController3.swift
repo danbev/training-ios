@@ -31,7 +31,7 @@ public class IntervalInfoViewController3: UIViewController {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        builder.intervals(intervalsLabel.text!.toInt()!)
+        builder.intervals(Int(intervalsLabel.text!)!)
         controller.setBuilder(builder)
     }
 

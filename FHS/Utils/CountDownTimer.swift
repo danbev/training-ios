@@ -50,12 +50,12 @@ public class CountDownTimer: NSObject {
     }
 
     public func duration() -> Double {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         return currentTime - start
     }
 
     public func elapsedTime() -> (min: UInt8, sec: UInt8, fra: UInt8) {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         var elapsedTime = countDown - (currentTime - start)
         if (elapsedTime < 0) {
             return (0, 0, 0);

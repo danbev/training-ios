@@ -31,7 +31,7 @@ public class WorkoutManagedObject: NSManagedObject {
         // needs to be unowned otherwise a strong ref will hang around
         // after ARC has set a ref to self to nil.
         [unowned self] in
-        let array = split(self.categories) { $0 == "," }
+        let array = self.categories.characters.split { $0 == "," }.map { String($0) }
         return array.map { WorkoutCategory(rawValue: $0)! }
     }()
 

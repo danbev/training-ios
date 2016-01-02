@@ -35,12 +35,12 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
     }
 
     public override func viewControllerForUnwindSegueAction(action: Selector, fromViewController: UIViewController, withSender sender: AnyObject?) -> UIViewController? {
-        println("action \(action) fromViewController=\(fromViewController)")
+        print("action \(action) fromViewController=\(fromViewController)")
         return self.parentViewController
     }
 
     public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        let name = storeNames[indexPath.row]
+        let _ = storeNames[indexPath.row]
     }
 
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,13 +48,13 @@ public class MoreSettingsViewController: UIViewController, UITableViewDelegate, 
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
         let name = storeNames[indexPath.row]
         cell.textLabel!.text = name
         cell.textLabel!.textColor = UIColor.whiteColor()
-        if contains(settings.stores, name) {
+        if settings.stores.contains(name) {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            println("Yes, settings contains store \(name)")
+            print("Yes, settings contains store \(name)")
         }
         return cell;
     }

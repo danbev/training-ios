@@ -19,7 +19,7 @@ class DurationViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        var storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
         controller = storyboard.instantiateViewControllerWithIdentifier("DurationViewController") as! DurationViewController
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         workoutService.loadDataIfNeeded()
@@ -34,7 +34,7 @@ class DurationViewControllerTests: XCTestCase {
         let workout = workoutService.fetchWorkoutProtocol("Getups")!
         let expectation = expectationWithDescription("Testing timer2...")
         let timer = CountDownTimer(callback: { (dt) -> () in
-            debugPrintln("in duration test CountDownTimer closure")
+            debugPrint("in duration test CountDownTimer closure")
             expectation.fulfill()
             dt.stop()
             }, countDown: 60)

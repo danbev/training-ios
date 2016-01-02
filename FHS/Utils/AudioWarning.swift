@@ -16,7 +16,13 @@ public class AudioWarning {
     init() {
         let soundFile = NSBundle.mainBundle().URLForResource("bleep", withExtension: "wav")
         var error: NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: soundFile, error: &error)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOfURL: soundFile!)
+        } catch let error1 as NSError {
+            error = error1
+            debugPrint(error)
+            audioPlayer = nil
+        }
     }
 
     public func play() {

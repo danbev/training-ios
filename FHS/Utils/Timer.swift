@@ -44,12 +44,12 @@ public class Timer: NSObject {
     }
 
     public func duration() -> Double {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         return currentTime - start
     }
 
     public func elapsedTime() -> (min: UInt8, sec: UInt8, fra: UInt8) {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         var elapsedTime: NSTimeInterval = currentTime - start
         let minutes = UInt8(elapsedTime / 60.0)
         elapsedTime -= (NSTimeInterval(minutes) * 60)
@@ -60,7 +60,6 @@ public class Timer: NSObject {
     }
 
     public class func elapsedTime(duration: Double) -> (min: UInt8, sec: UInt8, fra: UInt8) {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
         var elapsedTime: NSTimeInterval = duration
         let minutes = UInt8(elapsedTime / 60.0)
         elapsedTime -= (NSTimeInterval(minutes) * 60)

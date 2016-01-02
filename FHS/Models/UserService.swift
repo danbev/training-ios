@@ -44,17 +44,18 @@ public class UserService {
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
-        var error: NSError?
-        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [UserWorkout]? {
-            if results.count == 0 {
-                return nil
-            } else {
-                return results[0]
+        do {
+            if let results = try context.executeFetchRequest(fetchRequest) as? [UserWorkout] {
+                if results.count == 0 {
+                    return nil
+                } else {
+                    return results[0]
+                }
             }
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return nil
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
+        return nil
     }
 
     public func fetchPerformedWorkoutInfo(workoutName: String) -> WorkoutInfo? {
@@ -62,19 +63,23 @@ public class UserService {
         fetchRequest.predicate = NSPredicate(format: "name == %@", workoutName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = 1
-        var error: NSError?
-        if let results = context.executeFetchRequest(fetchRequest, error: &error) as! [WorkoutInfo]? {
-            return results.first
-        } else {
-            debugPrintln("Could not fetch \(error), \(error!.userInfo)")
-            return nil
+        do {
+            if let results = try context.executeFetchRequest(fetchRequest) as? [WorkoutInfo] {
+                return results.first
+            }
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
         }
+        return nil
     }
 
     private func saveContext() {
         var error: NSError?
-        if !coreDataStack.context.save(&error) {
-            debugPrintln("Could not save \(error), \(error?.userInfo)")
+        do {
+            try coreDataStack.context.save()
+        } catch let error1 as NSError {
+            error = error1
+            debugPrint("Could not save \(error), \(error?.userInfo)")
         }
     }
 

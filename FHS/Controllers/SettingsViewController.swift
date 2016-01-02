@@ -79,7 +79,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
         settings = Settings.settings()
         userDefaults = NSUserDefaults.standardUserDefaults()
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         nav?.tintColor = UIColor.whiteColor()
         nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         nav?.backItem?.titleView?.tintColor = UIColor.whiteColor()
@@ -139,7 +139,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         return times.count
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return times[row].rawValue.description
     }
 
@@ -153,7 +153,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
         return attributedString
     }
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
         let pickerLabel = UILabel()
         let titleData = times[row].rawValue.description
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
@@ -195,7 +195,7 @@ public class SettingViewController: UIViewController, UIPickerViewDataSource, UI
     }
 
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
-        let settingsViewController = sender.sourceViewController as! MoreSettingsViewController
+        _ = sender.sourceViewController as! MoreSettingsViewController
     }
 
 }

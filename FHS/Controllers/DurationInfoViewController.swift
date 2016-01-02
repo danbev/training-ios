@@ -32,7 +32,7 @@ public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
 
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.duration(durationLabel.text!.toInt()!))
+        controller.setBuilder(workoutService.duration(Int(durationLabel.text!)!))
     }
 
     public func setWorkoutBuilder(builder: DurationBuilder) {

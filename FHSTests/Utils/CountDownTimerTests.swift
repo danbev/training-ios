@@ -15,7 +15,7 @@ class CountDownTimerTests: XCTestCase {
 
     func testCountDownTimer() {
         let expectation = expectationWithDescription("CountDownTimer should fire once every second")
-        var timer = CountDownTimer(callback: { (t) -> () in expectation.fulfill() }, countDown: 6)
+        let timer = CountDownTimer(callback: { (t) -> () in expectation.fulfill() }, countDown: 6)
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertFalse(timer.isDone())
             timer.stop()

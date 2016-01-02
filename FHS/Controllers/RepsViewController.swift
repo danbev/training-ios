@@ -41,7 +41,7 @@ public class RepsViewController: BaseWorkoutController, UITableViewDelegate, UIT
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
         if indexPath.row == 0 {
             cell.textLabel!.text = "Rest time"
             cell.textLabel!.textAlignment = NSTextAlignment.Center

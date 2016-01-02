@@ -10,7 +10,7 @@ A simple app to simulates the training I was used to before becoming a parent. W
 
 Building can be done by opening the project in Xcode:
 
-    open FHS.xcworkspace
+    open FHS.xcodeproj
 
 or you can use the command line:
 
