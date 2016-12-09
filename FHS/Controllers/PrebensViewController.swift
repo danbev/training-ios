@@ -8,15 +8,15 @@ import Foundation
 import UIKit
 import Foundation
 
-public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
+open class PrebensViewController: BaseWorkoutController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var prebensLabel: UILabel!
     var prebensWorkout : PrebensWorkoutProtocol!
     var tasks = [RepsWorkoutProtocol]()
-    public let tableCell = "tableCell"
+    open let tableCell = "tableCell"
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         prebensWorkout = workout as! PrebensWorkoutProtocol
         for w in prebensWorkout.workouts() {
@@ -25,7 +25,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
         tableView.reloadData()
     }
 
-    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    open override func initWith(_ workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: @escaping FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         prebensWorkout = workout as! PrebensWorkoutProtocol
     }
@@ -36,14 +36,14 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     - parameter tableView: the UITableView which was tapped
     - parameter indexPath: the NSIndexPath identifying the cell to being tapped
     */
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("tableView row selected = \(indexPath)")
     }
     
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoSegue" {
-            let infoController = segue.destinationViewController as! InfoViewController
-            if let indexPath = sender as? NSIndexPath {
+            let infoController = segue.destination as! InfoViewController
+            if let indexPath = sender as? IndexPath {
                 infoController.initWith(tasks[indexPath.row])
             } else {
                 infoController.initWith(prebensWorkout)
@@ -51,8 +51,8 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
         }
     }
 
-    public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("infoSegue", sender: indexPath)
+    open func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "infoSegue", sender: indexPath)
     }
 
     /**
@@ -62,7 +62,7 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     - parameter section: the selected section. For example this could be the warmup section or main section.
     - returns: Int the number of rows in the table view section
     */
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
 
@@ -75,16 +75,16 @@ public class PrebensViewController: BaseWorkoutController, UITableViewDelegate, 
     - parameter indexPath: the NSIndexPath identifying the cell to be returned
     - returns: UITableCellView the table cell view matching the indexPath
     */
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath)
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task.workoutName()
-        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.textLabel!.textColor = UIColor.white
         cell.detailTextLabel?.text = task.repititions().stringValue
         return cell;
     }
 
-    public override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 

@@ -18,8 +18,8 @@ class ViewControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        storyboard = UIApplication.sharedApplication().keyWindow!.rootViewController?.storyboard
-        controller = storyboard.instantiateViewControllerWithIdentifier("ViewController") as? ViewController
+        storyboard = UIApplication.shared.keyWindow!.rootViewController?.storyboard
+        controller = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
 
         coreDataStack = TestCoreDataStack.storesFromBundle(["FHS"], modelName: "FHS")
     }

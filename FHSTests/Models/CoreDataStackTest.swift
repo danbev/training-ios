@@ -13,17 +13,17 @@ import XCTest
 
 class CoreDataStackTest: XCTestCase {
 
-    var fileManager: NSFileManager!
+    var fileManager: FileManager!
 
     override func setUp() {
-        fileManager = NSFileManager.defaultManager()
+        fileManager = FileManager.default
     }
 
     func testNewStore() {
         let url = CoreDataStack.newStore("TestNewStore", modelName: "FHS");
-        XCTAssertTrue(fileManager.fileExistsAtPath(url.path!))
+        XCTAssertTrue(fileManager.fileExists(atPath: url.path))
         removeFile(url)
-        XCTAssertFalse(fileManager.fileExistsAtPath(url.path!))
+        XCTAssertFalse(fileManager.fileExists(atPath: url.path))
     }
 
     func testListStoresNames() {
@@ -43,9 +43,9 @@ class CoreDataStackTest: XCTestCase {
         XCTAssertFalse(storeNames.isEmpty)
     }
 
-    func removeFile(url: NSURL) {
+    func removeFile(_ url: URL) {
         do {
-            try fileManager.removeItemAtURL(url)
+            try fileManager.removeItem(at: url)
         } catch let error as NSError {
             print(error);
         }

@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-public class RepsWorkoutManagedObject: WorkoutManagedObject {
+open class RepsWorkoutManagedObject: WorkoutManagedObject {
 
-    @NSManaged public var repititions: NSNumber
-    @NSManaged public var approx: NSNumber
+    @NSManaged open var repititions: NSNumber
+    @NSManaged open var approx: NSNumber
 
-    public override var description: String {
+    open override var description: String {
         return "RepsWorkout[reps=\(repititions), approx=\(approx), \(super.description)]"
     }
 

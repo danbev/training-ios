@@ -11,44 +11,44 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class IntervalInfoViewController3: UIViewController {
+open class IntervalInfoViewController3: UIViewController {
 
-    private var builder: IntervalBuilder!
+    fileprivate var builder: IntervalBuilder!
 
     @IBOutlet weak var intervalsLabel: UILabel!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    public func setBuilder(builder: IntervalBuilder) {
+    open func setBuilder(_ builder: IntervalBuilder) {
         self.builder = builder
     }
 
-    @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
+    @IBAction func next(_ sender: AnyObject) {
+        performSegue(withIdentifier: "generalWorkoutDetails", sender: self)
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        builder.intervals(Int(intervalsLabel.text!)!)
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! AddWorkoutInfoViewController
+        let _ = builder.intervals(Int(intervalsLabel.text!)!)
         controller.setBuilder(builder)
     }
 
-    @IBAction func stepper(sender: UIStepper) {
+    @IBAction func stepper(_ sender: UIStepper) {
         intervalsLabel.text = Int(sender.value).description
     }
 
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    open func numberOfComponentsInPickerView(_ pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    @IBAction func cancel(sender: AnyObject) {
-        navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: AnyObject) {
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    @IBAction func back(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func back(_ sender: AnyObject) {
+        let _ = navigationController?.popViewController(animated: true)
     }
 
 }

@@ -19,8 +19,8 @@ class IntervalViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
-        controller = storyboard.instantiateViewControllerWithIdentifier("IntervalViewController") as! IntervalViewController
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
+        controller = storyboard.instantiateViewController(withIdentifier: "IntervalViewController") as! IntervalViewController
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         workoutService.loadDataIfNeeded()
         controller.loadView()
@@ -32,7 +32,7 @@ class IntervalViewControllerTests: XCTestCase {
 
     func testRestTimer() {
         let workout = workoutService.fetchWorkoutProtocol("WormInterval")!
-        let expectation = expectationWithDescription("Testing rest timer...")
+        let expectation = self.expectation(description: "Testing rest timer...")
         let restTimer = CountDownTimer(callback: { (t) -> () in
             expectation.fulfill()
             t.stop()
@@ -40,7 +40,7 @@ class IntervalViewControllerTests: XCTestCase {
         controller.initWith(workout, userWorkouts: nil, restTimer: restTimer) { controller, duration in }
         controller.viewDidLoad()
 
-        waitForExpectationsWithTimeout(3) { (error) in
+        waitForExpectations(timeout: 3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }
@@ -48,14 +48,14 @@ class IntervalViewControllerTests: XCTestCase {
 
     func testWorkTimer() {
         let workout = workoutService.fetchWorkoutProtocol("WormInterval")!
-        let expectation = expectationWithDescription("Testing work timer...")
+        let expectation = self.expectation(description: "Testing work timer...")
         let restTimer = CountDownTimer(callback: { (t) -> () in
             expectation.fulfill()
             t.stop()
             }, countDown: 60)
         controller.initWith(workout, userWorkouts: nil, restTimer: restTimer) { controller, duration in }
         controller.viewDidLoad()
-        waitForExpectationsWithTimeout(3) { (error) in
+        waitForExpectations(timeout: 3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }

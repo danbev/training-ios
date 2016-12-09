@@ -15,7 +15,7 @@ public struct Settings {
     public let duration: Double
     public let ignoredCategories: Set<WorkoutCategory>
     public let stores: [String]
-    static let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+    static let userDefaults: UserDefaults = UserDefaults.standard
 
     public init(weights: Bool, dryGround: Bool, warmup: Bool, duration: Double, ignoredCategories: Set<WorkoutCategory>, stores: [String]) {
         self.weights = weights
@@ -56,7 +56,7 @@ public struct Settings {
         Settings.addStore("UserWorkouts")
     }
 
-    public static func addStore(name: String) {
+    public static func addStore(_ name: String) {
         var stores = readStores()
         if !stores.contains(name) {
             stores.append(name)
@@ -65,19 +65,19 @@ public struct Settings {
         }
     }
 
-    public static func removeStore(name: String) {
+    public static func removeStore(_ name: String) {
         userDefaults.setValue(readStores().filter() { $0 != name }, forKey: "stores")
     }
 
-    private static func enabled(keyName: String, defaultValue: Bool) -> Bool {
-        if let value = userDefaults.objectForKey(keyName) as? Bool {
+    fileprivate static func enabled(_ keyName: String, defaultValue: Bool) -> Bool {
+        if let value = userDefaults.object(forKey: keyName) as? Bool {
             return value
         }
         return defaultValue;
     }
 
-    private static func readStores() -> [String] {
-        if let stores = userDefaults.objectForKey("stores") as? [String] {
+    fileprivate static func readStores() -> [String] {
+        if let stores = userDefaults.object(forKey: "stores") as? [String] {
             return stores
         } else {
             let defaultStores = ["FHS"]
@@ -87,8 +87,8 @@ public struct Settings {
         }
     }
 
-    private static func readDuration(defaultValue: Int) -> Double {
-        if let value = userDefaults.objectForKey("workoutDuration") as? Int {
+    fileprivate static func readDuration(_ defaultValue: Int) -> Double {
+        if let value = userDefaults.object(forKey: "workoutDuration") as? Int {
             return Double(value * 60)
         }
         return Double(defaultValue)

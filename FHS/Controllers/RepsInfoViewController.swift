@@ -11,46 +11,47 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class RepsInfoViewController: UIViewController {
+open class RepsInfoViewController: UIViewController {
 
     @IBOutlet weak var repsLabel: UILabel!
-    private var workoutService: WorkoutService!
-    private var workoutType: WorkoutType!
-    private var builder: RepsBuilder!
+    fileprivate var workoutService: WorkoutService!
+    fileprivate var workoutType: WorkoutType!
+    fileprivate var builder: RepsBuilder!
     @IBOutlet weak var approxTimeStepper: UIStepper!
     @IBOutlet weak var repsStepper: UIStepper!
     @IBOutlet weak var approxTimeLabel: UILabel!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    public func setWorkoutService(workoutService: WorkoutService) {
+    open func setWorkoutService(_ workoutService: WorkoutService) {
         self.workoutService = workoutService
     }
 
-    @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
+    @IBAction func next(_ sender: AnyObject) {
+        performSegue(withIdentifier: "generalWorkoutDetails", sender: self)
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.reps(Int(repsLabel.text!)!).approx(Int(approxTimeLabel.text!)!))
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! AddWorkoutInfoViewController
+        let reps = Int(repsLabel.text!)!
+        controller.setBuilder(workoutService.reps(reps).approx(NSNumber(value: Int(approxTimeLabel.text!)!)))
     }
 
-    public func setWorkoutBuilder(builder: RepsBuilder) {
+    open func setWorkoutBuilder(_ builder: RepsBuilder) {
         self.builder = builder
     }
 
-    @IBAction func cancel(sender: AnyObject) {
-        navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: AnyObject) {
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    @IBAction func stepper(sender: UIStepper) {
+    @IBAction func stepper(_ sender: UIStepper) {
         repsLabel.text = Int(sender.value).description
     }
 
-    @IBAction func approxStepper(sender: UIStepper) {
+    @IBAction func approxStepper(_ sender: UIStepper) {
         approxTimeLabel.text = Int(sender.value).description
     }
 }

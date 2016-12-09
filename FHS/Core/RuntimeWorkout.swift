@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class RuntimeWorkout {
+open class RuntimeWorkout {
 
-    public var currentUserWorkout: UserWorkout!
-    public var lastUserWorkout: UserWorkout!
-    private static let userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+    open var currentUserWorkout: UserWorkout!
+    open var lastUserWorkout: UserWorkout!
+    fileprivate static let userDefaults: UserDefaults = UserDefaults.standard
 
     public convenience init(lastUserWorkout: UserWorkout?) {
         self.init(currentUserWorkout: nil, lastUserWorkout: lastUserWorkout)
@@ -27,14 +27,14 @@ public class RuntimeWorkout {
         }
     }
 
-    public func warmupCompleted(warmupSetting: Bool, numberOfWarmups: Int) -> Bool {
+    open func warmupCompleted(_ warmupSetting: Bool, numberOfWarmups: Int) -> Bool {
         if !warmupSetting {
             return true
         }
         return currentUserWorkout.workouts.count >= numberOfWarmups
     }
 
-    public func category() -> String {
+    open func category() -> String {
         let ignoredCategories = Settings.readIgnoredCategories()
         if currentUserWorkout != nil {
             if currentUserWorkout?.done == false {

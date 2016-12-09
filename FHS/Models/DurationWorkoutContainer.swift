@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class DurationWorkoutContainer: WorkoutContainer {
+open class DurationWorkoutContainer: WorkoutContainer {
 
-    public let duration: NSNumber
+    open let duration: NSNumber
 
     init(name: String, workoutName: String, workoutDescription: String, language: String, categories: String, videoUrl: String?, restTime: NSNumber, weights: NSNumber?, dryGround: NSNumber, duration: NSNumber) {
         self.duration = duration

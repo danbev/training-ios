@@ -11,35 +11,35 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
+open class DurationInfoViewController: UIViewController, UITextFieldDelegate {
 
-    private var workoutService: WorkoutService!
-    private var workoutType: WorkoutType!
-    private var builder: DurationBuilder!
+    fileprivate var workoutService: WorkoutService!
+    fileprivate var workoutType: WorkoutType!
+    fileprivate var builder: DurationBuilder!
     @IBOutlet weak var durationLabel: UILabel!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    public func setWorkoutService(workoutService: WorkoutService) {
+    open func setWorkoutService(_ workoutService: WorkoutService) {
         self.workoutService = workoutService
     }
 
-    @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
+    @IBAction func next(_ sender: AnyObject) {
+        performSegue(withIdentifier: "generalWorkoutDetails", sender: self)
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let controller = segue.destinationViewController as! AddWorkoutInfoViewController
-        controller.setBuilder(workoutService.duration(Int(durationLabel.text!)!))
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! AddWorkoutInfoViewController
+        controller.setBuilder(workoutService.duration(NSNumber(value: Int(durationLabel.text!)!)))
     }
 
-    public func setWorkoutBuilder(builder: DurationBuilder) {
+    open func setWorkoutBuilder(_ builder: DurationBuilder) {
         self.builder = builder
     }
 
-    public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
             return false
@@ -47,7 +47,7 @@ public class DurationInfoViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func stepper(sender: UIStepper) {
+    @IBAction func stepper(_ sender: UIStepper) {
         durationLabel.text = Int(sender.value).description
     }
 }

@@ -7,17 +7,16 @@
 //
 
 import Foundation
-//import UIKit
 import CoreData
 
-public class UserService {
+open class UserService {
 
-    private let coreDataStack: CoreDataStack
-    private let context: NSManagedObjectContext
-    private let userWorkoutEntityName = "UserWorkout"
-    private let workoutInfoEntityName = "WorkoutInfo"
+    fileprivate let coreDataStack: CoreDataStack
+    fileprivate let context: NSManagedObjectContext
+    fileprivate let userWorkoutEntityName = "UserWorkout"
+    fileprivate let workoutInfoEntityName = "WorkoutInfo"
 
-    public class func newUserService() -> UserService {
+    open class func newUserService() -> UserService {
         let coreDataStack: CoreDataStack = CoreDataStack.storesFromBundle(["User"], modelName: "User")
         return UserService(coreDataStack: coreDataStack)
     }
@@ -27,25 +26,25 @@ public class UserService {
         context = coreDataStack.context
     }
 
-    public func newUserWorkout() -> UserWorkoutBuilder {
-        return UserWorkoutBuilder(userService: self, id: NSUUID().UUIDString)
+    open func newUserWorkout() -> UserWorkoutBuilder {
+        return UserWorkoutBuilder(userService: self, id: UUID().uuidString)
     }
 
-    public func newUserWorkout(id: String) -> UserWorkoutBuilder {
+    open func newUserWorkout(_ id: String) -> UserWorkoutBuilder {
         return UserWorkoutBuilder(userService: self, id: id)
     }
 
-    public func updateUserWorkout(userWorkout: UserWorkout) -> UpdateUserWorkoutBuilder {
+    open func updateUserWorkout(_ userWorkout: UserWorkout) -> UpdateUserWorkoutBuilder {
         return UpdateUserWorkoutBuilder(userService: self, userWorkout: userWorkout)
     }
 
-    public func fetchLatestUserWorkout() -> UserWorkout? {
-        let fetchRequest = NSFetchRequest(entityName: userWorkoutEntityName)
+    open func fetchLatestUserWorkout() -> UserWorkout? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: userWorkoutEntityName)
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchLimit = 1
         do {
-            if let results = try context.executeFetchRequest(fetchRequest) as? [UserWorkout] {
+            if let results = try context.fetch(fetchRequest) as? [UserWorkout] {
                 if results.count == 0 {
                     return nil
                 } else {
@@ -58,13 +57,13 @@ public class UserService {
         return nil
     }
 
-    public func fetchPerformedWorkoutInfo(workoutName: String) -> WorkoutInfo? {
-        let fetchRequest = NSFetchRequest(entityName: workoutInfoEntityName)
+    open func fetchPerformedWorkoutInfo(_ workoutName: String) -> WorkoutInfo? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: workoutInfoEntityName)
         fetchRequest.predicate = NSPredicate(format: "name == %@", workoutName)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchRequest.fetchLimit = 1
         do {
-            if let results = try context.executeFetchRequest(fetchRequest) as? [WorkoutInfo] {
+            if let results = try context.fetch(fetchRequest) as? [WorkoutInfo] {
                 return results.first
             }
         } catch let error as NSError {
@@ -73,7 +72,7 @@ public class UserService {
         return nil
     }
 
-    private func saveContext() {
+    fileprivate func saveContext() {
         var error: NSError?
         do {
             try coreDataStack.context.save()
@@ -83,49 +82,49 @@ public class UserService {
         }
     }
 
-    private func insertNewUserWorkout() -> UserWorkout {
-        let userWorkoutEntity = NSEntityDescription.entityForName("UserWorkout", inManagedObjectContext: context)
-        return UserWorkout(entity: userWorkoutEntity!, insertIntoManagedObjectContext: coreDataStack.context)
+    fileprivate func insertNewUserWorkout() -> UserWorkout {
+        let userWorkoutEntity = NSEntityDescription.entity(forEntityName: "UserWorkout", in: context)
+        return UserWorkout(entity: userWorkoutEntity!, insertInto: coreDataStack.context)
     }
 
-    private func insertNewWorkoutInfo() -> WorkoutInfo {
-        let workoutInfoEntity = NSEntityDescription.entityForName("WorkoutInfo", inManagedObjectContext: context)
-        return WorkoutInfo(entity: workoutInfoEntity!, insertIntoManagedObjectContext: coreDataStack.context)
+    fileprivate func insertNewWorkoutInfo() -> WorkoutInfo {
+        let workoutInfoEntity = NSEntityDescription.entity(forEntityName: "WorkoutInfo", in: context)
+        return WorkoutInfo(entity: workoutInfoEntity!, insertInto: coreDataStack.context)
     }
 
-    public class UserWorkoutBuilder: UpdateUserWorkoutBuilder {
+    open class UserWorkoutBuilder: UpdateUserWorkoutBuilder {
 
         convenience init(userService: UserService, id: String) {
             let userWorkout = userService.insertNewUserWorkout()
             userWorkout.id = id
-            userWorkout.date = NSDate()
+            userWorkout.date = Date()
             userWorkout.duration = 0.0
             self.init(userService: userService, userWorkout: userWorkout)
         }
 
-        public func date(date: NSDate) -> Self {
+        open func date(_ date: Date) -> Self {
             userWorkout.date = date
             return self
         }
 
-        public func duration(duration: Double) -> Self {
+        open func duration(_ duration: Double) -> Self {
             userWorkout.duration = duration
             return self
         }
 
-        public func category(category: String) -> Self {
+        open func category(_ category: String) -> Self {
             userWorkout.category = category
             return self
         }
 
-        public func category(category: WorkoutCategory) -> Self {
+        open func category(_ category: WorkoutCategory) -> Self {
             userWorkout.category = category.rawValue
             return self
         }
 
     }
 
-    public class UpdateUserWorkoutBuilder {
+    open class UpdateUserWorkoutBuilder {
 
         let userService: UserService
         var userWorkout: UserWorkout
@@ -137,54 +136,54 @@ public class UserService {
             self.workoutInfos = userWorkout.workouts.mutableCopy() as! NSMutableOrderedSet
         }
 
-        public func addToDuration(duration: Double) -> Self {
+        open func addToDuration(_ duration: Double) -> Self {
             userWorkout.duration += duration
             return self
         }
 
-        public func done(done: Bool) -> Self {
+        open func done(_ done: Bool) -> Self {
             userWorkout.done = done
             return self
         }
 
-        public func addWorkout(workout: WorkoutProtocol?) -> Self {
+        open func addWorkout(_ workout: WorkoutProtocol?) -> Self {
             return addWorkout(workout?.name())
         }
 
-        public func addWorkout(workoutName: String?) -> Self {
+        open func addWorkout(_ workoutName: String?) -> Self {
             if let name = workoutName {
                 // this is aweful but I can't yet get the Equatable to work with WorkoutInfo.
                 for w in workoutInfos {
-                    if w.name == workoutName {
+                    if (w as AnyObject).name == workoutName {
                         return self
                     }
                 }
 
                 let workoutInfo = userService.insertNewWorkoutInfo()
                 workoutInfo.name = name
-                workoutInfo.date = NSDate()
-                workoutInfos.addObject(workoutInfo)
+                workoutInfo.date = Date()
+                workoutInfos.add(workoutInfo)
                 userWorkout.workouts = workoutInfos.copy() as! NSOrderedSet
             }
             return self
         }
 
-        public func updateDuration(workoutName: String, duration: Double) -> Self {
-            workoutInfos.enumerateObjectsUsingBlock { (elem, idx, stop) -> Void in
+        open func updateDuration(_ workoutName: String, duration: Double) -> Self {
+            workoutInfos.enumerateObjects( { (elem, idx, stop) -> Void in
                 let workoutInfo = elem as! WorkoutInfo
                 if workoutInfo.name == workoutName {
                     workoutInfo.duration = duration
-                    stop.initialize(true)
+                    stop.initialize(to: true)
                 }
-            }
+            })
             return self
         }
 
-        public func save() -> UserWorkout {
+        open func save() -> UserWorkout {
             userService.saveContext()
             return userWorkout
         }
         
     }
-
+    
 }

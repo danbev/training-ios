@@ -23,11 +23,11 @@ public enum WorkoutCategory: String {
         }
     }
 
-    private static let lowerAndCardio: Set = [LowerBody, Cardio]
-    private static let lowerAndUpper: Set = [UpperBody, LowerBody]
-    private static let all: Set = [UpperBody, LowerBody, Cardio]
+    fileprivate static let lowerAndCardio: Set = [LowerBody, Cardio]
+    fileprivate static let lowerAndUpper: Set = [UpperBody, LowerBody]
+    fileprivate static let all: Set = [UpperBody, LowerBody, Cardio]
 
-    public func next(ignore: Set<WorkoutCategory>) -> WorkoutCategory {
+    public func next(_ ignore: Set<WorkoutCategory>) -> WorkoutCategory {
         if ignore.isEmpty {
             return next()
         }
@@ -68,8 +68,8 @@ public enum WorkoutCategory: String {
         }
     }
 
-    static func asCsvString(categories: [WorkoutCategory]) -> String {
-        return categories.map { $0.rawValue }.joinWithSeparator(",")
+    static func asCsvString(_ categories: [WorkoutCategory]) -> String {
+        return categories.map { $0.rawValue }.joined(separator: ",")
     }
 
 }

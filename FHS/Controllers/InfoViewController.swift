@@ -11,50 +11,50 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class InfoViewController: UIViewController {
+open class InfoViewController: UIViewController {
 
     @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var noVideoLabel: UILabel!
-    public var workout : WorkoutProtocol!
+    open var workout : WorkoutProtocol!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         setTextLabels(workout)
     }
 
-    public func initWith(workout: WorkoutProtocol) {
+    open func initWith(_ workout: WorkoutProtocol) {
         self.workout = workout
     }
 
-    func setTextLabels(workout: WorkoutProtocol) {
+    func setTextLabels(_ workout: WorkoutProtocol) {
         workoutNameLabel.text = workout.workoutName()
         descriptionLabel.text = workout.workoutDescription()
     }
 
-    @IBAction func doneAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func doneAction(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "videoSegue" {
             if let videoUrl = workout.videoUrl() {
-                let videoViewController = segue.destinationViewController as! AVPlayerViewController
-                videoViewController.view.backgroundColor = UIColor.darkGrayColor()
-                let dict = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Info", ofType: "plist")!)
-                if videoUrl.rangeOfString("video")?.startIndex == videoUrl.startIndex {
-                    if let remoteUrl = NSURL(string: videoUrl, relativeToURL: NSURL(string: dict!.valueForKey("VideoUrl") as! String)) {
+                let videoViewController = segue.destination as! AVPlayerViewController
+                videoViewController.view.backgroundColor = UIColor.darkGray
+                let dict = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Info", ofType: "plist")!)
+                if videoUrl.range(of: "video")?.lowerBound == videoUrl.startIndex {
+                    if let remoteUrl = URL(string: videoUrl, relativeTo: URL(string: dict!.value(forKey: "VideoUrl") as! String)) {
                         print("remote url:\(remoteUrl)")
-                        videoViewController.player = AVPlayer(URL: remoteUrl)
+                        videoViewController.player = AVPlayer(url: remoteUrl)
                     }
                 } else {
                     print("local url:\(videoUrl)")
-                    videoViewController.player = AVPlayer(URL: NSURL.fileURLWithPath(videoUrl))
+                    videoViewController.player = AVPlayer(url: URL(fileURLWithPath: videoUrl))
                 }
             } else {
-                container.hidden = true
-                noVideoLabel.hidden = false
+                container.isHidden = true
+                noVideoLabel.isHidden = false
             }
         }
     }

@@ -24,10 +24,10 @@ class RuntimeWorkoutTests: XCTestCase {
     func testInitWithLastUserWorkout() {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
         let runtime = RuntimeWorkout(lastUserWorkout: lastWorkout)
         XCTAssertNotNil(runtime.lastUserWorkout)
         XCTAssertNil(runtime.currentUserWorkout)
@@ -36,10 +36,10 @@ class RuntimeWorkoutTests: XCTestCase {
     func testInitWithLastUserWorkoutNotCompleted() {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(false).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(false).save()
         let runtime = RuntimeWorkout(lastUserWorkout: lastWorkout)
         XCTAssertNotNil(runtime.lastUserWorkout)
         XCTAssertNotNil(runtime.currentUserWorkout)
@@ -50,12 +50,12 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
 
-        let currentId = NSUUID().UUIDString
+        let currentId = UUID().uuidString
         let currentWorkout = userService.newUserWorkout(currentId).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
 
         let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
@@ -66,14 +66,14 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
 
-        let currentId = NSUUID().UUIDString
+        let currentId = UUID().uuidString
         let currentWorkout = userService.newUserWorkout(currentId).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
-        userService.updateUserWorkout(currentWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(currentWorkout).addToDuration(5.0).done(true).save()
 
         let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory.LowerBody.rawValue, runtimeWorkout.category())
@@ -83,14 +83,14 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true)
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true)
 
-        let currentId = NSUUID().UUIDString
+        let currentId = UUID().uuidString
         let currentWorkout = userService.newUserWorkout(currentId).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
-        userService.updateUserWorkout(currentWorkout).addToDuration(5.0).done(false).save()
+        let _ = userService.updateUserWorkout(currentWorkout).addToDuration(5.0).done(false).save()
 
         let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category())
@@ -100,10 +100,10 @@ class RuntimeWorkoutTests: XCTestCase {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
 
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
 
         let runtimeWorkout = RuntimeWorkout(lastUserWorkout: lastWorkout)
         XCTAssertEqual(WorkoutCategory.Warmup.next().rawValue, runtimeWorkout.category())
@@ -120,12 +120,12 @@ class RuntimeWorkoutTests: XCTestCase {
     func testWarmupCompleted() {
         workoutService.loadDataIfNeeded()
         let warmup = workoutService.fetchWorkoutProtocol("JumpingJacks")!
-        let lastId = NSUUID().UUIDString
+        let lastId = UUID().uuidString
         let userService = workoutService.getUserService()
         let lastWorkout = userService.newUserWorkout(lastId).category(WorkoutCategory.Cardio).addWorkout(warmup).save()
-        userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
+        let _ = userService.updateUserWorkout(lastWorkout).addToDuration(5.0).done(true).save()
 
-        let currentId = NSUUID().UUIDString
+        let currentId = UUID().uuidString
         let currentWorkout = userService.newUserWorkout(currentId).category(WorkoutCategory.UpperBody).addWorkout(warmup).save()
 
         let runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentWorkout, lastUserWorkout: lastWorkout)

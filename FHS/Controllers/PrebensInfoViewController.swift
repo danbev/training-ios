@@ -11,118 +11,118 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class PrebensInfoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource {
+open class PrebensInfoViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var picker: UIPickerView!
-    private var workoutService: WorkoutService!
-    private var builder: PrebensBuilder!
-    private var workouts = [String]()
-    private var selectedWorkouts = [WorkoutContainer]()
-    public let tableCell = "tableCell"
+    fileprivate var workoutService: WorkoutService!
+    fileprivate var builder: PrebensBuilder!
+    fileprivate var workouts = [String]()
+    fileprivate var selectedWorkouts = [WorkoutContainer]()
+    open let tableCell = "tableCell"
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         workouts = workoutService.fetchRepsWorkoutsDestinct()!
         picker.selectRow(workouts.count / 2, inComponent: 0, animated: false)
         tableView.allowsMultipleSelectionDuringEditing = false;
     }
 
-    public func setWorkoutService(workoutService: WorkoutService) {
+    open func setWorkoutService(_ workoutService: WorkoutService) {
         self.workoutService = workoutService
     }
 
-    @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails", sender: self)
+    @IBAction func next(_ sender: AnyObject) {
+        performSegue(withIdentifier: "generalWorkoutDetails", sender: self)
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoSegue" {
             let workoutName = sender as! String
             debugPrint(workoutName)
             let workout = workoutService.fetchWorkoutProtocol(workoutName)!
-            let infoController = segue.destinationViewController as! InfoViewController
+            let infoController = segue.destination as! InfoViewController
             infoController.initWith(workout)
         } else {
-            let controller = segue.destinationViewController as! AddWorkoutInfoViewController
+            let controller = segue.destination as! AddWorkoutInfoViewController
             let prebensBuilder = workoutService.prebens()
             for r in selectedWorkouts {
-                prebensBuilder.workItemFrom(r.workoutName, reps: r.reps)
+                let _ = prebensBuilder.workItemFrom(r.workoutName, reps: r.reps)
             }
             controller.setBuilder(prebensBuilder)
         }
     }
 
-    @IBAction func cancel(sender: AnyObject) {
-        navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: AnyObject) {
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    open func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return workouts.count
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    open func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return workouts[row]
     }
 
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let workoutName = workouts[row]
-        let alert = UIAlertController(title: "Reps", message: "Enter number of reps", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+        let alert = UIAlertController(title: "Reps", message: "Enter number of reps", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: { (textField) -> Void in
             textField.text = "10"
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
         }))
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { [unowned self] (action) -> Void in
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [unowned self] (action) -> Void in
             let textField = alert.textFields![0] 
             self.selectedWorkouts.append(WorkoutContainer(workoutName: workoutName, reps: Int(textField.text!)!))
             self.tableView.reloadData()
         }))
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    open func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let titleData = workouts[row]
         let pickerLabel = UILabel()
-        pickerLabel.textAlignment = NSTextAlignment.Center
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
+        pickerLabel.textAlignment = NSTextAlignment.center
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.white])
         pickerLabel.attributedText = myTitle
         return pickerLabel
     }
 
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    open func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 
-    public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let workoutContainer = selectedWorkouts[indexPath.row]
-        performSegueWithIdentifier("infoSegue", sender: workoutContainer.workoutName)
+        performSegue(withIdentifier: "infoSegue", sender: workoutContainer.workoutName)
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectedWorkouts.count
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath)
         let workoutContainer = selectedWorkouts[indexPath.row]
         cell.textLabel!.text = workoutContainer.workoutName
-        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.textLabel!.textColor = UIColor.white
         cell.detailTextLabel?.text = String(workoutContainer.reps)
         return cell;
     }
 
-    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            selectedWorkouts.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            selectedWorkouts.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         }
     }
 
-    private struct WorkoutContainer {
+    fileprivate struct WorkoutContainer {
         let workoutName: String
         let reps: Int
     }

@@ -9,15 +9,15 @@
 import Foundation
 import AVFoundation
 
-public class AudioWarning {
-    public static let instance = AudioWarning()
+open class AudioWarning {
+    open static let instance = AudioWarning()
     var audioPlayer: AVAudioPlayer!
 
     init() {
-        let soundFile = NSBundle.mainBundle().URLForResource("bleep", withExtension: "wav")
+        let soundFile = Bundle.main.url(forResource: "bleep", withExtension: "wav")
         var error: NSError?
         do {
-            audioPlayer = try AVAudioPlayer(contentsOfURL: soundFile!)
+            audioPlayer = try AVAudioPlayer(contentsOf: soundFile!)
         } catch let error1 as NSError {
             error = error1
             debugPrint(error)
@@ -25,8 +25,8 @@ public class AudioWarning {
         }
     }
 
-    public func play() {
-        if !audioPlayer.playing {
+    open func play() {
+        if !audioPlayer.isPlaying {
             audioPlayer.play()
         }
     }

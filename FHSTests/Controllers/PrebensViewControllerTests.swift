@@ -20,8 +20,8 @@ class PrebensViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: NSBundle(forClass: self.dynamicType))
-        controller = storyboard.instantiateViewControllerWithIdentifier("PrebensViewController") as! PrebensViewController
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle(for: type(of: self)))
+        controller = storyboard.instantiateViewController(withIdentifier: "PrebensViewController") as! PrebensViewController
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: UserService(coreDataStack: TestCoreDataStack.storesFromBundle(["User"], modelName: "User")))
         workoutService.loadDataIfNeeded()
         controller.loadView()
@@ -33,7 +33,7 @@ class PrebensViewControllerTests: XCTestCase {
 
     func testWithRestTimer() {
         let workout = workoutService.fetchWorkoutProtocol("UpperBodyPrebens")!
-        let expectation = expectationWithDescription("Testing timer...")
+        let expectation = self.expectation(description: "Testing timer...")
         let timer = CountDownTimer(callback: { (t) -> () in
             debugPrint("in Prebends test CountDownTimer closure")
             expectation.fulfill()
@@ -41,7 +41,7 @@ class PrebensViewControllerTests: XCTestCase {
             }, countDown: 60)
         controller.initWith(workout, userWorkouts: nil, restTimer: timer) { controller, duration in }
         controller.viewDidLoad()
-        waitForExpectationsWithTimeout(3) { (error) in
+        waitForExpectations(timeout: 3) { (error) in
             XCTAssertFalse(self.controller.isTimeLabelVisible())
             XCTAssertEqual("Rest time:", self.controller.timeLabelText()!)
         }

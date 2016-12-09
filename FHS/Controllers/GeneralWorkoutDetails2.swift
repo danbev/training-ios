@@ -13,9 +13,9 @@ import AVFoundation
 import MediaPlayer
 import MobileCoreServices
 
-public class GeneralDetails2: UIViewController {
+open class GeneralDetails2: UIViewController {
 
-    private var workoutBuilder: WorkoutBuilder!
+    fileprivate var workoutBuilder: WorkoutBuilder!
 
     @IBOutlet weak var weightsSwitch: UISwitch!
     @IBOutlet weak var dryGroundSwitch: UISwitch!
@@ -25,15 +25,15 @@ public class GeneralDetails2: UIViewController {
     @IBOutlet weak var cardioSwitch: UISwitch!
     @IBOutlet weak var postRestLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
-    private var categories = Set<WorkoutCategory>()
-    private let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
+    fileprivate var categories = Set<WorkoutCategory>()
+    fileprivate let onTintColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         weightsSwitch.setOn(false, animated: false)
         weightsSwitch.onTintColor = onTintColor
         dryGroundSwitch.setOn(false, animated: false)
@@ -52,31 +52,31 @@ public class GeneralDetails2: UIViewController {
 
     func gatherCategories() -> [WorkoutCategory] {
         var categories = [WorkoutCategory]()
-        if warmupSwitch.on {
+        if warmupSwitch.isOn {
             categories.append(WorkoutCategory.Warmup)
         }
-        if upperbodySwitch.on {
+        if upperbodySwitch.isOn {
             categories.append(WorkoutCategory.UpperBody)
         }
-        if lowerbodySwitch.on {
+        if lowerbodySwitch.isOn {
             categories.append(WorkoutCategory.LowerBody)
         }
-        if cardioSwitch.on {
+        if cardioSwitch.isOn {
             categories.append(WorkoutCategory.Cardio)
         }
         return categories
     }
 
-    public func setBuilder(workoutBuilder: WorkoutBuilder) {
+    open func setBuilder(_ workoutBuilder: WorkoutBuilder) {
         self.workoutBuilder = workoutBuilder
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToMain" {
             let workout = workoutBuilder.language("en")
-                .weights(weightsSwitch.on)
-                .dryGround(dryGroundSwitch.on)
-                .postRestTime(Int(postRestLabel.text!)!)
+                .weights(weightsSwitch.isOn)
+                .dryGround(dryGroundSwitch.isOn)
+                .postRestTime(NSNumber(value: Int(postRestLabel.text!)!))
                 .categories(gatherCategories())
                 .saveWorkout()
             debugPrint("saved workout \(workout)")
@@ -84,7 +84,7 @@ public class GeneralDetails2: UIViewController {
         }
     }
 
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         /*
         let workout = workoutBuilder.language("en")
             .weights(weightsSwitch.on)
@@ -98,11 +98,11 @@ public class GeneralDetails2: UIViewController {
         */
     }
 
-    @IBAction func cancel(sender: AnyObject) {
-        navigationController?.popToRootViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: AnyObject) {
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    @IBAction func stepper(sender: UIStepper) {
+    @IBAction func stepper(_ sender: UIStepper) {
         postRestLabel.text = Int(sender.value).description
     }
 }

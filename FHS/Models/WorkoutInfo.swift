@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-public class WorkoutInfo: NSManagedObject {
+open class WorkoutInfo: NSManagedObject {
 
-    @NSManaged public var date: NSDate
-    @NSManaged public var duration: Double
-    @NSManaged public var name: String
+    @NSManaged open var date: Date
+    @NSManaged open var duration: Double
+    @NSManaged open var name: String
 
-    public override var description: String {
+    open override var description: String {
         return "WorkoutInfo[duration=\(duration), name=\(name), date=\(date)]"
     }
 

@@ -11,9 +11,9 @@ import UIKit
 import AVKit
 import AVFoundation
 
-public class BaseWorkoutController: UIViewController {
+open class BaseWorkoutController: UIViewController {
 
-    public typealias FinishDelegate = (UIViewController, duration: Double) -> ()
+    public typealias FinishDelegate = (UIViewController, _ duration: Double) -> ()
     typealias CompletionCallback = () -> ()
     var didFinish: FinishDelegate?
 
@@ -26,29 +26,29 @@ public class BaseWorkoutController: UIViewController {
     @IBOutlet weak var previousWorkTime: UILabel!
     let audioWarning = AudioWarning.instance
 
-    public var workout : WorkoutProtocol!
+    open var workout : WorkoutProtocol!
     var restTimer: CountDownTimer!
     var userWorkouts: WorkoutInfo?
     var restTimerFromMain: CountDownTimer?
     var workTimer: Timer!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         taskLabel.text = workout.workoutName()
-        restTimerLabel.textColor = UIColor.orangeColor()
+        restTimerLabel.textColor = UIColor.orange
         // the timer callback should not be called before this view is loaded.
         restTimer(restTimerFromMain)
         initializeTimer()
     }
 
-    public func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    open func initWith(_ workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: @escaping FinishDelegate) {
         self.workout = workout
         self.didFinish = finishDelegate
         self.userWorkouts = userWorkouts
         restTimerFromMain = restTimer
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         print("entered background")
     }
 
@@ -56,7 +56,7 @@ public class BaseWorkoutController: UIViewController {
         if restTimer == nil {
             setWorkoutTimeLabel()
             if let button = doneButton {
-                button.hidden = false
+                button.isHidden = false
             }
             startWorkTimer(workout)
         } else {
@@ -64,33 +64,33 @@ public class BaseWorkoutController: UIViewController {
                 setWorkoutTimeLabel()
             } else {
                 if let _ = doneButton {
-                    doneButton.hidden = true;
+                    doneButton.isHidden = true;
                 }
             }
         }
     }
 
-    public func startWorkTimer(workout: WorkoutProtocol) {
+    open func startWorkTimer(_ workout: WorkoutProtocol) {
         workTimer = Timer(callback: updateWorkTime)
     }
 
     func setWorkoutTimeLabel() {
-        timeLabel.textColor = UIColor.whiteColor()
+        timeLabel.textColor = UIColor.white
         timeLabel.text = "Workout time:"
     }
 
-    @IBAction func done(sender: AnyObject) {
+    @IBAction func done(_ sender: AnyObject) {
         workTimer.stop();
-        self.didFinish!(self, duration: workTimer.duration())
+        self.didFinish!(self, workTimer.duration())
     }
 
-    private func restTimer(timer: CountDownTimer?) {
+    fileprivate func restTimer(_ timer: CountDownTimer?) {
         if let t = timer {
             restTimer = CountDownTimer.fromTimer(t, callback: updateTime)
         }
     }
 
-    public func updateTime(timer: CountDownTimer) {
+    open func updateTime(_ timer: CountDownTimer) {
         let (min, sec, fra) = timer.elapsedTime()
         if min == 0 && sec == 0 && fra == 0 {
             restTimer.stop()
@@ -98,7 +98,7 @@ public class BaseWorkoutController: UIViewController {
             startWorkTimer(workout)
             showLastWorkoutTime()
             if doneButton != nil {
-                doneButton.hidden = false
+                doneButton.isHidden = false
             }
         } else {
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
@@ -108,52 +108,52 @@ public class BaseWorkoutController: UIViewController {
         }
     }
 
-    private func showLastWorkoutTime() {
+    fileprivate func showLastWorkoutTime() {
         if let last = userWorkouts {
             if last.duration > 0.0 {
                 let (min, sec, fra) = Timer.elapsedTime(last.duration)
-                previousWorkTimeLabel?.hidden = false
-                previousWorkTime?.hidden = false
+                previousWorkTimeLabel?.isHidden = false
+                previousWorkTime?.isHidden = false
                 previousWorkTime?.text = Timer.timeAsString(min, sec: sec, fra: fra)
             }
         }
     }
 
-    public func updateWorkTime(timer: Timer) {
+    open func updateWorkTime(_ timer: Timer) {
         let (min, sec, fra) = timer.elapsedTime()
         restTimerLabel.text = Timer.timeAsString(min, sec: sec, fra: fra)
     }
 
-    @IBAction func info(sender: AnyObject) {
-        performSegueWithIdentifier("infoSegue", sender: self)
+    @IBAction func info(_ sender: AnyObject) {
+        performSegue(withIdentifier: "infoSegue", sender: self)
     }
 
-    public func isRestTimerLabelVisible() -> Bool {
-        return restTimerLabel.hidden
+    open func isRestTimerLabelVisible() -> Bool {
+        return restTimerLabel.isHidden
     }
 
-    public func restTimerLabelText() -> String? {
+    open func restTimerLabelText() -> String? {
         return restTimerLabel.text
     }
 
-    public func isTimeLabelVisible() -> Bool {
-        return timeLabel.hidden
+    open func isTimeLabelVisible() -> Bool {
+        return timeLabel.isHidden
     }
 
-    public func timeLabelText() -> String? {
+    open func timeLabelText() -> String? {
         return timeLabel.text
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoSegue" {
-            let infoViewController = segue.destinationViewController as! InfoViewController
+            let infoViewController = segue.destination as! InfoViewController
             infoViewController.initWith(workout)
         }
     }
 
-    public class func infoView(segue: UIStoryboardSegue, workout: Workout) {
+    open class func infoView(_ segue: UIStoryboardSegue, workout: Workout) {
         if segue.identifier == "infoSegue" {
-            let infoViewController = segue.destinationViewController as! InfoViewController
+            let infoViewController = segue.destination as! InfoViewController
             infoViewController.initWith(workout)
         }
     }

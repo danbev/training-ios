@@ -9,67 +9,67 @@
 import Foundation
 import UIKit
 
-public class MoreSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+open class MoreSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    public var settings: Settings!
+    open var settings: Settings!
     var storeNames = [String]()
-    public let tableCell = "tableCell"
+    open let tableCell = "tableCell"
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    @IBAction func doneAction(sender: UIBarButtonItem) {
-        navigationController?.popToRootViewControllerAnimated(false)
+    @IBAction func doneAction(_ sender: UIBarButtonItem) {
+        navigationController?.popToRootViewController(animated: false)
     }
 
-    public func settings(settings: Settings) {
+    open func settings(_ settings: Settings) {
         self.settings = settings
         storeNames = Settings.findAllStores()
     }
 
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        performSegueWithIdentifier("unwindToMain", sender: self)
+        performSegue(withIdentifier: "unwindToMain", sender: self)
     }
 
-    public override func viewControllerForUnwindSegueAction(action: Selector, fromViewController: UIViewController, withSender sender: AnyObject?) -> UIViewController? {
+    open override func forUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any?) -> UIViewController? {
         print("action \(action) fromViewController=\(fromViewController)")
-        return self.parentViewController
+        return self.parent
     }
 
-    public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let _ = storeNames[indexPath.row]
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return storeNames.count
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath)
         let name = storeNames[indexPath.row]
         cell.textLabel!.text = name
-        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.textLabel!.textColor = UIColor.white
         if settings.stores.contains(name) {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
             print("Yes, settings contains store \(name)")
         }
         return cell;
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storeName = storeNames[indexPath.row]
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!
-        if cell.accessoryType == UITableViewCellAccessoryType.None {
+        let cell = tableView.cellForRow(at: indexPath)!
+        if cell.accessoryType == UITableViewCellAccessoryType.none {
             Settings.addStore(storeName)
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.checkmark
         } else {
             Settings.removeStore(storeName)
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryType = UITableViewCellAccessoryType.none
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }

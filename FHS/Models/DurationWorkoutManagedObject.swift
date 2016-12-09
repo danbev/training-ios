@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-public class DurationWorkoutManagedObject: WorkoutManagedObject {
+open class DurationWorkoutManagedObject: WorkoutManagedObject {
 
-    @NSManaged public var duration: NSNumber
+    @NSManaged open var duration: NSNumber
 
-    public override var description: String {
+    open override var description: String {
         return "DurationWorkout[duration=\(duration), \(super.description)]"
     }
 

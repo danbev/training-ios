@@ -12,22 +12,22 @@ import CoreData
 /**
 Represents a workout in the CoreData model
 */
-public class WorkoutManagedObject: NSManagedObject {
+open class WorkoutManagedObject: NSManagedObject {
 
-    @NSManaged public var name: String
-    @NSManaged public var workoutName: String
-    @NSManaged public var workoutDescription: String
-    @NSManaged public var language: String
-    @NSManaged public var categories: String
-    @NSManaged public var type: String
-    @NSManaged public var videoUrl: String?
-    @NSManaged public var restTime: NSNumber
-    @NSManaged public var userWorkout: UserWorkout
-    @NSManaged public var workoutDuration: NSDate?
-    @NSManaged public var weights: NSNumber?
-    @NSManaged public var dryGround: NSNumber?
+    @NSManaged open var name: String
+    @NSManaged open var workoutName: String
+    @NSManaged open var workoutDescription: String
+    @NSManaged open var language: String
+    @NSManaged open var categories: String
+    @NSManaged open var type: String
+    @NSManaged open var videoUrl: String?
+    @NSManaged open var restTime: NSNumber
+    @NSManaged open var userWorkout: UserWorkout
+    @NSManaged open var workoutDuration: Date?
+    @NSManaged open var weights: NSNumber?
+    @NSManaged open var dryGround: NSNumber?
 
-    public lazy var lazyCategories: [WorkoutCategory] = {
+    open lazy var lazyCategories: [WorkoutCategory] = {
         // needs to be unowned otherwise a strong ref will hang around
         // after ARC has set a ref to self to nil.
         [unowned self] in
@@ -35,7 +35,7 @@ public class WorkoutManagedObject: NSManagedObject {
         return array.map { WorkoutCategory(rawValue: $0)! }
     }()
 
-    public override var description: String {
+    open override var description: String {
         return "name=\(name), workoutName=\(workoutName), description=\(workoutDescription), videoUrl=\(videoUrl), language=\(language), weights=\(weights), dryGround=\(dryGround), restTime=\(restTime), categories=\(categories)"
     }
 

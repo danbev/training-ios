@@ -14,7 +14,7 @@ public enum WorkoutType: String {
     case Interval = "Interval"
     case Prebens = "Prebens"
 
-    static func asCsvString(types: [WorkoutType]) -> String {
-        return types.map { $0.rawValue }.joinWithSeparator(",")
+    static func asCsvString(_ types: [WorkoutType]) -> String {
+        return types.map { $0.rawValue }.joined(separator: ",")
     }
 }

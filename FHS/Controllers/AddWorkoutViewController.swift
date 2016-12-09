@@ -13,7 +13,7 @@ import AVFoundation
 /**
 * Main view controller for workout tasks.
 */
-public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+open class AddWorkoutViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var pickerView: UIPickerView!
     var workoutTypes = [WorkoutType.Reps, WorkoutType.Timed, WorkoutType.Interval, WorkoutType.Prebens]
@@ -21,81 +21,81 @@ public class AddWorkoutViewController: UIViewController, UIPickerViewDataSource,
     var workoutService: WorkoutService!
     var userService: UserService!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         let coreDataStack = CoreDataStack.storesFromBundle(["UserWorkouts"], modelName: "FHS")
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
     }
 
-    public override func viewDidAppear(animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
 
-    public func setUserService(userService: UserService) {
+    open func setUserService(_ userService: UserService) {
         self.userService = userService
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func cancel(_ sender: AnyObject) {
+        let _ = navigationController?.popViewController(animated: true)
     }
 
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    open func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    open func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return workoutTypes.count
     }
 
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    open func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return workoutTypes[row].rawValue
     }
 
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         _ = workoutTypes[row]
     }
 
-    @IBAction func next(sender: AnyObject) {
-        selectedType = workoutTypes[pickerView.selectedRowInComponent(0)]
+    @IBAction func next(_ sender: AnyObject) {
+        selectedType = workoutTypes[pickerView.selectedRow(inComponent: 0)]
         switch selectedType {
         case .Reps:
-            performSegueWithIdentifier("repsDetailsSegue", sender: self)
+            performSegue(withIdentifier: "repsDetailsSegue", sender: self)
         case .Timed:
-            performSegueWithIdentifier("durationDetailSegue", sender: self)
+            performSegue(withIdentifier: "durationDetailSegue", sender: self)
         case .Interval:
-            performSegueWithIdentifier("intervalDetailsSegue", sender: self)
+            performSegue(withIdentifier: "intervalDetailsSegue", sender: self)
         case .Prebens:
-            performSegueWithIdentifier("prebensDetailsSegue", sender: self)
+            performSegue(withIdentifier: "prebensDetailsSegue", sender: self)
         }
     }
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch selectedType {
         case .Reps:
-            let controller = segue.destinationViewController as! RepsInfoViewController
+            let controller = segue.destination as! RepsInfoViewController
             controller.setWorkoutService(workoutService)
         case .Timed:
-            let controller = segue.destinationViewController as! DurationInfoViewController
+            let controller = segue.destination as! DurationInfoViewController
             controller.setWorkoutService(workoutService)
         case .Interval:
-            let controller = segue.destinationViewController as! IntervalInfoViewController
+            let controller = segue.destination as! IntervalInfoViewController
             controller.setWorkoutService(workoutService)
         case .Prebens:
-            let controller = segue.destinationViewController as! PrebensInfoViewController
+            let controller = segue.destination as! PrebensInfoViewController
             controller.setWorkoutService(workoutService)
         }
     }
 
-    public func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    open func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let pickerLabel = UILabel()
         let titleData = workoutTypes[row].rawValue
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Helvetica", size: 22.0)!,NSForegroundColorAttributeName:UIColor.white])
         pickerLabel.attributedText = myTitle
-        pickerLabel.textAlignment = NSTextAlignment.Center
+        pickerLabel.textAlignment = NSTextAlignment.center
         return pickerLabel
     }
 }

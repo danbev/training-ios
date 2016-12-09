@@ -13,49 +13,49 @@ import AVFoundation
 import MediaPlayer
 import MobileCoreServices
 
-public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+open class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var workoutName: UITextField!
     @IBOutlet weak var workoutDescription: UITextView!
     @IBOutlet weak var noVideoLabel: UILabel!
-    private var videoUrl: String?
-    private var workoutType: WorkoutType!
-    private var workoutBuilder: WorkoutBuilder!
+    fileprivate var videoUrl: String?
+    fileprivate var workoutType: WorkoutType!
+    fileprivate var workoutBuilder: WorkoutBuilder!
 
-    public func setWorkoutType(workoutType: WorkoutType) {
+    open func setWorkoutType(_ workoutType: WorkoutType) {
         self.workoutType = workoutType
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         workoutDescription.delegate = self
         workoutName.delegate = self
         let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
     }
 
-    public func setBuilder(workoutBuilder: WorkoutBuilder) {
+    open func setBuilder(_ workoutBuilder: WorkoutBuilder) {
         self.workoutBuilder = workoutBuilder
     }
 
-    @IBAction func next(sender: AnyObject) {
-        performSegueWithIdentifier("generalWorkoutDetails2", sender: self)
+    @IBAction func next(_ sender: AnyObject) {
+        performSegue(withIdentifier: "generalWorkoutDetails2", sender: self)
     }
 
 
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        workoutBuilder.name(workoutName.text!)
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let _ = workoutBuilder.name(workoutName.text!)
             .workoutName(workoutName.text!)
             .description(workoutDescription.text)
             .videoUrl(videoUrl)
-        let controller = segue.destinationViewController as! GeneralDetails2
+        let controller = segue.destination as! GeneralDetails2
         controller.setBuilder(workoutBuilder)
     }
 
-    public func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
             self.view.endEditing(true)
@@ -64,49 +64,49 @@ public class AddWorkoutInfoViewController: UIViewController, UITextViewDelegate,
         return true
     }
 
-    @IBAction func videoButtonAction(sender: AnyObject) {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+    @IBAction func videoButtonAction(_ sender: AnyObject) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let picker = UIImagePickerController()
             picker.delegate = self
-            picker.sourceType = UIImagePickerControllerSourceType.Camera
+            picker.sourceType = UIImagePickerControllerSourceType.camera
             picker.mediaTypes = [kUTTypeMovie as String]
 
-            let frontCamera = UIImagePickerControllerCameraDevice.Front
-            picker.cameraDevice = UIImagePickerController.isCameraDeviceAvailable(frontCamera) ? frontCamera: UIImagePickerControllerCameraDevice.Rear
-            self.presentViewController(picker, animated: true, completion: nil)
+            let frontCamera = UIImagePickerControllerCameraDevice.front
+            picker.cameraDevice = UIImagePickerController.isCameraDeviceAvailable(frontCamera) ? frontCamera: UIImagePickerControllerCameraDevice.rear
+            self.present(picker, animated: true, completion: nil)
         }
     }
 
-    @IBAction func selectVideo(sender: AnyObject) {
+    @IBAction func selectVideo(_ sender: AnyObject) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        picker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum
         picker.mediaTypes = [kUTTypeMovie as String]
-        self.presentViewController(picker, animated: true, completion: nil)
+        self.present(picker, animated: true, completion: nil)
     }
 
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func cancel(_ sender: AnyObject) {
         debugPrint("cancel add workout")
-        navigationController?.popToRootViewControllerAnimated(true)
+        let _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
-        videoUrl = tempImage.relativePath
+    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let tempImage = info[UIImagePickerControllerMediaURL] as! URL!
+        videoUrl = tempImage?.relativePath
         if let _ = videoUrl {
             debugPrint("Saving video : :\(videoUrl)")
-            noVideoLabel.hidden = true
+            noVideoLabel.isHidden = true
             UISaveVideoAtPathToSavedPhotosAlbum(videoUrl!, nil, nil, nil)
         }
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 
-    public func imagePickerControllerDidCancel(picker: UIImagePickerController){
-        noVideoLabel.hidden = false
-        picker.dismissViewControllerAnimated(true, completion: nil)
+    open func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        noVideoLabel.isHidden = false
+        picker.dismiss(animated: true, completion: nil)
     }
 
-    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         self.view.endEditing(true)
         return true

@@ -15,45 +15,45 @@ import AVFoundation
 Controls a duration based workout
 
 */
-public class DurationViewController: BaseWorkoutController {
+open class DurationViewController: BaseWorkoutController {
 
     @IBOutlet weak var durationLabel: UILabel!
     var durationWorkout : DurationWorkoutProtocol!
     var countDownTimer: CountDownTimer!
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         durationLabel.text = durationWorkout.duration().stringValue
     }
 
-    public override func initWith(workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: FinishDelegate) {
+    open override func initWith(_ workout: WorkoutProtocol, userWorkouts: WorkoutInfo?, restTimer: CountDownTimer?, finishDelegate: @escaping FinishDelegate) {
         super.initWith(workout, userWorkouts: userWorkouts, restTimer: restTimer, finishDelegate: finishDelegate)
         durationWorkout = workout as! DurationWorkoutProtocol
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    public override func startWorkTimer(workout: WorkoutProtocol) {
+    open override func startWorkTimer(_ workout: WorkoutProtocol) {
         let dw = workout as! DurationWorkoutProtocol
         countDownTimer = CountDownTimer(callback: durationCallback, countDown: dw.duration().doubleValue)
     }
 
-    public func durationCallback(timer: CountDownTimer) {
+    open func durationCallback(_ timer: CountDownTimer) {
         let (min, sec, fra) = timer.elapsedTime()
         if min == 0 && sec <= 3 && fra < 5 {
             audioWarning.play()
         }
         if min == 0 && sec == 0 && fra == 0 {
             timer.stop()
-            self.didFinish!(self, duration: durationWorkout.duration().doubleValue)
+            self.didFinish!(self, durationWorkout.duration().doubleValue)
         } else {
             restTimerLabel.text = CountDownTimer.timeAsString(min, sec, fra)
         }
     }
 
-    public override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 

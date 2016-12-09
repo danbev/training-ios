@@ -13,7 +13,7 @@ import AVFoundation
 /**
 * Main view controller for workout tasks.
 */
-public class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+open class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
@@ -23,31 +23,31 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var restLabel: UILabel!
     @IBOutlet weak var navItem: UINavigationItem!
 
-    private let tableCell = "tableCell"
-    private var workoutService: WorkoutService!
-    private var tasks = [WorkoutProtocol]()
-    private var restTimer: CountDownTimer!
-    private var workoutTimer: CountDownTimer!
-    private var preparedForSeque = false
-    private var runtimeWorkout: RuntimeWorkout!
-    private var audioWarning = AudioWarning.instance
-    private var bgQueue = NSOperationQueue()
-    private var settings: Settings!
-    private let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
-    private var interruptedWorkout = false
-    private let userService = UserService.newUserService()
+    fileprivate let tableCell = "tableCell"
+    fileprivate var workoutService: WorkoutService!
+    fileprivate var tasks = [WorkoutProtocol]()
+    fileprivate var restTimer: CountDownTimer!
+    fileprivate var workoutTimer: CountDownTimer!
+    fileprivate var preparedForSeque = false
+    fileprivate var runtimeWorkout: RuntimeWorkout!
+    fileprivate var audioWarning = AudioWarning.instance
+    fileprivate var bgQueue = OperationQueue()
+    fileprivate var settings: Settings!
+    fileprivate let greenColor = UIColor(red: 0.0/255, green: 200.0/255, blue: 0.0/255, alpha: 1.0)
+    fileprivate var interruptedWorkout = false
+    fileprivate let userService = UserService.newUserService()
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         settings = Settings.settings()
         progressView.progressTintColor = greenColor
-        timerLabel.textColor = UIColor.orangeColor()
-        CoreDataStack.copyStoreFromBundle("FHS")
-        CoreDataStack.copyStoreFromBundle("Testing")
+        timerLabel.textColor = UIColor.orange
+        let _ = CoreDataStack.copyStoreFromBundle("FHS")
+        let _ = CoreDataStack.copyStoreFromBundle("Testing")
         initStores(settings.stores)
     }
 
-    private func initStores(stores: [String]) {
+    fileprivate func initStores(_ stores: [String]) {
         print("ViewController stores: \(stores)")
         let coreDataStack = CoreDataStack.storesFromBundle(stores, modelName: "FHS")
         workoutService = WorkoutService(coreDataStack: coreDataStack, userService: userService)
@@ -56,17 +56,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateTitle()
     }
 
-    private func loadLastWorkout() {
+    fileprivate func loadLastWorkout() {
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
     }
 
-    private func updateTitle() {
+    fileprivate func updateTitle() {
         let category = runtimeWorkout!.category()
         navItem.title = category
-        startButton.setTitle("Start \(category)", forState: UIControlState.Normal)
+        startButton.setTitle("Start \(category)", for: UIControlState())
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         settings = Settings.settings()
         if settings.stores != workoutService.stores() {
@@ -77,17 +77,17 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateTitle()
     }
 
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let workoutTime = workoutTimer?.duration() ?? 0.0
         if runtimeWorkout.currentUserWorkout != nil {
-            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addToDuration(workoutTime).done(runtimeWorkout.currentUserWorkout.done).save()
+            let _ = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addToDuration(workoutTime).done(runtimeWorkout.currentUserWorkout.done).save()
         }
     }
 
-    public func updateTime(timer: CountDownTimer) {
-        if timerLabel.hidden == true {
-            timerLabel.hidden = false
+    open func updateTime(_ timer: CountDownTimer) {
+        if timerLabel.isHidden == true {
+            timerLabel.isHidden = false
         }
         let (min, sec, fra) = timer.elapsedTime()
         if min == 0 && sec <= 3 && fra < 5 {
@@ -102,32 +102,32 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    public func updateWorkoutTime(timer: CountDownTimer) {
-        counter++;
+    open func updateWorkoutTime(_ timer: CountDownTimer) {
+        counter += 1;
     }
 
-    private func clearWorkoutTasks() {
-        for (i, _) in tasks.enumerate() {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forItem: i, inSection: 0))
-            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            cell?.userInteractionEnabled = true
+    fileprivate func clearWorkoutTasks() {
+        for (i, _) in tasks.enumerated() {
+            let cell = tableView.cellForRow(at: IndexPath(item: i, section: 0))
+            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            cell?.isUserInteractionEnabled = true
         }
-        tasks.removeAll(keepCapacity: false)
+        tasks.removeAll(keepingCapacity: false)
         tableView.reloadData()
     }
 
-    @IBAction func startWorkout(sender: UIButton) {
-        startButton.hidden = true
-        cancelButton.hidden = false
+    @IBAction func startWorkout(_ sender: UIButton) {
+        startButton.isHidden = true
+        cancelButton.isHidden = false
         progressView.setProgress(0, animated: false)
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.whiteColor()]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         clearWorkoutTasks()
         let workoutDuration = settings.duration
 
         runtimeWorkout = RuntimeWorkout(lastUserWorkout: workoutService.fetchLatestUserWorkout())
 
         if runtimeWorkout.lastUserWorkout != nil {
-            if runtimeWorkout.lastUserWorkout!.done.boolValue {
+            if runtimeWorkout.lastUserWorkout!.done {
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration)
                 startNewUserWorkout(runtimeWorkout.lastUserWorkout!)
             } else {
@@ -136,13 +136,13 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
                 workoutTimer = CountDownTimer(callback: updateWorkoutTime, countDown: workoutDuration - runtimeWorkout.lastUserWorkout!.duration)
                 if let workoutInfos = runtimeWorkout.lastUserWorkout?.workouts {
                     let count = workoutInfos.count - 1
-                    for index in count.stride(through: 0, by: -1) {
+                    for index in stride(from: count, through: 0, by: -1) {
                         let workoutInfo = workoutInfos[index] as! WorkoutInfo
                         if let workout = workoutService.fetchWorkoutProtocol(workoutInfo.name) {
                             tasks.append(workout)
                             tableView.reloadData()
                             if index != count {
-                                checkmark(count - index)
+                                let _ = checkmark(count - index)
                             }
                         }
                     }
@@ -156,15 +156,15 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         navItem.title = runtimeWorkout.category()
     }
 
-    private func checkmark(index: Int) -> UITableViewCell {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0))!
-        cell.userInteractionEnabled = false
-        cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+    fileprivate func checkmark(_ index: Int) -> UITableViewCell {
+        let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0))!
+        cell.isUserInteractionEnabled = false
+        cell.accessoryType = UITableViewCellAccessoryType.checkmark
         cell.tintColor = greenColor
         return cell
     }
 
-    private func startNewUserWorkout(lastUserWorkout: UserWorkout?) {
+    fileprivate func startNewUserWorkout(_ lastUserWorkout: UserWorkout?) {
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: workoutService.newUserWorkout(lastUserWorkout, settings: settings),
             lastUserWorkout: lastUserWorkout)
 
@@ -181,19 +181,19 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    @IBAction func addWorkout(sender: AnyObject) {
-        performSegueWithIdentifier("addSegue", sender: self)
+    @IBAction func addWorkout(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "addSegue", sender: self)
     }
 
-    @IBAction func settingsButton(sender: AnyObject) {
+    @IBAction func settingsButton(_ sender: AnyObject) {
     }
     
-    public func addWorkoutToTable(workout: WorkoutProtocol) {
+    open func addWorkoutToTable(_ workout: WorkoutProtocol) {
         tasks.append(workout)
         tableView.reloadData()
     }
 
-    public override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
@@ -204,7 +204,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     - parameter section: the selected section. For example this could be the warmup section or main section.
     - returns: Int the number of rows in the table view section
     */
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
 
@@ -217,8 +217,8 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     - parameter indexPath: the NSIndexPath identifying the cell to be returned
     - returns: UITableCellView the table cell view matching the indexPath
     */
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableCell, forIndexPath: indexPath)
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableCell, for: indexPath)
         let task = tasks[indexPath.row]
         cell.textLabel!.text = task.workoutName()
         return cell;
@@ -230,27 +230,27 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
     - parameter tableView: the UITableView which was tapped
     - parameter indexPath: the NSIndexPath identifying the cell to being tapped
     */
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow!;
         performSegue(tasks[indexPath.row])
     }
 
-    private func transition() {
-        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.None)
+    fileprivate func transition() {
+        let indexPath = IndexPath(item: 0, section: 0)
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
         performSegue(tasks[0])
     }
 
-    private func performSegue(workout: WorkoutProtocol) {
+    fileprivate func performSegue(_ workout: WorkoutProtocol) {
         switch workout {
         case is RepsWorkout:
-            performSegueWithIdentifier("repsSegue", sender: self)
+            self.performSegue(withIdentifier: "repsSegue", sender: self)
         case is DurationWorkout:
-            performSegueWithIdentifier("durationSegue", sender: self)
+            self.performSegue(withIdentifier: "durationSegue", sender: self)
         case is IntervalWorkout:
-            performSegueWithIdentifier("intervalSegue", sender: self)
+            self.performSegue(withIdentifier: "intervalSegue", sender: self)
         case is PrebensWorkout:
-            performSegueWithIdentifier("prebensSegue", sender: self)
+            self.performSegue(withIdentifier: "prebensSegue", sender: self)
         default:
             debugPrint("No workout type for \(workout)")
         }
@@ -261,19 +261,19 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     - parameter segue: the UIStoryboardSeque that was called
     */
-    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         preparedForSeque = true;
         if segue.identifier == "settings" {
-            let settingsController = segue.destinationViewController as! SettingViewController
+            let settingsController = segue.destination as! SettingViewController
             settingsController.currentUserWorkout = runtimeWorkout.currentUserWorkout
         } else if segue.identifier == "addSegue" {
-            let addController = segue.destinationViewController as! AddWorkoutViewController
+            let addController = segue.destination as! AddWorkoutViewController
             addController.setUserService(workoutService.getUserService())
         } else {
             let indexPath = tableView.indexPathForSelectedRow!
             let workout = tasks[indexPath.row]
-            userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
-            let baseViewController = segue.destinationViewController as! BaseWorkoutController
+            let _ = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
+            let baseViewController = segue.destination as! BaseWorkoutController
             let workoutInfo = workoutService.fetchLatestPerformed(workout.workoutName())
             baseViewController.initWith(workout, userWorkouts: workoutInfo, restTimer: restTimer) {
                 [unowned self] controller, duration in
@@ -282,7 +282,7 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func finishedWorkout(indexPath: NSIndexPath, workout: WorkoutProtocol, duration: Double) {
+    fileprivate func finishedWorkout(_ indexPath: IndexPath, workout: WorkoutProtocol, duration: Double) {
         preparedForSeque = false;
         let totalTime = workoutTimer.elapsedTime()
         let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addWorkout(workout.name()).addToDuration(workoutTimer.duration()).save()
@@ -290,14 +290,14 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         if restTimer != nil {
             restTimer.stop()
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
 
-        checkmark(indexPath.row)
+        let _ = checkmark(indexPath.row)
         tableView.reloadData()
 
         if totalTime.min != 0 || interruptedWorkout {
             interruptedWorkout = false
-            restLabel.hidden = false
+            restLabel.isHidden = false
             restTimer = CountDownTimer(callback: updateTime, countDown: workout.restTime().doubleValue)
             if !runtimeWorkout.warmupCompleted(settings.warmup, numberOfWarmups: 2) {
                 if let warmup = workoutService.fetchWarmupProtocol(runtimeWorkout.currentUserWorkout) {
@@ -321,46 +321,46 @@ public class ViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    private func insertNewWorkout(workout: WorkoutProtocol) {
-        tasks.insert(workout, atIndex: 0)
+    fileprivate func insertNewWorkout(_ workout: WorkoutProtocol) {
+        tasks.insert(workout, at: 0)
         tableView.reloadData()
-        tableView.moveRowAtIndexPath(NSIndexPath(forRow: tasks.count - 1, inSection: 0), toIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-        cell.userInteractionEnabled = true
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        tableView.moveRow(at: IndexPath(row: tasks.count - 1, section: 0), to: IndexPath(row: 0, section: 0))
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))!
+        cell.isUserInteractionEnabled = true
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         tableView.reloadData()
     }
 
-    private func stopWorkout() {
+    fileprivate func stopWorkout() {
         let currentUserWorkout = userService.updateUserWorkout(runtimeWorkout.currentUserWorkout).addToDuration(workoutTimer.duration()).done(true).save()
         runtimeWorkout = RuntimeWorkout(currentUserWorkout: currentUserWorkout, lastUserWorkout: runtimeWorkout.lastUserWorkout)
         workoutTimer.stop()
         if restTimer != nil {
             restTimer.stop()
         }
-        timerLabel.hidden = true
-        restLabel.hidden = true
+        timerLabel.isHidden = true
+        restLabel.isHidden = true
         progressView.setProgress(1.0, animated: false)
-        startButton.hidden = false
-        startButton.setTitle("Start \(runtimeWorkout.category())", forState: UIControlState.Normal)
+        startButton.isHidden = false
+        startButton.setTitle("Start \(runtimeWorkout.category())", for: UIControlState())
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:greenColor]
-        cancelButton.hidden = true
+        cancelButton.isHidden = true
     }
 
     func checkmarkAll() {
         for i in 0..<tasks.count {
-            checkmark(i)
+            let _ = checkmark(i)
         }
     }
 
-    @IBAction func unwindToMainMenu(sender: UIStoryboardSegue) {
+    @IBAction func unwindToMainMenu(_ sender: UIStoryboardSegue) {
         settings = Settings.settings()
         debugPrint("Unwinding to main. stores \(settings.stores)")
         initStores(settings.stores)
         tableView.reloadData()
     }
 
-    @IBAction func cancelWorkout(sender: AnyObject) {
+    @IBAction func cancelWorkout(_ sender: AnyObject) {
         stopWorkout()
         checkmarkAll()
     }

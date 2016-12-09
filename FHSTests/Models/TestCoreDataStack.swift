@@ -12,13 +12,13 @@ import FHS
 
 class TestCoreDataStack: CoreDataStack {
 
-    override init(storeNames: [String], storeDirectory: NSURL, modelUrl: NSURL) {
+    override init(storeNames: [String], storeDirectory: URL, modelUrl: URL) {
         super.init(storeNames: storeNames, storeDirectory: storeDirectory, modelUrl: modelUrl)
         self.psc = {
             let psc: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.model)
             var ps: NSPersistentStore?
             do {
-                ps = try psc!.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+                ps = try psc!.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
             } catch let error as NSError {
                 print(error)
                 ps = nil
@@ -31,5 +31,5 @@ class TestCoreDataStack: CoreDataStack {
             return psc
         }()
     }
-
+    
 }

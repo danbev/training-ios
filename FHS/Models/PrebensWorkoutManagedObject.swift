@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-public class PrebensWorkoutManagedObject: WorkoutManagedObject {
+open class PrebensWorkoutManagedObject: WorkoutManagedObject {
 
-    @NSManaged public var workouts: NSOrderedSet
+    @NSManaged open var workouts: NSOrderedSet
 
 
 }
